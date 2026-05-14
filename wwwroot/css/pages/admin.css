@@ -1,0 +1,423 @@
+body[data-page^="admin-"] {
+    background: #fbfdfc;
+}
+
+body[data-page^="admin-"] .app-main {
+    width: min(100%, 1320px);
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .app-main {
+    display: grid;
+    gap: 1.4rem;
+    margin-top: 2.25rem !important;
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) main > .d-flex.justify-content-between,
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) main > h2.fw-bold {
+    display: flex;
+    align-items: flex-end;
+    gap: 1rem;
+    margin-bottom: 0 !important;
+    padding: 0;
+    color: #0d2730;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) main > h2.fw-bold {
+    align-items: center;
+    justify-content: flex-start;
+    font-size: clamp(1.8rem, 3vw, 2.35rem);
+    font-weight: 800 !important;
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) main > .d-flex.justify-content-between {
+    justify-content: space-between;
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) main > .d-flex h2 {
+    color: #0d2730;
+    font-size: clamp(1.8rem, 3vw, 2.35rem);
+    font-weight: 800 !important;
+    line-height: 1.05;
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) main > .d-flex h2 .bi,
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) main > h2.fw-bold .bi {
+    display: inline-grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    margin-right: 0.75rem !important;
+    color: #007a7a !important;
+    background: #dff5f3;
+    border-radius: 50%;
+    font-size: 1.45rem;
+    vertical-align: middle;
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .btn-primary,
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .btn-success,
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .btn-warning {
+    --bs-btn-bg: #007a7a;
+    --bs-btn-border-color: #007a7a;
+    --bs-btn-color: #ffffff;
+    --bs-btn-hover-bg: #006a6a;
+    --bs-btn-hover-border-color: #006a6a;
+    --bs-btn-hover-color: #ffffff;
+    min-height: 42px;
+    border-radius: 8px;
+    font-weight: 800;
+    box-shadow: 0 10px 24px rgba(0, 106, 106, 0.18);
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .btn-outline-primary,
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .btn-outline-secondary,
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .btn-outline-success,
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .btn-outline-warning,
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .btn-outline-danger,
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .btn-outline-dark {
+    min-height: 42px;
+    color: #243c47;
+    background: #ffffff;
+    border-color: #d8e2e6;
+    border-radius: 8px;
+    font-weight: 800;
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .btn-outline-primary:hover,
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .btn-outline-secondary:hover,
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .btn-outline-success:hover,
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .btn-outline-warning:hover,
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .btn-outline-danger:hover,
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .btn-outline-dark:hover {
+    color: #0b5f63;
+    background: #eefafa;
+    border-color: #b8d6d8;
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .btn-sm {
+    display: inline-grid;
+    place-items: center;
+    width: 38px;
+    min-width: 38px;
+    height: 38px;
+    min-height: 38px;
+    padding: 0;
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .card {
+    overflow: hidden;
+    background: #ffffff !important;
+    border: 1px solid #dde7ea !important;
+    border-radius: 8px !important;
+    box-shadow: 0 12px 28px rgba(35, 58, 67, 0.06) !important;
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .card:hover {
+    transform: none;
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .card-header {
+    display: flex;
+    align-items: center;
+    min-height: 68px;
+    padding: 1rem 1.25rem !important;
+    color: #006a6a !important;
+    background: #ffffff !important;
+    border-bottom: 1px solid #dde7ea;
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .card-header h5,
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .card-header.fw-semibold {
+    margin: 0;
+    color: #006a6a;
+    font-size: 1.12rem;
+    font-weight: 800 !important;
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .card-header .bi {
+    color: #007a7a !important;
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .card-body {
+    background: #ffffff !important;
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .table-responsive {
+    border-radius: 0;
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .table {
+    color: #203944;
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .table thead th,
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .table-primary th {
+    padding: 1rem 1.1rem;
+    color: #546b78;
+    background: #f7faf9 !important;
+    border-bottom: 1px solid #dde7ea;
+    font-size: 0.86rem;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .table tbody td {
+    padding: 1rem 1.1rem;
+    border-color: #eef3f4;
+    vertical-align: middle;
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .table-hover > tbody > tr:hover > * {
+    color: #10282d;
+    background: #f3fbfa !important;
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .table code {
+    color: #006a6a;
+    background: #eaf7f6;
+    border-radius: 6px;
+    padding: 0.18rem 0.45rem;
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .admin-empty-state {
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    min-height: 292px;
+    padding: 2.25rem 1rem;
+    text-align: center;
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .admin-empty-state-sm {
+    min-height: 232px;
+    padding: 1.75rem 1rem;
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .admin-empty-illustration {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 108px;
+    height: 108px;
+    margin-bottom: 1.15rem;
+    color: #65b7b8;
+    background: #e2f4f3;
+    border-radius: 50%;
+    font-size: 4.2rem;
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .admin-empty-state-sm .admin-empty-illustration {
+    width: 92px;
+    height: 92px;
+    font-size: 3.45rem;
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .admin-empty-illustration span {
+    position: absolute;
+    right: 16px;
+    bottom: 18px;
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    color: #ffffff;
+    background: #007a7a;
+    border: 4px solid #e2f4f3;
+    border-radius: 50%;
+    font-size: 1rem;
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .admin-empty-state-sm .admin-empty-illustration span {
+    right: 12px;
+    bottom: 13px;
+    width: 30px;
+    height: 30px;
+    font-size: 0.9rem;
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .admin-empty-state h3 {
+    margin: 0 0 0.35rem;
+    color: #1c333d;
+    font-size: 1.12rem;
+    font-weight: 800;
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .admin-empty-state p {
+    max-width: 360px;
+    margin: 0;
+    color: #607481;
+    font-size: 0.98rem;
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .badge {
+    min-height: 26px;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.35rem 0.65rem;
+    border-radius: 999px;
+    font-weight: 800;
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .bg-success {
+    color: #0d3d21 !important;
+    background: #dff4e7 !important;
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .bg-secondary,
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .bg-info {
+    color: #24434c !important;
+    background: #e6f1f3 !important;
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .bg-warning {
+    color: #5a3b00 !important;
+    background: #fff2d2 !important;
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .bg-danger {
+    color: #6f1717 !important;
+    background: #ffe2df !important;
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .bg-dark {
+    color: #ffffff !important;
+    background: #24434c !important;
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) form:not(.d-inline) .form-label {
+    margin-bottom: 0.45rem;
+    color: #243c47;
+    font-weight: 800 !important;
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .form-control,
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .form-select {
+    min-height: 48px;
+    color: #10282d;
+    background-color: #fbfdfc;
+    border-color: #d8e2e6;
+    border-radius: 8px;
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) textarea.form-control {
+    min-height: 96px;
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .form-control:focus,
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .form-select:focus {
+    background-color: #ffffff;
+    border-color: #007a7a;
+    box-shadow: 0 0 0 0.18rem rgba(0, 122, 122, 0.14);
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .form-check {
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.75rem 1rem 0.75rem 2.6rem;
+    background: #f7faf9;
+    border: 1px solid #d8e2e6;
+    border-radius: 8px;
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .form-check-input {
+    margin-left: -1.65rem;
+    border-color: #8ba1aa;
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .form-check-input:checked {
+    background-color: #007a7a;
+    border-color: #007a7a;
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .row.justify-content-center > [class*="col-"] {
+    width: min(100%, 920px);
+    max-width: 920px;
+}
+
+body[data-page="admin-assignpolicy"] .row.justify-content-center > [class*="col-"],
+body[data-page="admin-addcompany"] .row.justify-content-center > [class*="col-"],
+body[data-page="admin-editcompany"] .row.justify-content-center > [class*="col-"] {
+    width: min(100%, 820px);
+    max-width: 820px;
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .input-group .form-control {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .app-field-group .input-group-text {
+    color: #007a7a;
+    background: #eefafa;
+    border-color: #d8e2e6;
+    border-radius: 8px 0 0 8px;
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .app-field-group .form-control,
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .app-field-group .form-select {
+    border-left: 0;
+    border-radius: 0 8px 8px 0;
+}
+
+body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .input-group .btn {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+body[data-page="admin-search"] form.card .card-body {
+    background: #ffffff !important;
+}
+
+body[data-page="admin-search"] .row.g-4 {
+    --bs-gutter-x: 1.25rem;
+    --bs-gutter-y: 1.25rem;
+}
+
+body[data-page="admin-search"] .row.g-4 .card-header {
+    color: #006a6a !important;
+}
+
+@media (max-width: 991.98px) {
+    body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .app-main {
+        margin-top: 1.25rem !important;
+    }
+
+    body[data-page^="admin-"]:not([data-page="admin-dashboard"]) main > .d-flex.justify-content-between {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    body[data-page^="admin-"]:not([data-page="admin-dashboard"]) main > .d-flex.justify-content-between > .btn,
+    body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .input-group .btn {
+        width: 100%;
+    }
+
+    body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .input-group {
+        display: grid;
+        gap: 0.75rem;
+    }
+
+    body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .input-group .form-control,
+    body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .input-group .btn {
+        border-radius: 8px !important;
+    }
+
+    body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .app-field-group {
+        display: flex;
+        gap: 0;
+    }
+
+    body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .app-field-group .input-group-text {
+        border-radius: 8px 0 0 8px !important;
+    }
+
+    body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .app-field-group .form-control,
+    body[data-page^="admin-"]:not([data-page="admin-dashboard"]) .app-field-group .form-select {
+        border-radius: 0 8px 8px 0 !important;
+    }
+}

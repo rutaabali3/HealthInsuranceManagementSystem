@@ -1,0 +1,94 @@
+@{ ViewData["Title"] = "Contact Us"; }
+
+<section class="contact-hero" aria-labelledby="contact-title">
+    <div class="contact-hero-copy">
+        <span>Get In Touch</span>
+        <h1 id="contact-title">We're Here to Help</h1>
+        <p>Reach out to our team for any inquiries about the Health Insurance Management System.</p>
+    </div>
+    <div class="contact-hero-image" aria-hidden="true">
+        <img src="~/images/contact/hero-right.png" alt="" />
+    </div>
+</section>
+
+<section class="contact-layout" aria-label="Contact details and message form">
+    <aside class="contact-info-card">
+        <h2>Contact Information</h2>
+
+        <div class="contact-info-list">
+            <div class="contact-info-item">
+                <span class="contact-icon"><i class="bi bi-envelope"></i></span>
+                <div>
+                    <strong>Email</strong>
+                    <span>support@healthinsure.com</span>
+                </div>
+            </div>
+
+            <div class="contact-info-item">
+                <span class="contact-icon"><i class="bi bi-telephone-fill"></i></span>
+                <div>
+                    <strong>Phone</strong>
+                    <span>+92-21-1234567</span>
+                </div>
+            </div>
+
+            <div class="contact-info-item">
+                <span class="contact-icon"><i class="bi bi-geo-alt-fill"></i></span>
+                <div>
+                    <strong>Address</strong>
+                    <span>Health Insurance House, I.I. Chundrigar Road, Karachi</span>
+                </div>
+            </div>
+
+            <div class="contact-info-item">
+                <span class="contact-icon"><i class="bi bi-clock-fill"></i></span>
+                <div>
+                    <strong>Office Hours</strong>
+                    <span>Monday - Friday, 9:00 AM - 5:00 PM</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="response-note">
+            <i class="bi bi-shield-check"></i>
+            <span>We typically respond within 24 hours during business days.</span>
+        </div>
+    </aside>
+
+    <section class="message-card" aria-labelledby="message-title">
+        <h2 id="message-title">Send Us a Message</h2>
+        <p>Fill out the form and our team will get back to you shortly.</p>
+
+        <form>
+            <div class="form-row">
+                <div class="form-field">
+                    <label class="form-label" for="contactName">Your Name</label>
+                    <div class="input-group app-field-group">
+                        <span class="input-group-text"><i class="bi bi-person"></i></span>
+                        <input id="contactName" type="text" class="form-control" placeholder="John Doe" />
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="form-label" for="contactEmail">Email Address</label>
+                    <div class="input-group app-field-group">
+                        <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                        <input id="contactEmail" type="email" class="form-control" placeholder="john@example.com" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-field">
+                <label class="form-label" for="contactMessage">Message</label>
+                <div class="input-group app-field-group">
+                    <span class="input-group-text"><i class="bi bi-chat-left-text"></i></span>
+                    <textarea id="contactMessage" class="form-control" rows="6" placeholder="How can we help?"></textarea>
+                </div>
+            </div>
+
+            <button class="btn btn-primary message-submit" type="button">
+                <i class="bi bi-send"></i>
+                <span>Send Message</span>
+            </button>
+        </form>
+    </section>
+</section>

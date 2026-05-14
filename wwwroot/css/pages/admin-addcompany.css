@@ -1,0 +1,12 @@
+body[data-page="admin-addcompany"] .app-main {
+    max-width: 900px;
+}
+
+body[data-page="admin-addcompany"] .card-header {
+    background: var(--md-primary-container) !important;
+    color: var(--md-on-primary-container) !important;
+}
+
+body[data-page="admin-addcompany"] .card-body {
+    background: var(--md-surface-container-lowest);
+}

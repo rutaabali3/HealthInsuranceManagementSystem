@@ -1,0 +1,111 @@
+@model EmpRegister
+@{ ViewData["Title"] = "Edit Employee"; }
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-warning text-dark py-3">
+                <h5 class="mb-0 fw-semibold"><i class="bi bi-person-gear me-2"></i>Edit Employee Details</h5>
+            </div>
+            <div class="card-body p-4">
+                <form asp-action="EditEmployee" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" asp-for="EmpId" />
+                    <input type="hidden" asp-for="Username" />
+                    <input type="hidden" asp-for="PasswordHash" />
+                    <input type="hidden" asp-for="RegisteredAt" />
+
+                    <div asp-validation-summary="ModelOnly" class="app-validation-summary d-none"></div>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label asp-for="FirstName" class="form-label fw-semibold"></label>
+                            <div class="input-group app-field-group">
+                                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                <input asp-for="FirstName" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="LastName" class="form-label fw-semibold"></label>
+                            <div class="input-group app-field-group">
+                                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                <input asp-for="LastName" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Email" class="form-label fw-semibold"></label>
+                            <div class="input-group app-field-group">
+                                <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                                <input asp-for="Email" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Phone" class="form-label fw-semibold"></label>
+                            <div class="input-group app-field-group">
+                                <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+                                <input asp-for="Phone" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Department" class="form-label fw-semibold"></label>
+                            <div class="input-group app-field-group">
+                                <span class="input-group-text"><i class="bi bi-diagram-3"></i></span>
+                                <input asp-for="Department" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Designation" class="form-label fw-semibold"></label>
+                            <div class="input-group app-field-group">
+                                <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
+                                <input asp-for="Designation" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Role" class="form-label fw-semibold"></label>
+                            <div class="input-group app-field-group">
+                                <span class="input-group-text"><i class="bi bi-briefcase"></i></span>
+                                <select asp-for="Role" class="form-select">
+                                    <option value="@UserRoles.Employee">Employee</option>
+                                    <option value="@UserRoles.Manager">Manager</option>
+                                    <option value="@UserRoles.FinanceManager">Finance Manager</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="DateOfBirth" class="form-label fw-semibold"></label>
+                            <div class="input-group app-field-group">
+                                <span class="input-group-text"><i class="bi bi-calendar-date"></i></span>
+                                <input asp-for="DateOfBirth" class="form-control" type="date" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="Gender" class="form-label fw-semibold"></label>
+                            <div class="input-group app-field-group">
+                                <span class="input-group-text"><i class="bi bi-gender-ambiguous"></i></span>
+                                <select asp-for="Gender" class="form-select">
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <label asp-for="Address" class="form-label fw-semibold"></label>
+                            <div class="input-group app-field-group">
+                                <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
+                                <textarea asp-for="Address" class="form-control" rows="2"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-2 mt-4">
+                        <button type="submit" class="btn btn-warning px-4">
+                            <i class="bi bi-save me-2"></i>Update
+                        </button>
+                        <a asp-action="Employees" class="btn btn-outline-secondary px-4">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

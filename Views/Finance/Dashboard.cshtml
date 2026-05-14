@@ -1,0 +1,144 @@
+@model FinanceDashboardViewModel
+@{
+    ViewData["Title"] = "Finance Dashboard";
+    var financeName = $"{Model.FinanceManager?.FirstName} {Model.FinanceManager?.LastName}".Trim();
+    var today = DateTime.Now;
+    var readyCount = Model.ReceivedBills.Count(b => b.Status == "ForwardedToFinance");
+    var paidCount = Model.ReceivedBills.Count(b => b.Status == "Paid");
+    var closedCount = Model.ReceivedBills.Count(b => b.Status == "Closed");
+    var totalAmount = Model.ReceivedBills.Where(b => b.Status == "ForwardedToFinance").Sum(b => b.Amount);
+}
+
+<section class="role-dashboard-shell finance-dashboard-shell">
+    <header class="role-dashboard-hero">
+        <div>
+            <p class="role-dashboard-eyebrow">Finance Workspace</p>
+            <h1>Approved Bills</h1>
+            <p class="role-dashboard-subtitle">Credit approved policy payments and close completed insurance requests.</p>
+        </div>
+        <div class="role-hero-actions">
+            <span class="role-date-chip">
+                <i class="bi bi-calendar3"></i>
+                <span>@today.ToString("MMMM d, yyyy")</span>
+            </span>
+            <span class="role-user-chip">
+                <i class="bi bi-cash-coin"></i>
+                <span>@(string.IsNullOrWhiteSpace(financeName) ? "Finance" : financeName)</span>
+            </span>
+        </div>
+    </header>
+
+    <section class="role-metric-grid" aria-label="Finance bill metrics">
+        <article class="role-metric-card metric-card-blue">
+            <span class="role-metric-icon"><i class="bi bi-wallet2"></i></span>
+            <span class="role-metric-content">
+                <strong>@readyCount</strong>
+                <span>Ready to Pay</span>
+            </span>
+        </article>
+        <article class="role-metric-card metric-card-green">
+            <span class="role-metric-icon"><i class="bi bi-check2-circle"></i></span>
+            <span class="role-metric-content">
+                <strong>@paidCount</strong>
+                <span>Paid</span>
+            </span>
+        </article>
+        <article class="role-metric-card metric-card-dark">
+            <span class="role-metric-icon"><i class="bi bi-archive"></i></span>
+            <span class="role-metric-content">
+                <strong>@closedCount</strong>
+                <span>Closed</span>
+            </span>
+        </article>
+        <article class="role-metric-card metric-card-teal">
+            <span class="role-metric-icon"><i class="bi bi-cash-stack"></i></span>
+            <span class="role-metric-content">
+                <strong>PKR @totalAmount.ToString("N0")</strong>
+                <span>Pending Value</span>
+            </span>
+        </article>
+    </section>
+
+    <article class="role-dashboard-panel">
+        <div class="role-panel-heading">
+            <h2><i class="bi bi-cash-coin"></i>Payment Queue</h2>
+            <span>@Model.ReceivedBills.Count total</span>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle role-table mb-0">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Employee</th>
+                        <th>Policy</th>
+                        <th>Manager</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (!Model.ReceivedBills.Any())
+                    {
+                        <tr>
+                            <td colspan="7">
+                                <div class="role-empty-state">
+                                    <span><i class="bi bi-inbox"></i></span>
+                                    <strong>No approved bills received.</strong>
+                                    <small>Forwarded manager approvals will appear here.</small>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                    @foreach (var bill in Model.ReceivedBills)
+                    {
+                        <tr>
+                            <td>@bill.BillId</td>
+                            <td class="fw-semibold">@bill.PolicyRequest?.Employee?.FirstName @bill.PolicyRequest?.Employee?.LastName</td>
+                            <td>@bill.PolicyRequest?.Policy?.PolicyName</td>
+                            <td>@bill.Manager?.FirstName @bill.Manager?.LastName</td>
+                            <td>PKR @bill.Amount.ToString("N0")</td>
+                            <td>
+                                <span class="status-pill @(bill.Status=="ForwardedToFinance"?"status-forwarded":bill.Status=="Paid"?"status-approved":"status-closed")">
+                                    @bill.Status
+                                </span>
+                            </td>
+                            <td>
+                                @if (bill.Status == "ForwardedToFinance")
+                                {
+                                    <form asp-action="CreditPayment" method="post"
+                                          data-swal-title="Credit payment"
+                                          data-swal-confirm="Credit payment to employee?"
+                                          data-swal-confirm-button="Credit">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="billId" value="@bill.BillId" />
+                                        <button type="submit" class="btn btn-sm btn-success action-button">
+                                            <i class="bi bi-cash"></i><span>Credit</span>
+                                        </button>
+                                    </form>
+                                }
+                                else if (bill.Status == "Paid")
+                                {
+                                    <form asp-action="CloseRequest" method="post"
+                                          data-swal-title="Close request"
+                                          data-swal-confirm="Close this request?"
+                                          data-swal-confirm-button="Close">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="billId" value="@bill.BillId" />
+                                        <button type="submit" class="btn btn-sm btn-dark action-button">
+                                            <i class="bi bi-check2-circle"></i><span>Close</span>
+                                        </button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <span class="role-muted-label">Closed</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </article>
+</section>

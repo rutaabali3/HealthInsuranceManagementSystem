@@ -1,0 +1,12 @@
+body[data-page="admin-assignpolicy"] .app-main {
+    max-width: 840px;
+}
+
+body[data-page="admin-assignpolicy"] .card-header {
+    background: #c8f0cf !important;
+    color: #002109 !important;
+}
+
+body[data-page="admin-assignpolicy"] .card-body {
+    background: var(--md-surface-container-lowest);
+}

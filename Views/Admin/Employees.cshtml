@@ -1,0 +1,114 @@
+@model List<EmpRegister>
+@{ ViewData["Title"] = "Employees"; }
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold mb-0"><i class="bi bi-people-fill text-primary me-2"></i>Employees</h2>
+    <a asp-action="RegisterEmployee" class="btn btn-primary">
+        <i class="bi bi-person-plus me-1"></i>Register Employee
+    </a>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-primary">
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Department</th>
+                        <th>Designation</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="9">
+                                <div class="admin-empty-state">
+                                    <div class="admin-empty-illustration">
+                                        <i class="bi bi-person-check"></i>
+                                        <span><i class="bi bi-check-lg"></i></span>
+                                    </div>
+                                    <h3>No staff yet.</h3>
+                                    <p>Employees and admin staff will appear here once registered.</p>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                    @foreach (var e in Model)
+                    {
+                        <tr>
+                            <td>@e.EmpId</td>
+                            <td class="fw-semibold">@e.FirstName @e.LastName</td>
+                            <td><code>@e.Username</code></td>
+                            <td>@e.Email</td>
+                            <td><span class="badge bg-secondary">@UserRoles.DisplayName(e.Role)</span></td>
+                            <td>@e.Department</td>
+                            <td>@e.Designation</td>
+                            <td>
+                                <span class="badge @(e.IsActive ? "bg-success" : "bg-secondary")">
+                                    @(e.IsActive ? "Active" : "Inactive")
+                                </span>
+                            </td>
+                            <td class="d-flex gap-1">
+                                <a asp-action="EditEmployee" asp-route-id="@e.EmpId"
+                                   class="btn btn-sm btn-outline-primary" title="Edit">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                @if (e.IsActive)
+                                {
+                                    <form asp-action="DeactivateEmployee" method="post" class="d-inline"
+                                          data-swal-title="Deactivate employee"
+                                          data-swal-confirm="Deactivate this employee?"
+                                          data-swal-confirm-button="Deactivate">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="id" value="@e.EmpId" />
+                                        <button type="submit" class="btn btn-sm btn-outline-warning" title="Deactivate">
+                                            <i class="bi bi-pause-circle"></i>
+                                        </button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <form asp-action="ActivateEmployee" method="post" class="d-inline"
+                                          data-swal-title="Activate employee"
+                                          data-swal-confirm="Activate this employee?"
+                                          data-swal-confirm-button="Activate">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="id" value="@e.EmpId" />
+                                        <button type="submit" class="btn btn-sm btn-outline-success" title="Activate">
+                                            <i class="bi bi-play-circle"></i>
+                                        </button>
+                                    </form>
+                                }
+                                <form asp-action="DeleteEmployee" method="post" class="d-inline"
+                                      data-swal-title="Delete employee from database"
+                                      data-swal-confirm="Delete this employee and all linked information from the database?"
+                                      data-swal-confirm-button="Delete">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="id" value="@e.EmpId" />
+                                    <button type="submit" class="btn btn-sm btn-outline-danger" title="Delete from database">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                                @if (e.Role == UserRoles.Employee)
+                                {
+                                    <a asp-action="AssignPolicy" asp-route-empId="@e.EmpId"
+                                       class="btn btn-sm btn-outline-success" title="Assign Policy">
+                                        <i class="bi bi-file-plus"></i>
+                                    </a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

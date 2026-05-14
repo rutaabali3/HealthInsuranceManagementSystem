@@ -1,0 +1,155 @@
+@model EmployeeDashboardViewModel
+@{
+    ViewData["Title"] = "My Dashboard";
+    var employeeName = $"{Model.Employee?.FirstName} {Model.Employee?.LastName}".Trim();
+    var today = DateTime.Now;
+    var activePolicies = Model.AssignedPolicies.Count(p => p.Status == "Active");
+    var pendingRequests = Model.MyRequests.Count(r => r.Status == "Pending");
+    var closedRequests = Model.MyRequests.Count(r => r.Status == "Closed");
+}
+
+<section class="role-dashboard-shell employee-dashboard-shell">
+    <header class="role-dashboard-hero">
+        <div>
+            <p class="role-dashboard-eyebrow">Employee Workspace</p>
+            <h1>Welcome, @Model.Employee?.FirstName!</h1>
+            <p class="role-dashboard-subtitle">Track your assigned policies, request status, and insurance actions.</p>
+        </div>
+        <div class="role-hero-actions">
+            <span class="role-date-chip">
+                <i class="bi bi-calendar3"></i>
+                <span>@today.ToString("MMMM d, yyyy")</span>
+            </span>
+            <span class="role-user-chip">
+                <i class="bi bi-briefcase"></i>
+                <span>@Model.Employee?.Department</span>
+            </span>
+        </div>
+    </header>
+
+    <section class="employee-overview-grid">
+        <article class="employee-profile-panel">
+            <span class="employee-avatar"><i class="bi bi-person"></i></span>
+            <div>
+                <h2>@(string.IsNullOrWhiteSpace(employeeName) ? "Employee" : employeeName)</h2>
+                <p><i class="bi bi-person-badge"></i>@Model.Employee?.Designation</p>
+                <p><i class="bi bi-envelope"></i>@Model.Employee?.Email</p>
+                <p><i class="bi bi-phone"></i>@Model.Employee?.Phone</p>
+            </div>
+            <div class="employee-profile-actions">
+                <a asp-action="Details" class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i>View Details</a>
+                <a asp-action="UpdateDetails" class="btn btn-sm btn-outline-warning"><i class="bi bi-pencil"></i>Edit</a>
+            </div>
+        </article>
+
+        <div class="employee-metric-area">
+            <section class="role-metric-grid" aria-label="Employee dashboard metrics">
+                <article class="role-metric-card metric-card-green">
+                    <span class="role-metric-icon"><i class="bi bi-shield-check"></i></span>
+                    <span class="role-metric-content">
+                        <strong>@activePolicies</strong>
+                        <span>Active Policies</span>
+                    </span>
+                </article>
+                <article class="role-metric-card metric-card-amber">
+                    <span class="role-metric-icon"><i class="bi bi-hourglass-split"></i></span>
+                    <span class="role-metric-content">
+                        <strong>@pendingRequests</strong>
+                        <span>Waiting for Manager</span>
+                    </span>
+                </article>
+                <article class="role-metric-card metric-card-blue">
+                    <span class="role-metric-icon"><i class="bi bi-check2-circle"></i></span>
+                    <span class="role-metric-content">
+                        <strong>@closedRequests</strong>
+                        <span>Closed Requests</span>
+                    </span>
+                </article>
+            </section>
+            <a asp-action="SearchPolicy" class="employee-primary-action">
+                <span><i class="bi bi-search"></i></span>
+                <span><strong>Search & Request a Policy</strong><small>Compare available insurance coverage</small></span>
+                <i class="bi bi-chevron-right"></i>
+            </a>
+        </div>
+    </section>
+
+    <article class="role-dashboard-panel">
+        <div class="role-panel-heading">
+            <h2><i class="bi bi-shield-check"></i>My Policies</h2>
+            <span>@Model.AssignedPolicies.Count total</span>
+        </div>
+        @if (!Model.AssignedPolicies.Any())
+        {
+            <div class="role-empty-state">
+                <span><i class="bi bi-shield"></i></span>
+                <strong>No policies assigned yet.</strong>
+                <small>Assigned policies will appear here once your company adds coverage.</small>
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-hover mb-0 align-middle role-table">
+                    <thead>
+                        <tr><th>Policy</th><th>Company</th><th>Start</th><th>End</th><th>Status</th></tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var p in Model.AssignedPolicies)
+                        {
+                            <tr>
+                                <td class="fw-semibold">@p.Policy?.PolicyName</td>
+                                <td>@p.Policy?.Company?.CompanyName</td>
+                                <td>@p.StartDate.ToString("dd MMM yyyy")</td>
+                                <td>@p.EndDate.ToString("dd MMM yyyy")</td>
+                                <td>
+                                    <span class="status-pill @(p.Status=="Active"?"status-approved":"status-closed")">@p.Status</span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </article>
+
+    <article class="role-dashboard-panel">
+        <div class="role-panel-heading">
+            <h2><i class="bi bi-clock-history"></i>My Requests</h2>
+            <span>@Model.MyRequests.Count total</span>
+        </div>
+        @if (!Model.MyRequests.Any())
+        {
+            <div class="role-empty-state">
+                <span><i class="bi bi-file-earmark-text"></i></span>
+                <strong>No requests submitted yet.</strong>
+                <small>Your policy requests and approval progress will appear here.</small>
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-hover mb-0 align-middle role-table">
+                    <thead>
+                        <tr><th>Policy</th><th>Bill Amount</th><th>Requested On</th><th>Status</th></tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var r in Model.MyRequests)
+                        {
+                            <tr>
+                                <td>@r.Policy?.PolicyName</td>
+                                <td>PKR @r.BillAmount.ToString("N0")</td>
+                                <td>@r.RequestedAt.ToString("dd MMM yyyy")</td>
+                                <td>
+                                    <span class="status-pill @(r.Status=="Pending"?"status-waiting":r.Status=="Rejected"?"status-rejected":r.Status=="Closed"?"status-closed":"status-approved")">
+                                        @r.Status
+                                    </span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </article>
+</section>

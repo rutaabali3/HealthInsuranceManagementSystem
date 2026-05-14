@@ -1,0 +1,12 @@
+body[data-page="admin-registeremployee"] .app-main {
+    max-width: 940px;
+}
+
+body[data-page="admin-registeremployee"] .card-header {
+    background: var(--md-primary-container) !important;
+    color: var(--md-on-primary-container) !important;
+}
+
+body[data-page="admin-registeremployee"] .card-header .bi {
+    color: var(--md-primary);
+}

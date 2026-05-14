@@ -1,0 +1,60 @@
+body[data-page="employee-policydetails"] .app-main {
+    max-width: 1080px;
+    margin-top: 2.2rem !important;
+}
+
+body[data-page="employee-policydetails"] .card {
+    border-radius: 8px !important;
+    box-shadow: 0 12px 28px rgba(35, 58, 67, 0.08) !important;
+}
+
+body[data-page="employee-policydetails"] .card[style*="linear-gradient"] {
+    background: #0b6f75 !important;
+    color: #ffffff !important;
+}
+
+body[data-page="employee-policydetails"] .card[style*="linear-gradient"] .text-white-50 {
+    color: rgba(255, 255, 255, 0.78) !important;
+}
+
+body[data-page="employee-policydetails"] .card[style*="linear-gradient"] h3 {
+    color: #ffffff;
+    font-size: clamp(1.65rem, 3vw, 2.25rem);
+    font-weight: 800;
+}
+
+body[data-page="employee-policydetails"] .row.g-3 .card {
+    min-height: 104px;
+}
+
+body[data-page="employee-policydetails"] .card-body h5 {
+    color: #0d2730;
+    font-weight: 800;
+}
+
+body[data-page="employee-policydetails"] .card-header {
+    min-height: 62px;
+    background: #e7f5f3 !important;
+    border-bottom-color: #c9e4e1;
+}
+
+body[data-page="employee-policydetails"] .card-header h5 {
+    color: #064b4b;
+    font-weight: 800;
+}
+
+body[data-page="employee-policydetails"] .table-responsive {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+body[data-page="employee-policydetails"] .app-main > .d-flex.gap-2,
+body[data-page="employee-policydetails"] .d-flex.justify-content-between {
+    flex-wrap: wrap;
+}
+
+@media (max-width: 767.98px) {
+    body[data-page="employee-policydetails"] .row.g-3 > [class*="col-"] {
+        width: 100%;
+    }
+}

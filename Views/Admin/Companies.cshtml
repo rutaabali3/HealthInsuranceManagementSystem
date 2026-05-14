@@ -1,0 +1,101 @@
+@model List<CompanyDetails>
+@{ ViewData["Title"] = "Insurance Companies"; }
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold mb-0"><i class="bi bi-building-fill text-primary me-2"></i>Insurance Companies</h2>
+    <a asp-action="AddCompany" class="btn btn-primary">
+        <i class="bi bi-plus-lg me-1"></i>Add Company
+    </a>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-primary">
+                    <tr>
+                        <th>#</th>
+                        <th>Company Name</th>
+                        <th>Email</th>
+                        <th>Contact</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="6">
+                                <div class="admin-empty-state">
+                                    <div class="admin-empty-illustration">
+                                        <i class="bi bi-building-check"></i>
+                                        <span><i class="bi bi-check-lg"></i></span>
+                                    </div>
+                                    <h3>No companies yet.</h3>
+                                    <p>Insurance companies will appear here once added.</p>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                    @foreach (var c in Model)
+                    {
+                        <tr>
+                            <td>@c.CompanyId</td>
+                            <td class="fw-semibold">@c.CompanyName</td>
+                            <td>@c.Email</td>
+                            <td>@c.ContactNumber</td>
+                            <td>
+                                <span class="badge @(c.IsActive ? "bg-success" : "bg-secondary")">
+                                    @(c.IsActive ? "Active" : "Inactive")
+                                </span>
+                            </td>
+                            <td class="d-flex gap-1">
+                                <a asp-action="EditCompany" asp-route-id="@c.CompanyId"
+                                   class="btn btn-sm btn-outline-primary me-1">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                @if (c.IsActive)
+                                {
+                                    <form asp-action="DeleteCompany" method="post" class="d-inline"
+                                          data-swal-title="Deactivate company"
+                                          data-swal-confirm="Deactivate this company?"
+                                          data-swal-confirm-button="Deactivate">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="id" value="@c.CompanyId" />
+                                        <button type="submit" class="btn btn-sm btn-outline-warning" title="Deactivate">
+                                            <i class="bi bi-pause-circle"></i>
+                                        </button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <form asp-action="ActivateCompany" method="post" class="d-inline"
+                                          data-swal-title="Activate company"
+                                          data-swal-confirm="Activate this company?"
+                                          data-swal-confirm-button="Activate">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="id" value="@c.CompanyId" />
+                                        <button type="submit" class="btn btn-sm btn-outline-success" title="Activate">
+                                            <i class="bi bi-play-circle"></i>
+                                        </button>
+                                    </form>
+                                }
+                                <form asp-action="PermanentlyDeleteCompany" method="post" class="d-inline"
+                                      data-swal-title="Delete company from database"
+                                      data-swal-confirm="Delete this company from the database?"
+                                      data-swal-confirm-button="Delete">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="id" value="@c.CompanyId" />
+                                    <button type="submit" class="btn btn-sm btn-outline-danger" title="Delete from database">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,137 @@
+@model EmpRegister
+@{ ViewData["Title"] = "Register Employee"; }
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-primary text-white py-3">
+                <h5 class="mb-0 fw-semibold"><i class="bi bi-person-plus-fill me-2"></i>Register New Employee</h5>
+            </div>
+            <div class="card-body p-4">
+                <form asp-action="RegisterEmployee" method="post">
+                    @Html.AntiForgeryToken()
+                    <div asp-validation-summary="ModelOnly" class="app-validation-summary d-none"></div>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label asp-for="FirstName" class="form-label fw-semibold"></label>
+                            <div class="input-group app-field-group">
+                                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                <input asp-for="FirstName" class="form-control" placeholder="John" />
+                            </div>
+                            <span asp-validation-for="FirstName" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="LastName" class="form-label fw-semibold"></label>
+                            <div class="input-group app-field-group">
+                                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                <input asp-for="LastName" class="form-control" placeholder="Doe" />
+                            </div>
+                            <span asp-validation-for="LastName" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Username" class="form-label fw-semibold"></label>
+                            <div class="input-group app-field-group">
+                                <span class="input-group-text"><i class="bi bi-at"></i></span>
+                                <input asp-for="Username" class="form-control" placeholder="johndoe" />
+                            </div>
+                            <span asp-validation-for="Username" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Password</label>
+                            <div class="input-group app-field-group">
+                                <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                                <input type="password" name="Password" id="registerEmployeePassword" class="form-control"
+                                       placeholder="Min 6 characters" required />
+                                <button type="button" class="password-visibility-toggle" data-password-toggle="#registerEmployeePassword"
+                                        aria-label="Show password" aria-pressed="false" title="Show password">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Email" class="form-label fw-semibold"></label>
+                            <div class="input-group app-field-group">
+                                <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                                <input asp-for="Email" class="form-control" placeholder="john@company.com" />
+                            </div>
+                            <span asp-validation-for="Email" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Phone" class="form-label fw-semibold"></label>
+                            <div class="input-group app-field-group">
+                                <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+                                <input asp-for="Phone" class="form-control" placeholder="+92-..." />
+                            </div>
+                            <span asp-validation-for="Phone" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Department" class="form-label fw-semibold"></label>
+                            <div class="input-group app-field-group">
+                                <span class="input-group-text"><i class="bi bi-diagram-3"></i></span>
+                                <input asp-for="Department" class="form-control" placeholder="IT, Finance, HR..." />
+                            </div>
+                            <span asp-validation-for="Department" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Designation" class="form-label fw-semibold"></label>
+                            <div class="input-group app-field-group">
+                                <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
+                                <input asp-for="Designation" class="form-control" placeholder="Software Engineer" />
+                            </div>
+                            <span asp-validation-for="Designation" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Role" class="form-label fw-semibold"></label>
+                            <div class="input-group app-field-group">
+                                <span class="input-group-text"><i class="bi bi-briefcase"></i></span>
+                                <select asp-for="Role" class="form-select">
+                                    <option value="@UserRoles.Employee">Employee</option>
+                                    <option value="@UserRoles.Manager">Manager</option>
+                                    <option value="@UserRoles.FinanceManager">Finance Manager</option>
+                                </select>
+                            </div>
+                            <span asp-validation-for="Role" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="DateOfBirth" class="form-label fw-semibold"></label>
+                            <div class="input-group app-field-group">
+                                <span class="input-group-text"><i class="bi bi-calendar-date"></i></span>
+                                <input asp-for="DateOfBirth" class="form-control" type="date" />
+                            </div>
+                            <span asp-validation-for="DateOfBirth" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="Gender" class="form-label fw-semibold"></label>
+                            <div class="input-group app-field-group">
+                                <span class="input-group-text"><i class="bi bi-gender-ambiguous"></i></span>
+                                <select asp-for="Gender" class="form-select">
+                                    <option value="">-- Select --</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <span asp-validation-for="Gender" class="text-danger small"></span>
+                        </div>
+                        <div class="col-12">
+                            <label asp-for="Address" class="form-label fw-semibold"></label>
+                            <div class="input-group app-field-group">
+                                <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
+                                <textarea asp-for="Address" class="form-control" rows="2"
+                                          placeholder="Residential address"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-2 mt-4">
+                        <button type="submit" class="btn btn-primary px-4">
+                            <i class="bi bi-person-check me-2"></i>Register
+                        </button>
+                        <a asp-action="Employees" class="btn btn-outline-secondary px-4">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

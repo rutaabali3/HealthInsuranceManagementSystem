@@ -1,0 +1,67 @@
+body[data-page="report-index"] .app-main {
+    max-width: 1220px;
+}
+
+body[data-page="report-index"] .row.g-3.mb-4 .card {
+    background: var(--md-tertiary-container) !important;
+    color: var(--md-on-tertiary-container) !important;
+}
+
+body[data-page="report-index"] form.card .card-body {
+    background: var(--md-surface-container-low);
+}
+
+body[data-page="report-index"] .card-header {
+    background: var(--md-surface-container-low) !important;
+}
+
+body[data-page="report-index"] .report-empty-state {
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    min-height: 292px;
+    padding: 2.25rem 1rem;
+    text-align: center;
+}
+
+body[data-page="report-index"] .report-empty-illustration {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 108px;
+    height: 108px;
+    margin-bottom: 1.15rem;
+    color: #65b7b8;
+    background: #e2f4f3;
+    border-radius: 50%;
+    font-size: 4.2rem;
+}
+
+body[data-page="report-index"] .report-empty-illustration span {
+    position: absolute;
+    right: 16px;
+    bottom: 18px;
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    color: #ffffff;
+    background: #007a7a;
+    border: 4px solid #e2f4f3;
+    border-radius: 50%;
+    font-size: 1rem;
+}
+
+body[data-page="report-index"] .report-empty-state h3 {
+    margin: 0 0 0.35rem;
+    color: #1c333d;
+    font-size: 1.12rem;
+    font-weight: 800;
+}
+
+body[data-page="report-index"] .report-empty-state p {
+    max-width: 360px;
+    margin: 0;
+    color: #607481;
+    font-size: 0.98rem;
+}

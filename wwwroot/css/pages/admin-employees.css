@@ -1,0 +1,15 @@
+body[data-page="admin-employees"] .app-main {
+    max-width: 1220px;
+}
+
+body[data-page="admin-employees"] .card {
+    background: var(--md-surface-container-lowest);
+}
+
+body[data-page="admin-employees"] td:last-child {
+    white-space: nowrap;
+}
+
+body[data-page="admin-employees"] .btn-sm {
+    min-width: 40px;
+}

@@ -1,0 +1,14 @@
+body[data-page="admin-companies"] .app-main,
+body[data-page="admin-employees"] .app-main,
+body[data-page="admin-policies"] .app-main,
+body[data-page="admin-policyrequests"] .app-main {
+    max-width: 1220px;
+}
+
+body[data-page="admin-companies"] .card {
+    background: var(--md-surface-container-lowest);
+}
+
+body[data-page="admin-companies"] td:last-child {
+    white-space: nowrap;
+}

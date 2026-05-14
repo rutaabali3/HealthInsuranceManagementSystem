@@ -1,0 +1,42 @@
+body[data-page="employee-dashboard"] {
+    background: #fbfdfc;
+}
+
+body[data-page="employee-dashboard"] .app-main {
+    max-width: 1280px;
+    margin-top: 2.4rem !important;
+}
+
+body[data-page="employee-dashboard"] .role-dashboard-eyebrow,
+body[data-page="employee-dashboard"] .role-panel-heading h2,
+body[data-page="employee-dashboard"] .role-panel-heading h2 i,
+body[data-page="employee-dashboard"] .role-date-chip i,
+body[data-page="employee-dashboard"] .role-user-chip i {
+    color: #126dbe;
+}
+
+body[data-page="employee-dashboard"] .role-table thead th {
+    background: #e4f0ff !important;
+    color: #0b3862 !important;
+}
+
+body[data-page="employee-dashboard"] .role-dashboard-panel {
+    margin-top: 0.1rem;
+}
+
+body[data-page="employee-dashboard"] .app-footer {
+    background: transparent;
+    border-top: 0;
+}
+
+@media (max-width: 1199.98px) {
+    body[data-page="employee-dashboard"] .employee-overview-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 767.98px) {
+    body[data-page="employee-dashboard"] .app-main {
+        margin-top: 1.25rem !important;
+    }
+}

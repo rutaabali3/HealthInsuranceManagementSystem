@@ -1,0 +1,325 @@
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Page Not Found";
+    ViewData["SuppressPageCss"] = true;
+}
+
+<style>
+    body[data-page="home-notfound404"] {
+        background:
+            radial-gradient(circle at 12% 26%, rgba(111, 247, 246, 0.18), transparent 18rem),
+            radial-gradient(circle at 86% 54%, rgba(75, 96, 124, 0.12), transparent 20rem),
+            linear-gradient(180deg, #f9fdfc 0%, #edf7f6 58%, #f7fbfa 100%);
+    }
+
+    body[data-page="home-notfound404"] .app-main {
+        max-width: 100%;
+        padding-inline: clamp(1rem, 2.5vw, 2rem);
+        margin-top: 0 !important;
+    }
+
+    .not-found-shell {
+        position: relative;
+        min-height: calc(100vh - 184px);
+        display: grid;
+        place-items: center;
+        padding: clamp(1rem, 2.5vw, 2rem) 0 2.5rem;
+    }
+
+    .not-found-card {
+        position: relative;
+        width: min(100%, 1040px);
+        overflow: hidden;
+        display: grid;
+        grid-template-columns: minmax(280px, 0.88fr) minmax(320px, 1.12fr);
+        gap: clamp(1.5rem, 4vw, 3rem);
+        align-items: center;
+        min-height: 520px;
+        padding: clamp(2rem, 5vw, 4rem);
+        color: #ffffff;
+        background:
+            radial-gradient(circle at 86% 22%, rgba(111, 247, 246, 0.18), transparent 15rem),
+            linear-gradient(135deg, #006f6f 0%, #004040 100%);
+        border: 1px solid rgba(111, 247, 246, 0.24);
+        border-radius: 8px;
+        box-shadow: 0 18px 42px rgba(0, 42, 42, 0.16);
+    }
+
+    .not-found-card::before,
+    .not-found-card::after {
+        content: "";
+        position: absolute;
+        pointer-events: none;
+        border: 2px dashed rgba(111, 247, 246, 0.28);
+        border-radius: 50%;
+    }
+
+    .not-found-card::before {
+        width: 260px;
+        height: 260px;
+        right: 5%;
+        top: 9%;
+    }
+
+    .not-found-card::after {
+        width: 190px;
+        height: 190px;
+        left: 44%;
+        bottom: 8%;
+    }
+
+    .not-found-copy,
+    .not-found-visual {
+        position: relative;
+        z-index: 1;
+    }
+
+    .not-found-kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        min-height: 36px;
+        padding: 0.35rem 0.8rem;
+        color: #e9ffff;
+        background: rgba(0, 128, 128, 0.36);
+        border: 1px solid rgba(111, 247, 246, 0.54);
+        border-radius: 999px;
+        font-weight: 700;
+    }
+
+    .not-found-copy h1 {
+        margin: 1.2rem 0 0;
+        color: #ffffff;
+        font-size: clamp(4.5rem, 12vw, 8.5rem);
+        line-height: 0.95;
+    }
+
+    .not-found-copy h2 {
+        margin: 0.75rem 0 0;
+        color: #ffffff;
+        font-size: clamp(2rem, 4vw, 3.35rem);
+        line-height: 1.08;
+    }
+
+    .not-found-copy p {
+        max-width: 560px;
+        margin: 1rem 0 0;
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 1.08rem;
+        line-height: 1.55;
+    }
+
+    .not-found-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+
+    .not-found-actions .btn {
+        min-width: 158px;
+        min-height: 50px;
+        font-weight: 700;
+    }
+
+    .not-found-actions .btn-light {
+        --bs-btn-bg: #6ff7f6;
+        --bs-btn-border-color: #6ff7f6;
+        --bs-btn-color: #002020;
+        --bs-btn-hover-bg: #9bfffe;
+        --bs-btn-hover-border-color: #9bfffe;
+        --bs-btn-hover-color: #002020;
+    }
+
+    .not-found-visual {
+        min-height: 360px;
+        display: grid;
+        place-items: center;
+    }
+
+    .not-found-orbit {
+        position: relative;
+        width: min(100%, 430px);
+        aspect-ratio: 1;
+        display: grid;
+        place-items: center;
+    }
+
+    .not-found-orbit::before {
+        content: "";
+        position: absolute;
+        inset: 11%;
+        border: 2px dashed rgba(234, 255, 255, 0.34);
+        border-radius: 50%;
+    }
+
+    .not-found-shield {
+        width: 180px;
+        height: 180px;
+        display: grid;
+        place-items: center;
+        color: #ffffff;
+        background: linear-gradient(180deg, rgba(111, 247, 246, 0.5), rgba(0, 106, 106, 0.86));
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        border-radius: 44px;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.32), 0 20px 38px rgba(0, 25, 25, 0.32);
+        transform: rotate(45deg);
+    }
+
+    .not-found-shield i {
+        font-size: 5rem;
+        line-height: 1;
+        transform: rotate(-45deg);
+    }
+
+    .not-found-chip {
+        position: absolute;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        min-height: 44px;
+        padding: 0.55rem 0.9rem;
+        color: #073f43;
+        background: rgba(255, 255, 255, 0.92);
+        border: 1px solid rgba(255, 255, 255, 0.68);
+        border-radius: 8px;
+        box-shadow: 0 12px 24px rgba(0, 25, 25, 0.18);
+        font-weight: 700;
+    }
+
+    .not-found-chip i {
+        color: var(--md-primary);
+    }
+
+    .chip-top {
+        top: 13%;
+        right: 2%;
+    }
+
+    .chip-bottom {
+        left: 0;
+        bottom: 14%;
+    }
+
+    .not-found-hint {
+        position: absolute;
+        right: clamp(1rem, 4vw, 3rem);
+        bottom: clamp(1rem, 4vw, 2rem);
+        z-index: 1;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+        color: rgba(255, 255, 255, 0.78);
+        font-size: 0.9rem;
+    }
+
+    @@media (max-width: 900px) {
+        .not-found-card {
+            grid-template-columns: 1fr;
+        }
+
+        .not-found-visual {
+            min-height: 300px;
+        }
+    }
+
+    @@media (max-width: 575.98px) {
+        .not-found-shell {
+            min-height: auto;
+        }
+
+        .not-found-card {
+            min-height: 0;
+            padding: 1.5rem;
+        }
+
+        .not-found-actions .btn {
+            width: 100%;
+        }
+
+        .not-found-visual {
+            min-height: 250px;
+        }
+
+        .not-found-shield {
+            width: 140px;
+            height: 140px;
+        }
+
+        .not-found-shield i {
+            font-size: 4rem;
+        }
+
+        .not-found-chip {
+            position: static;
+            margin-top: 0.75rem;
+        }
+
+        .not-found-orbit {
+            align-content: center;
+        }
+    }
+</style>
+
+<section class="not-found-shell" aria-labelledby="not-found-title">
+    <div class="not-found-card">
+        <div class="not-found-copy">
+            <span class="not-found-kicker">
+                <i class="bi bi-shield-exclamation"></i>
+                Page not found
+            </span>
+            <h1>404</h1>
+            <h2 id="not-found-title">This page is outside coverage.</h2>
+            <p>
+                The link may be outdated, moved, or typed incorrectly. You can return to the
+                dashboard entrance, visit the public pages, or go back to where you were.
+            </p>
+
+            <div class="not-found-actions">
+                <a class="btn btn-light" asp-controller="Home" asp-action="Index">
+                    <i class="bi bi-house-door"></i>
+                    Home
+                </a>
+                <a class="btn btn-outline-light" asp-controller="Auth" asp-action="Login">
+                    <i class="bi bi-box-arrow-in-right"></i>
+                    Login
+                </a>
+                <button class="btn btn-outline-light" type="button" data-go-back>
+                    <i class="bi bi-arrow-left"></i>
+                    Go Back
+                </button>
+            </div>
+        </div>
+
+        <div class="not-found-visual" aria-hidden="true">
+            <div class="not-found-orbit">
+                <div class="not-found-shield">
+                    <i class="bi bi-heart-pulse-fill"></i>
+                </div>
+                <span class="not-found-chip chip-top"><i class="bi bi-search"></i>Missing route</span>
+                <span class="not-found-chip chip-bottom"><i class="bi bi-lock"></i>Secure redirect</span>
+            </div>
+        </div>
+
+        <span class="not-found-hint">
+            <i class="bi bi-info-circle"></i>
+            Error code: 404
+        </span>
+    </div>
+</section>
+
+<script>
+    (() => {
+        const button = document.querySelector("[data-go-back]");
+        if (!button) return;
+
+        button.addEventListener("click", () => {
+            if (window.history.length > 1) {
+                window.history.back();
+                return;
+            }
+
+            window.location.href = "/";
+        });
+    })();
+</script>

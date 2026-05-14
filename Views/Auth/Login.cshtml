@@ -1,0 +1,73 @@
+@model LoginViewModel
+@{ ViewData["Title"] = "Login"; Layout = "_Layout"; }
+
+<section class="login-shell" aria-labelledby="login-title">
+    <div class="login-card">
+        <div class="login-hero">
+            <div class="login-lock">
+                <i class="bi bi-shield-lock-fill"></i>
+            </div>
+            <h1 id="login-title">Secure Login</h1>
+            <p>Health Insurance Management System</p>
+        </div>
+
+        <div class="login-body">
+            <form asp-controller="Auth" asp-action="Login" method="post">
+                @Html.AntiForgeryToken()
+
+                <div asp-validation-summary="All" class="app-validation-summary d-none"></div>
+
+                <div class="login-field">
+                    <label asp-for="Username" class="form-label"></label>
+                    <div class="input-group login-input-group">
+                        <span class="input-group-text"><i class="bi bi-person"></i></span>
+                        <input asp-for="Username" class="form-control" placeholder="Enter username" />
+                    </div>
+                    <span asp-validation-for="Username" class="text-danger small"></span>
+                </div>
+
+                <div class="login-field">
+                    <label asp-for="Password" class="form-label"></label>
+                    <div class="input-group login-input-group">
+                        <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                        <input asp-for="Password" class="form-control" placeholder="Enter password" id="loginPassword" />
+                        <button class="btn password-toggle" type="button" aria-label="Show password" aria-pressed="false">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </div>
+                    <span asp-validation-for="Password" class="text-danger small"></span>
+                </div>
+
+                <div class="login-options">
+                    <label class="remember-me">
+                        <input class="form-check-input" type="checkbox" name="RememberMe" checked />
+                        <span>Remember me</span>
+                    </label>
+                    <a asp-controller="Auth" asp-action="ForgotPassword" aria-label="Forgot password">Forgot Password?</a>
+                </div>
+
+                <button type="submit" class="btn btn-primary login-submit">
+                    <i class="bi bi-box-arrow-in-right"></i>Login
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        (() => {
+            const toggle = document.querySelector(".password-toggle");
+            const password = document.getElementById("loginPassword");
+            if (!toggle || !password) return;
+
+            toggle.addEventListener("click", () => {
+                const shouldShow = password.type === "password";
+                password.type = shouldShow ? "text" : "password";
+                toggle.setAttribute("aria-pressed", shouldShow.toString());
+                toggle.setAttribute("aria-label", shouldShow ? "Hide password" : "Show password");
+                toggle.querySelector(".bi").className = shouldShow ? "bi bi-eye-slash" : "bi bi-eye";
+            });
+        })();
+    </script>
+}

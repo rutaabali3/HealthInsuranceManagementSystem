@@ -1,0 +1,23 @@
+body[data-page="employee-details"] {
+    --profile-accent: #126dbe;
+    --profile-accent-strong: #0b3862;
+    --profile-accent-soft: #e4f0ff;
+    --profile-accent-border: #c9dff8;
+    background: #fbfdfc;
+}
+
+body[data-page="employee-details"] .app-main {
+    max-width: 1080px;
+    margin-top: 2.2rem !important;
+}
+
+body[data-page="employee-details"] .app-footer {
+    background: transparent;
+    border-top: 0;
+}
+
+@media (max-width: 767.98px) {
+    body[data-page="employee-details"] .app-main {
+        margin-top: 1.25rem !important;
+    }
+}

@@ -1,0 +1,108 @@
+@* Views/Employee/Details.cshtml *@
+@model EmpRegister
+@{
+    ViewData["Title"] = "My Details";
+    var fullName = $"{Model.FirstName} {Model.LastName}".Trim();
+    var initials = $"{(string.IsNullOrWhiteSpace(Model.FirstName) ? "" : Model.FirstName[0])}{(string.IsNullOrWhiteSpace(Model.LastName) ? "" : Model.LastName[0])}";
+}
+
+<section class="profile-details-shell">
+    <header class="profile-details-hero">
+        <div class="profile-avatar" aria-hidden="true">
+            @if (string.IsNullOrWhiteSpace(initials))
+            {
+                <i class="bi bi-person"></i>
+            }
+            else
+            {
+                <span>@initials.ToUpperInvariant()</span>
+            }
+        </div>
+        <div class="profile-hero-copy">
+            <p class="profile-eyebrow">My Details</p>
+            <h1>@(string.IsNullOrWhiteSpace(fullName) ? "Employee Profile" : fullName)</h1>
+            <div class="profile-chip-row">
+                <span><i class="bi bi-person-badge"></i>@(Model.Role ?? "Employee")</span>
+                <span><i class="bi bi-building"></i>@(Model.Department ?? "No department")</span>
+            </div>
+        </div>
+        <a asp-action="UpdateDetails" class="profile-edit-action">
+            <i class="bi bi-pencil-square"></i>
+            <span>Edit Details</span>
+        </a>
+    </header>
+
+    <section class="profile-detail-grid" aria-label="Profile details">
+        <article class="profile-detail-card profile-detail-wide">
+            <span class="profile-detail-icon"><i class="bi bi-person-lines-fill"></i></span>
+            <div>
+                <small>Full Name</small>
+                <strong>@(string.IsNullOrWhiteSpace(fullName) ? "-" : fullName)</strong>
+            </div>
+        </article>
+
+        <article class="profile-detail-card">
+            <span class="profile-detail-icon"><i class="bi bi-at"></i></span>
+            <div>
+                <small>Username</small>
+                <strong><code>@(Model.Username ?? "-")</code></strong>
+            </div>
+        </article>
+
+        <article class="profile-detail-card">
+            <span class="profile-detail-icon"><i class="bi bi-envelope"></i></span>
+            <div>
+                <small>Email</small>
+                <strong>@(Model.Email ?? "-")</strong>
+            </div>
+        </article>
+
+        <article class="profile-detail-card">
+            <span class="profile-detail-icon"><i class="bi bi-telephone"></i></span>
+            <div>
+                <small>Phone</small>
+                <strong>@(Model.Phone ?? "-")</strong>
+            </div>
+        </article>
+
+        <article class="profile-detail-card">
+            <span class="profile-detail-icon"><i class="bi bi-diagram-3"></i></span>
+            <div>
+                <small>Department</small>
+                <strong>@(Model.Department ?? "-")</strong>
+            </div>
+        </article>
+
+        <article class="profile-detail-card">
+            <span class="profile-detail-icon"><i class="bi bi-briefcase"></i></span>
+            <div>
+                <small>Designation</small>
+                <strong>@(Model.Designation ?? "-")</strong>
+            </div>
+        </article>
+
+        <article class="profile-detail-card">
+            <span class="profile-detail-icon"><i class="bi bi-gender-ambiguous"></i></span>
+            <div>
+                <small>Gender</small>
+                <strong>@(Model.Gender ?? "-")</strong>
+            </div>
+        </article>
+
+        <article class="profile-detail-card">
+            <span class="profile-detail-icon"><i class="bi bi-calendar-heart"></i></span>
+            <div>
+                <small>Date of Birth</small>
+                <strong>@Model.DateOfBirth.ToString("dd MMM yyyy")</strong>
+            </div>
+        </article>
+
+        <article class="profile-detail-card profile-detail-wide">
+            <span class="profile-detail-icon"><i class="bi bi-geo-alt"></i></span>
+            <div>
+                <small>Address</small>
+                <strong>@(Model.Address ?? "-")</strong>
+            </div>
+        </article>
+    </section>
+</section>

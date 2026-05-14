@@ -1,0 +1,23 @@
+body[data-page="manager-details"] {
+    --profile-accent: #007a7a;
+    --profile-accent-strong: #064b4b;
+    --profile-accent-soft: #e7f5f3;
+    --profile-accent-border: #c9e4e1;
+    background: #fbfdfc;
+}
+
+body[data-page="manager-details"] .app-main {
+    max-width: 1080px;
+    margin-top: 2.2rem !important;
+}
+
+body[data-page="manager-details"] .app-footer {
+    background: transparent;
+    border-top: 0;
+}
+
+@media (max-width: 767.98px) {
+    body[data-page="manager-details"] .app-main {
+        margin-top: 1.25rem !important;
+    }
+}

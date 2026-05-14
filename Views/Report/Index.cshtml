@@ -1,0 +1,222 @@
+@model ReportViewModel
+@{ ViewData["Title"] = "Reports"; }
+
+<h2 class="fw-bold mb-4"><i class="bi bi-bar-chart-fill text-primary me-2"></i>Reports</h2>
+
+<!-- Date Filter -->
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-4">
+        <form asp-action="Index" method="post" class="row g-3 align-items-end">
+            @Html.AntiForgeryToken()
+            <div class="col-md-4">
+                <label asp-for="FromDate" class="form-label fw-semibold"></label>
+                <div class="input-group app-field-group">
+                    <span class="input-group-text"><i class="bi bi-calendar-plus"></i></span>
+                    <input asp-for="FromDate" class="form-control" type="date" />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="ToDate" class="form-label fw-semibold"></label>
+                <div class="input-group app-field-group">
+                    <span class="input-group-text"><i class="bi bi-calendar-check"></i></span>
+                    <input asp-for="ToDate" class="form-control" type="date" />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-primary w-100">
+                    <i class="bi bi-funnel me-2"></i>Generate Report
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Summary Badges -->
+@if (Model.EmployeeReport.Any() || Model.RequestReport.Any() || Model.BillingReport.Any())
+{
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <div class="card border-0 bg-primary text-white text-center py-3">
+                <div class="fs-4 fw-bold">@Model.EmployeeReport.Count</div>
+                <div class="small">Employees in Period</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-0 bg-success text-white text-center py-3">
+                <div class="fs-4 fw-bold">@Model.RequestReport.Count</div>
+                <div class="small">Policy Requests in Period</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-0 bg-dark text-white text-center py-3">
+                <div class="fs-4 fw-bold">PKR @Model.BillingReport.Sum(b => b.Amount).ToString("N0")</div>
+                <div class="small">Bills in Period</div>
+            </div>
+        </div>
+    </div>
+}
+
+<!-- Employee Report Table -->
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+        <h5 class="mb-0 fw-semibold">
+            <i class="bi bi-people me-2 text-primary"></i>Employee Report
+            <span class="badge bg-primary ms-2">@Model.EmployeeReport.Count</span>
+        </h5>
+    </div>
+    <div class="card-body p-0">
+        @if (!Model.EmployeeReport.Any())
+        {
+            <div class="report-empty-state">
+                <div class="report-empty-illustration">
+                    <i class="bi bi-person-check"></i>
+                    <span><i class="bi bi-check-lg"></i></span>
+                </div>
+                <h3>No employees yet.</h3>
+                <p>Employee records for the selected period will appear here.</p>
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Role</th>
+                            <th>Department</th>
+                            <th>Designation</th>
+                            <th>Email</th>
+                            <th>Registered</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var e in Model.EmployeeReport)
+                        {
+                            <tr>
+                                <td>@e.EmpId</td>
+                                <td class="fw-semibold">@e.FirstName @e.LastName</td>
+                                <td>@UserRoles.DisplayName(e.Role)</td>
+                                <td>@e.Department</td>
+                                <td>@e.Designation</td>
+                                <td>@e.Email</td>
+                                <td>@e.RegisteredAt.ToString("dd MMM yyyy")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Request Report Table -->
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-header bg-white py-3">
+        <h5 class="mb-0 fw-semibold">
+            <i class="bi bi-file-earmark-text me-2 text-success"></i>Policy Request Report
+            <span class="badge bg-success ms-2">@Model.RequestReport.Count</span>
+        </h5>
+    </div>
+    <div class="card-body p-0">
+        @if (!Model.RequestReport.Any())
+        {
+            <div class="report-empty-state">
+                <div class="report-empty-illustration">
+                    <i class="bi bi-file-earmark-check"></i>
+                    <span><i class="bi bi-check-lg"></i></span>
+                </div>
+                <h3>No requests yet.</h3>
+                <p>Policy requests for the selected period will appear here.</p>
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Employee</th>
+                            <th>Policy</th>
+                            <th>Requested On</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var r in Model.RequestReport)
+                        {
+                            <tr>
+                                <td>@r.RequestId</td>
+                                <td class="fw-semibold">@r.Employee?.FirstName @r.Employee?.LastName</td>
+                                <td>@r.Policy?.PolicyName</td>
+                                <td>@r.RequestedAt.ToString("dd MMM yyyy")</td>
+                                <td>
+                                    <span class="badge @(r.Status=="Pending"?"bg-warning text-dark":r.Status=="Rejected"?"bg-danger":"bg-success")">
+                                        @r.Status
+                                    </span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Billing Report Table -->
+<div class="card border-0 shadow-sm">
+    <div class="card-header bg-white py-3">
+        <h5 class="mb-0 fw-semibold">
+            <i class="bi bi-receipt me-2 text-dark"></i>Billing Report
+            <span class="badge bg-dark ms-2">@Model.BillingReport.Count</span>
+        </h5>
+    </div>
+    <div class="card-body p-0">
+        @if (!Model.BillingReport.Any())
+        {
+            <div class="report-empty-state">
+                <div class="report-empty-illustration">
+                    <i class="bi bi-receipt-cutoff"></i>
+                    <span><i class="bi bi-check-lg"></i></span>
+                </div>
+                <h3>No bills yet.</h3>
+                <p>Billing records for the selected period will appear here.</p>
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Employee</th>
+                            <th>Policy</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Created</th>
+                            <th>Paid</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var b in Model.BillingReport)
+                        {
+                            <tr>
+                                <td>@b.BillId</td>
+                                <td class="fw-semibold">@b.PolicyRequest?.Employee?.FirstName @b.PolicyRequest?.Employee?.LastName</td>
+                                <td>@b.PolicyRequest?.Policy?.PolicyName</td>
+                                <td>PKR @b.Amount.ToString("N0")</td>
+                                <td><span class="badge bg-secondary">@b.Status</span></td>
+                                <td>@b.CreatedAt.ToString("dd MMM yyyy")</td>
+                                <td>@(b.PaidAt?.ToString("dd MMM yyyy") ?? "-")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>

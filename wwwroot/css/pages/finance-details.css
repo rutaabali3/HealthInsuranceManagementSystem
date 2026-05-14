@@ -1,0 +1,23 @@
+body[data-page="finance-details"] {
+    --profile-accent: #148b43;
+    --profile-accent-strong: #0c3f21;
+    --profile-accent-soft: #e4f5e8;
+    --profile-accent-border: #c5e1cc;
+    background: #fbfdfc;
+}
+
+body[data-page="finance-details"] .app-main {
+    max-width: 1080px;
+    margin-top: 2.2rem !important;
+}
+
+body[data-page="finance-details"] .app-footer {
+    background: transparent;
+    border-top: 0;
+}
+
+@media (max-width: 767.98px) {
+    body[data-page="finance-details"] .app-main {
+        margin-top: 1.25rem !important;
+    }
+}

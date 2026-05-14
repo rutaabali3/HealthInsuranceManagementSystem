@@ -1,0 +1,266 @@
+@{
+    var currentController = (ViewContext.RouteData.Values["controller"]?.ToString() ?? "home").ToLowerInvariant();
+    var currentAction = (ViewContext.RouteData.Values["action"]?.ToString() ?? "index").ToLowerInvariant();
+    var currentPage = $"{currentController}-{currentAction}";
+    var pageCssPath = $"~/css/pages/{currentPage}.css";
+    var suppressPageCss = ViewData["SuppressPageCss"] as bool? == true;
+    var role = Context.Session.GetString("Role");
+    var username = Context.Session.GetString("Username");
+    var successMessage = TempData["Success"]?.ToString();
+    var errorMessage = TempData["Error"]?.ToString();
+    var isAdmin = role == UserRoles.Admin || role == "Admin";
+    var isManager = role == UserRoles.Manager;
+    var isFinance = role == UserRoles.FinanceManager;
+    var isEmployee = role == UserRoles.Employee || role == "Employee";
+    var hasRoleSidebar = isAdmin || isManager || isFinance || isEmployee;
+    var isEmployeePolicyFlow = currentController == "employee"
+        && (currentAction == "searchpolicy" || currentAction == "policydetails" || currentAction == "orderinsurance");
+    string IsActive(string controller, string action) =>
+        currentController == controller.ToLowerInvariant() && currentAction == action.ToLowerInvariant() ? "active" : "";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Health Insurance Management</title>
+    <link rel="icon" type="image/png" href="~/images/site/favicon.png" asp-append-version="true" />
+    <link rel="apple-touch-icon" href="~/images/site/favicon.png" asp-append-version="true" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    @if (!suppressPageCss)
+    {
+        <link rel="stylesheet" href="@Url.Content(pageCssPath)" asp-append-version="true" />
+    }
+    @if (currentController == "admin")
+    {
+        <link rel="stylesheet" href="~/css/pages/admin.css" asp-append-version="true" />
+    }
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body class="md3-app loader-active loader-lock @(hasRoleSidebar ? "has-admin-sidebar" : "")" data-page="@currentPage">
+<div class="app-loader" aria-live="polite" aria-label="Loading">
+    <div class="app-loader-card">
+        <img class="app-loader-mark" src="~/images/site/loading.svg" asp-append-version="true" alt="" aria-hidden="true" />
+        <div class="app-loader-progress" role="progressbar" aria-label="Loading" aria-valuemin="0" aria-valuemax="100">
+            <span></span>
+        </div>
+    </div>
+</div>
+<nav class="navbar navbar-expand-lg navbar-light app-topbar">
+    <div class="container">
+        <a class="navbar-brand fw-bold" asp-controller="Home" asp-action="Index" aria-label="HealthInsure home">
+            <img class="brand-logo" src="~/images/site/logo.png" asp-append-version="true" alt="HealthInsure" />
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain" aria-controls="navMain" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navMain">
+            <ul class="navbar-nav app-nav-primary mx-lg-auto">
+                <li class="nav-item">
+                    <a class="nav-link @(IsActive("Home", "Index"))" asp-controller="Home" asp-action="Index">
+                        <i class="bi bi-house-door me-1"></i>Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link @(IsActive("Home", "About"))" asp-controller="Home" asp-action="About">
+                        <i class="bi bi-info-circle me-1"></i>About Us
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link @(IsActive("Home", "Contact"))" asp-controller="Home" asp-action="Contact">
+                        <i class="bi bi-envelope me-1"></i>Contact
+                    </a>
+                </li>
+
+                @if (role == UserRoles.Manager && !hasRoleSidebar)
+                {
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Manager</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" asp-controller="Manager" asp-action="Dashboard">Received Bills</a></li>
+                            <li><a class="dropdown-item" asp-controller="Manager" asp-action="Details">My Details</a></li>
+                        </ul>
+                    </li>
+                }
+
+                @if (role == UserRoles.FinanceManager && !hasRoleSidebar)
+                {
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Finance</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" asp-controller="Finance" asp-action="Dashboard">Approved Bills</a></li>
+                            <li><a class="dropdown-item" asp-controller="Finance" asp-action="Details">My Details</a></li>
+                        </ul>
+                    </li>
+                }
+
+                @if (role == "Employee" && !hasRoleSidebar)
+                {
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">My Account</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" asp-controller="Employee" asp-action="Dashboard">Dashboard</a></li>
+                            <li><a class="dropdown-item" asp-controller="Employee" asp-action="Details">My Details</a></li>
+                            <li><a class="dropdown-item" asp-controller="Employee" asp-action="SearchPolicy">Search Policies</a></li>
+                            <li><a class="dropdown-item" asp-controller="Employee" asp-action="ChangePassword">Change Password</a></li>
+                        </ul>
+                    </li>
+                }
+            </ul>
+
+            <ul class="navbar-nav app-nav-actions ms-lg-0">
+                @if (!string.IsNullOrWhiteSpace(role))
+                {
+                    <li class="nav-item">
+                        <span class="nav-link nav-clock" aria-label="Pakistan time">
+                            <i class="bi bi-clock me-1"></i>
+                            <span data-pk-time>--:-- --</span>
+                        </span>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link nav-action @(IsActive("Auth", "Login"))" asp-controller="Auth" asp-action="Login">
+                            <i class="bi bi-box-arrow-in-right me-1"></i>Login
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</nav>
+
+@if (hasRoleSidebar)
+{
+    <aside class="admin-sidebar" aria-label="Sidebar navigation">
+        <div class="admin-sidebar-header">
+            <button type="button" class="admin-sidebar-toggle" aria-label="Collapse sidebar" aria-pressed="false">
+                <i class="bi bi-layout-sidebar-inset"></i>
+            </button>
+        </div>
+        <nav class="admin-sidebar-nav">
+            @if (isAdmin)
+            {
+                <a class="admin-sidebar-link @(IsActive("Admin", "Dashboard"))" asp-controller="Admin" asp-action="Dashboard" title="Dashboard">
+                    <i class="bi bi-speedometer2"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a class="admin-sidebar-link @(IsActive("Admin", "Companies"))" asp-controller="Admin" asp-action="Companies" title="Insurance Companies">
+                    <i class="bi bi-building-gear"></i>
+                    <span>Insurance Companies</span>
+                </a>
+                <a class="admin-sidebar-link @(IsActive("Admin", "Policies"))" asp-controller="Admin" asp-action="Policies" title="Policies">
+                    <i class="bi bi-shield-check"></i>
+                    <span>Policies</span>
+                </a>
+                <a class="admin-sidebar-link @(IsActive("Admin", "Employees"))" asp-controller="Admin" asp-action="Employees" title="Employees">
+                    <i class="bi bi-people"></i>
+                    <span>Employees</span>
+                </a>
+                <a class="admin-sidebar-link @(IsActive("Admin", "PolicyRequests"))" asp-controller="Admin" asp-action="PolicyRequests" title="Policy Requests">
+                    <i class="bi bi-inbox"></i>
+                    <span>Policy Requests</span>
+                </a>
+                <a class="admin-sidebar-link @(IsActive("Admin", "Search"))" asp-controller="Admin" asp-action="Search" title="Search">
+                    <i class="bi bi-search"></i>
+                    <span>Search</span>
+                </a>
+                <a class="admin-sidebar-link @(IsActive("Report", "Index"))" asp-controller="Report" asp-action="Index" title="Reports">
+                    <i class="bi bi-bar-chart"></i>
+                    <span>Reports</span>
+                </a>
+            }
+            else if (isManager)
+            {
+                <a class="admin-sidebar-link @(IsActive("Manager", "Dashboard"))" asp-controller="Manager" asp-action="Dashboard" title="Received Bills">
+                    <i class="bi bi-speedometer2"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a class="admin-sidebar-link @(IsActive("Manager", "Details"))" asp-controller="Manager" asp-action="Details" title="My Details">
+                    <i class="bi bi-person-lines-fill"></i>
+                    <span>My Details</span>
+                </a>
+                <a class="admin-sidebar-link @(IsActive("Manager", "UpdateDetails"))" asp-controller="Manager" asp-action="UpdateDetails" title="Update Details">
+                    <i class="bi bi-pencil-square"></i>
+                    <span>Update Details</span>
+                </a>
+            }
+            else if (isFinance)
+            {
+                <a class="admin-sidebar-link @(IsActive("Finance", "Dashboard"))" asp-controller="Finance" asp-action="Dashboard" title="Approved Bills">
+                    <i class="bi bi-speedometer2"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a class="admin-sidebar-link @(IsActive("Finance", "Details"))" asp-controller="Finance" asp-action="Details" title="My Details">
+                    <i class="bi bi-person-lines-fill"></i>
+                    <span>My Details</span>
+                </a>
+                <a class="admin-sidebar-link @(IsActive("Finance", "UpdateDetails"))" asp-controller="Finance" asp-action="UpdateDetails" title="Update Details">
+                    <i class="bi bi-pencil-square"></i>
+                    <span>Update Details</span>
+                </a>
+            }
+            else if (isEmployee)
+            {
+                <a class="admin-sidebar-link @(IsActive("Employee", "Dashboard"))" asp-controller="Employee" asp-action="Dashboard" title="Dashboard">
+                    <i class="bi bi-speedometer2"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a class="admin-sidebar-link @(IsActive("Employee", "Details"))" asp-controller="Employee" asp-action="Details" title="My Details">
+                    <i class="bi bi-person-lines-fill"></i>
+                    <span>My Details</span>
+                </a>
+                <a class="admin-sidebar-link @(isEmployeePolicyFlow ? "active" : "")" asp-controller="Employee" asp-action="SearchPolicy" title="Search Policies">
+                    <i class="bi bi-search"></i>
+                    <span>Search Policies</span>
+                </a>
+                <a class="admin-sidebar-link @(IsActive("Employee", "ChangePassword"))" asp-controller="Employee" asp-action="ChangePassword" title="Change Password">
+                    <i class="bi bi-key"></i>
+                    <span>Change Password</span>
+                </a>
+            }
+        </nav>
+        <div class="admin-sidebar-footer">
+            <div class="admin-sidebar-user" title="@username">
+                <i class="bi bi-person-circle"></i>
+                <span>@(string.IsNullOrWhiteSpace(username) ? role : username)</span>
+            </div>
+            <a class="admin-sidebar-link admin-sidebar-logout" asp-controller="Auth" asp-action="Logout" title="Logout">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+    </aside>
+}
+
+<main class="container app-main page-transition my-4">
+    @RenderBody()
+</main>
+
+<footer class="app-footer text-center py-3 mt-5">
+    <p class="mb-0">&copy; @DateTime.Now.Year Health Insurance Management System. All rights reserved.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    window.healthAlertMessages = {
+        success: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(successMessage)),
+        error: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(errorMessage))
+    };
+</script>
+<script src="~/js/alerts.js" asp-append-version="true"></script>
+<script src="~/js/page-transitions.js" asp-append-version="true"></script>
+<script src="~/js/admin-sidebar.js" asp-append-version="true"></script>
+<script src="~/js/password-toggle.js" asp-append-version="true"></script>
+<script src="~/js/pakistan-clock.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

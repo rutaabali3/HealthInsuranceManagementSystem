@@ -1,0 +1,12 @@
+body[data-page="admin-editemployee"] .app-main {
+    max-width: 940px;
+}
+
+body[data-page="admin-editemployee"] .card-header {
+    background: #ffe08a !important;
+    color: #271900 !important;
+}
+
+body[data-page="admin-editemployee"] .card-body {
+    background: var(--md-surface-container-lowest);
+}

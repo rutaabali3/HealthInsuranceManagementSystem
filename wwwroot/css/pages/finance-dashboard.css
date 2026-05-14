@@ -1,0 +1,46 @@
+body[data-page="finance-dashboard"] {
+    background: #fbfdfc;
+}
+
+body[data-page="finance-dashboard"] .app-main {
+    max-width: 1280px;
+    margin-top: 2.4rem !important;
+}
+
+body[data-page="finance-dashboard"] .role-dashboard-eyebrow,
+body[data-page="finance-dashboard"] .role-panel-heading h2,
+body[data-page="finance-dashboard"] .role-panel-heading h2 i,
+body[data-page="finance-dashboard"] .role-date-chip i,
+body[data-page="finance-dashboard"] .role-user-chip i {
+    color: #148b43;
+}
+
+body[data-page="finance-dashboard"] .role-table thead th {
+    background: #e4f5e8 !important;
+    color: #0c3f21 !important;
+}
+
+body[data-page="finance-dashboard"] td:last-child {
+    min-width: 150px;
+}
+
+body[data-page="finance-dashboard"] .app-footer {
+    background: transparent;
+    border-top: 0;
+}
+
+@media (max-width: 1199.98px) {
+    body[data-page="finance-dashboard"] .role-metric-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 767.98px) {
+    body[data-page="finance-dashboard"] .app-main {
+        margin-top: 1.25rem !important;
+    }
+
+    body[data-page="finance-dashboard"] .role-metric-grid {
+        grid-template-columns: 1fr;
+    }
+}

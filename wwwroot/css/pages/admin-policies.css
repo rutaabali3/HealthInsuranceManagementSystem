@@ -1,0 +1,12 @@
+body[data-page="admin-policies"] .app-main {
+    max-width: 1220px;
+}
+
+body[data-page="admin-policies"] .card {
+    background: var(--md-surface-container-lowest);
+}
+
+body[data-page="admin-policies"] td:nth-child(4),
+body[data-page="admin-policies"] td:last-child {
+    white-space: nowrap;
+}

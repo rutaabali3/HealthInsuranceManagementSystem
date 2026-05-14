@@ -1,0 +1,221 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\admin-addcompany.css",
+      "PackagePath": "staticwebassets\\css\\pages\\admin-addcompany.css"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\admin-addpolicy.css",
+      "PackagePath": "staticwebassets\\css\\pages\\admin-addpolicy.css"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\admin-assignpolicy.css",
+      "PackagePath": "staticwebassets\\css\\pages\\admin-assignpolicy.css"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\admin-companies.css",
+      "PackagePath": "staticwebassets\\css\\pages\\admin-companies.css"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\admin-dashboard.css",
+      "PackagePath": "staticwebassets\\css\\pages\\admin-dashboard.css"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\admin-editcompany.css",
+      "PackagePath": "staticwebassets\\css\\pages\\admin-editcompany.css"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\admin-editemployee.css",
+      "PackagePath": "staticwebassets\\css\\pages\\admin-editemployee.css"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\admin-editpolicy.css",
+      "PackagePath": "staticwebassets\\css\\pages\\admin-editpolicy.css"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\admin-employees.css",
+      "PackagePath": "staticwebassets\\css\\pages\\admin-employees.css"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\admin-policies.css",
+      "PackagePath": "staticwebassets\\css\\pages\\admin-policies.css"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\admin-policyrequests.css",
+      "PackagePath": "staticwebassets\\css\\pages\\admin-policyrequests.css"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\admin-registeremployee.css",
+      "PackagePath": "staticwebassets\\css\\pages\\admin-registeremployee.css"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\admin-search.css",
+      "PackagePath": "staticwebassets\\css\\pages\\admin-search.css"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\admin.css",
+      "PackagePath": "staticwebassets\\css\\pages\\admin.css"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\auth-forgotpassword.css",
+      "PackagePath": "staticwebassets\\css\\pages\\auth-forgotpassword.css"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\auth-login.css",
+      "PackagePath": "staticwebassets\\css\\pages\\auth-login.css"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\auth-resetpassword.css",
+      "PackagePath": "staticwebassets\\css\\pages\\auth-resetpassword.css"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\employee-changepassword.css",
+      "PackagePath": "staticwebassets\\css\\pages\\employee-changepassword.css"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\employee-dashboard.css",
+      "PackagePath": "staticwebassets\\css\\pages\\employee-dashboard.css"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\employee-details.css",
+      "PackagePath": "staticwebassets\\css\\pages\\employee-details.css"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\employee-orderinsurance.css",
+      "PackagePath": "staticwebassets\\css\\pages\\employee-orderinsurance.css"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\employee-policydetails.css",
+      "PackagePath": "staticwebassets\\css\\pages\\employee-policydetails.css"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\employee-searchpolicy.css",
+      "PackagePath": "staticwebassets\\css\\pages\\employee-searchpolicy.css"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\employee-updatedetails.css",
+      "PackagePath": "staticwebassets\\css\\pages\\employee-updatedetails.css"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\finance-dashboard.css",
+      "PackagePath": "staticwebassets\\css\\pages\\finance-dashboard.css"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\finance-details.css",
+      "PackagePath": "staticwebassets\\css\\pages\\finance-details.css"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\finance-updatedetails.css",
+      "PackagePath": "staticwebassets\\css\\pages\\finance-updatedetails.css"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\home-about.css",
+      "PackagePath": "staticwebassets\\css\\pages\\home-about.css"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\home-contact.css",
+      "PackagePath": "staticwebassets\\css\\pages\\home-contact.css"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\home-index.css",
+      "PackagePath": "staticwebassets\\css\\pages\\home-index.css"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\manager-dashboard.css",
+      "PackagePath": "staticwebassets\\css\\pages\\manager-dashboard.css"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\manager-details.css",
+      "PackagePath": "staticwebassets\\css\\pages\\manager-details.css"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\manager-updatedetails.css",
+      "PackagePath": "staticwebassets\\css\\pages\\manager-updatedetails.css"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\report-index.css",
+      "PackagePath": "staticwebassets\\css\\pages\\report-index.css"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\images\\about\\hero.jpg",
+      "PackagePath": "staticwebassets\\images\\about\\hero.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\images\\about\\section.png",
+      "PackagePath": "staticwebassets\\images\\about\\section.png"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\images\\contact\\hero-right.png",
+      "PackagePath": "staticwebassets\\images\\contact\\hero-right.png"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\images\\contact\\hero.png",
+      "PackagePath": "staticwebassets\\images\\contact\\hero.png"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\images\\home\\hero.png",
+      "PackagePath": "staticwebassets\\images\\home\\hero.png"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\images\\login\\Gemini_Generated_Image_rn1z4trn1z4trn1z-cleaned.png",
+      "PackagePath": "staticwebassets\\images\\login\\Gemini_Generated_Image_rn1z4trn1z4trn1z-cleaned.png"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\images\\site\\favicon.png",
+      "PackagePath": "staticwebassets\\images\\site\\favicon.png"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\images\\site\\launch.png",
+      "PackagePath": "staticwebassets\\images\\site\\launch.png"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\images\\site\\loading.svg",
+      "PackagePath": "staticwebassets\\images\\site\\loading.svg"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\images\\site\\logo.png",
+      "PackagePath": "staticwebassets\\images\\site\\logo.png"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\js\\admin-sidebar.js",
+      "PackagePath": "staticwebassets\\js\\admin-sidebar.js"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\js\\alerts.js",
+      "PackagePath": "staticwebassets\\js\\alerts.js"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\js\\page-transitions.js",
+      "PackagePath": "staticwebassets\\js\\page-transitions.js"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\js\\pakistan-clock.js",
+      "PackagePath": "staticwebassets\\js\\pakistan-clock.js"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\js\\password-toggle.js",
+      "PackagePath": "staticwebassets\\js\\password-toggle.js"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.HealthInsuranceManagement.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.HealthInsuranceManagement.props",
+      "PackagePath": "build\\HealthInsuranceManagement.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.HealthInsuranceManagement.props",
+      "PackagePath": "buildMultiTargeting\\HealthInsuranceManagement.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.HealthInsuranceManagement.props",
+      "PackagePath": "buildTransitive\\HealthInsuranceManagement.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

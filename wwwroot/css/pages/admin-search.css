@@ -1,0 +1,66 @@
+body[data-page="admin-search"] .app-main {
+    max-width: 1220px;
+}
+
+body[data-page="admin-search"] form.card .card-body {
+    background: var(--md-surface-container-low);
+}
+
+body[data-page="admin-search"] .row.g-4 .card {
+    min-height: 100%;
+}
+
+body[data-page="admin-search"] .table-sm td,
+body[data-page="admin-search"] .table-sm th {
+    padding: 0.7rem 0.85rem;
+}
+
+body[data-page="admin-search"] .admin-search-group {
+    display: flex;
+    gap: 0.75rem;
+}
+
+body[data-page="admin-search"] .admin-search-group .app-field-group {
+    flex: 1 1 auto;
+}
+
+@media (max-width: 1023.98px) {
+    body[data-page="admin-search"] .admin-search-group {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+        width: 100%;
+    }
+
+    body[data-page="admin-search"] .admin-search-group .app-field-group,
+    body[data-page="admin-search"] .admin-search-group .btn {
+        width: 100%;
+        min-width: 0;
+    }
+
+    body[data-page="admin-search"] .admin-search-group .app-field-group {
+        display: flex;
+        gap: 0;
+    }
+
+    body[data-page="admin-search"] .admin-search-group .form-control,
+    body[data-page="admin-search"] .admin-search-group .btn {
+        border-radius: 8px !important;
+    }
+
+    body[data-page="admin-search"] .admin-search-group .app-field-group .input-group-text {
+        border-radius: 8px 0 0 8px !important;
+    }
+
+    body[data-page="admin-search"] .admin-search-group .app-field-group .form-control {
+        border-radius: 0 8px 8px 0 !important;
+    }
+
+    body[data-page="admin-search"] .admin-search-group .app-field-group {
+        order: 1;
+    }
+
+    body[data-page="admin-search"] .admin-search-group .btn {
+        order: 2;
+    }
+}

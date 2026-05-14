@@ -1,0 +1,146 @@
+@model AdminSearchViewModel
+@{ ViewData["Title"] = "Search"; }
+
+<h2 class="fw-bold mb-4"><i class="bi bi-search text-primary me-2"></i>Search</h2>
+
+<form asp-action="Search" method="get" class="card border-0 shadow-sm mb-4">
+    <div class="card-body">
+        <div class="admin-search-group">
+            <div class="input-group app-field-group">
+                <span class="input-group-text"><i class="bi bi-search"></i></span>
+                <input name="q" value="@Model.Query" class="form-control" placeholder="Search employees, companies, policies, requests, bills..." />
+            </div>
+            <button class="btn btn-primary"><i class="bi bi-search me-1"></i>Search</button>
+        </div>
+    </div>
+</form>
+
+@if (!string.IsNullOrWhiteSpace(Model.Query))
+{
+    <div class="row g-4">
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-white fw-semibold">Employees</div>
+                <div class="card-body p-0">
+                    <table class="table table-sm mb-0">
+                        <tbody>
+                            @foreach (var e in Model.Employees)
+                            {
+                                <tr><td>@e.FirstName @e.LastName</td><td>@UserRoles.DisplayName(e.Role)</td><td>@e.Email</td></tr>
+                            }
+                            @if (!Model.Employees.Any())
+                            {
+                                <tr>
+                                    <td colspan="3">
+                                        <div class="admin-empty-state admin-empty-state-sm">
+                                            <div class="admin-empty-illustration">
+                                                <i class="bi bi-person-check"></i>
+                                                <span><i class="bi bi-search"></i></span>
+                                            </div>
+                                            <h3>No employee matches.</h3>
+                                            <p>Matching employees will appear here.</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-white fw-semibold">Companies</div>
+                <div class="card-body p-0">
+                    <table class="table table-sm mb-0">
+                        <tbody>
+                            @foreach (var c in Model.Companies)
+                            {
+                                <tr><td>@c.CompanyName</td><td>@c.ContactNumber</td><td>@c.Email</td></tr>
+                            }
+                            @if (!Model.Companies.Any())
+                            {
+                                <tr>
+                                    <td colspan="3">
+                                        <div class="admin-empty-state admin-empty-state-sm">
+                                            <div class="admin-empty-illustration">
+                                                <i class="bi bi-building-check"></i>
+                                                <span><i class="bi bi-search"></i></span>
+                                            </div>
+                                            <h3>No company matches.</h3>
+                                            <p>Matching companies will appear here.</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-white fw-semibold">Policies</div>
+                <div class="card-body p-0">
+                    <table class="table table-sm mb-0">
+                        <tbody>
+                            @foreach (var p in Model.Policies)
+                            {
+                                <tr><td>@p.PolicyName</td><td>@p.Company?.CompanyName</td><td>PKR @p.PremiumAmount.ToString("N0")</td></tr>
+                            }
+                            @if (!Model.Policies.Any())
+                            {
+                                <tr>
+                                    <td colspan="3">
+                                        <div class="admin-empty-state admin-empty-state-sm">
+                                            <div class="admin-empty-illustration">
+                                                <i class="bi bi-shield-check"></i>
+                                                <span><i class="bi bi-search"></i></span>
+                                            </div>
+                                            <h3>No policy matches.</h3>
+                                            <p>Matching policies will appear here.</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-white fw-semibold">Requests & Bills</div>
+                <div class="card-body p-0">
+                    <table class="table table-sm mb-0">
+                        <tbody>
+                            @foreach (var r in Model.Requests)
+                            {
+                                <tr><td>Request #@r.RequestId</td><td>@r.Employee?.FirstName @r.Employee?.LastName</td><td>@r.Status</td></tr>
+                            }
+                            @foreach (var b in Model.Bills)
+                            {
+                                <tr><td>Bill #@b.BillId</td><td>PKR @b.Amount.ToString("N0")</td><td>@b.Status</td></tr>
+                            }
+                            @if (!Model.Requests.Any() && !Model.Bills.Any())
+                            {
+                                <tr>
+                                    <td colspan="3">
+                                        <div class="admin-empty-state admin-empty-state-sm">
+                                            <div class="admin-empty-illustration">
+                                                <i class="bi bi-receipt-cutoff"></i>
+                                                <span><i class="bi bi-search"></i></span>
+                                            </div>
+                                            <h3>No request or bill matches.</h3>
+                                            <p>Matching requests and bills will appear here.</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+}

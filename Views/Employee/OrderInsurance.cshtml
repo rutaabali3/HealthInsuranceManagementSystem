@@ -1,0 +1,67 @@
+@model PolicyRequestDetails
+@{ ViewData["Title"] = "Order Insurance"; var policy = ViewBag.Policy as Policy; }
+
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-primary text-white py-3">
+                <h5 class="mb-0 fw-semibold">
+                    <i class="bi bi-send-fill me-2"></i>Request Insurance Policy
+                </h5>
+            </div>
+            <div class="card-body p-4">
+
+                <!-- Policy Summary -->
+                <div class="alert alert-primary d-flex gap-3 align-items-start mb-4">
+                    <i class="bi bi-file-medical-fill fs-4 flex-shrink-0"></i>
+                    <div>
+                        <div class="fw-bold">@policy?.PolicyName</div>
+                        <div class="small">@policy?.Company?.CompanyName &nbsp;|&nbsp; @policy?.PolicyType</div>
+                        <div class="small mt-1">
+                            Premium: <strong>PKR @policy?.PremiumAmount.ToString("N0")</strong> / yr &nbsp;&nbsp;
+                            Coverage: <strong>PKR @policy?.CoverageAmount.ToString("N0")</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <form asp-action="OrderInsurance" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" asp-for="EmpId" />
+                    <input type="hidden" asp-for="PolicyId" />
+
+                    <div class="mb-4">
+                        <label asp-for="Reason" class="form-label fw-semibold">
+                            Reason / Additional Notes <span class="text-muted fw-normal">(optional)</span>
+                        </label>
+                        <div class="input-group app-field-group">
+                            <span class="input-group-text"><i class="bi bi-chat-left-text"></i></span>
+                            <textarea asp-for="Reason" class="form-control" rows="4"
+                                      placeholder="Briefly explain why you need this policy..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="BillAmount" class="form-label fw-semibold"></label>
+                        <div class="input-group app-field-group">
+                            <span class="input-group-text"><i class="bi bi-cash-stack"></i></span>
+                            <input asp-for="BillAmount" class="form-control" min="1" step="0.01" />
+                        </div>
+                        <span asp-validation-for="BillAmount" class="text-danger small"></span>
+                    </div>
+
+                    <div class="alert alert-warning small">
+                        <i class="bi bi-info-circle me-2"></i>
+                        Your request and bill will be reviewed by the manager, then forwarded to finance after approval.
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary px-4">
+                            <i class="bi bi-send me-2"></i>Submit Request
+                        </button>
+                        <a asp-action="SearchPolicy" class="btn btn-outline-secondary px-4">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

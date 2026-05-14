@@ -1,0 +1,15 @@
+body[data-page="admin-policyrequests"] .app-main {
+    max-width: 1220px;
+}
+
+body[data-page="admin-policyrequests"] .card {
+    background: var(--md-surface-container-lowest);
+}
+
+body[data-page="admin-policyrequests"] td:last-child {
+    min-width: 210px;
+}
+
+body[data-page="admin-policyrequests"] form {
+    display: inline-flex;
+}

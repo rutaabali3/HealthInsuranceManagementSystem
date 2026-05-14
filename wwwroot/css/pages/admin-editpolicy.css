@@ -1,0 +1,12 @@
+body[data-page="admin-editpolicy"] .app-main {
+    max-width: 920px;
+}
+
+body[data-page="admin-editpolicy"] .card-header {
+    background: #ffe08a !important;
+    color: #271900 !important;
+}
+
+body[data-page="admin-editpolicy"] .card-body {
+    background: var(--md-surface-container-lowest);
+}

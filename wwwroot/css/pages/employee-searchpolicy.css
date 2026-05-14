@@ -1,0 +1,69 @@
+body[data-page="employee-searchpolicy"] .app-main {
+    max-width: 1280px;
+    margin-top: 2.2rem !important;
+}
+
+body[data-page="employee-searchpolicy"] h2 {
+    margin-bottom: 1.35rem !important;
+    color: #0d2730;
+    font-size: clamp(1.85rem, 3.5vw, 2.45rem);
+    font-weight: 800;
+}
+
+body[data-page="employee-searchpolicy"] h2 .bi {
+    color: #126dbe !important;
+}
+
+body[data-page="employee-searchpolicy"] .app-main > .card,
+body[data-page="employee-searchpolicy"] .row.g-4 .card {
+    border-radius: 8px !important;
+    box-shadow: 0 12px 28px rgba(35, 58, 67, 0.08) !important;
+}
+
+body[data-page="employee-searchpolicy"] .app-main > .card {
+    border-top: 4px solid #126dbe !important;
+}
+
+body[data-page="employee-searchpolicy"] .card-header.bg-primary {
+    min-height: 62px;
+    background: #e4f0ff !important;
+    color: #0b3862 !important;
+    border-bottom-color: #c9dff8;
+}
+
+body[data-page="employee-searchpolicy"] .card-footer {
+    background: #ffffff !important;
+}
+
+body[data-page="employee-searchpolicy"] .row.g-4 .card {
+    height: 100%;
+}
+
+body[data-page="employee-searchpolicy"] .row.g-4 .card-body {
+    background: #ffffff;
+}
+
+body[data-page="employee-searchpolicy"] .row.g-4 .card:hover {
+    border-color: #b8d6d8 !important;
+}
+
+body[data-page="employee-searchpolicy"] .badge.bg-white {
+    color: #126dbe !important;
+    background: #ffffff !important;
+    border: 1px solid #c9dff8;
+}
+
+body[data-page="employee-searchpolicy"] .alert-info {
+    min-height: 76px;
+    display: flex;
+    align-items: center;
+    border-color: #c9dff8;
+    background: #e4f0ff;
+    color: #0b3862;
+}
+
+@media (max-width: 767.98px) {
+    body[data-page="employee-searchpolicy"] .app-main {
+        margin-top: 1.25rem !important;
+    }
+}

@@ -1,0 +1,107 @@
+@model List<Policy>
+@{ ViewData["Title"] = "Policies"; }
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold mb-0"><i class="bi bi-file-medical-fill text-primary me-2"></i>Insurance Policies</h2>
+    <a asp-action="AddPolicy" class="btn btn-primary">
+        <i class="bi bi-plus-lg me-1"></i>Add Policy
+    </a>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-primary">
+                    <tr>
+                        <th>#</th>
+                        <th>Policy Name</th>
+                        <th>Company</th>
+                        <th>Type</th>
+                        <th>Premium</th>
+                        <th>Coverage</th>
+                        <th>Duration</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="9">
+                                <div class="admin-empty-state">
+                                    <div class="admin-empty-illustration">
+                                        <i class="bi bi-shield-check"></i>
+                                        <span><i class="bi bi-check-lg"></i></span>
+                                    </div>
+                                    <h3>No policies yet.</h3>
+                                    <p>Insurance policies will appear here once created.</p>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                    @foreach (var p in Model)
+                    {
+                        <tr>
+                            <td>@p.PolicyId</td>
+                            <td class="fw-semibold">@p.PolicyName</td>
+                            <td>@p.Company?.CompanyName</td>
+                            <td><span class="badge bg-info text-dark">@p.PolicyType</span></td>
+                            <td>PKR @p.PremiumAmount.ToString("N0")</td>
+                            <td>PKR @p.CoverageAmount.ToString("N0")</td>
+                            <td>@p.DurationMonths mo.</td>
+                            <td>
+                                <span class="badge @(p.IsActive ? "bg-success" : "bg-secondary")">
+                                    @(p.IsActive ? "Active" : "Inactive")
+                                </span>
+                            </td>
+                            <td class="d-flex gap-1">
+                                <a asp-action="EditPolicy" asp-route-id="@p.PolicyId"
+                                   class="btn btn-sm btn-outline-primary">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                @if (p.IsActive)
+                                {
+                                    <form asp-action="DeletePolicy" method="post" class="d-inline"
+                                          data-swal-title="Deactivate policy"
+                                          data-swal-confirm="Deactivate this policy?"
+                                          data-swal-confirm-button="Deactivate">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="id" value="@p.PolicyId" />
+                                        <button type="submit" class="btn btn-sm btn-outline-warning" title="Deactivate">
+                                            <i class="bi bi-pause-circle"></i>
+                                        </button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <form asp-action="ActivatePolicy" method="post" class="d-inline"
+                                          data-swal-title="Activate policy"
+                                          data-swal-confirm="Activate this policy?"
+                                          data-swal-confirm-button="Activate">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="id" value="@p.PolicyId" />
+                                        <button type="submit" class="btn btn-sm btn-outline-success" title="Activate">
+                                            <i class="bi bi-play-circle"></i>
+                                        </button>
+                                    </form>
+                                }
+                                <form asp-action="PermanentlyDeletePolicy" method="post" class="d-inline"
+                                      data-swal-title="Delete policy from database"
+                                      data-swal-confirm="Delete this policy from the database?"
+                                      data-swal-confirm-button="Delete">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="id" value="@p.PolicyId" />
+                                    <button type="submit" class="btn btn-sm btn-outline-danger" title="Delete from database">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

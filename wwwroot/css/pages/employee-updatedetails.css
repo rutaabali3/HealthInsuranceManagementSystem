@@ -1,0 +1,38 @@
+body[data-page="employee-updatedetails"] .app-main {
+    max-width: 900px;
+    margin-top: 2.2rem !important;
+}
+
+body[data-page="employee-updatedetails"] .card {
+    border-radius: 8px !important;
+    box-shadow: 0 12px 28px rgba(35, 58, 67, 0.08) !important;
+}
+
+body[data-page="employee-updatedetails"] .card-header {
+    min-height: 68px;
+    background: #fff2d2 !important;
+    color: #5c4200 !important;
+    border-bottom-color: #f6dfab;
+}
+
+body[data-page="employee-updatedetails"] .card-header h5 {
+    color: #5c4200;
+    font-weight: 800;
+}
+
+body[data-page="employee-updatedetails"] .card-header .bi {
+    color: #c78500;
+}
+
+body[data-page="employee-updatedetails"] .card-body {
+    background: #ffffff;
+}
+
+body[data-page="employee-updatedetails"] .form-label {
+    color: #526877;
+    font-weight: 800;
+}
+
+body[data-page="employee-updatedetails"] .d-flex.gap-2 {
+    flex-wrap: wrap;
+}

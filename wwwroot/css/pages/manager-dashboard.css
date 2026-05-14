@@ -1,0 +1,49 @@
+body[data-page="manager-dashboard"] {
+    background: #fbfdfc;
+}
+
+body[data-page="manager-dashboard"] .app-main {
+    max-width: 1280px;
+    margin-top: 2.4rem !important;
+}
+
+body[data-page="manager-dashboard"] .role-dashboard-eyebrow,
+body[data-page="manager-dashboard"] .role-panel-heading h2,
+body[data-page="manager-dashboard"] .role-panel-heading h2 i,
+body[data-page="manager-dashboard"] .role-date-chip i,
+body[data-page="manager-dashboard"] .role-user-chip i {
+    color: #007a7a;
+}
+
+body[data-page="manager-dashboard"] .role-table thead th {
+    background: #e7f5f3 !important;
+}
+
+body[data-page="manager-dashboard"] td:last-child {
+    min-width: 230px;
+}
+
+body[data-page="manager-dashboard"] td .d-flex {
+    flex-wrap: wrap;
+}
+
+body[data-page="manager-dashboard"] .app-footer {
+    background: transparent;
+    border-top: 0;
+}
+
+@media (max-width: 1199.98px) {
+    body[data-page="manager-dashboard"] .role-metric-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 767.98px) {
+    body[data-page="manager-dashboard"] .app-main {
+        margin-top: 1.25rem !important;
+    }
+
+    body[data-page="manager-dashboard"] .role-metric-grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,80 @@
+@model CompanyDetails
+@{ ViewData["Title"] = "Add Insurance Company"; }
+
+<div class="row justify-content-center">
+    <div class="col-lg-7">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-primary text-white py-3">
+                <h5 class="mb-0 fw-semibold">
+                    <i class="bi bi-building-add me-2"></i>
+                    @(Model.CompanyId == 0 ? "Add New Insurance Company" : "Edit Insurance Company")
+                </h5>
+            </div>
+            <div class="card-body p-4">
+                <form asp-action="@(Model.CompanyId == 0 ? "AddCompany" : "EditCompany")" method="post">
+                    @Html.AntiForgeryToken()
+                    @if (Model.CompanyId != 0) { <input type="hidden" asp-for="CompanyId" /> }
+
+                    <div asp-validation-summary="ModelOnly" class="app-validation-summary d-none"></div>
+
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label asp-for="CompanyName" class="form-label fw-semibold"></label>
+                            <div class="input-group app-field-group">
+                                <span class="input-group-text"><i class="bi bi-building"></i></span>
+                                <input asp-for="CompanyName" class="form-control" placeholder="e.g. State Life Insurance" />
+                            </div>
+                            <span asp-validation-for="CompanyName" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Email" class="form-label fw-semibold"></label>
+                            <div class="input-group app-field-group">
+                                <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                                <input asp-for="Email" class="form-control" placeholder="info@company.com" />
+                            </div>
+                            <span asp-validation-for="Email" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="ContactNumber" class="form-label fw-semibold"></label>
+                            <div class="input-group app-field-group">
+                                <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+                                <input asp-for="ContactNumber" class="form-control" placeholder="+92-21-..." />
+                            </div>
+                            <span asp-validation-for="ContactNumber" class="text-danger small"></span>
+                        </div>
+                        <div class="col-12">
+                            <label asp-for="Address" class="form-label fw-semibold"></label>
+                            <div class="input-group app-field-group">
+                                <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
+                                <input asp-for="Address" class="form-control" placeholder="Full address" />
+                            </div>
+                            <span asp-validation-for="Address" class="text-danger small"></span>
+                        </div>
+                        <div class="col-12">
+                            <label asp-for="Website" class="form-label fw-semibold"></label>
+                            <div class="input-group app-field-group">
+                                <span class="input-group-text"><i class="bi bi-globe"></i></span>
+                                <input asp-for="Website" class="form-control" placeholder="https://..." />
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <label asp-for="Description" class="form-label fw-semibold"></label>
+                            <div class="input-group app-field-group">
+                                <span class="input-group-text"><i class="bi bi-card-text"></i></span>
+                                <textarea asp-for="Description" class="form-control" rows="3"
+                                          placeholder="Brief description of the company..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-2 mt-4">
+                        <button type="submit" class="btn btn-primary px-4">
+                            <i class="bi bi-save me-2"></i>Save
+                        </button>
+                        <a asp-action="Companies" class="btn btn-outline-secondary px-4">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

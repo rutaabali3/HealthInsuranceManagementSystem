@@ -1,0 +1,105 @@
+@model PolicySearchViewModel
+@{ ViewData["Title"] = "Search Policies"; }
+
+<h2 class="fw-bold mb-4"><i class="bi bi-search text-primary me-2"></i>Search Insurance Policies</h2>
+
+<!-- Filter Form -->
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-4">
+        <form asp-action="SearchPolicy" method="get" class="row g-3 align-items-end">
+            <div class="col-md-4">
+                <label class="form-label fw-semibold">Policy Type</label>
+                <div class="input-group app-field-group">
+                    <span class="input-group-text"><i class="bi bi-tags"></i></span>
+                    <select name="policyType" class="form-select">
+                        <option value="">All Types</option>
+                        <option value="Individual"   selected="@(Model.PolicyType=="Individual")">Individual</option>
+                        <option value="Family"       selected="@(Model.PolicyType=="Family")">Family</option>
+                        <option value="Group"        selected="@(Model.PolicyType=="Group")">Group</option>
+                        <option value="Senior"       selected="@(Model.PolicyType=="Senior")">Senior</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label fw-semibold">Min Coverage (PKR)</label>
+                <div class="input-group app-field-group">
+                    <span class="input-group-text"><i class="bi bi-umbrella"></i></span>
+                    <input type="number" name="minCoverage" class="form-control"
+                           value="@Model.MinCoverage" placeholder="e.g. 500000" />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label fw-semibold">Max Premium (PKR)</label>
+                <div class="input-group app-field-group">
+                    <span class="input-group-text"><i class="bi bi-cash-stack"></i></span>
+                    <input type="number" name="maxPremium" class="form-control"
+                           value="@Model.MaxPremium" placeholder="e.g. 50000" />
+                </div>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100">
+                    <i class="bi bi-filter me-1"></i>Search
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Results -->
+@if (!Model.Results.Any())
+{
+    <div class="alert alert-info">
+        <i class="bi bi-info-circle me-2"></i>No policies found matching your criteria.
+    </div>
+}
+else
+{
+    <p class="text-muted mb-3">Found <strong>@Model.Results.Count</strong> policies</p>
+    <div class="row g-4">
+        @foreach (var p in Model.Results)
+        {
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-header bg-primary text-white py-2 px-3">
+                        <span class="badge bg-white text-primary float-end">@p.PolicyType</span>
+                        <h6 class="mb-0 fw-semibold">@p.PolicyName</h6>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-muted small mb-2">
+                            <i class="bi bi-building me-1"></i>@p.Company?.CompanyName
+                        </p>
+                        <div class="row g-2 mb-3">
+                            <div class="col-6 text-center border-end">
+                                <div class="small text-muted">Premium / yr</div>
+                                <div class="fw-bold text-danger">PKR @p.PremiumAmount.ToString("N0")</div>
+                            </div>
+                            <div class="col-6 text-center">
+                                <div class="small text-muted">Coverage</div>
+                                <div class="fw-bold text-success">PKR @p.CoverageAmount.ToString("N0")</div>
+                            </div>
+                        </div>
+                        <p class="small text-muted">
+                            <i class="bi bi-calendar me-1"></i>Duration: @p.DurationMonths months
+                        </p>
+                        @if (!string.IsNullOrEmpty(p.Benefits))
+                        {
+                            <p class="small text-muted mb-0">
+                                <i class="bi bi-check2-all me-1 text-success"></i>@p.Benefits
+                            </p>
+                        }
+                    </div>
+                    <div class="card-footer bg-transparent border-0 d-flex gap-2 pb-3">
+                        <a asp-action="PolicyDetails" asp-route-id="@p.PolicyId"
+                           class="btn btn-sm btn-outline-primary flex-fill">
+                            <i class="bi bi-eye me-1"></i>Details
+                        </a>
+                        <a asp-action="OrderInsurance" asp-route-policyId="@p.PolicyId"
+                           class="btn btn-sm btn-primary flex-fill">
+                            <i class="bi bi-send me-1"></i>Request
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

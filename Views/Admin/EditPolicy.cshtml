@@ -1,0 +1,100 @@
+@model Policy
+@{ ViewData["Title"] = "Edit Policy"; }
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-warning text-dark py-3">
+                <h5 class="mb-0 fw-semibold"><i class="bi bi-pencil-square me-2"></i>Edit Policy</h5>
+            </div>
+            <div class="card-body p-4">
+                <form asp-action="EditPolicy" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" asp-for="PolicyId" />
+                    <input type="hidden" asp-for="CreatedAt" />
+
+                    <div asp-validation-summary="ModelOnly" class="app-validation-summary d-none"></div>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label asp-for="CompanyId" class="form-label fw-semibold">Insurance Company</label>
+                            <div class="input-group app-field-group">
+                                <span class="input-group-text"><i class="bi bi-building"></i></span>
+                                <select asp-for="CompanyId" class="form-select"
+                                        asp-items="@(new SelectList(ViewBag.Companies, "CompanyId", "CompanyName"))">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="PolicyName" class="form-label fw-semibold"></label>
+                            <div class="input-group app-field-group">
+                                <span class="input-group-text"><i class="bi bi-shield-check"></i></span>
+                                <input asp-for="PolicyName" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="PolicyType" class="form-label fw-semibold"></label>
+                            <div class="input-group app-field-group">
+                                <span class="input-group-text"><i class="bi bi-tags"></i></span>
+                                <select asp-for="PolicyType" class="form-select">
+                                    <option value="Individual">Individual</option>
+                                    <option value="Family">Family</option>
+                                    <option value="Group">Group</option>
+                                    <option value="Senior">Senior</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="PremiumAmount" class="form-label fw-semibold"></label>
+                            <div class="input-group app-field-group">
+                                <span class="input-group-text"><i class="bi bi-cash-stack"></i></span>
+                                <input asp-for="PremiumAmount" class="form-control" type="number" step="100" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="CoverageAmount" class="form-label fw-semibold"></label>
+                            <div class="input-group app-field-group">
+                                <span class="input-group-text"><i class="bi bi-umbrella"></i></span>
+                                <input asp-for="CoverageAmount" class="form-control" type="number" step="1000" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="DurationMonths" class="form-label fw-semibold"></label>
+                            <div class="input-group app-field-group">
+                                <span class="input-group-text"><i class="bi bi-calendar-range"></i></span>
+                                <input asp-for="DurationMonths" class="form-control" type="number" />
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <div class="form-check mt-4 pt-2">
+                                <input asp-for="IsActive" class="form-check-input" type="checkbox" />
+                                <label asp-for="IsActive" class="form-check-label">Active</label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <label asp-for="Benefits" class="form-label fw-semibold"></label>
+                            <div class="input-group app-field-group">
+                                <span class="input-group-text"><i class="bi bi-stars"></i></span>
+                                <textarea asp-for="Benefits" class="form-control" rows="2"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <label asp-for="Description" class="form-label fw-semibold"></label>
+                            <div class="input-group app-field-group">
+                                <span class="input-group-text"><i class="bi bi-card-text"></i></span>
+                                <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-2 mt-4">
+                        <button type="submit" class="btn btn-warning px-4">
+                            <i class="bi bi-save me-2"></i>Update Policy
+                        </button>
+                        <a asp-action="Policies" class="btn btn-outline-secondary px-4">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,93 @@
+@{
+    ViewData["Title"] = "Home";
+}
+
+<section class="home-hero" aria-labelledby="home-title">
+    <div class="home-hero-content">
+        <span class="hero-kicker">Smart. Simple. Secure.</span>
+        <h1 id="home-title">Health Insurance Management System</h1>
+        <p>
+            A comprehensive platform to manage employee health insurance policies,
+            claims, and benefits - all in one place.
+        </p>
+        <div class="hero-actions">
+            <a asp-controller="Auth" asp-action="Login" class="btn btn-light btn-lg">
+                <i class="bi bi-box-arrow-in-right"></i>
+                <span>Employee Login</span>
+            </a>
+            <a asp-controller="Auth" asp-action="Login" class="btn btn-outline-light btn-lg">
+                <i class="bi bi-person"></i>
+                <span>Admin Login</span>
+            </a>
+        </div>
+    </div>
+    <div class="home-hero-visual" aria-hidden="true">
+        <img src="~/images/home/hero.png" alt="" />
+    </div>
+</section>
+
+<section class="feature-grid" aria-label="Core features">
+    <article class="feature-card">
+        <div class="feature-icon">
+            <i class="bi bi-building-fill"></i>
+        </div>
+        <div class="feature-copy">
+            <h2>Insurance Companies</h2>
+            <p>Manage multiple insurance providers and their policy offerings in one place.</p>
+            <a asp-controller="Home" asp-action="About">Learn More <i class="bi bi-arrow-right"></i></a>
+        </div>
+    </article>
+
+    <article class="feature-card">
+        <div class="feature-icon">
+            <i class="bi bi-people-fill"></i>
+        </div>
+        <div class="feature-copy">
+            <h2>Employee Management</h2>
+            <p>Register employees, assign policies, and track their coverage status easily.</p>
+            <a asp-controller="Home" asp-action="About">Learn More <i class="bi bi-arrow-right"></i></a>
+        </div>
+    </article>
+
+    <article class="feature-card">
+        <div class="feature-icon">
+            <i class="bi bi-bar-chart-fill"></i>
+        </div>
+        <div class="feature-copy">
+            <h2>Reports &amp; Analytics</h2>
+            <p>Generate comprehensive reports on employees, policies, and claim settlements.</p>
+            <a asp-controller="Home" asp-action="About">Learn More <i class="bi bi-arrow-right"></i></a>
+        </div>
+    </article>
+</section>
+
+<section class="quick-access" aria-label="Platform areas">
+    <div class="quick-access-item">
+        <i class="bi bi-building-fill"></i>
+        <div>
+            <strong>Insurance Companies</strong>
+            <span>Manage all insurers in one place</span>
+        </div>
+    </div>
+    <div class="quick-access-item">
+        <i class="bi bi-shield-check"></i>
+        <div>
+            <strong>Active Policies</strong>
+            <span>View and manage active policies</span>
+        </div>
+    </div>
+    <div class="quick-access-item">
+        <i class="bi bi-person"></i>
+        <div>
+            <strong>Employees Covered</strong>
+            <span>Track covered employees</span>
+        </div>
+    </div>
+    <div class="quick-access-item">
+        <i class="bi bi-hospital"></i>
+        <div>
+            <strong>Partner Hospitals</strong>
+            <span>Network of empaneled hospitals</span>
+        </div>
+    </div>
+</section>
