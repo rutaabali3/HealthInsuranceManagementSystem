@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using HealthInsuranceManagement.Data;
 using HealthInsuranceManagement.Models;
 using HealthInsuranceManagement.Models.ViewModels;
+using HealthInsuranceManagement.Services;
 
 namespace HealthInsuranceManagement.Controllers
 {
@@ -18,10 +19,12 @@ namespace HealthInsuranceManagement.Controllers
     public class EmployeeController : Controller
     {
         private readonly ApplicationDbContext _db;
+        private readonly INotificationService _notifications;
 
-        public EmployeeController(ApplicationDbContext db)
+        public EmployeeController(ApplicationDbContext db, INotificationService notifications)
         {
             _db = db;
+            _notifications = notifications;
         }
 
         // ── Auth guard ─────────────────────────────────────────────────
@@ -229,6 +232,39 @@ namespace HealthInsuranceManagement.Controllers
                 CreatedAt = model.RequestedAt
             });
             await _db.SaveChangesAsync();
+
+            var request = await _db.PolicyRequestDetails
+                .Include(r => r.Employee)
+                .Include(r => r.Policy)
+                .FirstOrDefaultAsync(r => r.RequestId == model.RequestId);
+
+            if (request?.Employee != null && request.Policy != null)
+            {
+                var employeeName = $"{request.Employee.FirstName} {request.Employee.LastName}";
+                var body = $"""
+                    <p><strong>{employeeName}</strong> submitted a new insurance request.</p>
+                    <p><strong>Policy:</strong> {request.Policy.PolicyName}</p>
+                    <p><strong>Bill Amount:</strong> PKR {request.BillAmount:N0}</p>
+                    <p>This request is now waiting on the manager dashboard.</p>
+                    """;
+
+                await _notifications.NotifyAdminsAsync("New insurance request submitted", body, "PolicyRequestSubmitted", request.RequestId);
+                await _notifications.NotifyStaffByRoleAsync(UserRoles.Manager, "New request waiting for manager review", body, "PolicyRequestSubmitted", request.RequestId);
+
+                await _notifications.NotifyAsync(
+                    request.Employee.Email,
+                    employeeName,
+                    UserRoles.Employee,
+                    "Your insurance request was submitted",
+                    $"""
+                    <p>Your request for <strong>{request.Policy.PolicyName}</strong> has been submitted.</p>
+                    <p><strong>Bill Amount:</strong> PKR {request.BillAmount:N0}</p>
+                    <p>Status: Pending manager review.</p>
+                    """,
+                    "PolicyRequestSubmitted",
+                    request.RequestId);
+            }
+
             TempData["Success"] = "Your insurance request and bill have been submitted. Awaiting manager approval.";
             return RedirectToAction("Dashboard");
         }

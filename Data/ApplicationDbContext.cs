@@ -24,6 +24,7 @@ namespace HealthInsuranceManagement.Data
         public DbSet<PolicyRequestDetails> PolicyRequestDetails { get; set; }
         public DbSet<PolicyTotalDescription> PolicyTotalDescriptions { get; set; }
         public DbSet<PasswordResetToken> PasswordResetTokens { get; set; }
+        public DbSet<EmailNotificationLog> EmailNotificationLogs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -44,6 +45,9 @@ namespace HealthInsuranceManagement.Data
 
             modelBuilder.Entity<PasswordResetToken>()
                 .HasIndex(t => new { t.UserType, t.UserId, t.UsedAt });
+
+            modelBuilder.Entity<EmailNotificationLog>()
+                .HasIndex(n => new { n.RecipientEmail, n.EventType, n.CreatedAt });
 
             // ── Relationships ──────────────────────────────────────────
             modelBuilder.Entity<Policy>()

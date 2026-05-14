@@ -3,16 +3,19 @@ using Microsoft.EntityFrameworkCore;
 using HealthInsuranceManagement.Data;
 using HealthInsuranceManagement.Models;
 using HealthInsuranceManagement.Models.ViewModels;
+using HealthInsuranceManagement.Services;
 
 namespace HealthInsuranceManagement.Controllers
 {
     public class ManagerController : Controller
     {
         private readonly ApplicationDbContext _db;
+        private readonly INotificationService _notifications;
 
-        public ManagerController(ApplicationDbContext db)
+        public ManagerController(ApplicationDbContext db, INotificationService notifications)
         {
             _db = db;
+            _notifications = notifications;
         }
 
         private IActionResult? ManagerGuard()
@@ -122,6 +125,39 @@ namespace HealthInsuranceManagement.Controllers
             }
 
             await _db.SaveChangesAsync();
+
+            var updatedBill = await _db.PolicyBills
+                .Include(b => b.PolicyRequest).ThenInclude(r => r!.Employee)
+                .Include(b => b.PolicyRequest).ThenInclude(r => r!.Policy)
+                .FirstOrDefaultAsync(b => b.BillId == billId);
+
+            if (updatedBill?.PolicyRequest?.Employee != null && updatedBill.PolicyRequest.Policy != null)
+            {
+                var request = updatedBill.PolicyRequest;
+                var employee = request.Employee;
+                var employeeName = $"{employee.FirstName} {employee.LastName}";
+                var decisionText = approved ? "approved" : "rejected";
+                var body = $"""
+                    <p>The manager has <strong>{decisionText}</strong> an insurance request.</p>
+                    <p><strong>Employee:</strong> {employeeName}</p>
+                    <p><strong>Policy:</strong> {request.Policy.PolicyName}</p>
+                    <p><strong>Bill Amount:</strong> PKR {request.BillAmount:N0}</p>
+                    """;
+
+                await _notifications.NotifyAdminsAsync($"Manager {decisionText} a policy request", body, "ManagerDecision", request.RequestId);
+                await _notifications.NotifyAsync(
+                    employee.Email,
+                    employeeName,
+                    UserRoles.Employee,
+                    $"Your insurance request was {decisionText}",
+                    $"""
+                    <p>Your request for <strong>{request.Policy.PolicyName}</strong> was <strong>{decisionText}</strong> by the manager.</p>
+                    <p><strong>Bill Amount:</strong> PKR {request.BillAmount:N0}</p>
+                    """,
+                    "ManagerDecision",
+                    request.RequestId);
+            }
+
             TempData["Success"] = approved ? "Bill approved by manager." : "Bill rejected.";
             return RedirectToAction("Dashboard");
         }
@@ -146,6 +182,38 @@ namespace HealthInsuranceManagement.Controllers
             bill.ForwardedAt = DateTime.UtcNow;
             bill.PolicyRequest.Status = "ForwardedToFinance";
             await _db.SaveChangesAsync();
+
+            var forwardedBill = await _db.PolicyBills
+                .Include(b => b.PolicyRequest).ThenInclude(r => r!.Employee)
+                .Include(b => b.PolicyRequest).ThenInclude(r => r!.Policy)
+                .FirstOrDefaultAsync(b => b.BillId == billId);
+
+            if (forwardedBill?.PolicyRequest?.Employee != null && forwardedBill.PolicyRequest.Policy != null)
+            {
+                var request = forwardedBill.PolicyRequest;
+                var employee = request.Employee;
+                var employeeName = $"{employee.FirstName} {employee.LastName}";
+                var body = $"""
+                    <p>A manager-approved bill was forwarded to finance.</p>
+                    <p><strong>Employee:</strong> {employeeName}</p>
+                    <p><strong>Policy:</strong> {request.Policy.PolicyName}</p>
+                    <p><strong>Bill Amount:</strong> PKR {forwardedBill.Amount:N0}</p>
+                    """;
+
+                await _notifications.NotifyAdminsAsync("Bill forwarded to finance", body, "ForwardedToFinance", request.RequestId);
+                await _notifications.NotifyStaffByRoleAsync(UserRoles.FinanceManager, "New bill waiting for finance", body, "ForwardedToFinance", request.RequestId);
+                await _notifications.NotifyAsync(
+                    employee.Email,
+                    employeeName,
+                    UserRoles.Employee,
+                    "Your bill was forwarded to finance",
+                    $"""
+                    <p>Your request for <strong>{request.Policy.PolicyName}</strong> has been forwarded to finance.</p>
+                    <p><strong>Bill Amount:</strong> PKR {forwardedBill.Amount:N0}</p>
+                    """,
+                    "ForwardedToFinance",
+                    request.RequestId);
+            }
 
             TempData["Success"] = "Bill forwarded to Finance Manager.";
             return RedirectToAction("Dashboard");

@@ -3,16 +3,19 @@ using Microsoft.EntityFrameworkCore;
 using HealthInsuranceManagement.Data;
 using HealthInsuranceManagement.Models;
 using HealthInsuranceManagement.Models.ViewModels;
+using HealthInsuranceManagement.Services;
 
 namespace HealthInsuranceManagement.Controllers
 {
     public class FinanceController : Controller
     {
         private readonly ApplicationDbContext _db;
+        private readonly INotificationService _notifications;
 
-        public FinanceController(ApplicationDbContext db)
+        public FinanceController(ApplicationDbContext db, INotificationService notifications)
         {
             _db = db;
+            _notifications = notifications;
         }
 
         private IActionResult? FinanceGuard()
@@ -107,6 +110,37 @@ namespace HealthInsuranceManagement.Controllers
             bill.PolicyRequest.Status = "Paid";
             await _db.SaveChangesAsync();
 
+            var paidBill = await _db.PolicyBills
+                .Include(b => b.PolicyRequest).ThenInclude(r => r!.Employee)
+                .Include(b => b.PolicyRequest).ThenInclude(r => r!.Policy)
+                .FirstOrDefaultAsync(b => b.BillId == billId);
+
+            if (paidBill?.PolicyRequest?.Employee != null && paidBill.PolicyRequest.Policy != null)
+            {
+                var request = paidBill.PolicyRequest;
+                var employee = request.Employee;
+                var employeeName = $"{employee.FirstName} {employee.LastName}";
+                var body = $"""
+                    <p>Finance credited payment for a policy request.</p>
+                    <p><strong>Employee:</strong> {employeeName}</p>
+                    <p><strong>Policy:</strong> {request.Policy.PolicyName}</p>
+                    <p><strong>Amount:</strong> PKR {paidBill.Amount:N0}</p>
+                    """;
+
+                await _notifications.NotifyAdminsAsync("Finance credited a policy payment", body, "PaymentCredited", request.RequestId);
+                await _notifications.NotifyAsync(
+                    employee.Email,
+                    employeeName,
+                    UserRoles.Employee,
+                    "Your policy payment was credited",
+                    $"""
+                    <p>Finance has credited payment for <strong>{request.Policy.PolicyName}</strong>.</p>
+                    <p><strong>Amount:</strong> PKR {paidBill.Amount:N0}</p>
+                    """,
+                    "PaymentCredited",
+                    request.RequestId);
+            }
+
             TempData["Success"] = $"Payment of PKR {bill.Amount:N0} credited to the employee.";
             return RedirectToAction("Dashboard");
         }
@@ -131,6 +165,37 @@ namespace HealthInsuranceManagement.Controllers
             bill.ClosedAt = DateTime.UtcNow;
             bill.PolicyRequest.Status = "Closed";
             await _db.SaveChangesAsync();
+
+            var closedBill = await _db.PolicyBills
+                .Include(b => b.PolicyRequest).ThenInclude(r => r!.Employee)
+                .Include(b => b.PolicyRequest).ThenInclude(r => r!.Policy)
+                .FirstOrDefaultAsync(b => b.BillId == billId);
+
+            if (closedBill?.PolicyRequest?.Employee != null && closedBill.PolicyRequest.Policy != null)
+            {
+                var request = closedBill.PolicyRequest;
+                var employee = request.Employee;
+                var employeeName = $"{employee.FirstName} {employee.LastName}";
+                var body = $"""
+                    <p>A policy request was closed after payment.</p>
+                    <p><strong>Employee:</strong> {employeeName}</p>
+                    <p><strong>Policy:</strong> {request.Policy.PolicyName}</p>
+                    <p><strong>Amount:</strong> PKR {closedBill.Amount:N0}</p>
+                    """;
+
+                await _notifications.NotifyAdminsAsync("Policy request closed", body, "RequestClosed", request.RequestId);
+                await _notifications.NotifyAsync(
+                    employee.Email,
+                    employeeName,
+                    UserRoles.Employee,
+                    "Your policy request was closed",
+                    $"""
+                    <p>Your request for <strong>{request.Policy.PolicyName}</strong> has been closed after payment.</p>
+                    <p><strong>Amount:</strong> PKR {closedBill.Amount:N0}</p>
+                    """,
+                    "RequestClosed",
+                    request.RequestId);
+            }
 
             TempData["Success"] = "Request closed after payment.";
             return RedirectToAction("Dashboard");

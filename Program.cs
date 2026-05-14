@@ -15,6 +15,7 @@ builder.Logging.AddDebug();
 builder.Services.AddControllersWithViews();
 builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("Smtp"));
 builder.Services.AddScoped<IEmailSender, SmtpEmailSender>();
+builder.Services.AddScoped<INotificationService, EmailNotificationService>();
 
 // Register EF Core with the local XAMPP MariaDB/MySQL server.
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
