@@ -78,6 +78,19 @@ namespace HealthInsuranceManagement.Services
             }
         }
 
+        public async Task NotifyAllStaffAsync(string subject, string htmlBody, string eventType, int? relatedEntityId = null)
+        {
+            var staff = await _db.EmpRegisters
+                .AsNoTracking()
+                .Where(e => e.IsActive)
+                .ToListAsync();
+
+            foreach (var user in staff)
+            {
+                await NotifyAsync(user.Email, $"{user.FirstName} {user.LastName}", user.Role, subject, htmlBody, eventType, relatedEntityId);
+            }
+        }
+
         private static string WrapBody(string body)
         {
             return $"""

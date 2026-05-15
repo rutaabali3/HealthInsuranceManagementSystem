@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using HealthInsuranceManagement.Data;
 using HealthInsuranceManagement.Models;
 using HealthInsuranceManagement.Models.ViewModels;
+using HealthInsuranceManagement.Services;
 
 namespace HealthInsuranceManagement.Controllers
 {
@@ -17,10 +18,12 @@ namespace HealthInsuranceManagement.Controllers
     public class AdminController : Controller
     {
         private readonly ApplicationDbContext _db;
+        private readonly INotificationService _notifications;
 
-        public AdminController(ApplicationDbContext db)
+        public AdminController(ApplicationDbContext db, INotificationService notifications)
         {
             _db = db;
+            _notifications = notifications;
         }
 
         // ── Auth guard helper ──────────────────────────────────────────
@@ -155,6 +158,15 @@ namespace HealthInsuranceManagement.Controllers
 
             _db.CompanyDetails.Add(model);
             await _db.SaveChangesAsync();
+            await _notifications.NotifyAdminsAsync(
+                "Insurance company added",
+                $"""
+                <p>A new insurance company was added.</p>
+                <p><strong>Company:</strong> {model.CompanyName}</p>
+                <p><strong>Email:</strong> {model.Email}</p>
+                """,
+                "CompanyAdded",
+                model.CompanyId);
             TempData["Success"] = "Insurance company added successfully.";
             return RedirectToAction("Companies");
         }
@@ -177,6 +189,15 @@ namespace HealthInsuranceManagement.Controllers
 
             _db.CompanyDetails.Update(model);
             await _db.SaveChangesAsync();
+            await _notifications.NotifyAdminsAsync(
+                "Insurance company updated",
+                $"""
+                <p>An insurance company was updated.</p>
+                <p><strong>Company:</strong> {model.CompanyName}</p>
+                <p><strong>Email:</strong> {model.Email}</p>
+                """,
+                "CompanyUpdated",
+                model.CompanyId);
             TempData["Success"] = "Company updated successfully.";
             return RedirectToAction("Companies");
         }
@@ -187,7 +208,16 @@ namespace HealthInsuranceManagement.Controllers
         {
             var guard = AdminGuard(); if (guard != null) return guard;
             var company = await _db.CompanyDetails.FindAsync(id);
-            if (company != null) { company.IsActive = false; await _db.SaveChangesAsync(); }
+            if (company != null)
+            {
+                company.IsActive = false;
+                await _db.SaveChangesAsync();
+                await _notifications.NotifyAdminsAsync(
+                    "Insurance company deactivated",
+                    $"<p><strong>{company.CompanyName}</strong> was deactivated.</p>",
+                    "CompanyDeactivated",
+                    company.CompanyId);
+            }
             TempData["Success"] = "Company deactivated.";
             return RedirectToAction("Companies");
         }
@@ -202,6 +232,11 @@ namespace HealthInsuranceManagement.Controllers
             {
                 company.IsActive = true;
                 await _db.SaveChangesAsync();
+                await _notifications.NotifyAdminsAsync(
+                    "Insurance company activated",
+                    $"<p><strong>{company.CompanyName}</strong> was activated.</p>",
+                    "CompanyActivated",
+                    company.CompanyId);
             }
             TempData["Success"] = "Company activated.";
             return RedirectToAction("Companies");
@@ -267,6 +302,20 @@ namespace HealthInsuranceManagement.Controllers
             }
             _db.Policies.Add(model);
             await _db.SaveChangesAsync();
+            var addedPolicy = await _db.Policies
+                .Include(p => p.Company)
+                .FirstOrDefaultAsync(p => p.PolicyId == model.PolicyId);
+            if (addedPolicy != null)
+            {
+                var body = $"""
+                    <p>A new policy is available.</p>
+                    <p><strong>Policy:</strong> {addedPolicy.PolicyName}</p>
+                    <p><strong>Company:</strong> {addedPolicy.Company?.CompanyName ?? "N/A"}</p>
+                    <p><strong>Premium:</strong> PKR {addedPolicy.PremiumAmount:N0}</p>
+                    """;
+                await _notifications.NotifyAdminsAsync("Policy added", body, "PolicyAdded", addedPolicy.PolicyId);
+                await _notifications.NotifyAllStaffAsync("New insurance policy available", body, "PolicyAdded", addedPolicy.PolicyId);
+            }
             TempData["Success"] = "Policy added successfully.";
             return RedirectToAction("Policies");
         }
@@ -293,6 +342,20 @@ namespace HealthInsuranceManagement.Controllers
             }
             _db.Policies.Update(model);
             await _db.SaveChangesAsync();
+            var updatedPolicy = await _db.Policies
+                .Include(p => p.Company)
+                .FirstOrDefaultAsync(p => p.PolicyId == model.PolicyId);
+            if (updatedPolicy != null)
+            {
+                var body = $"""
+                    <p>An insurance policy was updated.</p>
+                    <p><strong>Policy:</strong> {updatedPolicy.PolicyName}</p>
+                    <p><strong>Company:</strong> {updatedPolicy.Company?.CompanyName ?? "N/A"}</p>
+                    <p><strong>Premium:</strong> PKR {updatedPolicy.PremiumAmount:N0}</p>
+                    """;
+                await _notifications.NotifyAdminsAsync("Policy updated", body, "PolicyUpdated", updatedPolicy.PolicyId);
+                await _notifications.NotifyAllStaffAsync("Insurance policy updated", body, "PolicyUpdated", updatedPolicy.PolicyId);
+            }
             TempData["Success"] = "Policy updated.";
             return RedirectToAction("Policies");
         }
@@ -329,11 +392,16 @@ namespace HealthInsuranceManagement.Controllers
             if (!UserRoles.StaffRoles.Contains(model.Role))
                 ModelState.AddModelError("Role", "Select a valid role.");
 
-            if (!ModelState.IsValid) return View(model);
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Roles = UserRoles.StaffRoles;
+                return View(model);
+            }
 
             if (string.IsNullOrWhiteSpace(Password) || Password.Length < 6)
             {
                 ModelState.AddModelError("", "Password must be at least 6 characters.");
+                ViewBag.Roles = UserRoles.StaffRoles;
                 return View(model);
             }
 
@@ -341,17 +409,44 @@ namespace HealthInsuranceManagement.Controllers
             if (await _db.EmpRegisters.AnyAsync(e => e.Username == model.Username))
             {
                 ModelState.AddModelError("Username", "Username already exists.");
+                ViewBag.Roles = UserRoles.StaffRoles;
                 return View(model);
             }
             if (await _db.EmpRegisters.AnyAsync(e => e.Email == model.Email))
             {
                 ModelState.AddModelError("Email", "Email already registered.");
+                ViewBag.Roles = UserRoles.StaffRoles;
                 return View(model);
             }
 
             model.PasswordHash = BCrypt.Net.BCrypt.HashPassword(Password);
             _db.EmpRegisters.Add(model);
             await _db.SaveChangesAsync();
+            var employeeName = FullName(model);
+            var roleName = UserRoles.DisplayName(model.Role);
+            await _notifications.NotifyAdminsAsync(
+                "Staff account registered",
+                $"""
+                <p>A new staff account was registered.</p>
+                <p><strong>Name:</strong> {employeeName}</p>
+                <p><strong>Role:</strong> {roleName}</p>
+                <p><strong>Email:</strong> {model.Email}</p>
+                """,
+                "EmployeeRegistered",
+                model.EmpId);
+            await _notifications.NotifyAsync(
+                model.Email,
+                employeeName,
+                model.Role,
+                "Your Health Insurance account was created",
+                $"""
+                <p>Your account has been created.</p>
+                <p><strong>Username:</strong> {model.Username}</p>
+                <p><strong>Role:</strong> {roleName}</p>
+                <p>You can now log in to your dashboard.</p>
+                """,
+                "EmployeeRegistered",
+                model.EmpId);
             TempData["Success"] = $"Employee {model.FirstName} {model.LastName} registered successfully.";
             return RedirectToAction("Employees");
         }
@@ -375,7 +470,11 @@ namespace HealthInsuranceManagement.Controllers
             ModelState.Remove("Username");
             if (!UserRoles.StaffRoles.Contains(model.Role))
                 ModelState.AddModelError("Role", "Select a valid role.");
-            if (!ModelState.IsValid) return View(model);
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Roles = UserRoles.StaffRoles;
+                return View(model);
+            }
 
             var existing = await _db.EmpRegisters.FindAsync(model.EmpId);
             if (existing == null) return NotFound();
@@ -392,6 +491,24 @@ namespace HealthInsuranceManagement.Controllers
             existing.DateOfBirth = model.DateOfBirth;
 
             await _db.SaveChangesAsync();
+            await _notifications.NotifyAdminsAsync(
+                "Staff profile updated",
+                $"""
+                <p>A staff profile was updated.</p>
+                <p><strong>Name:</strong> {FullName(existing)}</p>
+                <p><strong>Role:</strong> {UserRoles.DisplayName(existing.Role)}</p>
+                <p><strong>Email:</strong> {existing.Email}</p>
+                """,
+                "EmployeeUpdated",
+                existing.EmpId);
+            await _notifications.NotifyAsync(
+                existing.Email,
+                FullName(existing),
+                existing.Role,
+                "Your profile was updated",
+                "<p>Your account details were updated by an administrator.</p>",
+                "EmployeeUpdated",
+                existing.EmpId);
             TempData["Success"] = "Employee updated successfully.";
             return RedirectToAction("Employees");
         }
@@ -474,6 +591,19 @@ namespace HealthInsuranceManagement.Controllers
             {
                 employee.IsActive = false;
                 await _db.SaveChangesAsync();
+                await _notifications.NotifyAdminsAsync(
+                    "Staff account deactivated",
+                    $"<p><strong>{FullName(employee)}</strong> was deactivated.</p>",
+                    "EmployeeDeactivated",
+                    employee.EmpId);
+                await _notifications.NotifyAsync(
+                    employee.Email,
+                    FullName(employee),
+                    employee.Role,
+                    "Your account was deactivated",
+                    "<p>Your Health Insurance Management account has been deactivated by an administrator.</p>",
+                    "EmployeeDeactivated",
+                    employee.EmpId);
             }
             TempData["Success"] = "Employee deactivated.";
             return RedirectToAction("Employees");
@@ -489,6 +619,19 @@ namespace HealthInsuranceManagement.Controllers
             {
                 employee.IsActive = true;
                 await _db.SaveChangesAsync();
+                await _notifications.NotifyAdminsAsync(
+                    "Staff account activated",
+                    $"<p><strong>{FullName(employee)}</strong> was activated.</p>",
+                    "EmployeeActivated",
+                    employee.EmpId);
+                await _notifications.NotifyAsync(
+                    employee.Email,
+                    FullName(employee),
+                    employee.Role,
+                    "Your account was activated",
+                    "<p>Your Health Insurance Management account has been activated.</p>",
+                    "EmployeeActivated",
+                    employee.EmpId);
             }
             TempData["Success"] = "Employee activated.";
             return RedirectToAction("Employees");
@@ -513,7 +656,16 @@ namespace HealthInsuranceManagement.Controllers
         {
             var guard = AdminGuard(); if (guard != null) return guard;
             var policy = await _db.Policies.FindAsync(id);
-            if (policy != null) { policy.IsActive = false; await _db.SaveChangesAsync(); }
+            if (policy != null)
+            {
+                policy.IsActive = false;
+                await _db.SaveChangesAsync();
+                await _notifications.NotifyAdminsAsync(
+                    "Policy deactivated",
+                    $"<p><strong>{policy.PolicyName}</strong> was deactivated.</p>",
+                    "PolicyDeactivated",
+                    policy.PolicyId);
+            }
             TempData["Success"] = "Policy deactivated.";
             return RedirectToAction("Policies");
         }
@@ -528,6 +680,16 @@ namespace HealthInsuranceManagement.Controllers
             {
                 policy.IsActive = true;
                 await _db.SaveChangesAsync();
+                await _notifications.NotifyAdminsAsync(
+                    "Policy activated",
+                    $"<p><strong>{policy.PolicyName}</strong> was activated.</p>",
+                    "PolicyActivated",
+                    policy.PolicyId);
+                await _notifications.NotifyAllStaffAsync(
+                    "Insurance policy activated",
+                    $"<p><strong>{policy.PolicyName}</strong> is now active and available in the system.</p>",
+                    "PolicyActivated",
+                    policy.PolicyId);
             }
             TempData["Success"] = "Policy activated.";
             return RedirectToAction("Policies");
@@ -632,6 +794,36 @@ namespace HealthInsuranceManagement.Controllers
             }
             _db.PolicyOnEmployees.Add(model);
             await _db.SaveChangesAsync();
+            var assignment = await _db.PolicyOnEmployees
+                .Include(pe => pe.Employee)
+                .Include(pe => pe.Policy).ThenInclude(p => p!.Company)
+                .FirstOrDefaultAsync(pe => pe.Id == model.Id);
+            if (assignment?.Employee != null && assignment.Policy != null)
+            {
+                var employee = assignment.Employee;
+                var employeeName = FullName(employee);
+                var body = $"""
+                    <p>A policy was assigned to an employee.</p>
+                    <p><strong>Employee:</strong> {employeeName}</p>
+                    <p><strong>Policy:</strong> {assignment.Policy.PolicyName}</p>
+                    <p><strong>Company:</strong> {assignment.Policy.Company?.CompanyName ?? "N/A"}</p>
+                    <p><strong>Coverage Dates:</strong> {assignment.StartDate:yyyy-MM-dd} to {assignment.EndDate:yyyy-MM-dd}</p>
+                    """;
+
+                await _notifications.NotifyAdminsAsync("Policy assigned to employee", body, "PolicyAssigned", assignment.Id);
+                await _notifications.NotifyAsync(
+                    employee.Email,
+                    employeeName,
+                    employee.Role,
+                    "A policy was assigned to you",
+                    $"""
+                    <p><strong>{assignment.Policy.PolicyName}</strong> has been assigned to you.</p>
+                    <p><strong>Company:</strong> {assignment.Policy.Company?.CompanyName ?? "N/A"}</p>
+                    <p><strong>Coverage Dates:</strong> {assignment.StartDate:yyyy-MM-dd} to {assignment.EndDate:yyyy-MM-dd}</p>
+                    """,
+                    "PolicyAssigned",
+                    assignment.Id);
+            }
             TempData["Success"] = "Policy assigned to employee.";
             return RedirectToAction("Employees");
         }
@@ -659,7 +851,10 @@ namespace HealthInsuranceManagement.Controllers
         {
             var guard = AdminGuard(); if (guard != null) return guard;
 
-            var request = await _db.PolicyRequestDetails.FindAsync(requestId);
+            var request = await _db.PolicyRequestDetails
+                .Include(r => r.Employee)
+                .Include(r => r.Policy)
+                .FirstOrDefaultAsync(r => r.RequestId == requestId);
             if (request == null) return NotFound();
 
             request.Status = decision; // "Approved" or "Rejected"
@@ -688,8 +883,38 @@ namespace HealthInsuranceManagement.Controllers
             }
 
             await _db.SaveChangesAsync();
+            if (request.Employee != null && request.Policy != null)
+            {
+                var employee = request.Employee;
+                var employeeName = FullName(employee);
+                var body = $"""
+                    <p>An admin processed a policy request.</p>
+                    <p><strong>Decision:</strong> {decision}</p>
+                    <p><strong>Employee:</strong> {employeeName}</p>
+                    <p><strong>Policy:</strong> {request.Policy.PolicyName}</p>
+                    <p><strong>Bill Amount:</strong> PKR {request.BillAmount:N0}</p>
+                    """;
+
+                await _notifications.NotifyAdminsAsync($"Policy request {decision}", body, "AdminRequestDecision", request.RequestId);
+                await _notifications.NotifyAsync(
+                    employee.Email,
+                    employeeName,
+                    employee.Role,
+                    $"Your policy request was {decision}",
+                    $"""
+                    <p>Your request for <strong>{request.Policy.PolicyName}</strong> was <strong>{decision}</strong>.</p>
+                    <p><strong>Bill Amount:</strong> PKR {request.BillAmount:N0}</p>
+                    """,
+                    "AdminRequestDecision",
+                    request.RequestId);
+            }
             TempData["Success"] = $"Request {decision} successfully.";
             return RedirectToAction("PolicyRequests");
+        }
+
+        private static string FullName(EmpRegister employee)
+        {
+            return $"{employee.FirstName} {employee.LastName}".Trim();
         }
     }
 }
