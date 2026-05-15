@@ -265,3 +265,4 @@ C:\Users\Fahad\OneDrive\Videos\New folder (2)\HealthInsuranceManagement\bin\Debu
 C:\Users\Fahad\OneDrive\Videos\New folder (2)\HealthInsuranceManagement\bin\Debug\net8.0\MimeKit.dll
 C:\Users\Fahad\OneDrive\Videos\New folder (2)\HealthInsuranceManagement\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
 C:\Users\Fahad\OneDrive\Videos\New folder (2)\HealthInsuranceManagement\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\Fahad\OneDrive\Videos\New folder (2)\HealthInsuranceManagement\obj\Debug\net8.0\HealthInsuranceManagement.sourcelink.json

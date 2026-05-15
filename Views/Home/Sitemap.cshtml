@@ -1,0 +1,31 @@
+@{ ViewData["Title"] = "Sitemap"; }
+
+<section class="info-page-shell" aria-labelledby="sitemap-title">
+    <header class="info-page-header">
+        <span><i class="bi bi-diagram-3"></i></span>
+        <h1 id="sitemap-title">Sitemap</h1>
+        <p>Quick links to the main public and account areas of the system.</p>
+    </header>
+
+    <div class="sitemap-grid">
+        <article>
+            <h2>Public Pages</h2>
+            <a asp-controller="Home" asp-action="Index">Home</a>
+            <a asp-controller="Home" asp-action="About">About Us</a>
+            <a asp-controller="Home" asp-action="Contact">Contact</a>
+        </article>
+
+        <article>
+            <h2>Account</h2>
+            <a asp-controller="Auth" asp-action="Login">Login</a>
+            <a asp-controller="Auth" asp-action="ForgotPassword">Forgot Password</a>
+        </article>
+
+        <article>
+            <h2>Information</h2>
+            <a asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <a asp-controller="Home" asp-action="Terms">Terms</a>
+            <a asp-controller="Home" asp-action="Sitemap">Sitemap</a>
+        </article>
+    </div>
+</section>
