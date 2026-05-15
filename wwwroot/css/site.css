@@ -1763,8 +1763,87 @@ textarea.form-control {
 .app-footer {
     flex: 0 0 auto;
     color: var(--md-on-surface-variant);
-    background: var(--md-surface-container);
+    background: var(--md-surface-container-lowest);
     border-top: 1px solid var(--md-outline-variant);
+    font-size: 0.95rem;
+}
+
+.app-footer-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: clamp(2rem, 6vw, 5rem);
+    width: min(100% - 2rem, 1180px);
+    margin: 0 auto;
+    padding: clamp(2rem, 5vw, 3.5rem) 0 1.6rem;
+}
+
+.app-footer-brand {
+    max-width: 520px;
+}
+
+.app-footer-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #073f43;
+    font-size: 1.08rem;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.app-footer-logo:hover {
+    color: var(--md-primary);
+}
+
+.app-footer-logo img {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+}
+
+.app-footer-brand p {
+    margin: 1rem 0 0;
+    color: #314455;
+    line-height: 1.65;
+}
+
+.app-footer-links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(120px, 1fr));
+    gap: clamp(1.5rem, 4vw, 3rem);
+}
+
+.app-footer-links h2 {
+    margin: 0 0 0.85rem;
+    color: #073f43;
+    font-size: 0.94rem;
+    text-transform: uppercase;
+}
+
+.app-footer-links a {
+    display: block;
+    width: fit-content;
+    margin-top: 0.55rem;
+    color: #314455;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.app-footer-links a:hover {
+    color: var(--md-primary);
+    text-decoration: underline;
+}
+
+.app-footer-bottom {
+    width: min(100% - 2rem, 1180px);
+    margin: 0 auto;
+    padding: 1rem 0 1.2rem;
+    border-top: 1px solid var(--md-outline-variant);
+}
+
+.app-footer-bottom p {
+    margin: 0;
+    color: var(--md-on-surface-variant);
     font-size: 0.88rem;
 }
 
@@ -1773,6 +1852,15 @@ main > .d-flex.justify-content-between {
 }
 
 @media (max-width: 991.98px) {
+    .app-footer-inner {
+        grid-template-columns: 1fr;
+        gap: 1.75rem;
+    }
+
+    .app-footer-links {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
     .app-topbar .navbar-collapse {
         margin-top: 0.75rem;
         padding: 0.75rem;
@@ -1832,6 +1920,19 @@ main > .d-flex.justify-content-between {
 }
 
 @media (max-width: 767.98px) {
+    .app-footer-inner,
+    .app-footer-bottom {
+        width: min(100% - 1.5rem, 1180px);
+    }
+
+    .app-footer-inner {
+        padding-top: 1.75rem;
+    }
+
+    .app-footer-links {
+        gap: 1rem;
+    }
+
     .admin-sidebar {
         top: 86px;
         width: 72px;
