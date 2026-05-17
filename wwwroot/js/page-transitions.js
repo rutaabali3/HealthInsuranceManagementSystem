@@ -87,10 +87,14 @@
     });
 
     document.addEventListener("submit", (event) => {
-        if (!event.defaultPrevented && event.target?.dataset?.noTransition !== "true") {
+        window.setTimeout(() => {
+            if (event.defaultPrevented || event.target?.dataset?.noTransition === "true") {
+                return;
+            }
+
             body.classList.add("is-page-leaving");
             sessionStorage.setItem(loaderStartedKey, Date.now().toString());
             showLoader();
-        }
+        }, 0);
     });
 })();

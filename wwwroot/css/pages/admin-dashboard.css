@@ -480,11 +480,6 @@ body[data-page="admin-dashboard"] .app-main {
     color: #563199;
 }
 
-body[data-page="admin-dashboard"] .app-footer {
-    background: transparent;
-    border-top: 0;
-}
-
 @media (max-width: 1199.98px) {
     .metric-grid,
     .quick-action-grid {

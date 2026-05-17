@@ -398,9 +398,9 @@ namespace HealthInsuranceManagement.Controllers
                 return View(model);
             }
 
-            if (string.IsNullOrWhiteSpace(Password) || Password.Length < 6)
+            if (string.IsNullOrWhiteSpace(Password) || !IsStrongPassword(Password))
             {
-                ModelState.AddModelError("", "Password must be at least 6 characters.");
+                ModelState.AddModelError("Password", "Password must be at least 8 characters and include a letter, a number, and a symbol.");
                 ViewBag.Roles = UserRoles.StaffRoles;
                 return View(model);
             }
@@ -915,6 +915,14 @@ namespace HealthInsuranceManagement.Controllers
         private static string FullName(EmpRegister employee)
         {
             return $"{employee.FirstName} {employee.LastName}".Trim();
+        }
+
+        private static bool IsStrongPassword(string password)
+        {
+            return password.Length >= 8
+                && password.Any(char.IsLetter)
+                && password.Any(char.IsDigit)
+                && password.Any(ch => !char.IsLetterOrDigit(ch));
         }
     }
 }

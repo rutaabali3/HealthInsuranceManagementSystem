@@ -13,6 +13,7 @@
                 <form asp-action="AssignPolicy" method="post">
                     @Html.AntiForgeryToken()
                     <input type="hidden" asp-for="EmpId" />
+                    <div asp-validation-summary="ModelOnly" class="app-validation-summary d-none"></div>
 
                     <div class="mb-3">
                         <label asp-for="PolicyId" class="form-label fw-semibold">Select Policy</label>
@@ -23,6 +24,7 @@
                                 <option value="">-- Choose a Policy --</option>
                             </select>
                         </div>
+                        <span asp-validation-for="PolicyId" class="text-danger small"></span>
                     </div>
                     <div class="row g-3">
                         <div class="col-md-6">
@@ -31,6 +33,7 @@
                                 <span class="input-group-text"><i class="bi bi-calendar-plus"></i></span>
                                 <input asp-for="StartDate" class="form-control" type="date" />
                             </div>
+                            <span asp-validation-for="StartDate" class="text-danger small"></span>
                         </div>
                         <div class="col-md-6">
                             <label asp-for="EndDate" class="form-label fw-semibold"></label>
@@ -38,6 +41,7 @@
                                 <span class="input-group-text"><i class="bi bi-calendar-check"></i></span>
                                 <input asp-for="EndDate" class="form-control" type="date" />
                             </div>
+                            <span asp-validation-for="EndDate" class="text-danger small"></span>
                         </div>
                     </div>
 

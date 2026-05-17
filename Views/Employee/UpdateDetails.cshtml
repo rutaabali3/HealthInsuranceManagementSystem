@@ -42,6 +42,7 @@
                                 <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
                                 <input asp-for="Designation" class="form-control" />
                             </div>
+                            <span asp-validation-for="Designation" class="text-danger small"></span>
                         </div>
                         <div class="col-12">
                             <label asp-for="Address" class="form-label fw-semibold"></label>
@@ -49,6 +50,7 @@
                                 <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
                                 <textarea asp-for="Address" class="form-control" rows="3"></textarea>
                             </div>
+                            <span asp-validation-for="Address" class="text-danger small"></span>
                         </div>
                     </div>
 

@@ -42,12 +42,13 @@
                             <div class="input-group app-field-group">
                                 <span class="input-group-text"><i class="bi bi-lock"></i></span>
                                 <input type="password" name="Password" id="registerEmployeePassword" class="form-control"
-                                       placeholder="Min 6 characters" required />
+                                       placeholder="8+ chars, number and symbol" required />
                                 <button type="button" class="password-visibility-toggle" data-password-toggle="#registerEmployeePassword"
                                         aria-label="Show password" aria-pressed="false" title="Show password">
                                     <i class="bi bi-eye"></i>
                                 </button>
                             </div>
+                            <span class="text-danger small field-validation-valid" data-valmsg-for="Password" data-valmsg-replace="true"></span>
                         </div>
                         <div class="col-md-6">
                             <label asp-for="Email" class="form-label fw-semibold"></label>
@@ -61,7 +62,7 @@
                             <label asp-for="Phone" class="form-label fw-semibold"></label>
                             <div class="input-group app-field-group">
                                 <span class="input-group-text"><i class="bi bi-telephone"></i></span>
-                                <input asp-for="Phone" class="form-control" placeholder="+92-..." />
+                                <input asp-for="Phone" class="form-control" placeholder="03001234567" />
                             </div>
                             <span asp-validation-for="Phone" class="text-danger small"></span>
                         </div>

@@ -1,0 +1,60 @@
+body[data-page="finance-requests"],
+body[data-page="finance-requestdetails"] {
+    background: #fbfdfc;
+}
+
+body[data-page="finance-requests"] .app-main,
+body[data-page="finance-requestdetails"] .app-main {
+    max-width: 1280px;
+    margin-top: 2.4rem !important;
+}
+
+body[data-page="finance-requests"] .role-page-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+}
+
+body[data-page="finance-requests"] .role-page-header h1 {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 800;
+    color: #17212b;
+}
+
+body[data-page="finance-requests"] .role-page-header p {
+    margin: .25rem 0 0;
+    color: #64748b;
+}
+
+body[data-page="finance-requests"] .role-dashboard-eyebrow,
+body[data-page="finance-requestdetails"] .role-dashboard-eyebrow,
+body[data-page="finance-requests"] .role-panel-heading h2,
+body[data-page="finance-requestdetails"] .role-panel-heading h2,
+body[data-page="finance-requests"] .role-panel-heading h2 i,
+body[data-page="finance-requestdetails"] .role-panel-heading h2 i,
+body[data-page="finance-requestdetails"] .request-detail-card h2 i {
+    color: #148b43;
+}
+
+body[data-page="finance-requests"] .role-table thead th {
+    background: #e4f5e8 !important;
+    color: #0c3f21 !important;
+}
+
+body[data-page="finance-requests"] td:last-child {
+    min-width: 150px;
+}
+
+@media (max-width: 767.98px) {
+    body[data-page="finance-requests"] .role-page-header {
+        flex-direction: column;
+    }
+
+    body[data-page="finance-requests"] .role-page-header .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}

@@ -24,6 +24,7 @@
                                         asp-items="@(new SelectList(ViewBag.Companies, "CompanyId", "CompanyName"))">
                                 </select>
                             </div>
+                            <span asp-validation-for="CompanyId" class="text-danger small"></span>
                         </div>
                         <div class="col-md-6">
                             <label asp-for="PolicyName" class="form-label fw-semibold"></label>
@@ -31,6 +32,7 @@
                                 <span class="input-group-text"><i class="bi bi-shield-check"></i></span>
                                 <input asp-for="PolicyName" class="form-control" />
                             </div>
+                            <span asp-validation-for="PolicyName" class="text-danger small"></span>
                         </div>
                         <div class="col-md-4">
                             <label asp-for="PolicyType" class="form-label fw-semibold"></label>
@@ -43,6 +45,7 @@
                                     <option value="Senior">Senior</option>
                                 </select>
                             </div>
+                            <span asp-validation-for="PolicyType" class="text-danger small"></span>
                         </div>
                         <div class="col-md-4">
                             <label asp-for="PremiumAmount" class="form-label fw-semibold"></label>
@@ -50,6 +53,7 @@
                                 <span class="input-group-text"><i class="bi bi-cash-stack"></i></span>
                                 <input asp-for="PremiumAmount" class="form-control" type="number" step="100" />
                             </div>
+                            <span asp-validation-for="PremiumAmount" class="text-danger small"></span>
                         </div>
                         <div class="col-md-4">
                             <label asp-for="CoverageAmount" class="form-label fw-semibold"></label>
@@ -57,6 +61,7 @@
                                 <span class="input-group-text"><i class="bi bi-umbrella"></i></span>
                                 <input asp-for="CoverageAmount" class="form-control" type="number" step="1000" />
                             </div>
+                            <span asp-validation-for="CoverageAmount" class="text-danger small"></span>
                         </div>
                         <div class="col-md-4">
                             <label asp-for="DurationMonths" class="form-label fw-semibold"></label>
@@ -64,6 +69,7 @@
                                 <span class="input-group-text"><i class="bi bi-calendar-range"></i></span>
                                 <input asp-for="DurationMonths" class="form-control" type="number" />
                             </div>
+                            <span asp-validation-for="DurationMonths" class="text-danger small"></span>
                         </div>
                         <div class="col-auto">
                             <div class="form-check mt-4 pt-2">

@@ -1,0 +1,63 @@
+body[data-page="manager-requests"],
+body[data-page="manager-requestdetails"] {
+    background: #fbfdfc;
+}
+
+body[data-page="manager-requests"] .app-main,
+body[data-page="manager-requestdetails"] .app-main {
+    max-width: 1280px;
+    margin-top: 2.4rem !important;
+}
+
+body[data-page="manager-requests"] .role-page-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+}
+
+body[data-page="manager-requests"] .role-page-header h1 {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 800;
+    color: #17212b;
+}
+
+body[data-page="manager-requests"] .role-page-header p {
+    margin: .25rem 0 0;
+    color: #64748b;
+}
+
+body[data-page="manager-requests"] .role-dashboard-eyebrow,
+body[data-page="manager-requestdetails"] .role-dashboard-eyebrow,
+body[data-page="manager-requests"] .role-panel-heading h2,
+body[data-page="manager-requestdetails"] .role-panel-heading h2,
+body[data-page="manager-requests"] .role-panel-heading h2 i,
+body[data-page="manager-requestdetails"] .role-panel-heading h2 i,
+body[data-page="manager-requestdetails"] .request-detail-card h2 i {
+    color: #007a7a;
+}
+
+body[data-page="manager-requests"] .role-table thead th {
+    background: #e7f5f3 !important;
+}
+
+body[data-page="manager-requests"] td:last-child {
+    min-width: 150px;
+}
+
+body[data-page="manager-requests"] td:last-child .action-button {
+    white-space: nowrap;
+}
+
+@media (max-width: 767.98px) {
+    body[data-page="manager-requests"] .role-page-header {
+        flex-direction: column;
+    }
+
+    body[data-page="manager-requests"] .role-page-header .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}

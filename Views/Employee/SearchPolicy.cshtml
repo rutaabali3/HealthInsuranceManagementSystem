@@ -6,7 +6,7 @@
 <!-- Filter Form -->
 <div class="card border-0 shadow-sm mb-4">
     <div class="card-body p-4">
-        <form asp-action="SearchPolicy" method="get" class="row g-3 align-items-end">
+        <form asp-action="SearchPolicy" method="get" class="row g-3 align-items-end" data-validation-mode="native">
             <div class="col-md-4">
                 <label class="form-label fw-semibold">Policy Type</label>
                 <div class="input-group app-field-group">
@@ -25,7 +25,9 @@
                 <div class="input-group app-field-group">
                     <span class="input-group-text"><i class="bi bi-umbrella"></i></span>
                     <input type="number" name="minCoverage" class="form-control"
-                           value="@Model.MinCoverage" placeholder="e.g. 500000" />
+                           value="@Model.MinCoverage" min="1" step="1"
+                           title="Enter a coverage amount greater than zero, or leave it blank."
+                           placeholder="e.g. 500000" />
                 </div>
             </div>
             <div class="col-md-3">
@@ -33,7 +35,9 @@
                 <div class="input-group app-field-group">
                     <span class="input-group-text"><i class="bi bi-cash-stack"></i></span>
                     <input type="number" name="maxPremium" class="form-control"
-                           value="@Model.MaxPremium" placeholder="e.g. 50000" />
+                           value="@Model.MaxPremium" min="1" step="1"
+                           title="Enter a maximum premium greater than zero, or leave it blank."
+                           placeholder="e.g. 50000" />
                 </div>
             </div>
             <div class="col-md-2">

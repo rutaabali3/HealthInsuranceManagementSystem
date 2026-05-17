@@ -11,11 +11,6 @@ body[data-page="manager-details"] .app-main {
     margin-top: 2.2rem !important;
 }
 
-body[data-page="manager-details"] .app-footer {
-    background: transparent;
-    border-top: 0;
-}
-
 @media (max-width: 767.98px) {
     body[data-page="manager-details"] .app-main {
         margin-top: 1.25rem !important;

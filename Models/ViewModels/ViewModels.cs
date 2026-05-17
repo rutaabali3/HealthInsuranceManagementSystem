@@ -1,20 +1,23 @@
 using System.ComponentModel.DataAnnotations;
+using HealthInsuranceManagement.Models;
 
 namespace HealthInsuranceManagement.Models.ViewModels
 {
     // ─── Authentication ───────────────────────────────────────────
     public class LoginViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Username is required.")]
         public string Username { get; set; } = string.Empty;
 
-        [Required, DataType(DataType.Password)]
+        [Required(ErrorMessage = "Password is required.")]
+        [DataType(DataType.Password)]
         public string Password { get; set; } = string.Empty;
     }
 
     public class ForgotPasswordViewModel
     {
-        [Required, EmailAddress]
+        [Required(ErrorMessage = "Email is required.")]
+        [EmailAddress(ErrorMessage = "Enter a valid email address.")]
         [Display(Name = "Email Address")]
         public string Email { get; set; } = string.Empty;
     }
@@ -24,12 +27,14 @@ namespace HealthInsuranceManagement.Models.ViewModels
         [Required]
         public string Token { get; set; } = string.Empty;
 
-        [Required, DataType(DataType.Password)]
+        [Required(ErrorMessage = "New password is required.")]
+        [DataType(DataType.Password)]
         [Display(Name = "New Password")]
-        [MinLength(6, ErrorMessage = "Password must be at least 6 characters.")]
+        [StrongPassword]
         public string NewPassword { get; set; } = string.Empty;
 
-        [Required, DataType(DataType.Password)]
+        [Required(ErrorMessage = "Confirm password is required.")]
+        [DataType(DataType.Password)]
         [Compare("NewPassword", ErrorMessage = "Passwords do not match.")]
         [Display(Name = "Confirm Password")]
         public string ConfirmPassword { get; set; } = string.Empty;
@@ -37,16 +42,19 @@ namespace HealthInsuranceManagement.Models.ViewModels
 
     public class ChangePasswordViewModel
     {
-        [Required, DataType(DataType.Password)]
+        [Required(ErrorMessage = "Current password is required.")]
+        [DataType(DataType.Password)]
         [Display(Name = "Current Password")]
         public string CurrentPassword { get; set; } = string.Empty;
 
-        [Required, DataType(DataType.Password)]
+        [Required(ErrorMessage = "New password is required.")]
+        [DataType(DataType.Password)]
         [Display(Name = "New Password")]
-        [MinLength(6, ErrorMessage = "Password must be at least 6 characters.")]
+        [StrongPassword]
         public string NewPassword { get; set; } = string.Empty;
 
-        [Required, DataType(DataType.Password)]
+        [Required(ErrorMessage = "Confirm password is required.")]
+        [DataType(DataType.Password)]
         [Compare("NewPassword", ErrorMessage = "Passwords do not match.")]
         [Display(Name = "Confirm Password")]
         public string ConfirmPassword { get; set; } = string.Empty;
@@ -94,19 +102,27 @@ namespace HealthInsuranceManagement.Models.ViewModels
     }
 
     // ─── Reports ──────────────────────────────────────────────────
-    public class ReportViewModel
+    public class ReportViewModel : IValidatableObject
     {
         [DataType(DataType.Date)]
         [Display(Name = "From Date")]
+        [NotFutureDate(ErrorMessage = "From date cannot be in the future.")]
         public DateTime? FromDate { get; set; }
 
         [DataType(DataType.Date)]
         [Display(Name = "To Date")]
+        [NotFutureDate(ErrorMessage = "To date cannot be in the future.")]
         public DateTime? ToDate { get; set; }
 
         public List<EmpRegister> EmployeeReport { get; set; } = new();
         public List<PolicyRequestDetails> RequestReport { get; set; } = new();
         public List<PolicyBill> BillingReport { get; set; } = new();
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (FromDate.HasValue && ToDate.HasValue && FromDate.Value.Date > ToDate.Value.Date)
+                yield return new ValidationResult("From date cannot be later than to date.", new[] { nameof(FromDate), nameof(ToDate) });
+        }
     }
 
     public class AdminSearchViewModel

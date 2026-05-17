@@ -59,20 +59,20 @@
         <h2 id="message-title">Send Us a Message</h2>
         <p>Fill out the form and our team will get back to you shortly.</p>
 
-        <form>
+        <form data-static-form="true">
             <div class="form-row">
                 <div class="form-field">
                     <label class="form-label" for="contactName">Your Name</label>
                     <div class="input-group app-field-group">
                         <span class="input-group-text"><i class="bi bi-person"></i></span>
-                        <input id="contactName" type="text" class="form-control" placeholder="John Doe" />
+                        <input id="contactName" name="ContactName" type="text" class="form-control" placeholder="John Doe" required />
                     </div>
                 </div>
                 <div class="form-field">
                     <label class="form-label" for="contactEmail">Email Address</label>
                     <div class="input-group app-field-group">
                         <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-                        <input id="contactEmail" type="email" class="form-control" placeholder="john@example.com" />
+                        <input id="contactEmail" name="ContactEmail" type="email" class="form-control" placeholder="john@example.com" required />
                     </div>
                 </div>
             </div>
@@ -81,11 +81,11 @@
                 <label class="form-label" for="contactMessage">Message</label>
                 <div class="input-group app-field-group">
                     <span class="input-group-text"><i class="bi bi-chat-left-text"></i></span>
-                    <textarea id="contactMessage" class="form-control" rows="6" placeholder="How can we help?"></textarea>
+                    <textarea id="contactMessage" name="ContactMessage" class="form-control" rows="6" placeholder="How can we help?" required></textarea>
                 </div>
             </div>
 
-            <button class="btn btn-primary message-submit" type="button">
+            <button class="btn btn-primary message-submit" type="submit">
                 <i class="bi bi-send"></i>
                 <span>Send Message</span>
             </button>

@@ -11,7 +11,7 @@ body[data-page="home-about"] .app-main {
 
 .about-hero {
     position: relative;
-    min-height: 310px;
+    min-height: 80vh;
     display: grid;
     align-items: center;
     overflow: hidden;
@@ -89,6 +89,9 @@ body[data-page="home-about"] .app-main {
 
 .story-image {
     /* overflow: hidden; */
+    justify-self: center;
+    align-self: center;
+    width: min(100%, 350px);
     border-radius: 8px;
     box-shadow: 0 10px 24px rgba(0, 42, 42, 0.14);
 }

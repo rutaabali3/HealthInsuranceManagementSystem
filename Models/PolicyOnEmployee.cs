@@ -6,7 +6,7 @@ namespace HealthInsuranceManagement.Models
     /// <summary>
     /// Maps assigned policies to employees.
     /// </summary>
-    public class PolicyOnEmployee
+    public class PolicyOnEmployee : IValidatableObject
     {
         [Key]
         public int Id { get; set; }
@@ -14,15 +14,15 @@ namespace HealthInsuranceManagement.Models
         [Required]
         public int EmpId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Policy is required.")]
         public int PolicyId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Start date is required.")]
         [Display(Name = "Start Date")]
         [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "End date is required.")]
         [Display(Name = "End Date")]
         [DataType(DataType.Date)]
         public DateTime EndDate { get; set; }
@@ -42,5 +42,14 @@ namespace HealthInsuranceManagement.Models
 
         [ForeignKey("PolicyId")]
         public Policy? Policy { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (StartDate.Date < DateTime.Today)
+                yield return new ValidationResult("Start date cannot be in the past.", new[] { nameof(StartDate) });
+
+            if (EndDate.Date <= StartDate.Date)
+                yield return new ValidationResult("End date must be after the start date.", new[] { nameof(EndDate) });
+        }
     }
 }

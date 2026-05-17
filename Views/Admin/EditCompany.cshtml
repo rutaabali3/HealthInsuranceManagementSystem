@@ -56,6 +56,7 @@
                                 <span class="input-group-text"><i class="bi bi-globe"></i></span>
                                 <input asp-for="Website" class="form-control" />
                             </div>
+                            <span asp-validation-for="Website" class="text-danger small"></span>
                         </div>
                         <div class="col-12">
                             <label asp-for="Description" class="form-label fw-semibold"></label>
@@ -63,6 +64,7 @@
                                 <span class="input-group-text"><i class="bi bi-card-text"></i></span>
                                 <textarea asp-for="Description" class="form-control" rows="3"></textarea>
                             </div>
+                            <span asp-validation-for="Description" class="text-danger small"></span>
                         </div>
                         <div class="col-auto">
                             <div class="form-check mt-2">

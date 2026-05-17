@@ -149,6 +149,9 @@ namespace HealthInsuranceManagement.Controllers
         {
             var guard = EmpGuard(); if (guard != null) return guard;
 
+            minCoverage = minCoverage > 0 ? minCoverage : null;
+            maxPremium = maxPremium > 0 ? maxPremium : null;
+
             var query = _db.Policies
                 .Include(p => p.Company)
                 .Where(p => p.IsActive)

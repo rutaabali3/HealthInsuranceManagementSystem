@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\HealthInsuranceManagement.csproj": {}
+    "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\HealthInsuranceManagement.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\HealthInsuranceManagement.csproj": {
+    "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\HealthInsuranceManagement.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\HealthInsuranceManagement.csproj",
+        "projectUniqueName": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\HealthInsuranceManagement.csproj",
         "projectName": "HealthInsuranceManagement",
-        "projectPath": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\HealthInsuranceManagement.csproj",
+        "projectPath": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\HealthInsuranceManagement.csproj",
         "packagesPath": "C:\\Users\\Fahad\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\obj\\",
+        "outputPath": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Fahad\\AppData\\Roaming\\NuGet\\NuGet.Config"

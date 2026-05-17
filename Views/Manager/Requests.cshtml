@@ -1,0 +1,76 @@
+@model List<PolicyBill>
+@{
+    ViewData["Title"] = "Manager Requests";
+}
+
+<section class="role-dashboard-shell manager-requests-shell">
+    <header class="role-page-header">
+        <div>
+            <p class="role-dashboard-eyebrow">Manager Workspace</p>
+            <h1>Policy Requests</h1>
+            <p>Review the full manager request queue in one clean table.</p>
+        </div>
+        <a asp-action="Dashboard" class="btn btn-outline-secondary action-button">
+            <i class="bi bi-arrow-left"></i><span>Dashboard</span>
+        </a>
+    </header>
+
+    <article class="role-dashboard-panel">
+        <div class="role-panel-heading">
+            <h2><i class="bi bi-inbox"></i>Request Table</h2>
+            <span>@Model.Count total</span>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle role-table mb-0">
+                <thead>
+                    <tr>
+                        <th>Request</th>
+                        <th>Employee</th>
+                        <th>Policy</th>
+                        <th>Company</th>
+                        <th>Amount</th>
+                        <th>Requested</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="8">
+                                <div class="role-empty-state">
+                                    <span><i class="bi bi-inbox"></i></span>
+                                    <strong>No requests received.</strong>
+                                    <small>Employee requests will appear here when bills are created.</small>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                    @foreach (var bill in Model)
+                    {
+                        var request = bill.PolicyRequest;
+                        <tr>
+                            <td class="fw-semibold">#@bill.RequestId</td>
+                            <td>@request?.Employee?.FirstName @request?.Employee?.LastName</td>
+                            <td>@request?.Policy?.PolicyName</td>
+                            <td>@request?.Policy?.Company?.CompanyName</td>
+                            <td>PKR @bill.Amount.ToString("N0")</td>
+                            <td>@(request?.RequestedAt.ToString("dd MMM yyyy") ?? "-")</td>
+                            <td>
+                                <span class="status-pill @(bill.Status=="Created"?"status-waiting":bill.Status=="Rejected"?"status-rejected":bill.Status=="ForwardedToFinance"?"status-forwarded":"status-approved")">
+                                    @bill.Status
+                                </span>
+                            </td>
+                            <td>
+                                <a asp-action="RequestDetails" asp-route-id="@bill.RequestId" class="btn btn-sm btn-primary action-button">
+                                    <i class="bi bi-eye"></i><span>Full Detail</span>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </article>
+</section>

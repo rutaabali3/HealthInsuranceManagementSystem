@@ -30,6 +30,7 @@ namespace HealthInsuranceManagement.Controllers
         public async Task<IActionResult> Dashboard()
         {
             var guard = FinanceGuard(); if (guard != null) return guard;
+            await EnsureBillsForRequestsAsync();
 
             var vm = new FinanceDashboardViewModel
             {
@@ -39,12 +40,50 @@ namespace HealthInsuranceManagement.Controllers
                     .Include(b => b.PolicyRequest).ThenInclude(r => r!.Policy)
                     .ThenInclude(p => p!.Company)
                     .Include(b => b.Manager)
-                    .Where(b => b.Status == "ForwardedToFinance" || b.FinanceManagerId == CurrentFinanceManagerId)
+                    .Where(b => b.Status != "Rejected" || b.FinanceManagerId == CurrentFinanceManagerId)
                     .OrderByDescending(b => b.ForwardedAt ?? b.CreatedAt)
                     .ToListAsync()
             };
 
             return View(vm);
+        }
+
+        public async Task<IActionResult> Requests()
+        {
+            var guard = FinanceGuard(); if (guard != null) return guard;
+            await EnsureBillsForRequestsAsync();
+
+            var bills = await _db.PolicyBills
+                .Include(b => b.PolicyRequest).ThenInclude(r => r!.Employee)
+                .Include(b => b.PolicyRequest).ThenInclude(r => r!.Policy)
+                .ThenInclude(p => p!.Company)
+                .Include(b => b.Manager)
+                .Include(b => b.FinanceManager)
+                .Where(b => b.Status != "Rejected" || b.FinanceManagerId == CurrentFinanceManagerId)
+                .OrderByDescending(b => b.ForwardedAt ?? b.CreatedAt)
+                .ToListAsync();
+
+            return View(bills);
+        }
+
+        public async Task<IActionResult> RequestDetails(int id)
+        {
+            var guard = FinanceGuard(); if (guard != null) return guard;
+            await EnsureBillsForRequestsAsync();
+
+            var bill = await _db.PolicyBills
+                .Include(b => b.PolicyRequest).ThenInclude(r => r!.Employee)
+                .Include(b => b.PolicyRequest).ThenInclude(r => r!.Policy)
+                .ThenInclude(p => p!.Company)
+                .Include(b => b.PolicyRequest).ThenInclude(r => r!.Approval)
+                .ThenInclude(a => a!.Manager)
+                .Include(b => b.Manager)
+                .Include(b => b.FinanceManager)
+                .FirstOrDefaultAsync(b => b.RequestId == id
+                    && (b.Status != "Rejected" || b.FinanceManagerId == CurrentFinanceManagerId));
+
+            if (bill?.PolicyRequest == null) return NotFound();
+            return View(bill);
         }
 
         public async Task<IActionResult> Details()
@@ -199,6 +238,43 @@ namespace HealthInsuranceManagement.Controllers
 
             TempData["Success"] = "Request closed after payment.";
             return RedirectToAction("Dashboard");
+        }
+
+        private async Task EnsureBillsForRequestsAsync()
+        {
+            var requestsWithoutBills = await _db.PolicyRequestDetails
+                .Include(r => r.Bill)
+                .Where(r => r.Bill == null)
+                .ToListAsync();
+
+            if (!requestsWithoutBills.Any()) return;
+
+            foreach (var request in requestsWithoutBills)
+            {
+                _db.PolicyBills.Add(new PolicyBill
+                {
+                    RequestId = request.RequestId,
+                    Amount = request.BillAmount,
+                    Status = GetBillStatusFromRequest(request.Status),
+                    CreatedAt = request.RequestedAt
+                });
+            }
+
+            await _db.SaveChangesAsync();
+        }
+
+        private static string GetBillStatusFromRequest(string requestStatus)
+        {
+            return requestStatus switch
+            {
+                "Rejected" => "Rejected",
+                "ApprovedByManager" => "ManagerApproved",
+                "ManagerApproved" => "ManagerApproved",
+                "ForwardedToFinance" => "ForwardedToFinance",
+                "Paid" => "Paid",
+                "Closed" => "Closed",
+                _ => "Created"
+            };
         }
     }
 }

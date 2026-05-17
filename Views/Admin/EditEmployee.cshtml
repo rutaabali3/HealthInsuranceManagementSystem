@@ -24,6 +24,7 @@
                                 <span class="input-group-text"><i class="bi bi-person"></i></span>
                                 <input asp-for="FirstName" class="form-control" />
                             </div>
+                            <span asp-validation-for="FirstName" class="text-danger small"></span>
                         </div>
                         <div class="col-md-6">
                             <label asp-for="LastName" class="form-label fw-semibold"></label>
@@ -31,6 +32,7 @@
                                 <span class="input-group-text"><i class="bi bi-person"></i></span>
                                 <input asp-for="LastName" class="form-control" />
                             </div>
+                            <span asp-validation-for="LastName" class="text-danger small"></span>
                         </div>
                         <div class="col-md-6">
                             <label asp-for="Email" class="form-label fw-semibold"></label>
@@ -38,6 +40,7 @@
                                 <span class="input-group-text"><i class="bi bi-envelope"></i></span>
                                 <input asp-for="Email" class="form-control" />
                             </div>
+                            <span asp-validation-for="Email" class="text-danger small"></span>
                         </div>
                         <div class="col-md-6">
                             <label asp-for="Phone" class="form-label fw-semibold"></label>
@@ -45,6 +48,7 @@
                                 <span class="input-group-text"><i class="bi bi-telephone"></i></span>
                                 <input asp-for="Phone" class="form-control" />
                             </div>
+                            <span asp-validation-for="Phone" class="text-danger small"></span>
                         </div>
                         <div class="col-md-6">
                             <label asp-for="Department" class="form-label fw-semibold"></label>
@@ -52,6 +56,7 @@
                                 <span class="input-group-text"><i class="bi bi-diagram-3"></i></span>
                                 <input asp-for="Department" class="form-control" />
                             </div>
+                            <span asp-validation-for="Department" class="text-danger small"></span>
                         </div>
                         <div class="col-md-6">
                             <label asp-for="Designation" class="form-label fw-semibold"></label>
@@ -59,6 +64,7 @@
                                 <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
                                 <input asp-for="Designation" class="form-control" />
                             </div>
+                            <span asp-validation-for="Designation" class="text-danger small"></span>
                         </div>
                         <div class="col-md-6">
                             <label asp-for="Role" class="form-label fw-semibold"></label>
@@ -70,6 +76,7 @@
                                     <option value="@UserRoles.FinanceManager">Finance Manager</option>
                                 </select>
                             </div>
+                            <span asp-validation-for="Role" class="text-danger small"></span>
                         </div>
                         <div class="col-md-4">
                             <label asp-for="DateOfBirth" class="form-label fw-semibold"></label>
@@ -77,6 +84,7 @@
                                 <span class="input-group-text"><i class="bi bi-calendar-date"></i></span>
                                 <input asp-for="DateOfBirth" class="form-control" type="date" />
                             </div>
+                            <span asp-validation-for="DateOfBirth" class="text-danger small"></span>
                         </div>
                         <div class="col-md-4">
                             <label asp-for="Gender" class="form-label fw-semibold"></label>
@@ -88,6 +96,7 @@
                                     <option value="Other">Other</option>
                                 </select>
                             </div>
+                            <span asp-validation-for="Gender" class="text-danger small"></span>
                         </div>
                         <div class="col-12">
                             <label asp-for="Address" class="form-label fw-semibold"></label>
@@ -95,6 +104,7 @@
                                 <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
                                 <textarea asp-for="Address" class="form-control" rows="2"></textarea>
                             </div>
+                            <span asp-validation-for="Address" class="text-danger small"></span>
                         </div>
                     </div>
 

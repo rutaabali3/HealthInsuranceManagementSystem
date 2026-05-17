@@ -24,11 +24,6 @@ body[data-page="employee-dashboard"] .role-dashboard-panel {
     margin-top: 0.1rem;
 }
 
-body[data-page="employee-dashboard"] .app-footer {
-    background: transparent;
-    border-top: 0;
-}
-
 @media (max-width: 1199.98px) {
     body[data-page="employee-dashboard"] .employee-overview-grid {
         grid-template-columns: 1fr;

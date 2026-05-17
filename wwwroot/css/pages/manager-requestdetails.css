@@ -1,0 +1,474 @@
+body[data-page="manager-requestdetails"] {
+    background: #fbfdfc;
+}
+
+body[data-page="manager-requestdetails"] .app-main {
+    max-width: 1280px;
+    margin-top: 2.4rem !important;
+}
+
+body[data-page="manager-requestdetails"] .role-dashboard-eyebrow,
+body[data-page="manager-requestdetails"] .role-panel-heading h2,
+body[data-page="manager-requestdetails"] .role-panel-heading h2 i,
+body[data-page="manager-requestdetails"] .request-detail-card h2 i {
+    color: #007a7a;
+}
+
+body[data-page="manager-requestdetails"] .app-main {
+    max-width: 1280px;
+}
+
+.manager-request-shell {
+    display: grid;
+    gap: 1.15rem;
+    color: #10282d;
+}
+
+.manager-request-hero,
+.manager-review-steps,
+.manager-request-metrics article,
+.manager-detail-panel,
+.manager-action-card {
+    background: #ffffff;
+    border: 1px solid #dbe8eb;
+    border-radius: 8px;
+    box-shadow: 0 12px 28px rgba(35, 58, 67, 0.07);
+}
+
+.manager-request-hero {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.25rem;
+    padding: 1.35rem;
+}
+
+.manager-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
+    margin-bottom: .9rem;
+    color: #007a7a;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.manager-request-eyebrow {
+    margin: 0;
+    color: #607381;
+    font-weight: 800;
+}
+
+.manager-request-hero h1 {
+    margin: .1rem 0 0;
+    color: #0d2730;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 900;
+    letter-spacing: 0;
+}
+
+.manager-request-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .65rem;
+    margin-top: 1rem;
+}
+
+.manager-request-meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
+    min-height: 34px;
+    padding: .35rem .75rem;
+    color: #244a50;
+    background: #f2f9f8;
+    border: 1px solid #d8e8e8;
+    border-radius: 999px;
+    font-weight: 700;
+}
+
+.manager-request-amount {
+    display: grid;
+    align-content: center;
+    justify-items: end;
+    min-width: 230px;
+    text-align: right;
+}
+
+.manager-request-amount span,
+.manager-request-amount small {
+    color: #637684;
+    font-weight: 800;
+}
+
+.manager-request-amount strong {
+    color: #0f7b3e;
+    font-size: 1.65rem;
+}
+
+.manager-review-steps {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    overflow: hidden;
+}
+
+.review-step {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    min-height: 94px;
+    padding: 1rem;
+    border-right: 1px solid #dbe8eb;
+}
+
+.review-step:last-child {
+    border-right: 0;
+}
+
+.review-step > span {
+    display: inline-grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    flex: 0 0 auto;
+    color: #637684;
+    background: #edf4f4;
+    border-radius: 14px;
+}
+
+.review-step strong,
+.review-step small {
+    display: block;
+}
+
+.review-step strong {
+    color: #10282d;
+    font-weight: 900;
+}
+
+.review-step small {
+    color: #637684;
+    font-weight: 700;
+}
+
+.review-step-done > span {
+    color: #0f7b3e;
+    background: #e4f5e8;
+}
+
+.review-step-current > span {
+    color: #8a5a00;
+    background: #fff0c7;
+}
+
+.review-step-rejected > span {
+    color: #b42318;
+    background: #ffe3df;
+}
+
+.manager-request-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.manager-request-metrics article {
+    display: flex;
+    align-items: center;
+    gap: .9rem;
+    min-height: 100px;
+    padding: 1rem;
+}
+
+.manager-request-metrics .metric-icon,
+.manager-panel-title span {
+    display: inline-grid;
+    place-items: center;
+    flex: 0 0 auto;
+}
+
+.manager-request-metrics .metric-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    font-size: 1.25rem;
+}
+
+.manager-request-metrics strong,
+.manager-request-metrics small {
+    display: block;
+}
+
+.manager-request-metrics strong {
+    color: #10282d;
+    font-size: 1.1rem;
+    font-weight: 900;
+}
+
+.manager-request-metrics small {
+    color: #637684;
+    font-weight: 800;
+}
+
+.metric-blue {
+    color: #126dbe;
+    background: #e4f0ff;
+}
+
+.metric-green {
+    color: #0f7b3e;
+    background: #e4f5e8;
+}
+
+.metric-amber {
+    color: #8a5a00;
+    background: #fff0c7;
+}
+
+.manager-request-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 340px;
+    gap: 1.15rem;
+    align-items: start;
+}
+
+.manager-request-main {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.manager-note-panel {
+    grid-column: 1 / -1;
+}
+
+.manager-detail-panel,
+.manager-action-card {
+    padding: 1.15rem;
+}
+
+.manager-panel-title {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    margin-bottom: 1rem;
+}
+
+.manager-panel-title span {
+    width: 38px;
+    height: 38px;
+    color: #007a7a;
+    background: #e7f5f3;
+    border-radius: 12px;
+}
+
+.manager-panel-title h2 {
+    margin: 0;
+    color: #0d2730;
+    font-size: 1.1rem;
+    font-weight: 900;
+}
+
+.manager-detail-list,
+.manager-mini-list {
+    display: grid;
+    grid-template-columns: minmax(110px, .55fr) 1fr;
+    gap: .72rem 1rem;
+    margin: 0;
+}
+
+.manager-detail-list dt,
+.manager-mini-list dt {
+    color: #647684;
+    font-weight: 800;
+}
+
+.manager-detail-list dd,
+.manager-mini-list dd {
+    margin: 0;
+    color: #10282d;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+.manager-note-panel p,
+.manager-action-note {
+    margin: 0;
+    color: #526877;
+    line-height: 1.7;
+}
+
+.manager-action-card {
+    position: sticky;
+    top: 1rem;
+    display: grid;
+    gap: 1rem;
+}
+
+.manager-status-card {
+    display: grid;
+    gap: .1rem;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.manager-status-card span {
+    font-weight: 800;
+}
+
+.manager-status-card strong {
+    font-size: 1.2rem;
+    font-weight: 900;
+}
+
+.manager-status-waiting {
+    color: #754f00;
+    background: #fff0c7;
+}
+
+.manager-status-ready {
+    color: #075f34;
+    background: #e4f5e8;
+}
+
+.manager-status-rejected {
+    color: #9f1c12;
+    background: #ffe3df;
+}
+
+.manager-action-stack {
+    display: grid;
+    gap: .65rem;
+}
+
+.manager-action-stack form {
+    margin: 0;
+}
+
+.manager-action-card .btn-primary,
+.manager-action-card .btn-success {
+    color: #ffffff !important;
+}
+
+.role-page-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+}
+
+.role-page-header h1 {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 800;
+    color: #17212b;
+}
+
+.role-page-header p {
+    margin: .25rem 0 0;
+    color: #64748b;
+}
+
+.request-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.request-detail-card {
+    padding: 1.2rem;
+}
+
+.request-detail-card h2 {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    margin: 0 0 1rem;
+    font-size: 1.05rem;
+    font-weight: 800;
+}
+
+.request-detail-card dl {
+    display: grid;
+    grid-template-columns: minmax(110px, .45fr) 1fr;
+    gap: .75rem 1rem;
+    margin: 0;
+}
+
+.request-detail-card dt {
+    color: #64748b;
+    font-weight: 700;
+}
+
+.request-detail-card dd {
+    margin: 0;
+    color: #17212b;
+    overflow-wrap: anywhere;
+}
+
+.request-action-panel {
+    margin-top: 1rem;
+    padding: 1.2rem;
+}
+
+.request-action-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75rem;
+}
+
+@media (max-width: 991.98px) {
+    .manager-review-steps,
+    .manager-request-metrics,
+    .manager-request-layout,
+    .manager-request-main {
+        grid-template-columns: 1fr;
+    }
+
+    .review-step {
+        border-right: 0;
+        border-bottom: 1px solid #dbe8eb;
+    }
+
+    .review-step:last-child {
+        border-bottom: 0;
+    }
+
+    .manager-action-card {
+        position: static;
+    }
+
+    .request-detail-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .manager-request-hero {
+        flex-direction: column;
+    }
+
+    .manager-request-amount {
+        justify-items: stretch;
+        min-width: 0;
+        text-align: left;
+    }
+
+    .manager-detail-list,
+    .manager-mini-list {
+        grid-template-columns: 1fr;
+    }
+
+    .role-page-header {
+        flex-direction: column;
+    }
+
+    .role-page-header .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .request-detail-card dl {
+        grid-template-columns: 1fr;
+    }
+}

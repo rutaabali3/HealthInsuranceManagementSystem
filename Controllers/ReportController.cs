@@ -38,6 +38,8 @@ namespace HealthInsuranceManagement.Controllers
         public async Task<IActionResult> Index(ReportViewModel model)
         {
             var guard = AdminGuard(); if (guard != null) return guard;
+            if (!ModelState.IsValid)
+                return View(model);
 
             // Employee report: all active employees registered in date range
             var empQuery = _db.EmpRegisters.Where(e => e.IsActive);

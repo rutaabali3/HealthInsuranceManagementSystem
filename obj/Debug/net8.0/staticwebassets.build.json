@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "va/G9bEzviPZHbkT2za0Q05wkYqYkbE+BkzY80AeUsE=",
+  "Hash": "GMmgAnYSWaijP2M9Lix2SMCj5gdmvKAj6UmKIA2cSgo=",
   "Source": "HealthInsuranceManagement",
   "BasePath": "_content/HealthInsuranceManagement",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "HealthInsuranceManagement\\wwwroot",
       "Source": "HealthInsuranceManagement",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\admin-addcompany.css",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\admin-addcompany.css",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "css/pages/admin-addcompany.css",
       "AssetKind": "All",
@@ -36,10 +36,10 @@
       "OriginalItemSpec": "wwwroot\\css\\pages\\admin-addcompany.css"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\admin-addpolicy.css",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\admin-addpolicy.css",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "css/pages/admin-addpolicy.css",
       "AssetKind": "All",
@@ -55,10 +55,10 @@
       "OriginalItemSpec": "wwwroot\\css\\pages\\admin-addpolicy.css"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\admin-assignpolicy.css",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\admin-assignpolicy.css",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "css/pages/admin-assignpolicy.css",
       "AssetKind": "All",
@@ -74,10 +74,10 @@
       "OriginalItemSpec": "wwwroot\\css\\pages\\admin-assignpolicy.css"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\admin-companies.css",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\admin-companies.css",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "css/pages/admin-companies.css",
       "AssetKind": "All",
@@ -93,10 +93,10 @@
       "OriginalItemSpec": "wwwroot\\css\\pages\\admin-companies.css"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\admin-dashboard.css",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\admin-dashboard.css",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "css/pages/admin-dashboard.css",
       "AssetKind": "All",
@@ -112,10 +112,10 @@
       "OriginalItemSpec": "wwwroot\\css\\pages\\admin-dashboard.css"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\admin-editcompany.css",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\admin-editcompany.css",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "css/pages/admin-editcompany.css",
       "AssetKind": "All",
@@ -131,10 +131,10 @@
       "OriginalItemSpec": "wwwroot\\css\\pages\\admin-editcompany.css"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\admin-editemployee.css",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\admin-editemployee.css",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "css/pages/admin-editemployee.css",
       "AssetKind": "All",
@@ -150,10 +150,10 @@
       "OriginalItemSpec": "wwwroot\\css\\pages\\admin-editemployee.css"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\admin-editpolicy.css",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\admin-editpolicy.css",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "css/pages/admin-editpolicy.css",
       "AssetKind": "All",
@@ -169,10 +169,10 @@
       "OriginalItemSpec": "wwwroot\\css\\pages\\admin-editpolicy.css"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\admin-employees.css",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\admin-employees.css",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "css/pages/admin-employees.css",
       "AssetKind": "All",
@@ -188,10 +188,10 @@
       "OriginalItemSpec": "wwwroot\\css\\pages\\admin-employees.css"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\admin-policies.css",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\admin-policies.css",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "css/pages/admin-policies.css",
       "AssetKind": "All",
@@ -207,10 +207,10 @@
       "OriginalItemSpec": "wwwroot\\css\\pages\\admin-policies.css"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\admin-policyrequests.css",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\admin-policyrequests.css",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "css/pages/admin-policyrequests.css",
       "AssetKind": "All",
@@ -226,10 +226,10 @@
       "OriginalItemSpec": "wwwroot\\css\\pages\\admin-policyrequests.css"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\admin-registeremployee.css",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\admin-registeremployee.css",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "css/pages/admin-registeremployee.css",
       "AssetKind": "All",
@@ -245,10 +245,10 @@
       "OriginalItemSpec": "wwwroot\\css\\pages\\admin-registeremployee.css"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\admin-search.css",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\admin-search.css",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "css/pages/admin-search.css",
       "AssetKind": "All",
@@ -264,10 +264,10 @@
       "OriginalItemSpec": "wwwroot\\css\\pages\\admin-search.css"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\admin.css",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\admin.css",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "css/pages/admin.css",
       "AssetKind": "All",
@@ -283,10 +283,10 @@
       "OriginalItemSpec": "wwwroot\\css\\pages\\admin.css"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\auth-forgotpassword.css",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\auth-forgotpassword.css",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "css/pages/auth-forgotpassword.css",
       "AssetKind": "All",
@@ -302,10 +302,10 @@
       "OriginalItemSpec": "wwwroot\\css\\pages\\auth-forgotpassword.css"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\auth-login.css",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\auth-login.css",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "css/pages/auth-login.css",
       "AssetKind": "All",
@@ -321,10 +321,10 @@
       "OriginalItemSpec": "wwwroot\\css\\pages\\auth-login.css"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\auth-resetpassword.css",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\auth-resetpassword.css",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "css/pages/auth-resetpassword.css",
       "AssetKind": "All",
@@ -340,10 +340,10 @@
       "OriginalItemSpec": "wwwroot\\css\\pages\\auth-resetpassword.css"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\employee-changepassword.css",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\employee-changepassword.css",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "css/pages/employee-changepassword.css",
       "AssetKind": "All",
@@ -359,10 +359,10 @@
       "OriginalItemSpec": "wwwroot\\css\\pages\\employee-changepassword.css"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\employee-dashboard.css",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\employee-dashboard.css",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "css/pages/employee-dashboard.css",
       "AssetKind": "All",
@@ -378,10 +378,10 @@
       "OriginalItemSpec": "wwwroot\\css\\pages\\employee-dashboard.css"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\employee-details.css",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\employee-details.css",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "css/pages/employee-details.css",
       "AssetKind": "All",
@@ -397,10 +397,10 @@
       "OriginalItemSpec": "wwwroot\\css\\pages\\employee-details.css"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\employee-orderinsurance.css",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\employee-orderinsurance.css",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "css/pages/employee-orderinsurance.css",
       "AssetKind": "All",
@@ -416,10 +416,10 @@
       "OriginalItemSpec": "wwwroot\\css\\pages\\employee-orderinsurance.css"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\employee-policydetails.css",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\employee-policydetails.css",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "css/pages/employee-policydetails.css",
       "AssetKind": "All",
@@ -435,10 +435,10 @@
       "OriginalItemSpec": "wwwroot\\css\\pages\\employee-policydetails.css"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\employee-searchpolicy.css",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\employee-searchpolicy.css",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "css/pages/employee-searchpolicy.css",
       "AssetKind": "All",
@@ -454,10 +454,10 @@
       "OriginalItemSpec": "wwwroot\\css\\pages\\employee-searchpolicy.css"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\employee-updatedetails.css",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\employee-updatedetails.css",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "css/pages/employee-updatedetails.css",
       "AssetKind": "All",
@@ -473,10 +473,10 @@
       "OriginalItemSpec": "wwwroot\\css\\pages\\employee-updatedetails.css"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\finance-dashboard.css",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\finance-dashboard.css",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "css/pages/finance-dashboard.css",
       "AssetKind": "All",
@@ -492,10 +492,10 @@
       "OriginalItemSpec": "wwwroot\\css\\pages\\finance-dashboard.css"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\finance-details.css",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\finance-details.css",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "css/pages/finance-details.css",
       "AssetKind": "All",
@@ -511,10 +511,48 @@
       "OriginalItemSpec": "wwwroot\\css\\pages\\finance-details.css"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\finance-updatedetails.css",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\finance-requestdetails.css",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
+      "BasePath": "_content/HealthInsuranceManagement",
+      "RelativePath": "css/pages/finance-requestdetails.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\pages\\finance-requestdetails.css"
+    },
+    {
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\finance-requests.css",
+      "SourceId": "HealthInsuranceManagement",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
+      "BasePath": "_content/HealthInsuranceManagement",
+      "RelativePath": "css/pages/finance-requests.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\pages\\finance-requests.css"
+    },
+    {
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\finance-updatedetails.css",
+      "SourceId": "HealthInsuranceManagement",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "css/pages/finance-updatedetails.css",
       "AssetKind": "All",
@@ -530,10 +568,10 @@
       "OriginalItemSpec": "wwwroot\\css\\pages\\finance-updatedetails.css"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\home-about.css",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\home-about.css",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "css/pages/home-about.css",
       "AssetKind": "All",
@@ -549,10 +587,10 @@
       "OriginalItemSpec": "wwwroot\\css\\pages\\home-about.css"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\home-contact.css",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\home-contact.css",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "css/pages/home-contact.css",
       "AssetKind": "All",
@@ -568,10 +606,10 @@
       "OriginalItemSpec": "wwwroot\\css\\pages\\home-contact.css"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\home-index.css",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\home-index.css",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "css/pages/home-index.css",
       "AssetKind": "All",
@@ -587,10 +625,67 @@
       "OriginalItemSpec": "wwwroot\\css\\pages\\home-index.css"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\manager-dashboard.css",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\home-privacy.css",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
+      "BasePath": "_content/HealthInsuranceManagement",
+      "RelativePath": "css/pages/home-privacy.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\pages\\home-privacy.css"
+    },
+    {
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\home-sitemap.css",
+      "SourceId": "HealthInsuranceManagement",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
+      "BasePath": "_content/HealthInsuranceManagement",
+      "RelativePath": "css/pages/home-sitemap.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\pages\\home-sitemap.css"
+    },
+    {
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\home-terms.css",
+      "SourceId": "HealthInsuranceManagement",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
+      "BasePath": "_content/HealthInsuranceManagement",
+      "RelativePath": "css/pages/home-terms.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\pages\\home-terms.css"
+    },
+    {
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\manager-dashboard.css",
+      "SourceId": "HealthInsuranceManagement",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "css/pages/manager-dashboard.css",
       "AssetKind": "All",
@@ -606,10 +701,10 @@
       "OriginalItemSpec": "wwwroot\\css\\pages\\manager-dashboard.css"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\manager-details.css",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\manager-details.css",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "css/pages/manager-details.css",
       "AssetKind": "All",
@@ -625,10 +720,48 @@
       "OriginalItemSpec": "wwwroot\\css\\pages\\manager-details.css"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\manager-updatedetails.css",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\manager-requestdetails.css",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
+      "BasePath": "_content/HealthInsuranceManagement",
+      "RelativePath": "css/pages/manager-requestdetails.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\pages\\manager-requestdetails.css"
+    },
+    {
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\manager-requests.css",
+      "SourceId": "HealthInsuranceManagement",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
+      "BasePath": "_content/HealthInsuranceManagement",
+      "RelativePath": "css/pages/manager-requests.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\pages\\manager-requests.css"
+    },
+    {
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\manager-updatedetails.css",
+      "SourceId": "HealthInsuranceManagement",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "css/pages/manager-updatedetails.css",
       "AssetKind": "All",
@@ -644,10 +777,10 @@
       "OriginalItemSpec": "wwwroot\\css\\pages\\manager-updatedetails.css"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\pages\\report-index.css",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\report-index.css",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "css/pages/report-index.css",
       "AssetKind": "All",
@@ -663,10 +796,10 @@
       "OriginalItemSpec": "wwwroot\\css\\pages\\report-index.css"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\css\\site.css",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\site.css",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "css/site.css",
       "AssetKind": "All",
@@ -682,12 +815,12 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\images\\about\\hero.jpg",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\images\\about\\hero.png",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
-      "RelativePath": "images/about/hero.jpg",
+      "RelativePath": "images/about/hero.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -698,13 +831,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\about\\hero.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\about\\hero.png"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\images\\about\\section.png",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\images\\about\\section.png",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "images/about/section.png",
       "AssetKind": "All",
@@ -720,10 +853,10 @@
       "OriginalItemSpec": "wwwroot\\images\\about\\section.png"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\images\\contact\\hero-right.png",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\images\\contact\\hero-right.png",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "images/contact/hero-right.png",
       "AssetKind": "All",
@@ -739,10 +872,10 @@
       "OriginalItemSpec": "wwwroot\\images\\contact\\hero-right.png"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\images\\contact\\hero.png",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\images\\contact\\hero.png",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "images/contact/hero.png",
       "AssetKind": "All",
@@ -758,10 +891,10 @@
       "OriginalItemSpec": "wwwroot\\images\\contact\\hero.png"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\images\\home\\hero.png",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\images\\home\\hero.png",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "images/home/hero.png",
       "AssetKind": "All",
@@ -777,10 +910,10 @@
       "OriginalItemSpec": "wwwroot\\images\\home\\hero.png"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\images\\login\\Gemini_Generated_Image_rn1z4trn1z4trn1z-cleaned.png",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\images\\login\\Gemini_Generated_Image_rn1z4trn1z4trn1z-cleaned.png",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "images/login/Gemini_Generated_Image_rn1z4trn1z4trn1z-cleaned.png",
       "AssetKind": "All",
@@ -796,10 +929,10 @@
       "OriginalItemSpec": "wwwroot\\images\\login\\Gemini_Generated_Image_rn1z4trn1z4trn1z-cleaned.png"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\images\\site\\favicon.png",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\images\\site\\favicon.png",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "images/site/favicon.png",
       "AssetKind": "All",
@@ -815,10 +948,29 @@
       "OriginalItemSpec": "wwwroot\\images\\site\\favicon.png"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\images\\site\\launch.png",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\images\\site\\footer-background.png",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
+      "BasePath": "_content/HealthInsuranceManagement",
+      "RelativePath": "images/site/footer-background.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\site\\footer-background.png"
+    },
+    {
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\images\\site\\launch.png",
+      "SourceId": "HealthInsuranceManagement",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "images/site/launch.png",
       "AssetKind": "All",
@@ -834,10 +986,10 @@
       "OriginalItemSpec": "wwwroot\\images\\site\\launch.png"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\images\\site\\loading.svg",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\images\\site\\loading.svg",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "images/site/loading.svg",
       "AssetKind": "All",
@@ -853,12 +1005,12 @@
       "OriginalItemSpec": "wwwroot\\images\\site\\loading.svg"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\images\\site\\logo.png",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\images\\site\\logo.gif",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
-      "RelativePath": "images/site/logo.png",
+      "RelativePath": "images/site/logo.gif",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -869,13 +1021,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\site\\logo.png"
+      "OriginalItemSpec": "wwwroot\\images\\site\\logo.gif"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\js\\admin-sidebar.js",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\js\\admin-sidebar.js",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "js/admin-sidebar.js",
       "AssetKind": "All",
@@ -891,10 +1043,10 @@
       "OriginalItemSpec": "wwwroot\\js\\admin-sidebar.js"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\js\\alerts.js",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\js\\alerts.js",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "js/alerts.js",
       "AssetKind": "All",
@@ -910,10 +1062,29 @@
       "OriginalItemSpec": "wwwroot\\js\\alerts.js"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\js\\page-transitions.js",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\js\\app-form-validation.js",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
+      "BasePath": "_content/HealthInsuranceManagement",
+      "RelativePath": "js/app-form-validation.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\app-form-validation.js"
+    },
+    {
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\js\\page-transitions.js",
+      "SourceId": "HealthInsuranceManagement",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "js/page-transitions.js",
       "AssetKind": "All",
@@ -929,10 +1100,10 @@
       "OriginalItemSpec": "wwwroot\\js\\page-transitions.js"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\js\\pakistan-clock.js",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\js\\pakistan-clock.js",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "js/pakistan-clock.js",
       "AssetKind": "All",
@@ -948,10 +1119,10 @@
       "OriginalItemSpec": "wwwroot\\js\\pakistan-clock.js"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\js\\password-toggle.js",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\js\\password-toggle.js",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\New folder (2)\\HealthInsuranceManagement\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
       "RelativePath": "js/password-toggle.js",
       "AssetKind": "All",

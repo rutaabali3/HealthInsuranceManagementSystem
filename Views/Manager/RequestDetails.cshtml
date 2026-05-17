@@ -1,0 +1,189 @@
+@model PolicyBill
+@{
+    ViewData["Title"] = "Request Details";
+    var request = Model.PolicyRequest!;
+    var employee = request.Employee;
+    var policy = request.Policy;
+    var company = policy?.Company;
+    var employeeName = $"{employee?.FirstName} {employee?.LastName}".Trim();
+    var isCreated = Model.Status == "Created";
+    var isManagerApproved = Model.Status == "ManagerApproved";
+    var isForwarded = Model.Status == "ForwardedToFinance" || Model.Status == "Paid" || Model.Status == "Closed";
+    var isRejected = Model.Status == "Rejected";
+}
+
+<section class="manager-request-shell">
+    <header class="manager-request-hero">
+        <div>
+            <a asp-action="Requests" class="manager-back-link">
+                <i class="bi bi-arrow-left"></i>
+                <span>Back to requests</span>
+            </a>
+            <p class="manager-request-eyebrow">Request #@request.RequestId</p>
+            <h1>@(policy?.PolicyName ?? "Policy Request")</h1>
+            <div class="manager-request-meta">
+                <span><i class="bi bi-person-badge"></i>@(string.IsNullOrWhiteSpace(employeeName) ? "Employee" : employeeName)</span>
+                <span><i class="bi bi-building"></i>@(company?.CompanyName ?? "Insurance company")</span>
+                <span><i class="bi bi-calendar3"></i>@request.RequestedAt.ToString("dd MMM yyyy")</span>
+            </div>
+        </div>
+        <aside class="manager-request-amount">
+            <span>Requested amount</span>
+            <strong>PKR @request.BillAmount.ToString("N0")</strong>
+            <small>@Model.Status</small>
+        </aside>
+    </header>
+
+    <section class="manager-review-steps" aria-label="Request workflow">
+        <article class="review-step review-step-done">
+            <span><i class="bi bi-send-check"></i></span>
+            <div>
+                <strong>Submitted</strong>
+                <small>@request.RequestedAt.ToString("dd MMM yyyy, hh:mm tt")</small>
+            </div>
+        </article>
+        <article class="review-step @(isCreated ? "review-step-current" : (isManagerApproved || isForwarded ? "review-step-done" : isRejected ? "review-step-rejected" : ""))">
+            <span><i class="bi bi-person-check"></i></span>
+            <div>
+                <strong>Manager Review</strong>
+                <small>@(Model.ManagerDecisionAt?.ToString("dd MMM yyyy, hh:mm tt") ?? "Waiting for decision")</small>
+            </div>
+        </article>
+        <article class="review-step @(isForwarded ? "review-step-done" : isManagerApproved ? "review-step-current" : "")">
+            <span><i class="bi bi-arrow-up-right-circle"></i></span>
+            <div>
+                <strong>Forward to Finance</strong>
+                <small>@(Model.ForwardedAt?.ToString("dd MMM yyyy, hh:mm tt") ?? "Not forwarded yet")</small>
+            </div>
+        </article>
+        <article class="review-step @(Model.Status == "Closed" ? "review-step-done" : Model.Status == "Paid" ? "review-step-current" : "")">
+            <span><i class="bi bi-check2-circle"></i></span>
+            <div>
+                <strong>Finance Close</strong>
+                <small>@(Model.ClosedAt?.ToString("dd MMM yyyy, hh:mm tt") ?? "Waiting on finance")</small>
+            </div>
+        </article>
+    </section>
+
+    <section class="manager-request-metrics" aria-label="Request numbers">
+        <article>
+            <span class="metric-icon metric-blue"><i class="bi bi-receipt"></i></span>
+            <div>
+                <strong>#@Model.BillId</strong>
+                <small>Bill Number</small>
+            </div>
+        </article>
+        <article>
+            <span class="metric-icon metric-green"><i class="bi bi-cash-stack"></i></span>
+            <div>
+                <strong>PKR @Model.Amount.ToString("N0")</strong>
+                <small>Bill Amount</small>
+            </div>
+        </article>
+        <article>
+            <span class="metric-icon metric-amber"><i class="bi bi-shield-check"></i></span>
+            <div>
+                <strong>@(policy?.PolicyType ?? "-")</strong>
+                <small>Policy Type</small>
+            </div>
+        </article>
+    </section>
+
+    <div class="manager-request-layout">
+        <main class="manager-request-main">
+            <article class="manager-detail-panel">
+                <div class="manager-panel-title">
+                    <span><i class="bi bi-person-lines-fill"></i></span>
+                    <h2>Employee Details</h2>
+                </div>
+                <dl class="manager-detail-list">
+                    <dt>Name</dt><dd>@(string.IsNullOrWhiteSpace(employeeName) ? "-" : employeeName)</dd>
+                    <dt>Email</dt><dd>@(employee?.Email ?? "-")</dd>
+                    <dt>Phone</dt><dd>@(employee?.Phone ?? "-")</dd>
+                    <dt>Department</dt><dd>@(employee?.Department ?? "-")</dd>
+                    <dt>Designation</dt><dd>@(employee?.Designation ?? "-")</dd>
+                </dl>
+            </article>
+
+            <article class="manager-detail-panel">
+                <div class="manager-panel-title">
+                    <span><i class="bi bi-shield-plus"></i></span>
+                    <h2>Policy Details</h2>
+                </div>
+                <dl class="manager-detail-list">
+                    <dt>Policy</dt><dd>@(policy?.PolicyName ?? "-")</dd>
+                    <dt>Company</dt><dd>@(company?.CompanyName ?? "-")</dd>
+                    <dt>Premium</dt><dd>PKR @(policy?.PremiumAmount.ToString("N0") ?? "-")</dd>
+                    <dt>Coverage</dt><dd>PKR @(policy?.CoverageAmount.ToString("N0") ?? "-")</dd>
+                    <dt>Duration</dt><dd>@(policy == null ? "-" : $"{policy.DurationMonths} months")</dd>
+                </dl>
+            </article>
+
+            <article class="manager-detail-panel manager-note-panel">
+                <div class="manager-panel-title">
+                    <span><i class="bi bi-chat-left-text"></i></span>
+                    <h2>Request Reason</h2>
+                </div>
+                <p>@(string.IsNullOrWhiteSpace(request.Reason) ? "No reason was provided by the employee." : request.Reason)</p>
+            </article>
+        </main>
+
+        <aside class="manager-action-card">
+            <div class="manager-panel-title">
+                <span><i class="bi bi-lightning-charge"></i></span>
+                <h2>Manager Action</h2>
+            </div>
+            <div class="manager-status-card @(isRejected ? "manager-status-rejected" : isCreated ? "manager-status-waiting" : "manager-status-ready")">
+                <span>Status</span>
+                <strong>@Model.Status</strong>
+            </div>
+
+            @if (Model.Status == "Created")
+            {
+                <div class="manager-action-stack">
+                    <form asp-action="Decide" method="post" data-swal-title="Approve bill" data-swal-confirm="Approve this bill?" data-swal-confirm-button="Approve">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="billId" value="@Model.BillId" />
+                        <input type="hidden" name="decision" value="Approved" />
+                        <input type="hidden" name="remarks" value="Approved by manager." />
+                        <button type="submit" class="btn btn-success w-100 action-button">
+                            <i class="bi bi-check-lg"></i><span>Approve Request</span>
+                        </button>
+                    </form>
+                    <form asp-action="Decide" method="post" data-swal-title="Reject bill" data-swal-confirm="Reject this bill?" data-swal-confirm-button="Reject">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="billId" value="@Model.BillId" />
+                        <input type="hidden" name="decision" value="Rejected" />
+                        <input type="hidden" name="remarks" value="Rejected by manager." />
+                        <button type="submit" class="btn btn-outline-danger w-100 action-button">
+                            <i class="bi bi-x-lg"></i><span>Reject Request</span>
+                        </button>
+                    </form>
+                </div>
+            }
+            else if (Model.Status == "ManagerApproved")
+            {
+                <form asp-action="ForwardToFinance" method="post" data-swal-title="Forward bill" data-swal-confirm="Forward this bill to finance?" data-swal-confirm-button="Forward">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="billId" value="@Model.BillId" />
+                    <button type="submit" class="btn btn-primary w-100 action-button">
+                        <i class="bi bi-send"></i><span>Forward To Finance</span>
+                    </button>
+                </form>
+            }
+            else
+            {
+                <p class="manager-action-note">This request is not waiting for a manager action.</p>
+            }
+
+            <dl class="manager-mini-list">
+                <dt>Created</dt>
+                <dd>@Model.CreatedAt.ToString("dd MMM yyyy, hh:mm tt")</dd>
+                <dt>Decision</dt>
+                <dd>@(Model.ManagerDecisionAt?.ToString("dd MMM yyyy, hh:mm tt") ?? "Waiting")</dd>
+                <dt>Remarks</dt>
+                <dd>@(string.IsNullOrWhiteSpace(Model.Remarks) ? "-" : Model.Remarks)</dd>
+            </dl>
+        </aside>
+    </div>
+</section>

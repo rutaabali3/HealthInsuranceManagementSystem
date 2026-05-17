@@ -1,60 +1,295 @@
+body[data-page="employee-policydetails"] {
+    background: #f7fbfa;
+}
+
 body[data-page="employee-policydetails"] .app-main {
-    max-width: 1080px;
+    max-width: 1240px;
     margin-top: 2.2rem !important;
 }
 
-body[data-page="employee-policydetails"] .card {
-    border-radius: 8px !important;
-    box-shadow: 0 12px 28px rgba(35, 58, 67, 0.08) !important;
+.policy-detail-shell {
+    display: grid;
+    gap: 1.25rem;
+    color: #10282d;
 }
 
-body[data-page="employee-policydetails"] .card[style*="linear-gradient"] {
-    background: #0b6f75 !important;
+.policy-detail-hero {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.25rem;
+    padding: 1.4rem;
+    background: #ffffff;
+    border: 1px solid #dbe8eb;
+    border-radius: 8px;
+    box-shadow: 0 14px 32px rgba(35, 58, 67, 0.08);
+}
+
+.policy-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
+    margin-bottom: 1rem;
+    color: #0b6f75;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.policy-title-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.policy-icon,
+.metric-icon,
+.policy-section-heading span {
+    display: inline-grid;
+    place-items: center;
+    flex: 0 0 auto;
+}
+
+.policy-icon {
+    width: 58px;
+    height: 58px;
+    color: #0b6f75;
+    background: #dff5f3;
+    border-radius: 16px;
+    font-size: 1.7rem;
+}
+
+.policy-eyebrow {
+    margin: 0;
+    color: #5d7180;
+    font-weight: 800;
+}
+
+.policy-title-row h1 {
+    margin: .15rem 0 0;
+    color: #0d2730;
+    font-size: clamp(2rem, 4vw, 3.15rem);
+    font-weight: 900;
+    letter-spacing: 0;
+}
+
+.policy-meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .65rem;
+    margin-top: 1rem;
+}
+
+.policy-meta-row span {
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
+    min-height: 34px;
+    padding: .35rem .75rem;
+    color: #254650;
+    background: #f2f8f8;
+    border: 1px solid #d8e8e8;
+    border-radius: 999px;
+    font-weight: 700;
+}
+
+.policy-hero-action {
+    display: grid;
+    align-content: center;
+    justify-items: end;
+    gap: .35rem;
+    min-width: 230px;
+    text-align: right;
+}
+
+.policy-hero-action span {
+    color: #607381;
+    font-weight: 700;
+}
+
+.policy-hero-action strong {
+    color: #0f7b3e;
+    font-size: 1.55rem;
+}
+
+.policy-hero-action .btn-primary,
+.policy-summary-panel .btn-primary {
     color: #ffffff !important;
 }
 
-body[data-page="employee-policydetails"] .card[style*="linear-gradient"] .text-white-50 {
-    color: rgba(255, 255, 255, 0.78) !important;
+.policy-hero-action .btn-primary i,
+.policy-hero-action .btn-primary span,
+.policy-summary-panel .btn-primary i,
+.policy-summary-panel .btn-primary span {
+    color: inherit !important;
 }
 
-body[data-page="employee-policydetails"] .card[style*="linear-gradient"] h3 {
-    color: #ffffff;
-    font-size: clamp(1.65rem, 3vw, 2.25rem);
-    font-weight: 800;
+.policy-metric-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
 }
 
-body[data-page="employee-policydetails"] .row.g-3 .card {
+.policy-metric {
+    display: flex;
+    align-items: center;
+    gap: .9rem;
     min-height: 104px;
+    padding: 1rem;
+    background: #ffffff;
+    border: 1px solid #dbe8eb;
+    border-radius: 8px;
+    box-shadow: 0 10px 24px rgba(35, 58, 67, 0.06);
 }
 
-body[data-page="employee-policydetails"] .card-body h5 {
+.metric-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    font-size: 1.3rem;
+}
+
+.metric-blue {
+    color: #126dbe;
+    background: #e4f0ff;
+}
+
+.metric-green {
+    color: #0f7b3e;
+    background: #e4f5e8;
+}
+
+.metric-coral {
+    color: #a13f2d;
+    background: #ffe6df;
+}
+
+.policy-metric strong {
+    display: block;
+    color: #10282d;
+    font-size: 1.15rem;
+    font-weight: 900;
+}
+
+.policy-metric span:not(.metric-icon) {
+    color: #637684;
+    font-weight: 700;
+}
+
+.policy-content-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 1.25rem;
+    align-items: start;
+}
+
+.policy-main-column {
+    display: grid;
+    gap: 1rem;
+}
+
+.policy-section,
+.policy-summary-panel {
+    padding: 1.2rem;
+    background: #ffffff;
+    border: 1px solid #dbe8eb;
+    border-radius: 8px;
+    box-shadow: 0 10px 24px rgba(35, 58, 67, 0.06);
+}
+
+.policy-section-heading {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    margin-bottom: .85rem;
+}
+
+.policy-section-heading span {
+    width: 38px;
+    height: 38px;
+    color: #0b6f75;
+    background: #e7f5f3;
+    border-radius: 12px;
+}
+
+.policy-section-heading h2,
+.policy-summary-panel h2 {
+    margin: 0;
     color: #0d2730;
+    font-size: 1.12rem;
+    font-weight: 900;
+}
+
+.policy-section p {
+    margin: 0;
+    color: #526877;
+    line-height: 1.7;
+}
+
+.policy-side-column {
+    position: sticky;
+    top: 1rem;
+}
+
+.policy-summary-panel {
+    display: grid;
+    gap: 1rem;
+}
+
+.policy-summary-panel dl {
+    display: grid;
+    grid-template-columns: .8fr 1fr;
+    gap: .75rem;
+    margin: 0;
+}
+
+.policy-summary-panel dt {
+    color: #647684;
     font-weight: 800;
 }
 
-body[data-page="employee-policydetails"] .card-header {
-    min-height: 62px;
-    background: #e7f5f3 !important;
-    border-bottom-color: #c9e4e1;
+.policy-summary-panel dd {
+    margin: 0;
+    color: #10282d;
+    font-weight: 700;
+    overflow-wrap: anywhere;
 }
 
-body[data-page="employee-policydetails"] .card-header h5 {
-    color: #064b4b;
-    font-weight: 800;
+@media (max-width: 1199.98px) {
+    .policy-metric-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .policy-content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .policy-side-column {
+        position: static;
+    }
 }
 
-body[data-page="employee-policydetails"] .table-responsive {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-}
-
-body[data-page="employee-policydetails"] .app-main > .d-flex.gap-2,
-body[data-page="employee-policydetails"] .d-flex.justify-content-between {
-    flex-wrap: wrap;
+@media (max-width: 991.98px) {
+    .policy-metric-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media (max-width: 767.98px) {
-    body[data-page="employee-policydetails"] .row.g-3 > [class*="col-"] {
-        width: 100%;
+    body[data-page="employee-policydetails"] .app-main {
+        margin-top: 1.25rem !important;
     }
+
+    .policy-detail-hero {
+        flex-direction: column;
+    }
+
+    .policy-title-row {
+        align-items: flex-start;
+    }
+
+    .policy-hero-action {
+        justify-items: stretch;
+        min-width: 0;
+        text-align: left;
+    }
+
 }

@@ -38,7 +38,7 @@
                             <label asp-for="ContactNumber" class="form-label fw-semibold"></label>
                             <div class="input-group app-field-group">
                                 <span class="input-group-text"><i class="bi bi-telephone"></i></span>
-                                <input asp-for="ContactNumber" class="form-control" placeholder="+92-21-..." />
+                                <input asp-for="ContactNumber" class="form-control" placeholder="03001234567" />
                             </div>
                             <span asp-validation-for="ContactNumber" class="text-danger small"></span>
                         </div>
@@ -56,6 +56,7 @@
                                 <span class="input-group-text"><i class="bi bi-globe"></i></span>
                                 <input asp-for="Website" class="form-control" placeholder="https://..." />
                             </div>
+                            <span asp-validation-for="Website" class="text-danger small"></span>
                         </div>
                         <div class="col-12">
                             <label asp-for="Description" class="form-label fw-semibold"></label>
@@ -64,6 +65,7 @@
                                 <textarea asp-for="Description" class="form-control" rows="3"
                                           placeholder="Brief description of the company..."></textarea>
                             </div>
+                            <span asp-validation-for="Description" class="text-danger small"></span>
                         </div>
                     </div>
 

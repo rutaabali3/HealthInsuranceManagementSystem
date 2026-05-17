@@ -21,12 +21,34 @@ body[data-page="finance-dashboard"] .role-table thead th {
 }
 
 body[data-page="finance-dashboard"] td:last-child {
-    min-width: 150px;
+    width: 1%;
+    min-width: 190px;
+    white-space: nowrap;
 }
 
-body[data-page="finance-dashboard"] .app-footer {
-    background: transparent;
-    border-top: 0;
+body[data-page="finance-dashboard"] .finance-action-row {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: .4rem;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    width: max-content;
+    max-width: max-content;
+}
+
+body[data-page="finance-dashboard"] .finance-action-row form {
+    display: inline-flex;
+    flex: 0 0 auto;
+    width: auto;
+    margin: 0;
+}
+
+body[data-page="finance-dashboard"] .finance-action-row .action-button {
+    flex: 0 0 auto;
+    min-height: 30px;
+    margin: 0;
+    padding: .25rem .65rem;
 }
 
 @media (max-width: 1199.98px) {

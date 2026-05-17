@@ -1,0 +1,42 @@
+@import url("./manager-requestdetails.css");
+
+body[data-page="finance-requestdetails"] {
+    background: #fbfdfc;
+}
+
+body[data-page="finance-requestdetails"] .app-main {
+    max-width: 1280px;
+    margin-top: 2.4rem !important;
+}
+
+body[data-page="finance-requestdetails"] .role-dashboard-eyebrow,
+body[data-page="finance-requestdetails"] .role-panel-heading h2,
+body[data-page="finance-requestdetails"] .role-panel-heading h2 i,
+body[data-page="finance-requestdetails"] .request-detail-card h2 i {
+    color: #148b43;
+}
+
+body[data-page="finance-requestdetails"] .manager-back-link,
+body[data-page="finance-requestdetails"] .manager-panel-title span,
+body[data-page="finance-requestdetails"] .manager-request-eyebrow {
+    color: #148b43;
+}
+
+body[data-page="finance-requestdetails"] .manager-panel-title span {
+    background: #e4f5e8;
+}
+
+body[data-page="finance-requestdetails"] .manager-request-meta span {
+    background: #f2faf4;
+    border-color: #d6eadb;
+}
+
+body[data-page="finance-requestdetails"] .manager-status-closed {
+    color: #1f2937;
+    background: #e9edf2;
+}
+
+body[data-page="finance-requestdetails"] .manager-action-card .btn-dark,
+body[data-page="finance-requestdetails"] .manager-action-card .btn-success {
+    color: #ffffff !important;
+}

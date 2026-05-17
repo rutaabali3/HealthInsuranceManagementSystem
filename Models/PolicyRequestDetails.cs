@@ -20,7 +20,8 @@ namespace HealthInsuranceManagement.Models
         [MaxLength(500)]
         public string? Reason { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Bill amount is required.")]
+        [Range(1, 999999999, ErrorMessage = "Bill amount must be greater than zero.")]
         [Column(TypeName = "decimal(18,2)")]
         [Display(Name = "Bill Amount")]
         public decimal BillAmount { get; set; }

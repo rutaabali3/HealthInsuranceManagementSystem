@@ -8,12 +8,14 @@
     <div class="card-body p-4">
         <form asp-action="Index" method="post" class="row g-3 align-items-end">
             @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="app-validation-summary d-none"></div>
             <div class="col-md-4">
                 <label asp-for="FromDate" class="form-label fw-semibold"></label>
                 <div class="input-group app-field-group">
                     <span class="input-group-text"><i class="bi bi-calendar-plus"></i></span>
                     <input asp-for="FromDate" class="form-control" type="date" />
                 </div>
+                <span asp-validation-for="FromDate" class="text-danger small"></span>
             </div>
             <div class="col-md-4">
                 <label asp-for="ToDate" class="form-label fw-semibold"></label>
@@ -21,6 +23,7 @@
                     <span class="input-group-text"><i class="bi bi-calendar-check"></i></span>
                     <input asp-for="ToDate" class="form-control" type="date" />
                 </div>
+                <span asp-validation-for="ToDate" class="text-danger small"></span>
             </div>
             <div class="col-md-4">
                 <button type="submit" class="btn btn-primary w-100">
