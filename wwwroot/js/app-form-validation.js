@@ -44,46 +44,31 @@
         return field.closest(".app-field-group, .login-input-group, .input-group") || field;
     }
 
-    function feedbackElement(field) {
-        const anchor = fieldAnchor(field);
-        let feedback = anchor.nextElementSibling;
-        while (feedback && feedback.matches("[data-valmsg-for], .field-validation-valid, .field-validation-error, .text-danger")) {
-            feedback = feedback.nextElementSibling;
-        }
-
-        if (!feedback || !feedback.classList.contains("app-field-feedback")) {
-            feedback = document.createElement("div");
-            feedback.className = "app-field-feedback";
-            anchor.insertAdjacentElement("afterend", feedback);
-        }
-
-        return feedback;
-    }
-
     function setFeedback(field, type, message) {
         const anchor = fieldAnchor(field);
-        const feedback = feedbackElement(field);
         anchor.classList.remove("app-field-valid", "app-field-error", "app-field-warning");
         field.classList.remove("is-valid", "is-invalid");
 
         if (!type || !message) {
-            feedback.hidden = true;
-            feedback.textContent = "";
+            delete anchor.dataset.appFeedback;
+            delete anchor.dataset.appFeedbackType;
+            anchor.removeAttribute("title");
+            field.removeAttribute("title");
             return;
         }
 
         anchor.classList.add(`app-field-${type}`);
+        anchor.dataset.appFeedback = message;
+        anchor.dataset.appFeedbackType = type;
+        anchor.title = message;
+        field.title = message;
+
         if (type === "success") {
             field.classList.add("is-valid");
         }
         if (type === "error") {
             field.classList.add("is-invalid");
         }
-
-        const icon = type === "success" ? "bi-check-circle-fill" : type === "warning" ? "bi-exclamation-triangle-fill" : "bi-exclamation-circle-fill";
-        feedback.className = `app-field-feedback app-field-feedback-${type}`;
-        feedback.innerHTML = `<i class="bi ${icon}" aria-hidden="true"></i><span>${message}</span>`;
-        feedback.hidden = false;
     }
 
     function isRequired(field) {
@@ -244,6 +229,18 @@
         }
     }
 
+    function syncServerValidation(form, fields) {
+        fields.forEach((field) => {
+            const validationMessage = Array.from(form.querySelectorAll("[data-valmsg-for]"))
+                .find((message) => message.dataset.valmsgFor === field.name);
+            const message = validationMessage?.textContent.trim();
+
+            if (message) {
+                setFeedback(field, "error", message);
+            }
+        });
+    }
+
     function attachValidation(form) {
         if (form.dataset.validationMode === "native") {
             return;
@@ -288,6 +285,8 @@
                 });
             }
         });
+
+        syncServerValidation(form, fields);
 
         form.addEventListener("submit", (event) => {
             const invalid = fields

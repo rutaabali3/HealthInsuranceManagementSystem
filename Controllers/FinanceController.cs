@@ -151,7 +151,7 @@ namespace HealthInsuranceManagement.Controllers
 
             var paidBill = await _db.PolicyBills
                 .Include(b => b.PolicyRequest).ThenInclude(r => r!.Employee)
-                .Include(b => b.PolicyRequest).ThenInclude(r => r!.Policy)
+                .Include(b => b.PolicyRequest).ThenInclude(r => r!.Policy).ThenInclude(p => p!.Company)
                 .FirstOrDefaultAsync(b => b.BillId == billId);
 
             if (paidBill?.PolicyRequest?.Employee != null && paidBill.PolicyRequest.Policy != null)
@@ -175,6 +175,19 @@ namespace HealthInsuranceManagement.Controllers
                     $"""
                     <p>Finance has credited payment for <strong>{request.Policy.PolicyName}</strong>.</p>
                     <p><strong>Amount:</strong> PKR {paidBill.Amount:N0}</p>
+                    """,
+                    "PaymentCredited",
+                    request.RequestId);
+                await _notifications.NotifyCompanyAsync(
+                    request.Policy.Company,
+                    "Payment was credited for your company policy",
+                    $"""
+                    <p>Finance credited payment for a request linked to your company policy.</p>
+                    <p><strong>Employee:</strong> {employeeName}</p>
+                    <p><strong>Employee Email:</strong> {employee.Email}</p>
+                    <p><strong>Policy:</strong> {request.Policy.PolicyName}</p>
+                    <p><strong>Amount:</strong> PKR {paidBill.Amount:N0}</p>
+                    <p><strong>Status:</strong> Paid</p>
                     """,
                     "PaymentCredited",
                     request.RequestId);
@@ -207,7 +220,7 @@ namespace HealthInsuranceManagement.Controllers
 
             var closedBill = await _db.PolicyBills
                 .Include(b => b.PolicyRequest).ThenInclude(r => r!.Employee)
-                .Include(b => b.PolicyRequest).ThenInclude(r => r!.Policy)
+                .Include(b => b.PolicyRequest).ThenInclude(r => r!.Policy).ThenInclude(p => p!.Company)
                 .FirstOrDefaultAsync(b => b.BillId == billId);
 
             if (closedBill?.PolicyRequest?.Employee != null && closedBill.PolicyRequest.Policy != null)
@@ -231,6 +244,19 @@ namespace HealthInsuranceManagement.Controllers
                     $"""
                     <p>Your request for <strong>{request.Policy.PolicyName}</strong> has been closed after payment.</p>
                     <p><strong>Amount:</strong> PKR {closedBill.Amount:N0}</p>
+                    """,
+                    "RequestClosed",
+                    request.RequestId);
+                await _notifications.NotifyCompanyAsync(
+                    request.Policy.Company,
+                    "A request for your company policy was closed",
+                    $"""
+                    <p>A paid request linked to your company policy has been closed.</p>
+                    <p><strong>Employee:</strong> {employeeName}</p>
+                    <p><strong>Employee Email:</strong> {employee.Email}</p>
+                    <p><strong>Policy:</strong> {request.Policy.PolicyName}</p>
+                    <p><strong>Amount:</strong> PKR {closedBill.Amount:N0}</p>
+                    <p><strong>Status:</strong> Closed</p>
                     """,
                     "RequestClosed",
                     request.RequestId);

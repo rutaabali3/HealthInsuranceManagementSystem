@@ -1,0 +1,281 @@
+body[data-page="support-inbox"] {
+    background: #eef5f3;
+}
+
+body[data-page="support-inbox"] .app-main {
+    max-width: 1280px;
+    margin-top: 1.5rem !important;
+}
+
+.support-inbox-shell {
+    display: grid;
+    grid-template-columns: minmax(280px, 340px) minmax(0, 1fr);
+    min-height: calc(100vh - 190px);
+    overflow: hidden;
+    border: 1px solid #d4e4e0;
+    border-radius: 8px;
+    background: #ffffff;
+    box-shadow: 0 18px 44px rgba(31, 54, 63, 0.1);
+}
+
+.support-thread-list {
+    min-width: 0;
+    border-right: 1px solid #dbe8e5;
+    background: #f8fbfa;
+}
+
+.support-thread-header,
+.support-chat-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 76px;
+    padding: 1rem 1.1rem;
+    border-bottom: 1px solid #dbe8e5;
+}
+
+.support-thread-header h1,
+.support-chat-header h2 {
+    margin: 0;
+    color: #172423;
+    font-size: 1.35rem;
+    font-weight: 800;
+}
+
+.support-thread-header > span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #dff4ef;
+    color: #0f766e;
+    font-weight: 800;
+}
+
+.support-thread-scroll {
+    max-height: calc(100vh - 270px);
+    overflow-y: auto;
+}
+
+.support-thread-item {
+    display: grid;
+    grid-template-columns: 42px minmax(0, 1fr) auto;
+    gap: .75rem;
+    align-items: center;
+    min-height: 76px;
+    padding: .85rem 1rem;
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid #e4eeeb;
+}
+
+.support-thread-item:hover,
+.support-thread-item.active {
+    background: #e4f5f1;
+}
+
+.support-thread-avatar,
+.support-chat-avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #0f766e;
+    color: #ffffff;
+    font-weight: 800;
+}
+
+.support-thread-copy {
+    min-width: 0;
+}
+
+.support-thread-copy strong,
+.support-thread-copy small,
+.support-thread-meta small {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.support-thread-copy strong {
+    color: #172423;
+    font-weight: 800;
+}
+
+.support-thread-copy small,
+.support-thread-meta small,
+.support-chat-header p {
+    color: #617572;
+}
+
+.support-chat-panel {
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    min-width: 0;
+    background: #f5faf8;
+}
+
+.support-chat-header {
+    justify-content: flex-start;
+    background: #ffffff;
+}
+
+.support-chat-header .status-pill {
+    margin-left: auto;
+}
+
+.support-chat-header p {
+    margin: .1rem 0 0;
+}
+
+.support-chat-messages {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+    padding: 1.2rem;
+    overflow-y: auto;
+}
+
+.support-message {
+    display: flex;
+}
+
+.support-message > div {
+    max-width: min(680px, 78%);
+    padding: .75rem .95rem;
+    border-radius: 8px;
+    box-shadow: 0 8px 22px rgba(31, 54, 63, 0.08);
+}
+
+.support-message p {
+    margin: 0;
+    color: #172423;
+    line-height: 1.5;
+    white-space: pre-wrap;
+}
+
+.support-message small {
+    display: block;
+    margin-top: .35rem;
+    color: #667875;
+    font-size: .75rem;
+}
+
+.support-message-in {
+    justify-content: flex-start;
+}
+
+.support-message-in > div {
+    background: #ffffff;
+}
+
+.support-message-out {
+    justify-content: flex-end;
+}
+
+.support-message-out > div {
+    background: #dcf8ef;
+}
+
+.support-reply-bar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 48px;
+    gap: .75rem;
+    align-items: end;
+    padding: 1rem;
+    border-top: 1px solid #dbe8e5;
+    background: #ffffff;
+}
+
+.support-reply-bar textarea {
+    min-height: 48px;
+    max-height: 140px;
+    resize: vertical;
+    border: 1px solid #cddfdb;
+    border-radius: 8px;
+    padding: .75rem 1rem;
+    color: #172423;
+    outline: none;
+}
+
+.support-reply-bar textarea:focus {
+    border-color: #0f766e;
+    box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.14);
+}
+
+.support-reply-bar button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border: 0;
+    border-radius: 50%;
+    background: #0f766e;
+    color: #ffffff;
+}
+
+.support-reply-error {
+    grid-column: 1 / -1;
+    color: #ba1a1a;
+    font-size: .85rem;
+}
+
+.support-chat-empty,
+.support-empty-list {
+    display: grid;
+    place-items: center;
+    align-content: center;
+    gap: .6rem;
+    min-height: 280px;
+    padding: 2rem;
+    color: #617572;
+    text-align: center;
+}
+
+.support-chat-empty i,
+.support-empty-list i {
+    color: #0f766e;
+    font-size: 2rem;
+}
+
+.support-chat-empty h2,
+.support-chat-empty p,
+.support-empty-list p {
+    margin: 0;
+}
+
+@media (max-width: 991.98px) {
+    .support-inbox-shell {
+        grid-template-columns: 1fr;
+    }
+
+    .support-thread-list {
+        border-right: 0;
+        border-bottom: 1px solid #dbe8e5;
+    }
+
+    .support-thread-scroll {
+        max-height: 260px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    body[data-page="support-inbox"] .app-main {
+        padding-inline: .7rem;
+    }
+
+    .support-inbox-shell {
+        min-height: calc(100vh - 160px);
+    }
+
+    .support-message > div {
+        max-width: 92%;
+    }
+}

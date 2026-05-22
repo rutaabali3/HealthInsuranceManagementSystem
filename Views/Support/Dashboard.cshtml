@@ -1,0 +1,111 @@
+@model SupportDashboardViewModel
+@{
+    ViewData["Title"] = "Support Dashboard";
+    var supportName = $"{Model.SupportUser?.FirstName} {Model.SupportUser?.LastName}".Trim();
+    var today = DateTime.Now;
+}
+
+<section class="role-dashboard-shell support-dashboard-shell">
+    <header class="role-dashboard-hero">
+        <div>
+            <p class="role-dashboard-eyebrow">Support Workspace</p>
+            <h1>Contact Queries</h1>
+            <p class="role-dashboard-subtitle">Review visitor messages and reply directly to their email from the support inbox.</p>
+        </div>
+        <div class="role-hero-actions">
+            <span class="role-date-chip">
+                <i class="bi bi-calendar3"></i>
+                <span>@today.ToString("MMMM d, yyyy")</span>
+            </span>
+            <span class="role-user-chip">
+                <i class="bi bi-headset"></i>
+                <span>@(string.IsNullOrWhiteSpace(supportName) ? "Support" : supportName)</span>
+            </span>
+        </div>
+    </header>
+
+    <section class="role-metric-grid" aria-label="Support query metrics">
+        <article class="role-metric-card metric-card-amber">
+            <span class="role-metric-icon"><i class="bi bi-chat-dots"></i></span>
+            <span class="role-metric-content">
+                <strong>@Model.NewQueries</strong>
+                <span>New Queries</span>
+            </span>
+        </article>
+        <article class="role-metric-card metric-card-blue">
+            <span class="role-metric-icon"><i class="bi bi-inbox"></i></span>
+            <span class="role-metric-content">
+                <strong>@Model.OpenQueries</strong>
+                <span>Open Threads</span>
+            </span>
+        </article>
+        <article class="role-metric-card metric-card-green">
+            <span class="role-metric-icon"><i class="bi bi-reply-all"></i></span>
+            <span class="role-metric-content">
+                <strong>@Model.RepliedQueries</strong>
+                <span>Replied</span>
+            </span>
+        </article>
+        <article class="role-metric-card metric-card-teal">
+            <span class="role-metric-icon"><i class="bi bi-clock-history"></i></span>
+            <span class="role-metric-content">
+                <strong>@Model.RecentQueries.Count</strong>
+                <span>Recent Messages</span>
+            </span>
+        </article>
+    </section>
+
+    <article class="role-dashboard-panel">
+        <div class="role-panel-heading">
+            <h2><i class="bi bi-headset"></i>Recent Contact Queue</h2>
+            <a asp-action="Inbox" class="panel-action">Open Inbox</a>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle role-table mb-0">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Visitor</th>
+                        <th>Email</th>
+                        <th>Message</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (!Model.RecentQueries.Any())
+                    {
+                        <tr>
+                            <td colspan="6">
+                                <div class="role-empty-state">
+                                    <span><i class="bi bi-inbox"></i></span>
+                                    <strong>No contact queries yet.</strong>
+                                    <small>Messages submitted from the public contact form will appear here.</small>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                    @foreach (var query in Model.RecentQueries)
+                    {
+                        <tr>
+                            <td>@query.Id</td>
+                            <td class="fw-semibold">@query.Name</td>
+                            <td>@query.Email</td>
+                            <td>@(query.Message.Length > 80 ? $"{query.Message[..80]}..." : query.Message)</td>
+                            <td>
+                                <span class="status-pill @(query.Status == "New" ? "status-waiting" : "status-approved")">
+                                    @query.Status
+                                </span>
+                            </td>
+                            <td>
+                                <a asp-action="Inbox" asp-route-id="@query.Id" class="btn btn-sm btn-outline-secondary action-button">
+                                    <i class="bi bi-chat-right-text"></i><span>Reply</span>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </article>
+</section>

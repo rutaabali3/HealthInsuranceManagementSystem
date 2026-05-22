@@ -42,6 +42,7 @@ namespace HealthInsuranceManagement.Data
 
             await SeedStaffUserAsync(db, "manager", "Manager@123", "System", "Manager", UserRoles.Manager, "manager@healthinsurance.com");
             await SeedStaffUserAsync(db, "finance", "Finance@123", "Finance", "Manager", UserRoles.FinanceManager, "finance@healthinsurance.com");
+            await SeedStaffUserAsync(db, "support", "Support@123", "Support", "Agent", UserRoles.Support, "support@healthinsurance.com");
         }
 
         private static async Task SeedStaffUserAsync(
@@ -64,7 +65,13 @@ namespace HealthInsuranceManagement.Data
                     PasswordHash = BCrypt.Net.BCrypt.HashPassword(password),
                     Email = email,
                     Phone = "0000000000",
-                    Department = role == UserRoles.Manager ? "Management" : "Finance",
+                    Department = role switch
+                    {
+                        UserRoles.Manager => "Management",
+                        UserRoles.FinanceManager => "Finance",
+                        UserRoles.Support => "Support",
+                        _ => "Operations"
+                    },
                     Designation = UserRoles.DisplayName(role),
                     Role = role,
                     DateOfBirth = new DateTime(1990, 1, 1),

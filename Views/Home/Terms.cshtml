@@ -1,14 +1,51 @@
 @{ ViewData["Title"] = "Terms"; }
 
 <section class="info-page-shell" aria-labelledby="terms-title">
-    <header class="info-page-header">
-        <span><i class="bi bi-file-earmark-text"></i></span>
-        <h1 id="terms-title">Terms</h1>
-        <p>Basic usage terms for the Health Insurance Management System.</p>
+    <header class="info-page-hero">
+        <div class="info-page-hero-copy">
+            <span class="info-kicker"><i class="bi bi-file-earmark-text"></i> Usage Agreement</span>
+            <h1 id="terms-title">Terms</h1>
+            <p>
+                These terms explain the expected use of HealthInsure for authorized users managing
+                employee health insurance, requests, approvals, billing, and reporting.
+            </p>
+        </div>
+
+        <div class="info-hero-panel" aria-label="Terms highlights">
+            <div>
+                <i class="bi bi-person-lock"></i>
+                <strong>Authorized access</strong>
+                <span>Use the system only through the account and role assigned to you.</span>
+            </div>
+            <div>
+                <i class="bi bi-check2-square"></i>
+                <strong>Careful submissions</strong>
+                <span>Review policy and billing actions before saving workflow changes.</span>
+            </div>
+        </div>
     </header>
+
+    <div class="info-summary-row" aria-label="Terms summary">
+        <article>
+            <span><i class="bi bi-door-open"></i></span>
+            <strong>Use your own account</strong>
+            <p>Login details should remain private and must not be shared between users.</p>
+        </article>
+        <article>
+            <span><i class="bi bi-clipboard-check"></i></span>
+            <strong>Submit true details</strong>
+            <p>Requests, employee records, and billing entries should reflect accurate information.</p>
+        </article>
+        <article>
+            <span><i class="bi bi-people"></i></span>
+            <strong>Respect role limits</strong>
+            <p>Each dashboard is intended for a specific responsibility in the workflow.</p>
+        </article>
+    </div>
 
     <div class="info-page-content">
         <article>
+            <span class="info-card-icon"><i class="bi bi-person-badge"></i></span>
             <h2>Authorized Use</h2>
             <p>
                 This system is intended for authorized users managing health insurance information,
@@ -17,6 +54,7 @@
         </article>
 
         <article>
+            <span class="info-card-icon"><i class="bi bi-lock"></i></span>
             <h2>Account Responsibility</h2>
             <p>
                 Users are responsible for keeping their login details safe and for using the system
@@ -25,11 +63,48 @@
         </article>
 
         <article>
+            <span class="info-card-icon"><i class="bi bi-clipboard-data"></i></span>
             <h2>Workflow Accuracy</h2>
             <p>
                 Admin, manager, and finance actions should be reviewed carefully before submission,
                 because these actions update request and billing records.
             </p>
         </article>
+
+        <article>
+            <span class="info-card-icon"><i class="bi bi-envelope-paper"></i></span>
+            <h2>Communication</h2>
+            <p>
+                System emails and notifications are provided to support workflow updates. Users should
+                keep their email information current and check important messages promptly.
+            </p>
+        </article>
+
+        <article>
+            <span class="info-card-icon"><i class="bi bi-ban"></i></span>
+            <h2>Misuse</h2>
+            <p>
+                Unauthorized access, false records, shared accounts, or changes outside a user's role
+                may lead to account restriction and administrative review.
+            </p>
+        </article>
+
+        <article>
+            <span class="info-card-icon"><i class="bi bi-arrow-repeat"></i></span>
+            <h2>Updates</h2>
+            <p>
+                These terms may be updated as system features, workflow rules, or organizational
+                requirements change. Continued use means the current terms apply.
+            </p>
+        </article>
     </div>
+
+    <aside class="info-callout">
+        <i class="bi bi-shield-exclamation"></i>
+        <div>
+            <strong>Before submitting a workflow action</strong>
+            <p>Confirm the selected employee, policy, status, and billing information before saving changes.</p>
+        </div>
+        <a asp-controller="Home" asp-action="Sitemap">View Sitemap</a>
+    </aside>
 </section>

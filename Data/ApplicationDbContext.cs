@@ -25,6 +25,8 @@ namespace HealthInsuranceManagement.Data
         public DbSet<PolicyTotalDescription> PolicyTotalDescriptions { get; set; }
         public DbSet<PasswordResetToken> PasswordResetTokens { get; set; }
         public DbSet<EmailNotificationLog> EmailNotificationLogs { get; set; }
+        public DbSet<ContactQuery> ContactQueries { get; set; }
+        public DbSet<ContactMessage> ContactMessages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -48,6 +50,12 @@ namespace HealthInsuranceManagement.Data
 
             modelBuilder.Entity<EmailNotificationLog>()
                 .HasIndex(n => new { n.RecipientEmail, n.EventType, n.CreatedAt });
+
+            modelBuilder.Entity<ContactQuery>()
+                .HasIndex(q => new { q.Email, q.Status, q.CreatedAt });
+
+            modelBuilder.Entity<ContactMessage>()
+                .HasIndex(m => new { m.ContactQueryId, m.SentAt });
 
             // ── Relationships ──────────────────────────────────────────
             modelBuilder.Entity<Policy>()
@@ -114,6 +122,12 @@ namespace HealthInsuranceManagement.Data
                 .HasOne(ptd => ptd.Policy)
                 .WithMany(p => p.PolicyDescriptions)
                 .HasForeignKey(ptd => ptd.PolicyId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<ContactMessage>()
+                .HasOne(m => m.ContactQuery)
+                .WithMany(q => q.Messages)
+                .HasForeignKey(m => m.ContactQueryId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             // ── Seed default admin ─────────────────────────────────────

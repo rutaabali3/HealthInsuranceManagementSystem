@@ -1,14 +1,51 @@
 @{ ViewData["Title"] = "Privacy"; }
 
 <section class="info-page-shell" aria-labelledby="privacy-title">
-    <header class="info-page-header">
-        <span><i class="bi bi-shield-lock"></i></span>
-        <h1 id="privacy-title">Privacy</h1>
-        <p>How Health Insurance Management handles account, policy, and workflow information.</p>
+    <header class="info-page-hero">
+        <div class="info-page-hero-copy">
+            <span class="info-kicker"><i class="bi bi-shield-lock"></i> Privacy Center</span>
+            <h1 id="privacy-title">Privacy</h1>
+            <p>
+                HealthInsure keeps employee, policy, request, billing, and notification information
+                organized for secure role-based insurance management.
+            </p>
+        </div>
+
+        <div class="info-hero-panel" aria-label="Privacy highlights">
+            <div>
+                <i class="bi bi-person-check"></i>
+                <strong>Role-based access</strong>
+                <span>Users only reach the areas assigned to their account type.</span>
+            </div>
+            <div>
+                <i class="bi bi-envelope-check"></i>
+                <strong>Workflow notices</strong>
+                <span>Emails support real request, approval, and billing activity.</span>
+            </div>
+        </div>
     </header>
+
+    <div class="info-summary-row" aria-label="Privacy summary">
+        <article>
+            <span><i class="bi bi-database-lock"></i></span>
+            <strong>Stored carefully</strong>
+            <p>Only business information needed for account and policy workflows is maintained.</p>
+        </article>
+        <article>
+            <span><i class="bi bi-person-gear"></i></span>
+            <strong>Used by role</strong>
+            <p>Admins, employees, managers, and finance users see different tools and records.</p>
+        </article>
+        <article>
+            <span><i class="bi bi-clock-history"></i></span>
+            <strong>Traceable actions</strong>
+            <p>Important status changes and notifications can be followed through the system.</p>
+        </article>
+    </div>
 
     <div class="info-page-content">
         <article>
+            <span class="info-card-icon"><i class="bi bi-folder2-open"></i></span>
             <h2>Information We Use</h2>
             <p>
                 The system stores employee profiles, insurance policies, policy requests, approvals,
@@ -17,6 +54,7 @@
         </article>
 
         <article>
+            <span class="info-card-icon"><i class="bi bi-diagram-3"></i></span>
             <h2>Why It Is Used</h2>
             <p>
                 Information is used to authenticate users, show role-based dashboards, process requests,
@@ -25,11 +63,48 @@
         </article>
 
         <article>
+            <span class="info-card-icon"><i class="bi bi-key"></i></span>
             <h2>Access</h2>
             <p>
                 Access is role-based. Admin, employee, manager, and finance users only see the areas
                 intended for their account type.
             </p>
         </article>
+
+        <article>
+            <span class="info-card-icon"><i class="bi bi-pencil-square"></i></span>
+            <h2>Keeping Records Accurate</h2>
+            <p>
+                Users should keep profile and contact details updated so request updates, finance
+                messages, and administrative notifications reach the correct person.
+            </p>
+        </article>
+
+        <article>
+            <span class="info-card-icon"><i class="bi bi-shield-check"></i></span>
+            <h2>Responsible Handling</h2>
+            <p>
+                Insurance and employee records should be reviewed only for valid work purposes, such as
+                request decisions, policy assignment, reporting, and billing follow-up.
+            </p>
+        </article>
+
+        <article>
+            <span class="info-card-icon"><i class="bi bi-life-preserver"></i></span>
+            <h2>Questions</h2>
+            <p>
+                For privacy questions or record corrections, use the contact page so the support team
+                can review the request with the right account details.
+            </p>
+        </article>
     </div>
+
+    <aside class="info-callout">
+        <i class="bi bi-info-circle"></i>
+        <div>
+            <strong>Need to update your information?</strong>
+            <p>Sign in and use your profile area, or contact the system administrator for account-level corrections.</p>
+        </div>
+        <a asp-controller="Home" asp-action="Contact">Contact Support</a>
+    </aside>
 </section>

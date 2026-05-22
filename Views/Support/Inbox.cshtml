@@ -1,0 +1,98 @@
+@model SupportInboxViewModel
+
+@{
+    ViewData["Title"] = "Support Inbox";
+    var selected = Model.SelectedQuery;
+}
+
+<section class="support-inbox-shell" aria-label="Support contact inbox">
+    <aside class="support-thread-list" aria-label="Contact conversations">
+        <div class="support-thread-header">
+            <div>
+                <p class="role-dashboard-eyebrow">Support Inbox</p>
+                <h1>Messages</h1>
+            </div>
+            <span>@Model.Queries.Count</span>
+        </div>
+
+        <div class="support-thread-scroll">
+            @if (!Model.Queries.Any())
+            {
+                <div class="support-empty-list">
+                    <i class="bi bi-inbox"></i>
+                    <p>No contact queries yet.</p>
+                </div>
+            }
+            @foreach (var query in Model.Queries)
+            {
+                var active = selected?.Id == query.Id ? "active" : "";
+                var initial = string.IsNullOrWhiteSpace(query.Name) ? "?" : query.Name.Trim()[0].ToString().ToUpperInvariant();
+                var latest = query.Messages.OrderByDescending(m => m.SentAt).FirstOrDefault()?.Message ?? query.Message;
+                <a asp-action="Inbox"
+                   asp-route-id="@query.Id"
+                   class="support-thread-item @active"
+                   data-query-id="@query.Id"
+                   data-conversation-url="@Url.Action("Conversation", "Support", new { id = query.Id })"
+                   data-reply-url="@Url.Action("Reply", "Support", new { id = query.Id })">
+                    <span class="support-thread-avatar">@initial</span>
+                    <span class="support-thread-copy">
+                        <strong>@query.Name</strong>
+                        <small>@(latest.Length > 48 ? $"{latest[..48]}..." : latest)</small>
+                    </span>
+                    <span class="support-thread-meta">
+                        <small>@query.Status</small>
+                    </span>
+                </a>
+            }
+        </div>
+    </aside>
+
+    <section class="support-chat-panel" aria-label="Selected conversation">
+        @if (selected == null)
+        {
+            <div class="support-chat-empty">
+                <i class="bi bi-chat-square-text"></i>
+                <h2>Select a conversation</h2>
+                <p>Visitor messages will open here when a contact query is selected.</p>
+            </div>
+        }
+        else
+        {
+            var selectedInitial = string.IsNullOrWhiteSpace(selected.Name) ? "?" : selected.Name.Trim()[0].ToString().ToUpperInvariant();
+            <header class="support-chat-header">
+                <div class="support-chat-avatar" data-chat-avatar>@selectedInitial</div>
+                <div>
+                    <h2 data-chat-name>@selected.Name</h2>
+                    <p data-chat-email>@selected.Email</p>
+                </div>
+                <span class="status-pill @(selected.Status == "New" ? "status-waiting" : "status-approved")" data-chat-status>@selected.Status</span>
+            </header>
+
+            <div class="support-chat-messages" data-chat-messages>
+                @foreach (var message in selected.Messages.OrderBy(m => m.SentAt))
+                {
+                    var isStaff = message.SenderType == "Staff";
+                    <article class="support-message @(isStaff ? "support-message-out" : "support-message-in")">
+                        <div>
+                            <p>@message.Message</p>
+                            <small>@message.SentAt.ToLocalTime().ToString("dd MMM yyyy, hh:mm tt")</small>
+                        </div>
+                    </article>
+                }
+            </div>
+
+            <form asp-action="Reply" asp-route-id="@selected.Id" method="post" class="support-reply-bar" data-reply-form>
+                @Html.AntiForgeryToken()
+                <label asp-for="ReplyMessage" class="visually-hidden"></label>
+                <textarea asp-for="ReplyMessage" rows="1" placeholder="Type a reply" data-validation-mode="native"></textarea>
+                <button type="submit" aria-label="Send reply">
+                    <i class="bi bi-send-fill"></i>
+                </button>
+            </form>
+        }
+    </section>
+</section>
+
+@section Scripts {
+    <script src="~/js/support-inbox.js" asp-append-version="true"></script>
+}

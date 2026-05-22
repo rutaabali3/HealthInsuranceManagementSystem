@@ -1,0 +1,18 @@
+body[data-page="support-details"] {
+    --profile-accent: #0f766e;
+    --profile-accent-strong: #134e4a;
+    --profile-accent-soft: #e1f4f1;
+    --profile-accent-border: #bfe4dc;
+    background: #fbfdfc;
+}
+
+body[data-page="support-details"] .app-main {
+    max-width: 1080px;
+    margin-top: 2.2rem !important;
+}
+
+@media (max-width: 767.98px) {
+    body[data-page="support-details"] .app-main {
+        margin-top: 1.25rem !important;
+    }
+}

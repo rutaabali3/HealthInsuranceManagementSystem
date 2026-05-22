@@ -115,18 +115,27 @@ hr {
 
 .app-topbar {
     position: sticky;
-    top: 0;
+    top: 0.85rem;
     z-index: 1030;
-    min-height: 72px;
-    background: rgba(255, 255, 255, 0.94);
-    border-bottom: 1px solid var(--md-outline-variant);
-    box-shadow: 0 4px 18px rgba(0, 42, 42, 0.08);
-    backdrop-filter: blur(18px);
+    width: calc(100% - clamp(1rem, 4vw, 3rem));
+    min-height: 66px;
+    margin: 0.85rem auto 0;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(190, 201, 199, 0.82);
+    border-radius: var(--md-radius-pill);
+    box-shadow: 0 16px 40px rgba(0, 42, 42, 0.13), 0 3px 10px rgba(0, 42, 42, 0.07);
+    backdrop-filter: blur(22px);
 }
 
 .app-topbar .container {
-    min-height: 72px;
+    min-height: 64px;
     gap: 0.75rem;
+    padding-inline: clamp(0.9rem, 2.5vw, 1.5rem);
+}
+
+.app-topbar:has(.navbar-collapse.show),
+.app-topbar:has(.navbar-collapse.collapsing) {
+    border-radius: 28px;
 }
 
 .navbar-brand {
@@ -933,6 +942,7 @@ textarea.form-control {
 
 .app-field-group {
     flex-wrap: nowrap;
+    position: relative;
 }
 
 .app-field-group .input-group-text {
@@ -1024,59 +1034,119 @@ textarea.form-control {
     border-color: #d4a800;
 }
 
+.login-input-group {
+    position: relative;
+}
+
 .app-field-feedback,
 .field-validation-error,
-.app-justvalidate-label {
-    display: flex !important;
-    align-items: flex-start;
-    gap: 0.42rem;
-    width: fit-content;
-    max-width: 100%;
-    margin-top: 0.45rem;
-    padding: 0.42rem 0.62rem;
-    border: 1px solid transparent;
-    border-radius: 8px;
-    font-size: 0.84rem;
-    font-weight: 700;
-    line-height: 1.3;
-    box-shadow: 0 8px 18px rgba(23, 29, 29, 0.06);
-}
-
-.app-field-feedback i,
-.field-validation-error::before {
-    flex: 0 0 auto;
-    line-height: 1.25;
-}
-
-.app-field-feedback-success {
-    color: #0a5322;
-    background: #e4f7e7;
-    border-color: #9bd7aa;
-}
-
-.app-field-feedback-error,
-.field-validation-error,
-.app-justvalidate-label {
-    color: var(--md-error) !important;
-    background: var(--md-error-container);
-    border-color: #ffb4ab;
-}
-
-.app-field-feedback-warning {
-    color: #5c4200;
-    background: #fff2c7;
-    border-color: #f3cb54;
-}
-
-.field-validation-error::before {
-    content: "\F33A";
-    font-family: "bootstrap-icons";
+.app-justvalidate-label,
+.field-validation-valid {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    clip-path: inset(50%) !important;
+    border: 0 !important;
+    white-space: nowrap !important;
 }
 
 .field-validation-valid:empty,
 .app-field-feedback[hidden],
 .app-justvalidate-label:empty {
     display: none !important;
+}
+
+.app-field-group[data-app-feedback]::before,
+.login-input-group[data-app-feedback]::before {
+    content: "";
+    position: absolute;
+    left: 1.35rem;
+    top: calc(100% + 0.28rem);
+    z-index: 70;
+    width: 0;
+    height: 0;
+    border-right: 0.45rem solid transparent;
+    border-bottom: 0.45rem solid #263238;
+    border-left: 0.45rem solid transparent;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-0.18rem);
+    transition: opacity var(--md-motion-standard), transform var(--md-motion-standard);
+}
+
+.app-field-group[data-app-feedback]::after,
+.login-input-group[data-app-feedback]::after {
+    content: attr(data-app-feedback);
+    position: absolute;
+    left: 0;
+    top: calc(100% + 0.7rem);
+    z-index: 70;
+    width: max-content;
+    max-width: min(26rem, calc(100vw - 2rem));
+    padding: 0.58rem 0.74rem;
+    color: #ffffff;
+    background: #263238;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 7px;
+    box-shadow: 0 12px 26px rgba(20, 28, 28, 0.22);
+    font-size: 0.83rem;
+    font-weight: 700;
+    line-height: 1.25;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-0.18rem);
+    transition: opacity var(--md-motion-standard), transform var(--md-motion-standard);
+    white-space: normal;
+}
+
+.app-field-group[data-app-feedback]:hover::before,
+.app-field-group[data-app-feedback]:focus-within::before,
+.app-field-group[data-app-feedback]:hover::after,
+.app-field-group[data-app-feedback]:focus-within::after,
+.login-input-group[data-app-feedback]:hover::before,
+.login-input-group[data-app-feedback]:focus-within::before,
+.login-input-group[data-app-feedback]:hover::after,
+.login-input-group[data-app-feedback]:focus-within::after {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.app-field-group[data-app-feedback-type="error"]::after,
+.login-input-group[data-app-feedback-type="error"]::after {
+    background: #7d2a24;
+    border-color: #ffb4ab;
+}
+
+.app-field-group[data-app-feedback-type="error"]::before,
+.login-input-group[data-app-feedback-type="error"]::before {
+    border-bottom-color: #7d2a24;
+}
+
+.app-field-group[data-app-feedback-type="warning"]::after,
+.login-input-group[data-app-feedback-type="warning"]::after {
+    color: #2b2100;
+    background: #ffe08a;
+    border-color: #d4a800;
+}
+
+.app-field-group[data-app-feedback-type="warning"]::before,
+.login-input-group[data-app-feedback-type="warning"]::before {
+    border-bottom-color: #ffe08a;
+}
+
+.app-field-group[data-app-feedback-type="success"]::after,
+.login-input-group[data-app-feedback-type="success"]::after {
+    background: #18542c;
+    border-color: #9bd7aa;
+}
+
+.app-field-group[data-app-feedback-type="success"]::before,
+.login-input-group[data-app-feedback-type="success"]::before {
+    border-bottom-color: #18542c;
 }
 
 .field-validation-error,
@@ -1999,11 +2069,10 @@ main > .d-flex.justify-content-between {
 
     .app-topbar .navbar-collapse {
         margin-top: 0.75rem;
-        padding: 0.75rem;
-        background: var(--md-surface-container-lowest);
-        border: 1px solid var(--md-outline-variant);
-        border-radius: var(--md-radius-sm);
-        box-shadow: var(--md-elevation-2);
+        padding: 0.75rem 0.15rem 0.35rem;
+        background: transparent;
+        border-top: 1px solid rgba(190, 201, 199, 0.72);
+        box-shadow: none;
     }
 
     .navbar-nav {
@@ -2065,6 +2134,17 @@ main > .d-flex.justify-content-between {
 }
 
 @media (max-width: 767.98px) {
+    .app-topbar {
+        top: 0.55rem;
+        width: calc(100% - 1rem);
+        margin-top: 0.55rem;
+        border-radius: 24px;
+    }
+
+    .app-topbar .container {
+        padding-inline: 0.85rem;
+    }
+
     .app-footer {
         padding: 0.75rem;
     }

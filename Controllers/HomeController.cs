@@ -1,4 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using HealthInsuranceManagement.Data;
+using HealthInsuranceManagement.Models;
+using HealthInsuranceManagement.Models.ViewModels;
 
 namespace HealthInsuranceManagement.Controllers
 {
@@ -7,6 +10,13 @@ namespace HealthInsuranceManagement.Controllers
     /// </summary>
     public class HomeController : Controller
     {
+        private readonly ApplicationDbContext _db;
+
+        public HomeController(ApplicationDbContext db)
+        {
+            _db = db;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -19,7 +29,39 @@ namespace HealthInsuranceManagement.Controllers
 
         public IActionResult Contact()
         {
-            return View();
+            return View(new ContactFormViewModel());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Contact(ContactFormViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var query = new ContactQuery
+            {
+                Name = model.ContactName.Trim(),
+                Email = model.ContactEmail.Trim(),
+                Message = model.ContactMessage.Trim(),
+                Status = "New",
+                CreatedAt = DateTime.UtcNow
+            };
+
+            _db.ContactQueries.Add(query);
+            _db.ContactMessages.Add(new ContactMessage
+            {
+                ContactQuery = query,
+                SenderType = "Visitor",
+                Message = query.Message,
+                SentAt = query.CreatedAt
+            });
+            await _db.SaveChangesAsync();
+
+            TempData["Success"] = "Your message has been saved. Our team will reply to your email soon.";
+            return RedirectToAction(nameof(Contact));
         }
 
         public IActionResult Privacy()

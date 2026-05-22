@@ -96,6 +96,77 @@ namespace HealthInsuranceManagement.Migrations
                     b.ToTable("CompanyDetails");
                 });
 
+            modelBuilder.Entity("HealthInsuranceManagement.Models.ContactQuery", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("varchar(150)");
+
+                    b.Property<DateTime?>("LastReplyAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasMaxLength(2000)
+                        .HasColumnType("varchar(2000)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Email", "Status", "CreatedAt");
+
+                    b.ToTable("ContactQueries");
+                });
+
+            modelBuilder.Entity("HealthInsuranceManagement.Models.ContactMessage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("ContactQueryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasMaxLength(2000)
+                        .HasColumnType("varchar(2000)");
+
+                    b.Property<string>("SenderType")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
+
+                    b.Property<int?>("StaffId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("SentAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ContactQueryId", "SentAt");
+
+                    b.ToTable("ContactMessages");
+                });
+
             modelBuilder.Entity("HealthInsuranceManagement.Models.EmailNotificationLog", b =>
                 {
                     b.Property<int>("Id")
@@ -316,6 +387,17 @@ namespace HealthInsuranceManagement.Migrations
                     b.HasIndex("UserType", "UserId", "UsedAt");
 
                     b.ToTable("PasswordResetTokens");
+                });
+
+            modelBuilder.Entity("HealthInsuranceManagement.Models.ContactMessage", b =>
+                {
+                    b.HasOne("HealthInsuranceManagement.Models.ContactQuery", "ContactQuery")
+                        .WithMany("Messages")
+                        .HasForeignKey("ContactQueryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ContactQuery");
                 });
 
             modelBuilder.Entity("HealthInsuranceManagement.Models.Policy", b =>
@@ -668,6 +750,11 @@ namespace HealthInsuranceManagement.Migrations
             modelBuilder.Entity("HealthInsuranceManagement.Models.CompanyDetails", b =>
                 {
                     b.Navigation("Policies");
+                });
+
+            modelBuilder.Entity("HealthInsuranceManagement.Models.ContactQuery", b =>
+                {
+                    b.Navigation("Messages");
                 });
 
             modelBuilder.Entity("HealthInsuranceManagement.Models.EmpRegister", b =>

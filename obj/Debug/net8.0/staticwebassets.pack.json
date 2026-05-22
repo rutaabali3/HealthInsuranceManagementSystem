@@ -165,6 +165,22 @@
       "PackagePath": "staticwebassets\\css\\pages\\report-index.css"
     },
     {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\support-dashboard.css",
+      "PackagePath": "staticwebassets\\css\\pages\\support-dashboard.css"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\support-details.css",
+      "PackagePath": "staticwebassets\\css\\pages\\support-details.css"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\support-inbox.css",
+      "PackagePath": "staticwebassets\\css\\pages\\support-inbox.css"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\support-updatedetails.css",
+      "PackagePath": "staticwebassets\\css\\pages\\support-updatedetails.css"
+    },
+    {
       "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
@@ -235,6 +251,10 @@
     {
       "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\js\\password-toggle.js",
       "PackagePath": "staticwebassets\\js\\password-toggle.js"
+    },
+    {
+      "Id": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\js\\support-inbox.js",
+      "PackagePath": "staticwebassets\\js\\support-inbox.js"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.HealthInsuranceManagement.Microsoft.AspNetCore.StaticWebAssets.props",

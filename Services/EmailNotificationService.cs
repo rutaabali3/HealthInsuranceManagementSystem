@@ -42,7 +42,16 @@ namespace HealthInsuranceManagement.Services
 
             try
             {
-                await _emailSender.SendEmailAsync(log.RecipientEmail, subject, WrapBody(htmlBody));
+                await _emailSender.SendEmailAsync(
+                    log.RecipientEmail,
+                    subject,
+                    EmailTemplateBuilder.BuildNotificationEmail(
+                        subject,
+                        htmlBody,
+                        toName,
+                        recipientRole,
+                        eventType,
+                        relatedEntityId));
                 log.Status = "Sent";
                 log.SentAt = DateTime.UtcNow;
             }
@@ -91,14 +100,13 @@ namespace HealthInsuranceManagement.Services
             }
         }
 
-        private static string WrapBody(string body)
+        public async Task NotifyCompanyAsync(CompanyDetails? company, string subject, string htmlBody, string eventType, int? relatedEntityId = null)
         {
-            return $"""
-                <div style="font-family:Arial,sans-serif;color:#253342;line-height:1.5;">
-                    <h2 style="color:#006a6a;margin:0 0 12px;">Health Insurance Management</h2>
-                    {body}
-                </div>
-                """;
+            if (company == null || string.IsNullOrWhiteSpace(company.Email))
+                return;
+
+            await NotifyAsync(company.Email, company.CompanyName, "Company", subject, htmlBody, eventType, relatedEntityId);
         }
+
     }
 }

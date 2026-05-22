@@ -164,6 +164,21 @@ namespace HealthInsuranceManagement.Controllers
                 <p>A new insurance company was added.</p>
                 <p><strong>Company:</strong> {model.CompanyName}</p>
                 <p><strong>Email:</strong> {model.Email}</p>
+                <p><strong>Contact Number:</strong> {model.ContactNumber}</p>
+                <p><strong>Address:</strong> {model.Address}</p>
+                """,
+                "CompanyAdded",
+                model.CompanyId);
+            await _notifications.NotifyCompanyAsync(
+                model,
+                "Your company has been registered",
+                $"""
+                <p>Your company has been registered in Health Insurance Management.</p>
+                <p><strong>Company:</strong> {model.CompanyName}</p>
+                <p><strong>Email:</strong> {model.Email}</p>
+                <p><strong>Contact Number:</strong> {model.ContactNumber}</p>
+                <p><strong>Address:</strong> {model.Address}</p>
+                <p><strong>Status:</strong> {(model.IsActive ? "Active" : "Inactive")}</p>
                 """,
                 "CompanyAdded",
                 model.CompanyId);
@@ -195,6 +210,21 @@ namespace HealthInsuranceManagement.Controllers
                 <p>An insurance company was updated.</p>
                 <p><strong>Company:</strong> {model.CompanyName}</p>
                 <p><strong>Email:</strong> {model.Email}</p>
+                <p><strong>Contact Number:</strong> {model.ContactNumber}</p>
+                <p><strong>Address:</strong> {model.Address}</p>
+                """,
+                "CompanyUpdated",
+                model.CompanyId);
+            await _notifications.NotifyCompanyAsync(
+                model,
+                "Your company details were updated",
+                $"""
+                <p>Your company profile was updated by an administrator.</p>
+                <p><strong>Company:</strong> {model.CompanyName}</p>
+                <p><strong>Email:</strong> {model.Email}</p>
+                <p><strong>Contact Number:</strong> {model.ContactNumber}</p>
+                <p><strong>Address:</strong> {model.Address}</p>
+                <p><strong>Status:</strong> {(model.IsActive ? "Active" : "Inactive")}</p>
                 """,
                 "CompanyUpdated",
                 model.CompanyId);
@@ -217,6 +247,17 @@ namespace HealthInsuranceManagement.Controllers
                     $"<p><strong>{company.CompanyName}</strong> was deactivated.</p>",
                     "CompanyDeactivated",
                     company.CompanyId);
+                await _notifications.NotifyCompanyAsync(
+                    company,
+                    "Your company was deactivated",
+                    $"""
+                    <p>Your company profile has been deactivated in Health Insurance Management.</p>
+                    <p><strong>Company:</strong> {company.CompanyName}</p>
+                    <p><strong>Email:</strong> {company.Email}</p>
+                    <p><strong>Status:</strong> Inactive</p>
+                    """,
+                    "CompanyDeactivated",
+                    company.CompanyId);
             }
             TempData["Success"] = "Company deactivated.";
             return RedirectToAction("Companies");
@@ -235,6 +276,17 @@ namespace HealthInsuranceManagement.Controllers
                 await _notifications.NotifyAdminsAsync(
                     "Insurance company activated",
                     $"<p><strong>{company.CompanyName}</strong> was activated.</p>",
+                    "CompanyActivated",
+                    company.CompanyId);
+                await _notifications.NotifyCompanyAsync(
+                    company,
+                    "Your company was activated",
+                    $"""
+                    <p>Your company profile has been activated in Health Insurance Management.</p>
+                    <p><strong>Company:</strong> {company.CompanyName}</p>
+                    <p><strong>Email:</strong> {company.Email}</p>
+                    <p><strong>Status:</strong> Active</p>
+                    """,
                     "CompanyActivated",
                     company.CompanyId);
             }
@@ -311,10 +363,14 @@ namespace HealthInsuranceManagement.Controllers
                     <p>A new policy is available.</p>
                     <p><strong>Policy:</strong> {addedPolicy.PolicyName}</p>
                     <p><strong>Company:</strong> {addedPolicy.Company?.CompanyName ?? "N/A"}</p>
+                    <p><strong>Policy Type:</strong> {addedPolicy.PolicyType}</p>
                     <p><strong>Premium:</strong> PKR {addedPolicy.PremiumAmount:N0}</p>
+                    <p><strong>Coverage Amount:</strong> PKR {addedPolicy.CoverageAmount:N0}</p>
+                    <p><strong>Duration:</strong> {addedPolicy.DurationMonths} months</p>
                     """;
                 await _notifications.NotifyAdminsAsync("Policy added", body, "PolicyAdded", addedPolicy.PolicyId);
                 await _notifications.NotifyAllStaffAsync("New insurance policy available", body, "PolicyAdded", addedPolicy.PolicyId);
+                await _notifications.NotifyCompanyAsync(addedPolicy.Company, "A policy was linked to your company", body, "PolicyAdded", addedPolicy.PolicyId);
             }
             TempData["Success"] = "Policy added successfully.";
             return RedirectToAction("Policies");
@@ -351,10 +407,15 @@ namespace HealthInsuranceManagement.Controllers
                     <p>An insurance policy was updated.</p>
                     <p><strong>Policy:</strong> {updatedPolicy.PolicyName}</p>
                     <p><strong>Company:</strong> {updatedPolicy.Company?.CompanyName ?? "N/A"}</p>
+                    <p><strong>Policy Type:</strong> {updatedPolicy.PolicyType}</p>
                     <p><strong>Premium:</strong> PKR {updatedPolicy.PremiumAmount:N0}</p>
+                    <p><strong>Coverage Amount:</strong> PKR {updatedPolicy.CoverageAmount:N0}</p>
+                    <p><strong>Duration:</strong> {updatedPolicy.DurationMonths} months</p>
+                    <p><strong>Status:</strong> {(updatedPolicy.IsActive ? "Active" : "Inactive")}</p>
                     """;
                 await _notifications.NotifyAdminsAsync("Policy updated", body, "PolicyUpdated", updatedPolicy.PolicyId);
                 await _notifications.NotifyAllStaffAsync("Insurance policy updated", body, "PolicyUpdated", updatedPolicy.PolicyId);
+                await _notifications.NotifyCompanyAsync(updatedPolicy.Company, "A linked policy was updated", body, "PolicyUpdated", updatedPolicy.PolicyId);
             }
             TempData["Success"] = "Policy updated.";
             return RedirectToAction("Policies");
@@ -655,7 +716,9 @@ namespace HealthInsuranceManagement.Controllers
         public async Task<IActionResult> DeletePolicy(int id)
         {
             var guard = AdminGuard(); if (guard != null) return guard;
-            var policy = await _db.Policies.FindAsync(id);
+            var policy = await _db.Policies
+                .Include(p => p.Company)
+                .FirstOrDefaultAsync(p => p.PolicyId == id);
             if (policy != null)
             {
                 policy.IsActive = false;
@@ -663,6 +726,17 @@ namespace HealthInsuranceManagement.Controllers
                 await _notifications.NotifyAdminsAsync(
                     "Policy deactivated",
                     $"<p><strong>{policy.PolicyName}</strong> was deactivated.</p>",
+                    "PolicyDeactivated",
+                    policy.PolicyId);
+                await _notifications.NotifyCompanyAsync(
+                    policy.Company,
+                    "A linked policy was deactivated",
+                    $"""
+                    <p>A policy linked to your company was deactivated.</p>
+                    <p><strong>Policy:</strong> {policy.PolicyName}</p>
+                    <p><strong>Company:</strong> {policy.Company?.CompanyName ?? "N/A"}</p>
+                    <p><strong>Status:</strong> Inactive</p>
+                    """,
                     "PolicyDeactivated",
                     policy.PolicyId);
             }
@@ -675,7 +749,9 @@ namespace HealthInsuranceManagement.Controllers
         public async Task<IActionResult> ActivatePolicy(int id)
         {
             var guard = AdminGuard(); if (guard != null) return guard;
-            var policy = await _db.Policies.FindAsync(id);
+            var policy = await _db.Policies
+                .Include(p => p.Company)
+                .FirstOrDefaultAsync(p => p.PolicyId == id);
             if (policy != null)
             {
                 policy.IsActive = true;
@@ -688,6 +764,17 @@ namespace HealthInsuranceManagement.Controllers
                 await _notifications.NotifyAllStaffAsync(
                     "Insurance policy activated",
                     $"<p><strong>{policy.PolicyName}</strong> is now active and available in the system.</p>",
+                    "PolicyActivated",
+                    policy.PolicyId);
+                await _notifications.NotifyCompanyAsync(
+                    policy.Company,
+                    "A linked policy was activated",
+                    $"""
+                    <p>A policy linked to your company was activated and is available in Health Insurance Management.</p>
+                    <p><strong>Policy:</strong> {policy.PolicyName}</p>
+                    <p><strong>Company:</strong> {policy.Company?.CompanyName ?? "N/A"}</p>
+                    <p><strong>Status:</strong> Active</p>
+                    """,
                     "PolicyActivated",
                     policy.PolicyId);
             }
@@ -823,6 +910,19 @@ namespace HealthInsuranceManagement.Controllers
                     """,
                     "PolicyAssigned",
                     assignment.Id);
+                await _notifications.NotifyCompanyAsync(
+                    assignment.Policy.Company,
+                    "Your policy was assigned to an employee",
+                    $"""
+                    <p>A policy linked to your company was assigned to an employee.</p>
+                    <p><strong>Employee:</strong> {employeeName}</p>
+                    <p><strong>Employee Email:</strong> {employee.Email}</p>
+                    <p><strong>Policy:</strong> {assignment.Policy.PolicyName}</p>
+                    <p><strong>Company:</strong> {assignment.Policy.Company?.CompanyName ?? "N/A"}</p>
+                    <p><strong>Coverage Dates:</strong> {assignment.StartDate:yyyy-MM-dd} to {assignment.EndDate:yyyy-MM-dd}</p>
+                    """,
+                    "PolicyAssigned",
+                    assignment.Id);
             }
             TempData["Success"] = "Policy assigned to employee.";
             return RedirectToAction("Employees");
@@ -853,7 +953,7 @@ namespace HealthInsuranceManagement.Controllers
 
             var request = await _db.PolicyRequestDetails
                 .Include(r => r.Employee)
-                .Include(r => r.Policy)
+                .Include(r => r.Policy).ThenInclude(p => p!.Company)
                 .FirstOrDefaultAsync(r => r.RequestId == requestId);
             if (request == null) return NotFound();
 
@@ -903,6 +1003,19 @@ namespace HealthInsuranceManagement.Controllers
                     $"Your policy request was {decision}",
                     $"""
                     <p>Your request for <strong>{request.Policy.PolicyName}</strong> was <strong>{decision}</strong>.</p>
+                    <p><strong>Bill Amount:</strong> PKR {request.BillAmount:N0}</p>
+                    """,
+                    "AdminRequestDecision",
+                    request.RequestId);
+                await _notifications.NotifyCompanyAsync(
+                    request.Policy.Company,
+                    $"Policy request {decision}",
+                    $"""
+                    <p>An administrator processed a request for a policy linked to your company.</p>
+                    <p><strong>Decision:</strong> {decision}</p>
+                    <p><strong>Employee:</strong> {employeeName}</p>
+                    <p><strong>Employee Email:</strong> {employee.Email}</p>
+                    <p><strong>Policy:</strong> {request.Policy.PolicyName}</p>
                     <p><strong>Bill Amount:</strong> PKR {request.BillAmount:N0}</p>
                     """,
                     "AdminRequestDecision",

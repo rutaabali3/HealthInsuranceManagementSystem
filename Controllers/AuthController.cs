@@ -10,17 +10,19 @@ using HealthInsuranceManagement.Services;
 namespace HealthInsuranceManagement.Controllers
 {
     /// <summary>
-    /// Handles authentication for Admin, Employee, Manager, and Finance Manager.
+    /// Handles authentication for Admin, Employee, Manager, Finance Manager, and Support.
     /// </summary>
     public class AuthController : Controller
     {
         private readonly ApplicationDbContext _db;
         private readonly IEmailSender _emailSender;
+        private readonly RememberMeAuthService _rememberMeAuth;
 
-        public AuthController(ApplicationDbContext db, IEmailSender emailSender)
+        public AuthController(ApplicationDbContext db, IEmailSender emailSender, RememberMeAuthService rememberMeAuth)
         {
             _db = db;
             _emailSender = emailSender;
+            _rememberMeAuth = rememberMeAuth;
         }
 
         // GET: /Auth/Login
@@ -33,6 +35,7 @@ namespace HealthInsuranceManagement.Controllers
             if (role == UserRoles.Employee) return RedirectToAction("Dashboard", "Employee");
             if (role == UserRoles.Manager) return RedirectToAction("Dashboard", "Manager");
             if (role == UserRoles.FinanceManager) return RedirectToAction("Dashboard", "Finance");
+            if (role == UserRoles.Support) return RedirectToAction("Dashboard", "Support");
 
             return View(new LoginViewModel());
         }
@@ -53,6 +56,7 @@ namespace HealthInsuranceManagement.Controllers
                 HttpContext.Session.SetInt32("UserId", admin.AdminId);
                 HttpContext.Session.SetString("Username", admin.Username);
                 HttpContext.Session.SetString("Role", UserRoles.Admin);
+                _rememberMeAuth.RememberAdmin(HttpContext, admin, model.RememberMe);
                 return RedirectToAction("Dashboard", "Admin");
             }
 
@@ -75,11 +79,13 @@ namespace HealthInsuranceManagement.Controllers
             HttpContext.Session.SetString("Username", emp.Username);
             HttpContext.Session.SetString("FullName", $"{emp.FirstName} {emp.LastName}");
             HttpContext.Session.SetString("Role", emp.Role);
+            _rememberMeAuth.RememberStaff(HttpContext, emp, model.RememberMe);
 
             return emp.Role switch
             {
                 UserRoles.Manager => RedirectToAction("Dashboard", "Manager"),
                 UserRoles.FinanceManager => RedirectToAction("Dashboard", "Finance"),
+                UserRoles.Support => RedirectToAction("Dashboard", "Support"),
                 _ => RedirectToAction("Dashboard", "Employee")
             };
         }
@@ -130,13 +136,7 @@ namespace HealthInsuranceManagement.Controllers
                 var resetUrl = Url.Action("ResetPassword", "Auth", new { token }, Request.Scheme)
                     ?? Url.Action("ResetPassword", "Auth", new { token })!;
 
-                var body = $"""
-                    <h2>Password reset request</h2>
-                    <p>Use the button below to reset your Health Insurance Management password.</p>
-                    <p><a href="{resetUrl}" style="display:inline-block;padding:12px 18px;background:#006a6a;color:#ffffff;text-decoration:none;border-radius:6px;">Reset Password</a></p>
-                    <p>This link expires in 30 minutes.</p>
-                    <p>If the button does not work, copy this link into your browser:<br>{resetUrl}</p>
-                    """;
+                var body = EmailTemplateBuilder.BuildPasswordResetEmail(resetUrl, UserRoles.DisplayName(userType));
 
                 try
                 {
@@ -218,6 +218,7 @@ namespace HealthInsuranceManagement.Controllers
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
+            _rememberMeAuth.Forget(HttpContext);
             return RedirectToAction("Login");
         }
 

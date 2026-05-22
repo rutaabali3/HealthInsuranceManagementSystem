@@ -11,8 +11,9 @@
     var isAdmin = role == UserRoles.Admin || role == "Admin";
     var isManager = role == UserRoles.Manager;
     var isFinance = role == UserRoles.FinanceManager;
+    var isSupport = role == UserRoles.Support;
     var isEmployee = role == UserRoles.Employee || role == "Employee";
-    var hasRoleSidebar = isAdmin || isManager || isFinance || isEmployee;
+    var hasRoleSidebar = isAdmin || isManager || isFinance || isSupport || isEmployee;
     var isEmployeePolicyFlow = currentController == "employee"
         && (currentAction == "searchpolicy" || currentAction == "policydetails" || currentAction == "orderinsurance");
     string IsActive(string controller, string action) =>
@@ -96,6 +97,16 @@
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" asp-controller="Finance" asp-action="Dashboard">Approved Bills</a></li>
                             <li><a class="dropdown-item" asp-controller="Finance" asp-action="Details">My Details</a></li>
+                        </ul>
+                    </li>
+                }
+
+                @if (role == UserRoles.Support && !hasRoleSidebar)
+                {
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Support</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" asp-controller="Support" asp-action="Dashboard">Dashboard</a></li>
                         </ul>
                     </li>
                 }
@@ -211,6 +222,25 @@
                     <span>My Details</span>
                 </a>
                 <a class="admin-sidebar-link @(IsActive("Finance", "UpdateDetails"))" asp-controller="Finance" asp-action="UpdateDetails" title="Update Details">
+                    <i class="bi bi-pencil-square"></i>
+                    <span>Update Details</span>
+                </a>
+            }
+            else if (isSupport)
+            {
+                <a class="admin-sidebar-link @(IsActive("Support", "Dashboard"))" asp-controller="Support" asp-action="Dashboard" title="Support Dashboard">
+                    <i class="bi bi-headset"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a class="admin-sidebar-link @(IsActive("Support", "Inbox"))" asp-controller="Support" asp-action="Inbox" title="Support Inbox">
+                    <i class="bi bi-chat-dots"></i>
+                    <span>Inbox</span>
+                </a>
+                <a class="admin-sidebar-link @(IsActive("Support", "Details"))" asp-controller="Support" asp-action="Details" title="My Details">
+                    <i class="bi bi-person-lines-fill"></i>
+                    <span>My Details</span>
+                </a>
+                <a class="admin-sidebar-link @(IsActive("Support", "UpdateDetails"))" asp-controller="Support" asp-action="UpdateDetails" title="Update Details">
                     <i class="bi bi-pencil-square"></i>
                     <span>Update Details</span>
                 </a>

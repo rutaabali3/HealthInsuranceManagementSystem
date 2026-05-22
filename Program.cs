@@ -16,6 +16,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("Smtp"));
 builder.Services.AddScoped<IEmailSender, SmtpEmailSender>();
 builder.Services.AddScoped<INotificationService, EmailNotificationService>();
+builder.Services.AddScoped<RememberMeAuthService>();
 
 // Register EF Core with the local XAMPP MariaDB/MySQL server.
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -49,6 +50,12 @@ app.UseStaticFiles();
 app.UseStatusCodePagesWithReExecute("/Home/NotFound404");
 app.UseRouting();
 app.UseSession();
+app.Use(async (context, next) =>
+{
+    var rememberMeAuth = context.RequestServices.GetRequiredService<RememberMeAuthService>();
+    await rememberMeAuth.TryRestoreSessionAsync(context);
+    await next();
+});
 app.UseAuthorization();
 
 app.MapControllerRoute(

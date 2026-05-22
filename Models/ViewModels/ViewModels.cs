@@ -12,6 +12,9 @@ namespace HealthInsuranceManagement.Models.ViewModels
         [Required(ErrorMessage = "Password is required.")]
         [DataType(DataType.Password)]
         public string Password { get; set; } = string.Empty;
+
+        [Display(Name = "Remember me")]
+        public bool RememberMe { get; set; }
     }
 
     public class ForgotPasswordViewModel
@@ -38,6 +41,26 @@ namespace HealthInsuranceManagement.Models.ViewModels
         [Compare("NewPassword", ErrorMessage = "Passwords do not match.")]
         [Display(Name = "Confirm Password")]
         public string ConfirmPassword { get; set; } = string.Empty;
+    }
+
+    public class ContactFormViewModel
+    {
+        [Required(ErrorMessage = "Your name is required.")]
+        [StringLength(100, MinimumLength = 3, ErrorMessage = "Your name must be between 3 and 100 characters.")]
+        [RegularExpression(@"^[A-Za-z][A-Za-z\s'-]*$", ErrorMessage = "Your name cannot contain numbers or special characters.")]
+        [Display(Name = "Your Name")]
+        public string ContactName { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Email address is required.")]
+        [EmailAddress(ErrorMessage = "Enter a valid email address.")]
+        [StringLength(150, ErrorMessage = "Email address cannot be longer than 150 characters.")]
+        [Display(Name = "Email Address")]
+        public string ContactEmail { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Message is required.")]
+        [StringLength(2000, MinimumLength = 10, ErrorMessage = "Message must be between 10 and 2000 characters.")]
+        [Display(Name = "Message")]
+        public string ContactMessage { get; set; } = string.Empty;
     }
 
     public class ChangePasswordViewModel
@@ -145,5 +168,23 @@ namespace HealthInsuranceManagement.Models.ViewModels
     {
         public EmpRegister? FinanceManager { get; set; }
         public List<PolicyBill> ReceivedBills { get; set; } = new();
+    }
+
+    public class SupportDashboardViewModel
+    {
+        public EmpRegister? SupportUser { get; set; }
+        public int NewQueries { get; set; }
+        public int OpenQueries { get; set; }
+        public int RepliedQueries { get; set; }
+        public List<ContactQuery> RecentQueries { get; set; } = new();
+    }
+
+    public class SupportInboxViewModel
+    {
+        public List<ContactQuery> Queries { get; set; } = new();
+        public ContactQuery? SelectedQuery { get; set; }
+
+        [Display(Name = "Reply")]
+        public string ReplyMessage { get; set; } = string.Empty;
     }
 }

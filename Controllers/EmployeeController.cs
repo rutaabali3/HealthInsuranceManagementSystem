@@ -238,7 +238,7 @@ namespace HealthInsuranceManagement.Controllers
 
             var request = await _db.PolicyRequestDetails
                 .Include(r => r.Employee)
-                .Include(r => r.Policy)
+                .Include(r => r.Policy).ThenInclude(p => p!.Company)
                 .FirstOrDefaultAsync(r => r.RequestId == model.RequestId);
 
             if (request?.Employee != null && request.Policy != null)
@@ -263,6 +263,20 @@ namespace HealthInsuranceManagement.Controllers
                     <p>Your request for <strong>{request.Policy.PolicyName}</strong> has been submitted.</p>
                     <p><strong>Bill Amount:</strong> PKR {request.BillAmount:N0}</p>
                     <p>Status: Pending manager review.</p>
+                    """,
+                    "PolicyRequestSubmitted",
+                    request.RequestId);
+                await _notifications.NotifyCompanyAsync(
+                    request.Policy.Company,
+                    "An employee requested your company policy",
+                    $"""
+                    <p>An employee submitted a request for a policy linked to your company.</p>
+                    <p><strong>Employee:</strong> {employeeName}</p>
+                    <p><strong>Employee Email:</strong> {request.Employee.Email}</p>
+                    <p><strong>Policy:</strong> {request.Policy.PolicyName}</p>
+                    <p><strong>Company:</strong> {request.Policy.Company?.CompanyName ?? "N/A"}</p>
+                    <p><strong>Bill Amount:</strong> PKR {request.BillAmount:N0}</p>
+                    <p><strong>Status:</strong> Pending manager review</p>
                     """,
                     "PolicyRequestSubmitted",
                     request.RequestId);

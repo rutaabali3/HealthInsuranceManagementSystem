@@ -167,7 +167,7 @@ namespace HealthInsuranceManagement.Controllers
 
             var updatedBill = await _db.PolicyBills
                 .Include(b => b.PolicyRequest).ThenInclude(r => r!.Employee)
-                .Include(b => b.PolicyRequest).ThenInclude(r => r!.Policy)
+                .Include(b => b.PolicyRequest).ThenInclude(r => r!.Policy).ThenInclude(p => p!.Company)
                 .FirstOrDefaultAsync(b => b.BillId == billId);
 
             if (updatedBill?.PolicyRequest?.Employee != null && updatedBill.PolicyRequest.Policy != null)
@@ -192,6 +192,20 @@ namespace HealthInsuranceManagement.Controllers
                     $"""
                     <p>Your request for <strong>{request.Policy.PolicyName}</strong> was <strong>{decisionText}</strong> by the manager.</p>
                     <p><strong>Bill Amount:</strong> PKR {request.BillAmount:N0}</p>
+                    """,
+                    "ManagerDecision",
+                    request.RequestId);
+                await _notifications.NotifyCompanyAsync(
+                    request.Policy.Company,
+                    $"Manager {decisionText} a request for your company policy",
+                    $"""
+                    <p>A manager reviewed a request for a policy linked to your company.</p>
+                    <p><strong>Decision:</strong> {decisionText}</p>
+                    <p><strong>Employee:</strong> {employeeName}</p>
+                    <p><strong>Employee Email:</strong> {employee.Email}</p>
+                    <p><strong>Policy:</strong> {request.Policy.PolicyName}</p>
+                    <p><strong>Bill Amount:</strong> PKR {request.BillAmount:N0}</p>
+                    <p><strong>Remarks:</strong> {remarks ?? "No remarks provided"}</p>
                     """,
                     "ManagerDecision",
                     request.RequestId);
@@ -224,7 +238,7 @@ namespace HealthInsuranceManagement.Controllers
 
             var forwardedBill = await _db.PolicyBills
                 .Include(b => b.PolicyRequest).ThenInclude(r => r!.Employee)
-                .Include(b => b.PolicyRequest).ThenInclude(r => r!.Policy)
+                .Include(b => b.PolicyRequest).ThenInclude(r => r!.Policy).ThenInclude(p => p!.Company)
                 .FirstOrDefaultAsync(b => b.BillId == billId);
 
             if (forwardedBill?.PolicyRequest?.Employee != null && forwardedBill.PolicyRequest.Policy != null)
@@ -249,6 +263,19 @@ namespace HealthInsuranceManagement.Controllers
                     $"""
                     <p>Your request for <strong>{request.Policy.PolicyName}</strong> has been forwarded to finance.</p>
                     <p><strong>Bill Amount:</strong> PKR {forwardedBill.Amount:N0}</p>
+                    """,
+                    "ForwardedToFinance",
+                    request.RequestId);
+                await _notifications.NotifyCompanyAsync(
+                    request.Policy.Company,
+                    "A request for your policy was forwarded to finance",
+                    $"""
+                    <p>A manager-approved bill for your company policy was forwarded to finance.</p>
+                    <p><strong>Employee:</strong> {employeeName}</p>
+                    <p><strong>Employee Email:</strong> {employee.Email}</p>
+                    <p><strong>Policy:</strong> {request.Policy.PolicyName}</p>
+                    <p><strong>Bill Amount:</strong> PKR {forwardedBill.Amount:N0}</p>
+                    <p><strong>Status:</strong> Forwarded to finance</p>
                     """,
                     "ForwardedToFinance",
                     request.RequestId);

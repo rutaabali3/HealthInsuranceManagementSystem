@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developer's Guide - Health Insurance Management System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Cormorant+Garamond:wght@500;600;700&family=Playfair+Display:wght@600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="guide-styles.css">
+</head>
+<body class="guide-document guide-developer">
+    <main class="guide-shell">
+        <section class="guide-page cover">
+            <div class="cover-ornament top-left"></div>
+            <div class="cover-ornament bottom-right"></div>
+            <div class="brand-mark">
+                <img src="../wwwroot/images/site/favicon.png" alt="Health Insurance Management logo">
+                <span>Health Insurance Management</span>
+            </div>
+            <p class="eyebrow">Developer's Guide</p>
+            <h1>Health Insurance Management System</h1>
+            <p class="cover-subtitle">Technical Manual for Setup, Maintenance, and Extension</p>
+            <p class="cover-summary">
+                This guide describes the application architecture, technology stack, project structure,
+                database schema, backend workflows, services, and developer maintenance practices.
+            </p>
+        </section>
+
+        <section class="guide-page certificate-page" id="certificate">
+            <p class="section-kicker">Certificate</p>
+            <h2>Certificate of Completion</h2>
+            <div class="guide-certificate">
+                <div class="certificate-watermark">HIMS</div>
+                <div class="certificate-ribbon">Developer's Guide Certification</div>
+                <p class="certificate-pretitle">This Developer Documentation Is Prepared By</p>
+                <div class="certificate-team">
+                    <strong>MUHAMMAD RUTAAB ALI</strong>
+                    <strong>ABDUL REHMAN KHAN</strong>
+                    <strong>MUHAMMAD BILAL</strong>
+                    <strong>SYED MUHAMMAD FARAZ</strong>
+                </div>
+                <div class="ornate-divider"><span></span></div>
+                <p>
+                    This is to certify that the above students have prepared the Developer's Guide for the
+                    <strong>Health Insurance Management System</strong> under the guidance of
+                    <strong>Sir Abdul Wadood</strong>.
+                </p>
+                <p>
+                    The guide documents the project architecture, technology stack, SQL Server database requirement,
+                    configuration, MVC structure, services, security workflow, validation approach, and maintenance
+                    checklist for future developers.
+                </p>
+                <div class="signature-grid">
+                    <div><span>Faculty Signature</span></div>
+                    <div class="signature-placeholder" aria-hidden="true"></div>
+                    <div><span>Submission Date</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="guide-page team-page">
+            <p class="section-kicker">Project Team</p>
+            <h2>Students on This Project</h2>
+            <div class="student-grid">
+                <div class="student-card"><span>Student1623471</span><strong>MUHAMMAD RUTAAB ALI</strong></div>
+                <div class="student-card"><span>Student1622741</span><strong>ABDUL REHMAN KHAN</strong></div>
+                <div class="student-card"><span>Student1629514</span><strong>MUHAMMAD BILAL</strong></div>
+                <div class="student-card"><span>Student1625350</span><strong>SYED MUHAMMAD FARAZ</strong></div>
+            </div>
+        </section>
+
+        <section class="guide-page toc-page">
+            <p class="section-kicker">Navigation</p>
+            <h2>Table of Contents</h2>
+            <div class="toc-grid">
+                <ol class="toc-list">
+                    <li><a href="#certificate">Certificate of Completion</a></li>
+                    <li><a href="#technical-overview">Technical Overview</a></li>
+                    <li><a href="#stack">Technology Stack</a></li>
+                    <li><a href="#structure">Project Structure</a></li>
+                    <li><a href="#configuration">Configuration</a></li>
+                </ol>
+                <ol class="toc-list" start="6">
+                    <li><a href="#database">Database Design</a></li>
+                    <li><a href="#controllers">Controller Responsibilities</a></li>
+                    <li><a href="#services">Services and Security</a></li>
+                    <li><a href="#workflow">Workflow Logic</a></li>
+                    <li><a href="#validation">Validation and UI Assets</a></li>
+                    <li><a href="#maintenance">Maintenance Checklist</a></li>
+                </ol>
+            </div>
+        </section>
+
+        <section class="guide-page" id="technical-overview">
+            <p class="section-kicker">Architecture</p>
+            <h2>Technical Overview</h2>
+            <div class="doc-card">
+                <p>
+                    The application is an ASP.NET Core MVC 8 system using a classic controller-view-model structure.
+                    Entity Framework Core maps C# models to the Microsoft SQL Server database. Controllers enforce session
+                    role checks before allowing protected actions.
+                </p>
+                <p>
+                    The system includes role dashboards, maintenance pages, policy request processing, billing,
+                    finance payment, support inbox handling, contact query replies, remember-me authentication,
+                    password reset, email notification logging, public content pages, and date-range reports.
+                </p>
+            </div>
+        </section>
+
+        <section class="guide-page" id="stack">
+            <p class="section-kicker">Platform</p>
+            <h2>Technology Stack</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Layer</th>
+                        <th>Technology</th>
+                        <th>Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Backend</td><td>ASP.NET Core MVC 8</td><td>Routing, controllers, views, sessions, and request handling.</td></tr>
+                    <tr><td>ORM</td><td>Entity Framework Core 8</td><td>Model mapping, relationships, migrations, and database queries.</td></tr>
+                    <tr><td>Database Provider</td><td>Microsoft.EntityFrameworkCore.SqlServer</td><td>Microsoft SQL Server connection through EF Core.</td></tr>
+                    <tr><td>Security</td><td>BCrypt.Net-Next</td><td>Password hashing and verification.</td></tr>
+                    <tr><td>Email</td><td>MailKit</td><td>SMTP-based password reset and workflow notifications.</td></tr>
+                    <tr><td>Frontend</td><td>HTML5, CSS3, Bootstrap, Bootstrap Icons</td><td>Responsive forms, dashboards, navigation, and icons.</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="guide-page" id="structure">
+            <p class="section-kicker">Code Organization</p>
+            <h2>Project Structure</h2>
+            <div class="two-column">
+                <div class="doc-card">
+                    <h3>Main Folders</h3>
+                    <ul class="detail-list">
+                        <li><code>Controllers</code> contains MVC controller workflow logic.</li>
+                        <li><code>Models</code> contains database entities and view models.</li>
+                        <li><code>Data</code> contains <code>ApplicationDbContext</code> and initializer logic.</li>
+                        <li><code>Services</code> contains SMTP, notification, email template, and remember-me auth services.</li>
+                        <li><code>Views</code> contains Razor views for public and role pages.</li>
+                        <li><code>wwwroot</code> contains CSS, JavaScript, and images.</li>
+                    </ul>
+                </div>
+                <div class="doc-card">
+                    <h3>Important Files</h3>
+                    <ul class="detail-list">
+                        <li><code>Program.cs</code> registers services, sessions, EF Core, and routing.</li>
+                        <li><code>ApplicationDbContext.cs</code> defines tables, indexes, and relationships.</li>
+                        <li><code>_Layout.cshtml</code> defines shared navigation, sidebar, footer, scripts, and CSS.</li>
+                        <li><code>site.css</code> defines the Material-style teal UI system.</li>
+                        <li><code>app-form-validation.js</code> handles shared client validation behavior.</li>
+                        <li><code>EmailTemplateBuilder.cs</code> centralizes branded HTML emails without inline image attachments.</li>
+                        <li><code>RememberMeAuthService.cs</code> restores valid remembered sessions through a protected cookie.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="guide-page" id="configuration">
+            <p class="section-kicker">Environment</p>
+            <h2>Configuration</h2>
+            <div class="step-grid">
+                <div class="step-card">
+                    <h3>Connection String</h3>
+                    <p>The project requires Microsoft SQL Server or SQL Server Express. The SQL Server connection string from the README is:</p>
+                    <p><code>Server=.\SQLEXPRESS;Database=HealthInsuranceManagementDB;Trusted_Connection=True;TrustServerCertificate=True;</code></p>
+                </div>
+                <div class="step-card">
+                    <h3>SMTP Settings</h3>
+                    <p>SMTP settings live under the <code>Smtp</code> section in <code>appsettings.json</code>. They are used by the email sender service for reset links, workflow notifications, and Support replies.</p>
+                </div>
+            </div>
+            <div class="note-card">
+                <h3>Developer Note</h3>
+                <p>Do not commit real production SMTP passwords. For deployment, move secrets to environment variables, user secrets, or secure hosting configuration.</p>
+            </div>
+        </section>
+
+        <section class="guide-page" id="database">
+            <p class="section-kicker">Data Layer</p>
+            <h2>Database Design</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Entity</th>
+                        <th>Key</th>
+                        <th>Role in System</th>
+                        <th>Relationship</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>AdminLogins</code></td><td><code>AdminId</code></td><td>Admin credentials.</td><td>Unique username.</td></tr>
+                    <tr><td><code>CompanyDetails</code></td><td><code>CompanyId</code></td><td>Insurance companies.</td><td>One company has many policies.</td></tr>
+                    <tr><td><code>EmpRegisters</code></td><td><code>EmpId</code></td><td>Employees, managers, finance users, and support users.</td><td>Linked to requests, assigned policies, and staff actions.</td></tr>
+                    <tr><td><code>Policies</code></td><td><code>PolicyId</code></td><td>Insurance policy definitions.</td><td>Belongs to company.</td></tr>
+                    <tr><td><code>PolicyOnEmployees</code></td><td><code>Id</code></td><td>Direct policy assignments.</td><td>Joins employee and policy.</td></tr>
+                    <tr><td><code>PolicyRequestDetails</code></td><td><code>RequestId</code></td><td>Employee insurance requests.</td><td>Belongs to employee and policy.</td></tr>
+                    <tr><td><code>PolicyApprovalDetails</code></td><td><code>ApprovalId</code></td><td>Manager decisions.</td><td>One-to-one with request.</td></tr>
+                    <tr><td><code>PolicyBills</code></td><td><code>BillId</code></td><td>Billing and finance status.</td><td>One-to-one with request.</td></tr>
+                    <tr><td><code>PasswordResetTokens</code></td><td><code>Id</code></td><td>Password reset security.</td><td>References user type and id.</td></tr>
+                    <tr><td><code>EmailNotificationLogs</code></td><td><code>Id</code></td><td>Email delivery audit.</td><td>Related entity id is stored when available.</td></tr>
+                    <tr><td><code>ContactQueries</code></td><td><code>Id</code></td><td>Public visitor support requests.</td><td>One query has many contact messages.</td></tr>
+                    <tr><td><code>ContactMessages</code></td><td><code>Id</code></td><td>Visitor and support conversation messages.</td><td>Belongs to one contact query.</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="guide-page" id="controllers">
+            <p class="section-kicker">MVC Layer</p>
+            <h2>Controller Responsibilities</h2>
+            <div class="card-grid">
+                <div class="doc-card"><h3>HomeController</h3><p>Public pages including Home, About, Contact, Privacy, Terms, Sitemap, and error pages.</p></div>
+                <div class="doc-card"><h3>AuthController</h3><p>Login, logout, forgot password, reset password, and session setup.</p></div>
+                <div class="doc-card"><h3>AdminController</h3><p>Companies, policies, employees, assignments, search, and policy request processing.</p></div>
+                <div class="doc-card"><h3>EmployeeController</h3><p>Dashboard, details, update details, policy search, policy detail, order insurance, and change password.</p></div>
+                <div class="doc-card"><h3>ManagerController</h3><p>Request review, decision, forwarding bills to finance, and profile updates.</p></div>
+                <div class="doc-card"><h3>FinanceController</h3><p>Forwarded bill review, payment credit, closing requests, and profile updates.</p></div>
+                <div class="doc-card"><h3>SupportController</h3><p>Support dashboard, contact inbox, conversation JSON endpoint, email replies, and support profile updates.</p></div>
+                <div class="doc-card"><h3>ReportController</h3><p>Date-range reports for employees, requests, and bills.</p></div>
+            </div>
+        </section>
+
+        <section class="guide-page" id="services">
+            <p class="section-kicker">Services</p>
+            <h2>Services and Security</h2>
+            <div class="two-column">
+                <div class="doc-card">
+                    <h3>Email Services</h3>
+                    <ul class="detail-list">
+                        <li><code>IEmailSender</code> defines the email send contract.</li>
+                        <li><code>SmtpEmailSender</code> sends SMTP emails through MailKit.</li>
+                        <li><code>INotificationService</code> defines workflow notification methods.</li>
+                        <li><code>EmailNotificationService</code> logs notification attempts.</li>
+                        <li><code>EmailTemplateBuilder</code> builds notification, password reset, and support reply email bodies.</li>
+                    </ul>
+                </div>
+                <div class="doc-card">
+                    <h3>Security Practices</h3>
+                    <ul class="detail-list">
+                        <li>Passwords are hashed using BCrypt.</li>
+                        <li>Password reset tokens are stored as hashes.</li>
+                        <li>Sessions store user id, username, and role.</li>
+                        <li>Remember-me cookies are protected with ASP.NET Core data protection and checked before restoring a session.</li>
+                        <li>Protected actions check the current session role.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="guide-page" id="workflow">
+            <p class="section-kicker">Business Logic</p>
+            <h2>Workflow Logic</h2>
+            <div class="workflow">
+                <div class="flow-item"><span>1</span><h4>Employee</h4><p>Searches policy and submits insurance request with bill amount.</p></div>
+                <div class="flow-item"><span>2</span><h4>System</h4><p>Creates request and bill records.</p></div>
+                <div class="flow-item"><span>3</span><h4>Manager</h4><p>Approves or rejects the bill and adds remarks.</p></div>
+                <div class="flow-item"><span>4</span><h4>Finance</h4><p>Credits payment for forwarded bills.</p></div>
+                <div class="flow-item"><span>5</span><h4>Closure</h4><p>Request is closed and becomes reportable.</p></div>
+            </div>
+        </section>
+
+        <section class="guide-page" id="validation">
+            <p class="section-kicker">Frontend</p>
+            <h2>Validation and UI Assets</h2>
+            <div class="two-column">
+                <div class="doc-card">
+                    <h3>Validation</h3>
+                    <p>Server-side validation uses data annotations and custom validation attributes. Client-side feedback uses shared JavaScript and field-level messages.</p>
+                </div>
+                <div class="doc-card">
+                    <h3>Assets</h3>
+                    <p>Page CSS files are stored in <code>wwwroot/css/pages</code>. Shared scripts live in <code>wwwroot/js</code>. The shared theme is in <code>wwwroot/css/site.css</code>.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="guide-page" id="maintenance">
+            <p class="section-kicker">Quality</p>
+            <h2>Maintenance Checklist</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Area</th>
+                        <th>Developer Check</th>
+                        <th>Expected Standard</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Database</td><td>New entity has DbSet, migration, relationships, and validation.</td><td>No orphaned workflow records.</td></tr>
+                    <tr><td>Controller</td><td>Protected action checks role/session before database access.</td><td>Unauthorized users are redirected.</td></tr>
+                    <tr><td>Views</td><td>Forms include labels, validation spans, icons, and safe button layout.</td><td>Readable on desktop and mobile.</td></tr>
+                    <tr><td>Email</td><td>Notification hooks use service abstraction and log attempts.</td><td>No direct SMTP calls inside views.</td></tr>
+                    <tr><td>Reports</td><td>Date ranges are validated before querying.</td><td>No invalid or reversed range output.</td></tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+</body>
+</html>

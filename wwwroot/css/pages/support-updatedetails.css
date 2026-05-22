@@ -1,0 +1,38 @@
+body[data-page="support-updatedetails"] .app-main {
+    max-width: 900px;
+    margin-top: 2.2rem !important;
+}
+
+body[data-page="support-updatedetails"] .card {
+    border-radius: 8px !important;
+    box-shadow: 0 12px 28px rgba(35, 58, 67, 0.08) !important;
+}
+
+body[data-page="support-updatedetails"] .card-header {
+    min-height: 68px;
+    background: #e1f4f1 !important;
+    color: #134e4a !important;
+    border-bottom-color: #bfe4dc;
+}
+
+body[data-page="support-updatedetails"] .card-header h5 {
+    color: #134e4a;
+    font-weight: 800;
+}
+
+body[data-page="support-updatedetails"] .card-header .bi {
+    color: #0f766e;
+}
+
+body[data-page="support-updatedetails"] .card-body {
+    background: #ffffff;
+}
+
+body[data-page="support-updatedetails"] .form-label {
+    color: #526877;
+    font-weight: 800;
+}
+
+body[data-page="support-updatedetails"] .d-flex.gap-2 {
+    flex-wrap: wrap;
+}

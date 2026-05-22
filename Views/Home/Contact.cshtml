@@ -1,3 +1,5 @@
+@model ContactFormViewModel
+
 @{ ViewData["Title"] = "Contact Us"; }
 
 <section class="contact-hero" aria-labelledby="contact-title">
@@ -59,30 +61,35 @@
         <h2 id="message-title">Send Us a Message</h2>
         <p>Fill out the form and our team will get back to you shortly.</p>
 
-        <form data-static-form="true">
+        <form asp-controller="Home" asp-action="Contact" method="post">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="app-validation-summary text-danger validation-summary-valid"></div>
             <div class="form-row">
                 <div class="form-field">
-                    <label class="form-label" for="contactName">Your Name</label>
+                    <label asp-for="ContactName" class="form-label"></label>
                     <div class="input-group app-field-group">
                         <span class="input-group-text"><i class="bi bi-person"></i></span>
-                        <input id="contactName" name="ContactName" type="text" class="form-control" placeholder="John Doe" required />
+                        <input asp-for="ContactName" type="text" class="form-control" placeholder="John Doe" required />
                     </div>
+                    <span asp-validation-for="ContactName" class="text-danger small"></span>
                 </div>
                 <div class="form-field">
-                    <label class="form-label" for="contactEmail">Email Address</label>
+                    <label asp-for="ContactEmail" class="form-label"></label>
                     <div class="input-group app-field-group">
                         <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-                        <input id="contactEmail" name="ContactEmail" type="email" class="form-control" placeholder="john@example.com" required />
+                        <input asp-for="ContactEmail" type="email" class="form-control" placeholder="john@example.com" required />
                     </div>
+                    <span asp-validation-for="ContactEmail" class="text-danger small"></span>
                 </div>
             </div>
 
             <div class="form-field">
-                <label class="form-label" for="contactMessage">Message</label>
+                <label asp-for="ContactMessage" class="form-label"></label>
                 <div class="input-group app-field-group">
                     <span class="input-group-text"><i class="bi bi-chat-left-text"></i></span>
-                    <textarea id="contactMessage" name="ContactMessage" class="form-control" rows="6" placeholder="How can we help?" required></textarea>
+                    <textarea asp-for="ContactMessage" class="form-control" rows="6" placeholder="How can we help?" required></textarea>
                 </div>
+                <span asp-validation-for="ContactMessage" class="text-danger small"></span>
             </div>
 
             <button class="btn btn-primary message-submit" type="submit">
