@@ -25,6 +25,12 @@ body[data-page="support-dashboard"] td:last-child {
     white-space: nowrap;
 }
 
+.support-panel-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+
 @media (max-width: 1199.98px) {
     body[data-page="support-dashboard"] .role-metric-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));

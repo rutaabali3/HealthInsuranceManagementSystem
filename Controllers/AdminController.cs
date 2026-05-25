@@ -439,7 +439,7 @@ namespace HealthInsuranceManagement.Controllers
         {
             var guard = AdminGuard(); if (guard != null) return guard;
             ViewBag.Roles = UserRoles.StaffRoles;
-            return View(new EmpRegister());
+            return View(new EmpRegister { DateOfBirth = DateTime.Today });
         }
 
         [HttpPost]
@@ -518,6 +518,8 @@ namespace HealthInsuranceManagement.Controllers
             var guard = AdminGuard(); if (guard != null) return guard;
             var emp = await _db.EmpRegisters.FindAsync(id);
             if (emp == null) return NotFound();
+            if (emp.DateOfBirth == default)
+                emp.DateOfBirth = DateTime.Today;
             ViewBag.Roles = UserRoles.StaffRoles;
             return View(emp);
         }

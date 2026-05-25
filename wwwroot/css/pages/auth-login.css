@@ -66,16 +66,47 @@ body[data-page="auth-login"] form {
 }
 
 .login-hero {
+    position: relative;
     min-height: 230px;
     display: grid;
     align-content: center;
     justify-items: center;
     padding: 2.25rem 1.5rem;
+    overflow: hidden;
     text-align: center;
     color: #ffffff;
     background:
         linear-gradient(180deg, rgba(0, 43, 43, 0.08), rgba(0, 43, 43, 0.5)),
         url("/images/login/Gemini_Generated_Image_rn1z4trn1z4trn1z-cleaned.png") center / cover;
+    clip-path: inset(0);
+    isolation: isolate;
+}
+
+.login-hero::before {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    content: "";
+    background: linear-gradient(180deg, rgba(0, 43, 43, 0.14), rgba(0, 43, 43, 0.58));
+    pointer-events: none;
+}
+
+.login-hero .hero-background-video {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    object-position: center;
+    pointer-events: none;
+}
+
+.login-lock,
+.login-hero h1,
+.login-hero p {
+    position: relative;
+    z-index: 2;
 }
 
 .login-lock {

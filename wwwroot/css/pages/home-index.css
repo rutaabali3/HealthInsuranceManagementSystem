@@ -4,7 +4,9 @@ body[data-page="home-index"] {
 
 body[data-page="home-index"] .app-main {
     max-width: 100%;
-    padding-inline: clamp(1rem, 2.5vw, 2rem);
+    padding-inline: 0;
+    margin-top: 0 !important;
+    padding-top: 0;
 }
 
 .home-hero {
@@ -12,18 +14,19 @@ body[data-page="home-index"] .app-main {
     display: grid;
     grid-template-columns: minmax(300px, 0.82fr) minmax(420px, 1.18fr);
     align-items: center;
-    min-height: 430px;
+    min-height: 80vh;
     overflow: hidden;
     padding: clamp(2rem, 5vw, 4rem);
     color: #ffffff;
     background:
         radial-gradient(circle at 88% 78%, rgba(111, 247, 246, 0.14), transparent 18rem),
         linear-gradient(135deg, #006f6f 0%, #004040 100%);
-    border-radius: 8px;
+    border: 0;
+    border-radius: 0;
     box-shadow: 0 18px 42px rgba(0, 42, 42, 0.16);
 }
 
-.home-hero::before,
+/* .home-hero::before,
 .home-hero::after {
     content: "";
     position: absolute;
@@ -44,7 +47,7 @@ body[data-page="home-index"] .app-main {
     height: 250px;
     right: 39%;
     top: 10rem;
-}
+} */
 
 .home-hero-content {
     position: relative;
@@ -56,6 +59,7 @@ body[data-page="home-index"] .app-main {
     display: inline-flex;
     align-items: center;
     min-height: 36px;
+    width: fit-content;
     padding: 0.3rem 0.8rem;
     margin-bottom: 1.55rem;
     color: #e9ffff;
@@ -68,7 +72,7 @@ body[data-page="home-index"] .app-main {
 .home-hero h1 {
     max-width: 650px;
     margin: 0;
-    color: #ffffff;
+    color: #6ff7f6;
     font-size: clamp(2.7rem, 4.9vw, 4.5rem);
     line-height: 1.12;
     text-wrap: balance;
@@ -105,6 +109,14 @@ body[data-page="home-index"] .app-main {
     --bs-btn-hover-color: #002020;
 }
 
+.hero-actions .btn-outline-light {
+    --bs-btn-color: #ffffff;
+    --bs-btn-border-color: rgba(255, 255, 255, 0.72);
+    --bs-btn-hover-bg: rgba(255, 255, 255, 0.16);
+    --bs-btn-hover-border-color: #ffffff;
+    --bs-btn-hover-color: #ffffff;
+}
+
 .home-hero-visual {
     position: relative;
     z-index: 1;
@@ -123,8 +135,8 @@ body[data-page="home-index"] .app-main {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1.5rem;
-    width: 100%;
-    margin: 2rem auto 2.25rem;
+    /* width: min(calc(100% - 2rem), 1180px); */
+    margin:  1.5rem;
 }
 
 .feature-card {
@@ -181,8 +193,8 @@ body[data-page="home-index"] .app-main {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 0;
-    width: 100%;
-    margin: 0 auto 1.5rem;
+    /* width: min(calc(100% - 2rem), 1180px); */
+    margin: 1.5rem;
     overflow: hidden;
     background: linear-gradient(180deg, #effafa 0%, #e5f3f2 100%);
     border: 1px solid #d8e7e6;
@@ -254,11 +266,10 @@ body[data-page="home-index"] .app-main {
 
 @media (max-width: 767.98px) {
     body[data-page="home-index"] .app-main {
-        padding-inline: 0.75rem;
+        padding-inline: 0;
     }
 
     .home-hero {
-        min-height: 0;
         padding: 2rem 1.25rem;
     }
 

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "GBv7uki5vfuY1yx3KWbarwlBLrqv99AUeAIKx++Dupo=",
+  "Hash": "ukkXkRaSyHYd21Kdcg4CymD46mw6YwJy6ngDJ9RABig=",
   "Source": "HealthInsuranceManagement",
   "BasePath": "_content/HealthInsuranceManagement",
   "Mode": "Default",
@@ -606,6 +606,25 @@
       "OriginalItemSpec": "wwwroot\\css\\pages\\home-contact.css"
     },
     {
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\home-faq.css",
+      "SourceId": "HealthInsuranceManagement",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
+      "BasePath": "_content/HealthInsuranceManagement",
+      "RelativePath": "css/pages/home-faq.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\pages\\home-faq.css"
+    },
+    {
       "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\home-index.css",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
@@ -796,6 +815,25 @@
       "OriginalItemSpec": "wwwroot\\css\\pages\\report-index.css"
     },
     {
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\support-addfaq.css",
+      "SourceId": "HealthInsuranceManagement",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
+      "BasePath": "_content/HealthInsuranceManagement",
+      "RelativePath": "css/pages/support-addfaq.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\pages\\support-addfaq.css"
+    },
+    {
       "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\support-dashboard.css",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
@@ -832,6 +870,44 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\pages\\support-details.css"
+    },
+    {
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\support-editfaq.css",
+      "SourceId": "HealthInsuranceManagement",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
+      "BasePath": "_content/HealthInsuranceManagement",
+      "RelativePath": "css/pages/support-editfaq.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\pages\\support-editfaq.css"
+    },
+    {
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\support-faqs.css",
+      "SourceId": "HealthInsuranceManagement",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
+      "BasePath": "_content/HealthInsuranceManagement",
+      "RelativePath": "css/pages/support-faqs.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\pages\\support-faqs.css"
     },
     {
       "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\css\\pages\\support-inbox.css",
@@ -948,12 +1024,12 @@
       "OriginalItemSpec": "wwwroot\\images\\contact\\hero-right.png"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\images\\contact\\hero.png",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\images\\contact\\hero.mp4",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
-      "RelativePath": "images/contact/hero.png",
+      "RelativePath": "images/contact/hero.mp4",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -964,7 +1040,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\contact\\hero.png"
+      "OriginalItemSpec": "wwwroot\\images\\contact\\hero.mp4"
+    },
+    {
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\images\\faq\\hero.mp4",
+      "SourceId": "HealthInsuranceManagement",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
+      "BasePath": "_content/HealthInsuranceManagement",
+      "RelativePath": "images/faq/hero.mp4",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\faq\\hero.mp4"
     },
     {
       "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\images\\home\\hero.png",
@@ -986,12 +1081,12 @@
       "OriginalItemSpec": "wwwroot\\images\\home\\hero.png"
     },
     {
-      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\images\\login\\Gemini_Generated_Image_rn1z4trn1z4trn1z-cleaned.png",
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\images\\login\\hero.mp4",
       "SourceId": "HealthInsuranceManagement",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
       "BasePath": "_content/HealthInsuranceManagement",
-      "RelativePath": "images/login/Gemini_Generated_Image_rn1z4trn1z4trn1z-cleaned.png",
+      "RelativePath": "images/login/hero.mp4",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1002,7 +1097,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\login\\Gemini_Generated_Image_rn1z4trn1z4trn1z-cleaned.png"
+      "OriginalItemSpec": "wwwroot\\images\\login\\hero.mp4"
     },
     {
       "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\images\\site\\favicon.png",
@@ -1022,6 +1117,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\site\\favicon.png"
+    },
+    {
+      "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\images\\site\\footer-background.mp4",
+      "SourceId": "HealthInsuranceManagement",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\",
+      "BasePath": "_content/HealthInsuranceManagement",
+      "RelativePath": "images/site/footer-background.mp4",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\site\\footer-background.mp4"
     },
     {
       "Identity": "C:\\Users\\Fahad\\OneDrive\\Videos\\HealthInsuranceManagement\\wwwroot\\images\\site\\footer-background.png",

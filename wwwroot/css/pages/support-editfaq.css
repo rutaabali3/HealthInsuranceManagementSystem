@@ -1,0 +1,111 @@
+body[data-page="support-addfaq"],
+body[data-page="support-editfaq"] {
+    background: #f5fbfa;
+}
+
+body[data-page="support-addfaq"] .app-main,
+body[data-page="support-editfaq"] .app-main {
+    max-width: 980px;
+    margin-top: 2rem !important;
+}
+
+.support-faq-form-shell {
+    display: grid;
+    gap: 1.25rem;
+}
+
+.support-faq-form {
+    display: grid;
+}
+
+.support-faq-form .form-card {
+    display: grid;
+    gap: 1.25rem;
+    padding: clamp(1rem, 2.5vw, 1.5rem);
+    background: #ffffff;
+    border: 1px solid #d6e8e4;
+    border-radius: 8px;
+    box-shadow: 0 16px 38px rgba(31, 54, 63, 0.09);
+}
+
+.support-faq-form .form-card-heading {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.85rem;
+    align-items: center;
+}
+
+.support-faq-form .form-card-heading > i {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    color: #ffffff;
+    background: #0f766e;
+    border-radius: 50%;
+    font-size: 1.25rem;
+}
+
+.support-faq-form .form-card-heading h2 {
+    margin: 0;
+    color: #172423;
+    font-size: 1.35rem;
+    font-weight: 800;
+}
+
+.support-faq-form .form-card-heading p {
+    margin: 0.2rem 0 0;
+    color: #64748b;
+}
+
+.support-faq-form textarea {
+    resize: vertical;
+}
+
+.support-faq-toggle {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.75rem;
+    align-items: center;
+    padding: 0.85rem;
+    background: #f8fcfb;
+    border: 1px solid #dbe8e5;
+    border-radius: 8px;
+}
+
+.support-faq-toggle input {
+    width: 1.15rem;
+    height: 1.15rem;
+    accent-color: #0f766e;
+}
+
+.support-faq-toggle strong,
+.support-faq-toggle small {
+    display: block;
+}
+
+.support-faq-toggle strong {
+    color: #172423;
+}
+
+.support-faq-toggle small {
+    margin-top: 0.15rem;
+    color: #64748b;
+}
+
+.support-faq-form .form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+@media (max-width: 575.98px) {
+    body[data-page="support-addfaq"] .app-main,
+    body[data-page="support-editfaq"] .app-main {
+        padding-inline: 0.75rem;
+    }
+
+    .support-faq-form .form-actions .btn {
+        width: 100%;
+    }
+}

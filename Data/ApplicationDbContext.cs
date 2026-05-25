@@ -27,6 +27,7 @@ namespace HealthInsuranceManagement.Data
         public DbSet<EmailNotificationLog> EmailNotificationLogs { get; set; }
         public DbSet<ContactQuery> ContactQueries { get; set; }
         public DbSet<ContactMessage> ContactMessages { get; set; }
+        public DbSet<FaqItem> FaqItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -56,6 +57,9 @@ namespace HealthInsuranceManagement.Data
 
             modelBuilder.Entity<ContactMessage>()
                 .HasIndex(m => new { m.ContactQueryId, m.SentAt });
+
+            modelBuilder.Entity<FaqItem>()
+                .HasIndex(f => new { f.Category, f.DisplayOrder, f.IsActive });
 
             // ── Relationships ──────────────────────────────────────────
             modelBuilder.Entity<Policy>()

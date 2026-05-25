@@ -78,6 +78,11 @@
                         <i class="bi bi-envelope me-1"></i>Contact
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link @(IsActive("Home", "Faq"))" asp-controller="Home" asp-action="Faq">
+                        <i class="bi bi-question-circle me-1"></i>FAQ
+                    </a>
+                </li>
 
                 @if (role == UserRoles.Manager && !hasRoleSidebar)
                 {
@@ -236,6 +241,10 @@
                     <i class="bi bi-chat-dots"></i>
                     <span>Inbox</span>
                 </a>
+                <a class="admin-sidebar-link @((IsActive("Support", "Faqs") == "active" || IsActive("Support", "AddFaq") == "active" || IsActive("Support", "EditFaq") == "active") ? "active" : "")" asp-controller="Support" asp-action="Faqs" title="FAQ Management">
+                    <i class="bi bi-patch-question"></i>
+                    <span>FAQs</span>
+                </a>
                 <a class="admin-sidebar-link @(IsActive("Support", "Details"))" asp-controller="Support" asp-action="Details" title="My Details">
                     <i class="bi bi-person-lines-fill"></i>
                     <span>My Details</span>
@@ -283,6 +292,9 @@
 </main>
 
 <footer class="app-footer mt-5">
+    <video class="app-footer-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+        <source src="~/images/site/footer-background.mp4" type="video/mp4" />
+    </video>
     <div class="app-footer-panel">
         <div class="app-footer-inner">
             <div class="app-footer-brand">
@@ -301,6 +313,7 @@
                     <a asp-controller="Home" asp-action="Index">Home</a>
                     <a asp-controller="Home" asp-action="About">About</a>
                     <a asp-controller="Home" asp-action="Contact">Contact</a>
+                    <a asp-controller="Home" asp-action="Faq">FAQ</a>
                 </div>
                 <div>
                     <h2>Info</h2>

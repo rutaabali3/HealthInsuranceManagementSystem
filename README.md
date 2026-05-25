@@ -1,5 +1,3 @@
-![Health Insurance Management System](README.PNG)
-
 # Health Insurance Management System
 
 ## Tech Stack

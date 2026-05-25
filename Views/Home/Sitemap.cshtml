@@ -12,6 +12,9 @@
 
 <section class="info-page-shell" aria-labelledby="sitemap-title">
     <header class="info-page-hero">
+        <video class="hero-background-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+            <source src="~/images/faq/hero.mp4" type="video/mp4" />
+        </video>
         <div class="info-page-hero-copy">
             <span class="info-kicker"><i class="bi bi-diagram-3"></i> Site Directory</span>
             <h1 id="sitemap-title">Sitemap</h1>
@@ -42,6 +45,7 @@
             <a asp-controller="Home" asp-action="Index"><i class="bi bi-arrow-right"></i> Home</a>
             <a asp-controller="Home" asp-action="About"><i class="bi bi-arrow-right"></i> About Us</a>
             <a asp-controller="Home" asp-action="Contact"><i class="bi bi-arrow-right"></i> Contact</a>
+            <a asp-controller="Home" asp-action="Faq"><i class="bi bi-arrow-right"></i> FAQ</a>
         </article>
 
         <article>
@@ -116,6 +120,7 @@
                 <h2>Support Area</h2>
                 <a asp-controller="Support" asp-action="Dashboard"><i class="bi bi-arrow-right"></i> Dashboard</a>
                 <a asp-controller="Support" asp-action="Inbox"><i class="bi bi-arrow-right"></i> Inbox</a>
+                <a asp-controller="Support" asp-action="Faqs"><i class="bi bi-arrow-right"></i> FAQ Management</a>
                 <a asp-controller="Support" asp-action="Details"><i class="bi bi-arrow-right"></i> My Details</a>
                 <a asp-controller="Support" asp-action="UpdateDetails"><i class="bi bi-arrow-right"></i> Update Details</a>
             </article>

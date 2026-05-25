@@ -57,7 +57,7 @@ namespace HealthInsuranceManagement.Models
         [Display(Name = "Date of Birth")]
         [DataType(DataType.Date)]
         [AdultDate(MinimumAge = 18, ErrorMessage = "Employee must be at least 18 years old.")]
-        public DateTime DateOfBirth { get; set; }
+        public DateTime DateOfBirth { get; set; } = DateTime.Today;
 
         [Required(ErrorMessage = "Gender is required.")]
         [MaxLength(10)]

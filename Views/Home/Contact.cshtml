@@ -3,14 +3,17 @@
 @{ ViewData["Title"] = "Contact Us"; }
 
 <section class="contact-hero" aria-labelledby="contact-title">
+    <video class="hero-background-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+        <source src="~/images/contact/hero.mp4" type="video/mp4" />
+    </video>
     <div class="contact-hero-copy">
-        <span>Get In Touch</span>
+        <span><i class="bi bi-headset"></i> &nbsp; Get In Touch</span>
         <h1 id="contact-title">We're Here to Help</h1>
         <p>Reach out to our team for any inquiries about the Health Insurance Management System.</p>
     </div>
-    <div class="contact-hero-image" aria-hidden="true">
+        @* <div class="contact-hero-image" aria-hidden="true">
         <img src="~/images/contact/hero-right.png" alt="" />
-    </div>
+    </div> *@
 </section>
 
 <section class="contact-layout" aria-label="Contact details and message form">

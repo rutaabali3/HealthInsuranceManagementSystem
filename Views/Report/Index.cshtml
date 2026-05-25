@@ -13,7 +13,7 @@
                 <label asp-for="FromDate" class="form-label fw-semibold"></label>
                 <div class="input-group app-field-group">
                     <span class="input-group-text"><i class="bi bi-calendar-plus"></i></span>
-                    <input asp-for="FromDate" class="form-control" type="date" />
+                    <input asp-for="FromDate" class="form-control" type="date" max="@DateTime.Today.ToString("yyyy-MM-dd")" />
                 </div>
                 <span asp-validation-for="FromDate" class="text-danger small"></span>
             </div>
@@ -21,7 +21,7 @@
                 <label asp-for="ToDate" class="form-label fw-semibold"></label>
                 <div class="input-group app-field-group">
                     <span class="input-group-text"><i class="bi bi-calendar-check"></i></span>
-                    <input asp-for="ToDate" class="form-control" type="date" />
+                    <input asp-for="ToDate" class="form-control" type="date" max="@DateTime.Today.ToString("yyyy-MM-dd")" />
                 </div>
                 <span asp-validation-for="ToDate" class="text-danger small"></span>
             </div>

@@ -148,11 +148,11 @@
         }
 
         if (name === "DateOfBirth") {
-            if (raw > adultCutoffString()) {
-                return { valid: false, type: "error", message: "Employee must be at least 18 years old." };
-            }
             if (raw > todayString()) {
                 return { valid: false, type: "error", message: "Date of birth cannot be in the future." };
+            }
+            if (raw > adultCutoffString()) {
+                return { valid: false, type: "error", message: "Employee must be at least 18 years old." };
             }
         }
 
@@ -211,8 +211,11 @@
             field.id = `app-field-${field.name}-${Math.random().toString(36).slice(2)}`;
         }
 
+        if (field.type === "date" && field.value === "0001-01-01" && (field.name === "DateOfBirth" || field.name === "FromDate" || field.name === "ToDate")) {
+            field.value = todayString();
+        }
         if (field.name === "DateOfBirth") {
-            field.max = adultCutoffString();
+            field.max = todayString();
         }
         if (field.name === "FromDate" || field.name === "ToDate") {
             field.max = todayString();

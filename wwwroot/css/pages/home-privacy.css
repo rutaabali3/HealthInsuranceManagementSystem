@@ -10,33 +10,60 @@ body[data-page="home-privacy"] .app-main,
 body[data-page="home-terms"] .app-main,
 body[data-page="home-sitemap"] .app-main {
     max-width: 100%;
-    padding-inline: clamp(1rem, 2.5vw, 2rem);
+    padding-inline: 0;
     margin-top: 0 !important;
+    padding-top: 0;
 }
 
 .info-page-shell {
     display: grid;
     gap: clamp(1.25rem, 3vw, 2rem);
-    width: min(100%, 1180px);
-    margin: clamp(1rem, 2.5vw, 2rem) auto clamp(2rem, 5vw, 3.5rem);
+    width: 100%;
+    margin: 0 auto clamp(2rem, 5vw, 3.5rem);
 }
 
 .info-page-hero {
+    position: relative;
     display: grid;
     grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
     gap: clamp(1rem, 3vw, 2rem);
     align-items: stretch;
+    min-height: 80vh;
     padding: clamp(1.5rem, 4vw, 3rem);
     overflow: hidden;
-    background:
-        linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(232, 245, 244, 0.9)),
-        #ffffff;
-    border: 1px solid #d8e2e1;
-    border-radius: 8px;
+    background: #e8f5f4;
+    border: 0;
+    border-radius: 0;
     box-shadow: 0 14px 34px rgba(0, 42, 42, 0.08);
+    clip-path: inset(0);
+    isolation: isolate;
+}
+
+.info-page-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+        linear-gradient(90deg, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.82) 46%, rgba(255, 255, 255, 0.2)),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(0, 106, 106, 0.16));
+    pointer-events: none;
+}
+
+.info-page-hero .hero-background-video {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    object-position: center;
+    pointer-events: none;
 }
 
 .info-page-hero-copy {
+    position: relative;
+    z-index: 2;
     display: grid;
     align-content: center;
     min-width: 0;
@@ -73,6 +100,8 @@ body[data-page="home-sitemap"] .app-main {
 }
 
 .info-hero-panel {
+    position: relative;
+    z-index: 2;
     display: grid;
     gap: 1rem;
     align-content: center;
@@ -117,6 +146,8 @@ body[data-page="home-sitemap"] .app-main {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1rem;
+    width: min(calc(100% - 2rem), 1180px);
+    margin-inline: auto;
 }
 
 .info-summary-row article {
@@ -157,6 +188,8 @@ body[data-page="home-sitemap"] .app-main {
 .sitemap-grid {
     display: grid;
     gap: 1rem;
+    width: min(calc(100% - 2rem), 1180px);
+    margin-inline: auto;
 }
 
 .info-page-content {
@@ -227,6 +260,8 @@ body[data-page="home-sitemap"] .app-main {
     grid-template-columns: auto minmax(0, 1fr) auto;
     gap: 1rem;
     align-items: center;
+    width: min(calc(100% - 2rem), 1180px);
+    margin-inline: auto;
     padding: 1.2rem;
     color: #10282d;
     background: #eefafa;
@@ -296,7 +331,7 @@ body[data-page="home-sitemap"] .app-main {
     body[data-page="home-privacy"] .app-main,
     body[data-page="home-terms"] .app-main,
     body[data-page="home-sitemap"] .app-main {
-        padding-inline: 0.75rem;
+        padding-inline: 0;
     }
 
     .info-page-hero,

@@ -30,6 +30,16 @@ namespace HealthInsuranceManagement.Controllers
         public async Task<IActionResult> Dashboard()
         {
             var guard = SupportGuard(); if (guard != null) return guard;
+            var activeFaqs = 0;
+
+            try
+            {
+                activeFaqs = await _db.FaqItems.CountAsync(f => f.IsActive);
+            }
+            catch
+            {
+                // Keeps the dashboard available before the FAQ migration is applied.
+            }
 
             var vm = new SupportDashboardViewModel
             {
@@ -37,6 +47,7 @@ namespace HealthInsuranceManagement.Controllers
                 NewQueries = await _db.ContactQueries.CountAsync(q => q.Status == "New"),
                 OpenQueries = await _db.ContactQueries.CountAsync(q => q.Status != "Closed"),
                 RepliedQueries = await _db.ContactQueries.CountAsync(q => q.Status == "Replied"),
+                ActiveFaqs = activeFaqs,
                 RecentQueries = await _db.ContactQueries
                     .OrderByDescending(q => q.CreatedAt)
                     .Take(5)
@@ -44,6 +55,103 @@ namespace HealthInsuranceManagement.Controllers
             };
 
             return View(vm);
+        }
+
+        public async Task<IActionResult> Faqs()
+        {
+            var guard = SupportGuard(); if (guard != null) return guard;
+
+            var faqs = await _db.FaqItems
+                .OrderBy(f => f.Category)
+                .ThenBy(f => f.DisplayOrder)
+                .ThenBy(f => f.Question)
+                .ToListAsync();
+
+            return View(new SupportFaqListViewModel
+            {
+                Faqs = faqs,
+                ActiveCount = faqs.Count(f => f.IsActive),
+                HiddenCount = faqs.Count(f => !f.IsActive)
+            });
+        }
+
+        [HttpGet]
+        public IActionResult AddFaq()
+        {
+            var guard = SupportGuard(); if (guard != null) return guard;
+            return View("FaqForm", new FaqItem { IsActive = true });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddFaq(FaqItem model)
+        {
+            var guard = SupportGuard(); if (guard != null) return guard;
+            PrepareFaqModel(model);
+
+            if (!ModelState.IsValid)
+            {
+                return View("FaqForm", model);
+            }
+
+            model.CreatedAt = DateTime.UtcNow;
+            model.CreatedBySupportId = CurrentSupportId == 0 ? null : CurrentSupportId;
+            _db.FaqItems.Add(model);
+            await _db.SaveChangesAsync();
+
+            TempData["Success"] = "FAQ has been added.";
+            return RedirectToAction(nameof(Faqs));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditFaq(int id)
+        {
+            var guard = SupportGuard(); if (guard != null) return guard;
+            var faq = await _db.FaqItems.FindAsync(id);
+            if (faq == null) return NotFound();
+            return View("FaqForm", faq);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditFaq(int id, FaqItem model)
+        {
+            var guard = SupportGuard(); if (guard != null) return guard;
+            if (id != model.Id) return BadRequest();
+
+            PrepareFaqModel(model);
+            if (!ModelState.IsValid)
+            {
+                return View("FaqForm", model);
+            }
+
+            var faq = await _db.FaqItems.FindAsync(id);
+            if (faq == null) return NotFound();
+
+            faq.Question = model.Question;
+            faq.Answer = model.Answer;
+            faq.Category = model.Category;
+            faq.DisplayOrder = model.DisplayOrder;
+            faq.IsActive = model.IsActive;
+            faq.UpdatedAt = DateTime.UtcNow;
+
+            await _db.SaveChangesAsync();
+            TempData["Success"] = "FAQ has been updated.";
+            return RedirectToAction(nameof(Faqs));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteFaq(int id)
+        {
+            var guard = SupportGuard(); if (guard != null) return guard;
+            var faq = await _db.FaqItems.FindAsync(id);
+            if (faq == null) return NotFound();
+
+            _db.FaqItems.Remove(faq);
+            await _db.SaveChangesAsync();
+            TempData["Success"] = "FAQ has been deleted.";
+            return RedirectToAction(nameof(Faqs));
         }
 
         public async Task<IActionResult> Inbox(int? id)
@@ -201,6 +309,13 @@ namespace HealthInsuranceManagement.Controllers
         private static string BuildReplyEmail(string name, string supportName, string replyText)
         {
             return EmailTemplateBuilder.BuildSupportReplyEmail(name, supportName, replyText);
+        }
+
+        private static void PrepareFaqModel(FaqItem model)
+        {
+            model.Question = (model.Question ?? string.Empty).Trim();
+            model.Answer = (model.Answer ?? string.Empty).Trim();
+            model.Category = (model.Category ?? string.Empty).Trim();
         }
     }
 }

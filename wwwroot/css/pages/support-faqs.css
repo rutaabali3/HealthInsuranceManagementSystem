@@ -1,0 +1,75 @@
+body[data-page="support-faqs"] {
+    background: #f5fbfa;
+}
+
+body[data-page="support-faqs"] .app-main {
+    max-width: 1280px;
+    margin-top: 2rem !important;
+}
+
+.support-faq-shell {
+    display: grid;
+    gap: 1.25rem;
+}
+
+.support-faq-hero .btn {
+    min-height: 42px;
+}
+
+.support-faq-metrics {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.support-faq-panel .role-table td:nth-child(3) {
+    min-width: 320px;
+}
+
+.support-faq-panel .role-table td:nth-child(3) strong,
+.support-faq-panel .role-table td:nth-child(3) small {
+    display: block;
+}
+
+.support-faq-panel .role-table td:nth-child(3) small {
+    margin-top: 0.35rem;
+    color: #64748b;
+    line-height: 1.45;
+}
+
+.support-faq-category {
+    display: inline-flex;
+    align-items: center;
+    min-height: 30px;
+    padding: 0.25rem 0.65rem;
+    color: #0f766e;
+    background: #e0f2f1;
+    border: 1px solid #b7dedb;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.support-faq-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: flex-end;
+}
+
+.support-faq-actions form {
+    margin: 0;
+}
+
+.support-faq-actions .btn {
+    white-space: nowrap;
+}
+
+@media (max-width: 991.98px) {
+    .support-faq-metrics {
+        grid-template-columns: 1fr;
+    }
+
+    .support-faq-actions {
+        justify-content: flex-start;
+    }
+}

@@ -1,0 +1,153 @@
+@model FaqPageViewModel
+@{
+    ViewData["Title"] = "FAQ";
+    var topicIcons = new[] { "bi-person-badge", "bi-person-heart", "bi-inbox", "bi-cash-coin", "bi-bar-chart", "bi-headset" };
+    var groups = Model.GroupedItems.ToList();
+    var allItems = Model.Items
+        .OrderBy(f => f.Category)
+        .ThenBy(f => f.DisplayOrder)
+        .ThenBy(f => f.Question)
+        .ToList();
+}
+
+<section class="faq-page-shell" aria-labelledby="faq-title">
+    <header class="faq-hero">
+        <video class="hero-background-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+            <source src="~/images/faq/hero.mp4" type="video/mp4" />
+        </video>
+        <div class="faq-hero-copy">
+            <span class="faq-kicker"><i class="bi bi-question-circle"></i> Help Center</span>
+            <h1 id="faq-title">Frequently Asked Questions</h1>
+            <p>
+                Find practical answers about accounts, employee policy requests, approvals,
+                finance workflow, reports, support messages, and secure use of HealthInsure.
+            </p>
+        </div>
+
+        @* <div class="faq-hero-panel" aria-label="FAQ highlights">
+            <div>
+                <i class="bi bi-person-lock"></i>
+                <strong>Role-aware guidance</strong>
+                <span>Filter answers around admin, employee, manager, finance, and support workflows.</span>
+            </div>
+            <div>
+                <i class="bi bi-life-preserver"></i>
+                <strong>Updated by support</strong>
+                <span>Support users can add, edit, hide, or delete these answers when guidance changes.</span>
+            </div>
+        </div> *@
+    </header>
+
+    <div class="faq-summary-row" aria-label="FAQ summary">
+        <article>
+            <span><i class="bi bi-shield-check"></i></span>
+            <strong>Use the right role</strong>
+            <p>Menus and dashboards change depending on the signed-in account role.</p>
+        </article>
+        <article>
+            <span><i class="bi bi-clipboard2-check"></i></span>
+            <strong>Review before saving</strong>
+            <p>Policy requests, assignments, approvals, and payments update workflow records.</p>
+        </article>
+        <article>
+            <span><i class="bi bi-envelope-check"></i></span>
+            <strong>Keep contact details current</strong>
+            <p>Email and profile details help users receive workflow updates at the right address.</p>
+        </article>
+    </div>
+
+    <div class="faq-topic-nav" aria-label="FAQ filters">
+        <button type="button" class="active" data-faq-filter="all" aria-pressed="true">
+            <i class="bi bi-grid-3x3-gap"></i> All FAQs
+        </button>
+        @for (var i = 0; i < groups.Count; i++)
+        {
+            var group = groups[i];
+            var icon = topicIcons[i % topicIcons.Length];
+            <button type="button" data-faq-filter="@group.Key" aria-pressed="false">
+                <i class="bi @icon"></i> @group.Key
+            </button>
+        }
+    </div>
+
+    <div class="faq-content" aria-labelledby="faq-list-title">
+        <div class="faq-list-heading">
+            <span class="faq-list-icon"><i class="bi bi-list-check"></i></span>
+            <div>
+                <h2 id="faq-list-title">FAQ</h2>
+                <p data-faq-count-text>@allItems.Count @(allItems.Count == 1 ? "answer" : "answers").</p>
+            </div>
+        </div>
+
+        <div class="faq-list">
+            @for (var i = 0; i < allItems.Count; i++)
+            {
+                var item = allItems[i];
+                <details data-faq-item data-faq-category="@item.Category" open="@(i == 0)">
+                    <summary>
+                        <span>@item.Question</span>
+                        <small>@item.Category</small>
+                    </summary>
+                    <p>@item.Answer</p>
+                </details>
+            }
+        </div>
+    </div>
+
+    <aside class="faq-callout">
+        <i class="bi bi-chat-square-text"></i>
+        <div>
+            <strong>Still need help?</strong>
+            <p>Send a clear support message with the page name, record type, and what you expected to happen.</p>
+        </div>
+        <a asp-controller="Home" asp-action="Contact">Contact Support</a>
+    </aside>
+</section>
+
+@section Scripts {
+    <script>
+        (() => {
+            const buttons = document.querySelectorAll("[data-faq-filter]");
+            const items = document.querySelectorAll("[data-faq-item]");
+            const countText = document.querySelector("[data-faq-count-text]");
+            const title = document.getElementById("faq-list-title");
+
+            buttons.forEach((button) => {
+                button.addEventListener("click", () => {
+                    const selected = button.dataset.faqFilter;
+                    let visible = 0;
+
+                    buttons.forEach((option) => {
+                        const isActive = option === button;
+                        option.classList.toggle("active", isActive);
+                        option.setAttribute("aria-pressed", isActive ? "true" : "false");
+                    });
+
+                    items.forEach((item) => {
+                        const matches = selected === "all" || item.dataset.faqCategory === selected;
+                        item.hidden = !matches;
+
+                        if (matches) {
+                            visible += 1;
+                        } else {
+                            item.open = false;
+                        }
+                    });
+
+                    const firstVisible = Array.from(items).find((item) => !item.hidden);
+                    if (firstVisible) {
+                        firstVisible.open = true;
+                    }
+
+                    if (countText) {
+                        countText.textContent = `${visible} answer${visible === 1 ? "" : "s"} shown.`;
+                    }
+
+                    if (title) {
+                        title.textContent = selected === "all" ? "FAQ" : `${selected} Questions`;
+                    }
+                });
+            });
+        })();
+    </script>
+}

@@ -1,0 +1,112 @@
+@model SupportFaqListViewModel
+@{
+    ViewData["Title"] = "FAQ Management";
+}
+
+<section class="support-faq-shell" aria-labelledby="support-faq-title">
+    <header class="role-dashboard-hero support-faq-hero">
+        <div>
+            <p class="role-dashboard-eyebrow">Support Knowledge Base</p>
+            <h1 id="support-faq-title">FAQ Management</h1>
+            <p class="role-dashboard-subtitle">Add, update, hide, and delete public FAQ answers whenever support guidance changes.</p>
+        </div>
+        <div class="role-hero-actions">
+            <a asp-action="AddFaq" class="btn btn-primary action-button">
+                <i class="bi bi-plus-circle"></i><span>Add FAQ</span>
+            </a>
+            <a asp-controller="Home" asp-action="Faq" class="btn btn-outline-secondary action-button">
+                <i class="bi bi-eye"></i><span>View Public FAQ</span>
+            </a>
+        </div>
+    </header>
+
+    <section class="role-metric-grid support-faq-metrics" aria-label="FAQ metrics">
+        <article class="role-metric-card metric-card-teal">
+            <span class="role-metric-icon"><i class="bi bi-patch-question"></i></span>
+            <span class="role-metric-content">
+                <strong>@Model.Faqs.Count</strong>
+                <span>Total FAQs</span>
+            </span>
+        </article>
+        <article class="role-metric-card metric-card-green">
+            <span class="role-metric-icon"><i class="bi bi-check2-circle"></i></span>
+            <span class="role-metric-content">
+                <strong>@Model.ActiveCount</strong>
+                <span>Visible</span>
+            </span>
+        </article>
+        <article class="role-metric-card metric-card-amber">
+            <span class="role-metric-icon"><i class="bi bi-eye-slash"></i></span>
+            <span class="role-metric-content">
+                <strong>@Model.HiddenCount</strong>
+                <span>Hidden</span>
+            </span>
+        </article>
+    </section>
+
+    <article class="role-dashboard-panel support-faq-panel">
+        <div class="role-panel-heading">
+            <h2><i class="bi bi-list-check"></i>Managed FAQs</h2>
+            <a asp-action="AddFaq" class="panel-action">Add New</a>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-hover align-middle role-table mb-0">
+                <thead>
+                    <tr>
+                        <th>Order</th>
+                        <th>Category</th>
+                        <th>Question</th>
+                        <th>Status</th>
+                        <th>Updated</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (!Model.Faqs.Any())
+                    {
+                        <tr>
+                            <td colspan="6">
+                                <div class="role-empty-state">
+                                    <span><i class="bi bi-patch-question"></i></span>
+                                    <strong>No FAQs yet.</strong>
+                                    <small>Add the first public support answer from here.</small>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                    @foreach (var faq in Model.Faqs)
+                    {
+                        <tr>
+                            <td>@faq.DisplayOrder</td>
+                            <td><span class="support-faq-category">@faq.Category</span></td>
+                            <td>
+                                <strong>@faq.Question</strong>
+                                <small>@(faq.Answer.Length > 110 ? $"{faq.Answer[..110]}..." : faq.Answer)</small>
+                            </td>
+                            <td>
+                                <span class="status-pill @(faq.IsActive ? "status-approved" : "status-waiting")">
+                                    @(faq.IsActive ? "Visible" : "Hidden")
+                                </span>
+                            </td>
+                            <td>@((faq.UpdatedAt ?? faq.CreatedAt).ToLocalTime().ToString("dd MMM yyyy"))</td>
+                            <td>
+                                <div class="support-faq-actions">
+                                    <a asp-action="EditFaq" asp-route-id="@faq.Id" class="btn btn-sm btn-outline-secondary action-button">
+                                        <i class="bi bi-pencil-square"></i><span>Edit</span>
+                                    </a>
+                                    <form asp-action="DeleteFaq" asp-route-id="@faq.Id" method="post" data-swal-confirm="Delete this FAQ?" data-swal-confirm-button="Delete">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="btn btn-sm btn-outline-danger action-button">
+                                            <i class="bi bi-trash3"></i><span>Delete</span>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </article>
+</section>

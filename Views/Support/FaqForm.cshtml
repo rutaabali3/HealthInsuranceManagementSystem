@@ -1,0 +1,84 @@
+@model FaqItem
+@{
+    var isEdit = Model.Id > 0;
+    ViewData["Title"] = isEdit ? "Edit FAQ" : "Add FAQ";
+}
+
+<section class="support-faq-form-shell" aria-labelledby="support-faq-form-title">
+    <header class="role-dashboard-hero support-faq-hero">
+        <div>
+            <p class="role-dashboard-eyebrow">Support Knowledge Base</p>
+            <h1 id="support-faq-form-title">@(isEdit ? "Edit FAQ" : "Add FAQ")</h1>
+            <p class="role-dashboard-subtitle">Write a clear question and answer that visitors can understand without opening a support ticket.</p>
+        </div>
+        <div class="role-hero-actions">
+            <a asp-action="Faqs" class="btn btn-outline-secondary action-button">
+                <i class="bi bi-arrow-left"></i><span>Back to FAQs</span>
+            </a>
+        </div>
+    </header>
+
+    <form asp-action="@(isEdit ? "EditFaq" : "AddFaq")" asp-route-id="@Model.Id" method="post" class="support-faq-form">
+        @Html.AntiForgeryToken()
+        <input asp-for="Id" type="hidden" />
+
+        <div class="form-card">
+            <div class="form-card-heading">
+                <i class="bi bi-patch-question"></i>
+                <div>
+                    <h2>FAQ Details</h2>
+                    <p>Public answers are grouped by category and sorted by display order.</p>
+                </div>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-12">
+                    <label asp-for="Question" class="form-label fw-semibold"></label>
+                    <input asp-for="Question" class="form-control" placeholder="Example: How do visitors contact support?" />
+                    <span asp-validation-for="Question" class="text-danger small"></span>
+                </div>
+                <div class="col-12">
+                    <label asp-for="Answer" class="form-label fw-semibold"></label>
+                    <textarea asp-for="Answer" class="form-control" rows="6" placeholder="Write the answer visitors should see."></textarea>
+                    <span asp-validation-for="Answer" class="text-danger small"></span>
+                </div>
+                <div class="col-md-7">
+                    <label asp-for="Category" class="form-label fw-semibold"></label>
+                    <input asp-for="Category" class="form-control" list="faqCategoryOptions" placeholder="Support, Privacy, and Troubleshooting" />
+                    <datalist id="faqCategoryOptions">
+                        <option value="Accounts and Access"></option>
+                        <option value="Employee Policy Requests"></option>
+                        <option value="Approvals and Workflow"></option>
+                        <option value="Finance and Billing"></option>
+                        <option value="Reports and Admin Data"></option>
+                        <option value="Support, Privacy, and Troubleshooting"></option>
+                    </datalist>
+                    <span asp-validation-for="Category" class="text-danger small"></span>
+                </div>
+                <div class="col-md-5">
+                    <label asp-for="DisplayOrder" class="form-label fw-semibold"></label>
+                    <input asp-for="DisplayOrder" class="form-control" type="number" min="0" max="999" />
+                    <span asp-validation-for="DisplayOrder" class="text-danger small"></span>
+                </div>
+                <div class="col-12">
+                    <label class="support-faq-toggle">
+                        <input asp-for="IsActive" />
+                        <span>
+                            <strong>Show on public FAQ</strong>
+                            <small>Turn this off when an answer is being drafted or temporarily hidden.</small>
+                        </span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary action-button">
+                    <i class="bi bi-check2-circle"></i><span>@(isEdit ? "Save Changes" : "Add FAQ")</span>
+                </button>
+                <a asp-action="Faqs" class="btn btn-outline-secondary action-button">
+                    <i class="bi bi-x-circle"></i><span>Cancel</span>
+                </a>
+            </div>
+        </div>
+    </form>
+</section>

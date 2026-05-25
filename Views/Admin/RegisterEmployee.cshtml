@@ -99,7 +99,7 @@
                             <label asp-for="DateOfBirth" class="form-label fw-semibold"></label>
                             <div class="input-group app-field-group">
                                 <span class="input-group-text"><i class="bi bi-calendar-date"></i></span>
-                                <input asp-for="DateOfBirth" class="form-control" type="date" />
+                                <input asp-for="DateOfBirth" class="form-control" type="date" max="@DateTime.Today.ToString("yyyy-MM-dd")" />
                             </div>
                             <span asp-validation-for="DateOfBirth" class="text-danger small"></span>
                         </div>

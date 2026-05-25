@@ -17,7 +17,7 @@ namespace HealthInsuranceManagement.Models
                 return new ValidationResult(ErrorMessage ?? $"{validationContext.DisplayName} is required.");
 
             if (date.Date > today)
-                return new ValidationResult(ErrorMessage ?? $"{validationContext.DisplayName} cannot be in the future.");
+                return new ValidationResult($"{validationContext.DisplayName} cannot be in the future.");
 
             var age = today.Year - date.Year;
             if (date.Date > today.AddYears(-age))

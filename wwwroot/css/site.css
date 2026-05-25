@@ -39,6 +39,9 @@
     --md-radius-pill: 999px;
     --md-motion-standard: 220ms cubic-bezier(0.2, 0, 0, 1);
     --md-motion-emphasized: 320ms cubic-bezier(0.2, 0, 0, 1);
+    --app-scrollbar-track: rgba(235, 239, 238, 0.86);
+    --app-scrollbar-thumb: rgba(0, 106, 106, 0.78);
+    --app-scrollbar-thumb-hover: rgba(0, 79, 79, 0.95);
     --bs-primary: var(--md-primary);
     --bs-primary-rgb: 0, 106, 106;
     --bs-secondary: var(--md-secondary);
@@ -67,13 +70,39 @@
 html {
     min-height: 100%;
     scrollbar-gutter: stable;
+    scrollbar-color: var(--app-scrollbar-thumb) var(--app-scrollbar-track);
+    scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--app-scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+    min-height: 48px;
+    background: linear-gradient(180deg, var(--md-primary), #004f4f);
+    border: 3px solid var(--app-scrollbar-track);
+    border-radius: var(--md-radius-pill);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--app-scrollbar-thumb-hover);
+}
+
+::-webkit-scrollbar-corner {
+    background: var(--app-scrollbar-track);
 }
 
 body.md3-app {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    background: var(--md-surface);
+    background: rgba(255, 255, 255, 1);
     color: var(--md-on-surface);
     font-family: var(--bs-font-sans-serif);
     text-rendering: optimizeLegibility;
@@ -115,14 +144,14 @@ hr {
 
 .app-topbar {
     position: sticky;
-    top: 0.85rem;
+    top: 0;
     z-index: 1030;
-    width: calc(100% - clamp(1rem, 4vw, 3rem));
+    /* width: calc(100% - clamp(1rem, 4vw, 3rem)); */
     min-height: 66px;
-    margin: 0.85rem auto 0;
-    background: rgba(255, 255, 255, 0.5);
+    margin: 0;
+    background: rgba(255, 255, 255, 1);
     border: 1px solid rgba(190, 201, 199, 0.82);
-    border-radius: var(--md-radius-pill);
+    border-radius: 0;
     box-shadow: 0 16px 40px rgba(0, 42, 42, 0.13), 0 3px 10px rgba(0, 42, 42, 0.07);
     backdrop-filter: blur(22px);
 }
@@ -497,18 +526,18 @@ body.loader-active .app-loader {
 }
 
 body.has-admin-sidebar .app-main {
-    width: calc(100vw - 224px) !important;
-    max-width: calc(100vw - 224px) !important;
-    transition: max-width var(--md-motion-emphasized);
+    width: calc(100% - 248px) !important;
+    max-width: calc(100% - 248px) !important;
+    transition: width var(--md-motion-emphasized), max-width var(--md-motion-emphasized), margin-left var(--md-motion-emphasized);
 }
 
-body.has-admin-sidebar main.app-main,
 body.has-admin-sidebar .app-footer {
     margin-left: 200px;
     transition: margin-left var(--md-motion-emphasized);
 }
 
 body.has-admin-sidebar main.app-main {
+    margin-left: 224px;
     margin-right: 24px;
 }
 
@@ -584,8 +613,9 @@ body.admin-sidebar-collapsed .app-footer {
 }
 
 body.admin-sidebar-collapsed main.app-main {
-    width: calc(100vw - 108px) !important;
-    max-width: calc(100vw - 108px) !important;
+    width: calc(100% - 132px) !important;
+    max-width: calc(100% - 132px) !important;
+    margin-left: 108px;
 }
 
 body.admin-sidebar-collapsed .app-footer {
@@ -1948,30 +1978,41 @@ textarea.form-control {
 }
 
 .app-footer {
+    position: relative;
     box-sizing: border-box;
     flex: 0 0 auto;
+    overflow: hidden;
     color: var(--md-on-primary);
     background-color: var(--md-surface-container-lowest);
-    background-image: url("/images/site/footer-background.png");
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
     border-top: 1px solid var(--md-outline-variant);
     font-size: 0.95rem;
-    padding: clamp(1rem, 3vw, 2rem);
+    padding: 2rem;
+}
+
+.app-footer-video {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    pointer-events: none;
 }
 
 .app-footer-panel {
+    position: relative;
+    z-index: 1;
     box-sizing: border-box;
     width: min(100%);
     margin: 0 auto;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.62);
-    border-radius: 28px;
-    background: rgba(255, 255, 255, 0.05);
-    box-shadow: 0 24px 60px rgba(7, 63, 67, 0.18);
-    backdrop-filter: blur(15px) saturate(180%);
-    -webkit-backdrop-filter: blur(15px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 0px;
+    background: rgba(0, 107, 107, 0.2);
+    box-shadow: 0 12px 28px rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
 }
 
 .app-footer-inner {

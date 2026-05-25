@@ -63,6 +63,18 @@ namespace HealthInsuranceManagement.Models.ViewModels
         public string ContactMessage { get; set; } = string.Empty;
     }
 
+    public class FaqPageViewModel
+    {
+        public List<FaqItem> Items { get; set; } = new();
+
+        public IEnumerable<IGrouping<string, FaqItem>> GroupedItems =>
+            Items
+                .OrderBy(f => f.Category)
+                .ThenBy(f => f.DisplayOrder)
+                .ThenBy(f => f.Question)
+                .GroupBy(f => f.Category);
+    }
+
     public class ChangePasswordViewModel
     {
         [Required(ErrorMessage = "Current password is required.")]
@@ -176,6 +188,7 @@ namespace HealthInsuranceManagement.Models.ViewModels
         public int NewQueries { get; set; }
         public int OpenQueries { get; set; }
         public int RepliedQueries { get; set; }
+        public int ActiveFaqs { get; set; }
         public List<ContactQuery> RecentQueries { get; set; } = new();
     }
 
@@ -186,5 +199,12 @@ namespace HealthInsuranceManagement.Models.ViewModels
 
         [Display(Name = "Reply")]
         public string ReplyMessage { get; set; } = string.Empty;
+    }
+
+    public class SupportFaqListViewModel
+    {
+        public List<FaqItem> Faqs { get; set; } = new();
+        public int ActiveCount { get; set; }
+        public int HiddenCount { get; set; }
     }
 }
