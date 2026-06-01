@@ -1,0 +1,2 @@
+# Ignore docs setup folder containing PDFs, screenshots, and local node_modules
+docs setup/
