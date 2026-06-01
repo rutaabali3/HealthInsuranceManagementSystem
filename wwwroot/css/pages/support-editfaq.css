@@ -23,7 +23,7 @@ body[data-page="support-editfaq"] .app-main {
     gap: 1.25rem;
     padding: clamp(1rem, 2.5vw, 1.5rem);
     background: #ffffff;
-    border: 1px solid #d6e8e4;
+    border: 1px solid var(--app-card-border);
     border-radius: 8px;
     box-shadow: 0 16px 38px rgba(31, 54, 63, 0.09);
 }
@@ -42,6 +42,7 @@ body[data-page="support-editfaq"] .app-main {
     height: 48px;
     color: #ffffff;
     background: #0f766e;
+    border: 1px solid var(--app-icon-border);
     border-radius: 50%;
     font-size: 1.25rem;
 }
@@ -69,7 +70,7 @@ body[data-page="support-editfaq"] .app-main {
     align-items: center;
     padding: 0.85rem;
     background: #f8fcfb;
-    border: 1px solid #dbe8e5;
+    border: 1px solid var(--app-card-border);
     border-radius: 8px;
 }
 

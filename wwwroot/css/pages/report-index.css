@@ -33,6 +33,7 @@ body[data-page="report-index"] .report-empty-illustration {
     margin-bottom: 1.15rem;
     color: #65b7b8;
     background: #e2f4f3;
+    border: 1px solid var(--app-icon-border);
     border-radius: 50%;
     font-size: 4.2rem;
 }
@@ -47,7 +48,7 @@ body[data-page="report-index"] .report-empty-illustration span {
     height: 34px;
     color: #ffffff;
     background: #007a7a;
-    border: 4px solid #e2f4f3;
+    border: 4px solid var(--app-card-border);
     border-radius: 50%;
     font-size: 1rem;
 }

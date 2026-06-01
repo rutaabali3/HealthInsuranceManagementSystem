@@ -115,7 +115,7 @@ body[data-page="home-sitemap"] .app-main {
     min-height: 104px;
     padding: 1rem;
     background: #ffffff;
-    border: 1px solid #d9e7e5;
+    border: 1px solid var(--app-card-border);
     border-radius: 8px;
     box-shadow: 0 10px 24px rgba(0, 42, 42, 0.06);
 }
@@ -128,6 +128,7 @@ body[data-page="home-sitemap"] .app-main {
     height: 54px;
     color: #007a7a;
     background: #dff5f3;
+    border: 1px solid var(--app-icon-border);
     border-radius: 50%;
     font-size: 1.45rem;
 }
@@ -156,7 +157,7 @@ body[data-page="home-sitemap"] .app-main {
     min-height: 150px;
     padding: 1.1rem;
     background: #ffffff;
-    border: 1px solid #d8e2e1;
+    border: 1px solid var(--app-card-border);
     border-radius: 8px;
     box-shadow: 0 10px 24px rgba(0, 42, 42, 0.06);
 }
@@ -169,6 +170,7 @@ body[data-page="home-sitemap"] .app-main {
     height: 46px;
     color: var(--md-primary);
     background: #e8f5f4;
+    border: 1px solid var(--app-icon-border);
     border-radius: 50%;
     font-size: 1.25rem;
 }
@@ -204,7 +206,7 @@ body[data-page="home-sitemap"] .app-main {
     min-height: 220px;
     padding: 1.25rem;
     background: #ffffff;
-    border: 1px solid #d8e2e1;
+    border: 1px solid var(--app-card-border);
     border-radius: 8px;
     box-shadow: 0 10px 24px rgba(0, 42, 42, 0.07);
     transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
@@ -212,7 +214,7 @@ body[data-page="home-sitemap"] .app-main {
 
 .info-page-content article:hover,
 .sitemap-grid article:hover {
-    border-color: #b8d6d8;
+    border-color: var(--app-card-border-hover);
     box-shadow: 0 16px 34px rgba(22, 58, 67, 0.1);
     transform: translateY(-2px);
 }

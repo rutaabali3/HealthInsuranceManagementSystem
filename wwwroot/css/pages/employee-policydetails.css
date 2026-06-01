@@ -19,7 +19,7 @@ body[data-page="employee-policydetails"] .app-main {
     gap: 1.25rem;
     padding: 1.4rem;
     background: #ffffff;
-    border: 1px solid #dbe8eb;
+    border: 1px solid var(--app-card-border);
     border-radius: 8px;
     box-shadow: 0 14px 32px rgba(35, 58, 67, 0.08);
 }
@@ -53,6 +53,7 @@ body[data-page="employee-policydetails"] .app-main {
     height: 58px;
     color: #0b6f75;
     background: #dff5f3;
+    border: 1px solid var(--app-icon-border);
     border-radius: 16px;
     font-size: 1.7rem;
 }
@@ -86,7 +87,7 @@ body[data-page="employee-policydetails"] .app-main {
     padding: .35rem .75rem;
     color: #254650;
     background: #f2f8f8;
-    border: 1px solid #d8e8e8;
+    border: 1px solid var(--app-card-border);
     border-radius: 999px;
     font-weight: 700;
 }
@@ -135,7 +136,7 @@ body[data-page="employee-policydetails"] .app-main {
     min-height: 104px;
     padding: 1rem;
     background: #ffffff;
-    border: 1px solid #dbe8eb;
+    border: 1px solid var(--app-card-border);
     border-radius: 8px;
     box-shadow: 0 10px 24px rgba(35, 58, 67, 0.06);
 }
@@ -144,6 +145,7 @@ body[data-page="employee-policydetails"] .app-main {
     width: 46px;
     height: 46px;
     border-radius: 14px;
+    border: 1px solid var(--app-icon-border);
     font-size: 1.3rem;
 }
 
@@ -190,7 +192,7 @@ body[data-page="employee-policydetails"] .app-main {
 .policy-summary-panel {
     padding: 1.2rem;
     background: #ffffff;
-    border: 1px solid #dbe8eb;
+    border: 1px solid var(--app-card-border);
     border-radius: 8px;
     box-shadow: 0 10px 24px rgba(35, 58, 67, 0.06);
 }
@@ -207,6 +209,7 @@ body[data-page="employee-policydetails"] .app-main {
     height: 38px;
     color: #0b6f75;
     background: #e7f5f3;
+    border: 1px solid var(--app-icon-border);
     border-radius: 12px;
 }
 

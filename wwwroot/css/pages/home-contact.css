@@ -102,7 +102,7 @@ body[data-page="home-contact"] .app-main {
 .contact-info-card,
 .message-card {
     background: #ffffff;
-    border: 1px solid #d8e2e1;
+    border: 1px solid var(--app-card-border);
     border-radius: 8px;
     box-shadow: 0 8px 18px rgba(0, 42, 42, 0.08);
 }
@@ -131,7 +131,7 @@ body[data-page="home-contact"] .app-main {
 }
 
 .contact-info-item + .contact-info-item {
-    border-top: 1px solid #dbe5e4;
+    border-top: 1px solid var(--app-card-divider);
 }
 
 .contact-icon {
@@ -141,6 +141,7 @@ body[data-page="home-contact"] .app-main {
     display: block;
     color: #ffffff;
     background: #e8f5f4;
+    border: 1px solid var(--app-icon-border);
     border-radius: 50%;
 }
 
@@ -185,6 +186,7 @@ body[data-page="home-contact"] .app-main {
     padding: 1rem;
     color: #253342;
     background: linear-gradient(180deg, #f0faf9, #e6f4f3);
+    border: 1px solid var(--app-card-border);
     border-radius: 8px;
 }
 
@@ -235,12 +237,12 @@ body[data-page="home-contact"] .app-main {
 
 .message-card .form-control {
     min-height: 52px;
-    border-color: #cfd9dc;
+    border-color: var(--app-card-border);
     border-radius: 8px;
 }
 
 .message-card .app-field-group .input-group-text {
-    border-color: #cfd9dc;
+    border-color: var(--app-card-border);
 }
 
 .message-card textarea.form-control {

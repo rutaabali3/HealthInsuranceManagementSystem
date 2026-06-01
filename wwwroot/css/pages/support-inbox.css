@@ -12,7 +12,7 @@ body[data-page="support-inbox"] .app-main {
     grid-template-columns: minmax(280px, 340px) minmax(0, 1fr);
     min-height: calc(100vh - 190px);
     overflow: hidden;
-    border: 1px solid #d4e4e0;
+    border: 1px solid var(--app-card-border);
     border-radius: 8px;
     background: #ffffff;
     box-shadow: 0 18px 44px rgba(31, 54, 63, 0.1);
@@ -20,7 +20,7 @@ body[data-page="support-inbox"] .app-main {
 
 .support-thread-list {
     min-width: 0;
-    border-right: 1px solid #dbe8e5;
+    border-right: 1px solid var(--app-card-divider);
     background: #f8fbfa;
 }
 
@@ -32,7 +32,7 @@ body[data-page="support-inbox"] .app-main {
     gap: 1rem;
     min-height: 76px;
     padding: 1rem 1.1rem;
-    border-bottom: 1px solid #dbe8e5;
+    border-bottom: 1px solid var(--app-card-divider);
 }
 
 .support-thread-header h1,
@@ -52,6 +52,7 @@ body[data-page="support-inbox"] .app-main {
     border-radius: 50%;
     background: #dff4ef;
     color: #0f766e;
+    border: 1px solid var(--app-icon-border);
     font-weight: 800;
 }
 
@@ -69,7 +70,7 @@ body[data-page="support-inbox"] .app-main {
     padding: .85rem 1rem;
     color: inherit;
     text-decoration: none;
-    border-bottom: 1px solid #e4eeeb;
+    border-bottom: 1px solid var(--app-card-divider);
 }
 
 .support-thread-item:hover,
@@ -87,6 +88,7 @@ body[data-page="support-inbox"] .app-main {
     border-radius: 50%;
     background: #0f766e;
     color: #ffffff;
+    border: 1px solid var(--app-icon-border);
     font-weight: 800;
 }
 
@@ -150,6 +152,7 @@ body[data-page="support-inbox"] .app-main {
     max-width: min(680px, 78%);
     padding: .75rem .95rem;
     border-radius: 8px;
+    border: 1px solid var(--app-card-border);
     box-shadow: 0 8px 22px rgba(31, 54, 63, 0.08);
 }
 
@@ -189,7 +192,7 @@ body[data-page="support-inbox"] .app-main {
     gap: .75rem;
     align-items: end;
     padding: 1rem;
-    border-top: 1px solid #dbe8e5;
+    border-top: 1px solid var(--app-card-divider);
     background: #ffffff;
 }
 
@@ -197,7 +200,7 @@ body[data-page="support-inbox"] .app-main {
     min-height: 48px;
     max-height: 140px;
     resize: vertical;
-    border: 1px solid #cddfdb;
+    border: 1px solid var(--app-card-border);
     border-radius: 8px;
     padding: .75rem 1rem;
     color: #172423;
@@ -215,7 +218,7 @@ body[data-page="support-inbox"] .app-main {
     justify-content: center;
     width: 48px;
     height: 48px;
-    border: 0;
+    border: 1px solid var(--app-icon-border);
     border-radius: 50%;
     background: #0f766e;
     color: #ffffff;

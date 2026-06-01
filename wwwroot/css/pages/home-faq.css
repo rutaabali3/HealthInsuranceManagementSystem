@@ -114,7 +114,7 @@ body[data-page="home-faq"] .app-main {
     min-height: 108px;
     padding: 1rem;
     background: #ffffff;
-    border: 1px solid #d9e7e5;
+    border: 1px solid var(--app-card-border);
     border-radius: 8px;
     box-shadow: 0 10px 24px rgba(0, 42, 42, 0.06);
 }
@@ -127,6 +127,7 @@ body[data-page="home-faq"] .app-main {
     height: 54px;
     color: #007a7a;
     background: #dff5f3;
+    border: 1px solid var(--app-icon-border);
     border-radius: 50%;
     font-size: 1.45rem;
 }
@@ -158,7 +159,7 @@ body[data-page="home-faq"] .app-main {
     padding: 0.6rem 0.75rem;
     color: #173942;
     background: #ffffff;
-    border: 1px solid #d8e2e1;
+    border: 1px solid var(--app-card-border);
     border-radius: 8px;
     font-weight: 800;
     box-shadow: 0 8px 20px rgba(0, 42, 42, 0.05);
@@ -186,7 +187,7 @@ body[data-page="home-faq"] .app-main {
     min-height: 150px;
     padding: 1.1rem;
     background: #ffffff;
-    border: 1px solid #d8e2e1;
+    border: 1px solid var(--app-card-border);
     border-radius: 8px;
     box-shadow: 0 10px 24px rgba(0, 42, 42, 0.06);
 }
@@ -199,6 +200,7 @@ body[data-page="home-faq"] .app-main {
     height: 46px;
     color: var(--md-primary);
     background: #e8f5f4;
+    border: 1px solid var(--app-icon-border);
     border-radius: 50%;
     font-size: 1.25rem;
 }
@@ -221,7 +223,7 @@ body[data-page="home-faq"] .app-main {
     margin-inline: auto;
     padding: clamp(1rem, 2.5vw, 1.5rem);
     background: #ffffff;
-    border: 1px solid #d8e2e1;
+    border: 1px solid var(--app-card-border);
     border-radius: 8px;
     box-shadow: 0 12px 28px rgba(0, 42, 42, 0.07);
     scroll-margin-top: 96px;
@@ -256,13 +258,13 @@ body[data-page="home-faq"] .app-main {
     min-height: auto;
     padding: 0.9rem 1rem;
     background: #f8fcfc;
-    border: 1px solid #dce8e7;
+    border: 1px solid var(--app-card-border);
     border-radius: 8px;
 }
 
 .faq-list details[open] {
     background: #ffffff;
-    border-color: #bedbd8;
+    border-color: var(--app-card-border-hover);
     box-shadow: 0 10px 22px rgba(0, 42, 42, 0.06);
 }
 

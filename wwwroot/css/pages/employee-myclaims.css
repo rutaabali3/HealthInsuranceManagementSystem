@@ -33,7 +33,7 @@ body[data-page="admin-claimdetails"] .app-main {
 .claim-usage-card,
 .claims-empty-panel {
     background: #ffffff;
-    border: 1px solid #dbe8eb;
+    border: 1px solid var(--app-card-border);
     border-radius: 8px;
     box-shadow: 0 12px 28px rgba(35, 58, 67, 0.07);
 }
@@ -88,6 +88,9 @@ body[data-page="admin-claimdetails"] .app-main {
 
 .claims-empty-panel i {
     color: #65b7b8;
+    border: 1px solid var(--app-icon-border);
+    border-radius: 50%;
+    padding: 0.6rem;
     font-size: 2.4rem;
 }
 

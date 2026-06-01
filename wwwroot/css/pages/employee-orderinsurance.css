@@ -27,7 +27,7 @@ body[data-page="employee-orderinsurance"] .card-header .bi {
 body[data-page="employee-orderinsurance"] .alert-primary {
     align-items: center !important;
     background: #e7f5f3;
-    border-color: #c9e4e1;
+    border-color: var(--app-card-border);
     color: #064b4b;
 }
 

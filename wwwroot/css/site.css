@@ -30,6 +30,10 @@
     --md-on-surface-variant: #3f4948;
     --md-outline: #6f7978;
     --md-outline-variant: #bec9c7;
+    --app-card-border: #004740;
+    --app-card-border-hover: #073f43;
+    --app-card-divider: #bfd7d5;
+    --app-icon-border: #004740;
     --md-scrim: rgba(0, 0, 0, 0.32);
     --md-elevation-1: 0 1px 2px rgba(0, 42, 42, 0.12), 0 1px 3px rgba(0, 42, 42, 0.08);
     --md-elevation-2: 0 2px 6px rgba(0, 42, 42, 0.14), 0 1px 2px rgba(0, 42, 42, 0.08);
@@ -302,7 +306,7 @@ body.loader-active .app-loader {
     padding-inline: 1rem !important;
     color: #253342;
     background: #ffffff;
-    border: 1px solid #cfd9dc;
+    border: 1px solid var(--app-card-border);
     border-radius: 8px;
     box-shadow: 0 1px 2px rgba(0, 42, 42, 0.06);
 }
@@ -325,7 +329,7 @@ body.loader-active .app-loader {
     justify-content: center;
     color: #0d3d3d !important;
     background: #eefafa;
-    border: 1px solid #cfe5e5;
+    border: 1px solid var(--app-card-border);
     box-shadow: 0 1px 2px rgba(0, 42, 42, 0.05);
 }
 
@@ -655,7 +659,7 @@ body.is-page-leaving .page-transition {
     overflow: hidden;
     color: var(--md-on-surface);
     background: var(--md-surface-container-lowest);
-    border: 1px solid var(--md-outline-variant) !important;
+    border: 1px solid var(--app-card-border) !important;
     border-radius: var(--md-radius-sm) !important;
     box-shadow: var(--md-elevation-1) !important;
     transition: box-shadow var(--md-motion-standard), transform var(--md-motion-standard), background-color var(--md-motion-standard);
@@ -668,13 +672,13 @@ body.is-page-leaving .page-transition {
 
 .card-header {
     background: var(--md-surface-container-low) !important;
-    border-bottom: 1px solid var(--md-outline-variant);
+    border-bottom: 1px solid var(--app-card-divider);
     color: var(--md-on-surface) !important;
 }
 
 .card-footer {
     background: var(--md-surface-container-low) !important;
-    border-top: 1px solid var(--md-outline-variant);
+    border-top: 1px solid var(--app-card-divider);
     color: var(--md-on-surface-variant) !important;
 }
 
@@ -1456,7 +1460,7 @@ textarea.form-control {
     padding: 0.65rem 1rem;
     color: #243c47;
     background: #ffffff;
-    border: 1px solid #d8e2e6;
+    border: 1px solid var(--app-card-border);
     border-radius: 8px;
     box-shadow: 0 8px 20px rgba(31, 53, 61, 0.05);
     font-weight: 700;
@@ -1482,7 +1486,7 @@ textarea.form-control {
     min-height: 112px;
     padding: 1.35rem;
     background: #ffffff;
-    border: 1px solid #dde7ea;
+    border: 1px solid var(--app-card-border);
     border-radius: 8px;
     box-shadow: 0 12px 28px rgba(35, 58, 67, 0.08);
     transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
@@ -1492,7 +1496,7 @@ textarea.form-control {
 .role-dashboard-panel:hover,
 .employee-primary-action:hover {
     transform: translateY(-2px);
-    border-color: #b8d6d8;
+    border-color: var(--app-card-border-hover);
     box-shadow: 0 16px 34px rgba(22, 58, 67, 0.12);
 }
 
@@ -1502,6 +1506,7 @@ textarea.form-control {
     width: 60px;
     height: 60px;
     border-radius: 50%;
+    border: 1px solid var(--app-icon-border);
     font-size: 1.85rem;
 }
 
@@ -1558,7 +1563,7 @@ textarea.form-control {
 .role-dashboard-panel {
     overflow: hidden;
     background: #ffffff;
-    border: 1px solid #dde7ea;
+    border: 1px solid var(--app-card-border);
     border-radius: 8px;
     box-shadow: 0 12px 28px rgba(35, 58, 67, 0.06);
     transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
@@ -1571,7 +1576,7 @@ textarea.form-control {
     gap: 1rem;
     min-height: 68px;
     padding: 1rem 1.25rem;
-    border-bottom: 1px solid #dde7ea;
+    border-bottom: 1px solid var(--app-card-divider);
 }
 
 .role-panel-heading h2 {
@@ -1595,7 +1600,7 @@ textarea.form-control {
     padding: 0.45rem 0.8rem;
     color: #526877;
     background: #f7faf9;
-    border: 1px solid #d8e2e6;
+    border: 1px solid var(--app-card-border);
     border-radius: 8px;
     font-size: 0.88rem;
     font-weight: 800;
@@ -1667,6 +1672,7 @@ textarea.form-control {
     margin-bottom: 0.45rem;
     color: #65b7b8;
     background: #e2f4f3;
+    border: 1px solid var(--app-icon-border);
     border-radius: 50%;
     font-size: 2.8rem;
 }
@@ -1698,7 +1704,7 @@ textarea.form-control {
     min-height: 100%;
     padding: 1.35rem;
     background: #ffffff;
-    border: 1px solid #dde7ea;
+    border: 1px solid var(--app-card-border);
     border-radius: 8px;
     box-shadow: 0 12px 28px rgba(35, 58, 67, 0.08);
 }
@@ -1710,6 +1716,7 @@ textarea.form-control {
     height: 78px;
     color: #007a7a;
     background: #dff5f3;
+    border: 1px solid var(--app-icon-border);
     border-radius: 50%;
     font-size: 2.5rem;
 }
@@ -1760,7 +1767,7 @@ textarea.form-control {
     padding: 0.95rem 1rem;
     color: #203944;
     background: #ffffff;
-    border: 1px solid #dde7ea;
+    border: 1px solid var(--app-card-border);
     border-radius: 8px;
     box-shadow: 0 12px 28px rgba(35, 58, 67, 0.06);
     text-decoration: none;
@@ -1774,6 +1781,7 @@ textarea.form-control {
     height: 48px;
     color: #126dbe;
     background: #e4f0ff;
+    border: 1px solid var(--app-icon-border);
     border-radius: 8px;
     font-size: 1.55rem;
 }
@@ -1806,7 +1814,7 @@ textarea.form-control {
     min-height: 168px;
     padding: 1.35rem;
     background: #ffffff;
-    border: 1px solid #dde7ea;
+    border: 1px solid var(--app-card-border);
     border-radius: 8px;
     box-shadow: 0 12px 28px rgba(35, 58, 67, 0.08);
 }
@@ -1818,6 +1826,7 @@ textarea.form-control {
     height: 94px;
     color: var(--profile-accent, #007a7a);
     background: var(--profile-accent-soft, #dff5f3);
+    border: 1px solid var(--app-icon-border);
     border-radius: 50%;
     font-size: 2.35rem;
     font-weight: 800;
@@ -1860,7 +1869,7 @@ textarea.form-control {
     padding: 0.45rem 0.8rem;
     color: #243c47;
     background: #f7faf9;
-    border: 1px solid #d8e2e6;
+    border: 1px solid var(--app-card-border);
     border-radius: 8px;
     font-weight: 800;
 }
@@ -1878,7 +1887,7 @@ textarea.form-control {
     padding: 0.7rem 1rem;
     color: var(--profile-accent-strong, #064b4b);
     background: var(--profile-accent-soft, #dff5f3);
-    border: 1px solid var(--profile-accent-border, #c9e4e1);
+    border: 1px solid var(--app-card-border);
     border-radius: 8px;
     font-weight: 800;
     text-decoration: none;
@@ -1888,7 +1897,7 @@ textarea.form-control {
 
 .profile-edit-action:hover {
     color: var(--profile-accent-strong, #064b4b);
-    border-color: var(--profile-accent, #007a7a);
+    border-color: var(--app-card-border-hover);
     box-shadow: 0 12px 26px rgba(22, 58, 67, 0.1);
     transform: translateY(-2px);
 }
@@ -1907,14 +1916,14 @@ textarea.form-control {
     min-height: 104px;
     padding: 1rem;
     background: #ffffff;
-    border: 1px solid #dde7ea;
+    border: 1px solid var(--app-card-border);
     border-radius: 8px;
     box-shadow: 0 12px 28px rgba(35, 58, 67, 0.06);
     transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
 }
 
 .profile-detail-card:hover {
-    border-color: var(--profile-accent-border, #c9e4e1);
+    border-color: var(--app-card-border-hover);
     box-shadow: 0 16px 34px rgba(22, 58, 67, 0.1);
     transform: translateY(-2px);
 }
@@ -1930,6 +1939,7 @@ textarea.form-control {
     height: 54px;
     color: var(--profile-accent, #007a7a);
     background: var(--profile-accent-soft, #dff5f3);
+    border: 1px solid var(--app-icon-border);
     border-radius: 50%;
     font-size: 1.5rem;
 }

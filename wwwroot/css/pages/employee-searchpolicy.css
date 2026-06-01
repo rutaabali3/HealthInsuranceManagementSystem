@@ -44,7 +44,7 @@ body[data-page="employee-searchpolicy"] .row.g-4 .card-body {
 }
 
 body[data-page="employee-searchpolicy"] .row.g-4 .card:hover {
-    border-color: #b8d6d8 !important;
+    border-color: var(--app-card-border-hover) !important;
 }
 
 body[data-page="employee-searchpolicy"] .badge.bg-white {

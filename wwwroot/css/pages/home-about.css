@@ -200,7 +200,7 @@ body[data-page="home-about"] .app-main {
     min-height: 96px;
     padding: 1rem;
     background: #ffffff;
-    border: 1px solid #d9e5e4;
+    border: 1px solid var(--app-card-border);
     border-radius: 8px;
     box-shadow: 0 8px 18px rgba(0, 42, 42, 0.08);
 }
@@ -212,6 +212,7 @@ body[data-page="home-about"] .app-main {
     place-items: center;
     color: var(--md-primary);
     background: #e7f5f4;
+    border: 1px solid var(--app-icon-border);
     border-radius: 50%;
     font-size: 1.9rem;
 }

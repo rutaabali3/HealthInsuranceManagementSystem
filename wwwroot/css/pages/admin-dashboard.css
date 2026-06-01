@@ -54,7 +54,7 @@ body[data-page="admin-dashboard"] .app-main {
     padding: 0.65rem 1rem;
     color: #243c47;
     background: #ffffff;
-    border: 1px solid #d8e2e6;
+    border: 1px solid var(--app-card-border);
     border-radius: 8px;
     box-shadow: 0 8px 20px rgba(31, 53, 61, 0.05);
     font-weight: 700;
@@ -82,7 +82,7 @@ body[data-page="admin-dashboard"] .app-main {
     padding: 1.55rem;
     color: #10282d;
     background: #ffffff;
-    border: 1px solid #dde7ea;
+    border: 1px solid var(--app-card-border);
     border-radius: 8px;
     box-shadow: 0 12px 28px rgba(35, 58, 67, 0.08);
     text-decoration: none;
@@ -93,7 +93,7 @@ body[data-page="admin-dashboard"] .app-main {
 .quick-action:hover,
 .panel-action:hover {
     transform: translateY(-2px);
-    border-color: #b8d6d8;
+    border-color: var(--app-card-border-hover);
     box-shadow: 0 16px 34px rgba(22, 58, 67, 0.12);
     color: #0b5f63;
 }
@@ -104,6 +104,7 @@ body[data-page="admin-dashboard"] .app-main {
     width: 64px;
     height: 64px;
     border-radius: 50%;
+    border: 1px solid var(--app-icon-border);
     font-size: 2rem;
 }
 
@@ -187,7 +188,7 @@ body[data-page="admin-dashboard"] .app-main {
 .dashboard-panel {
     overflow: hidden;
     background: #ffffff;
-    border: 1px solid #dde7ea;
+    border: 1px solid var(--app-card-border);
     border-radius: 8px;
     box-shadow: 0 12px 28px rgba(35, 58, 67, 0.06);
 }
@@ -199,7 +200,7 @@ body[data-page="admin-dashboard"] .app-main {
     gap: 1rem;
     min-height: 68px;
     padding: 1rem 1.25rem;
-    border-bottom: 1px solid #dde7ea;
+    border-bottom: 1px solid var(--app-card-divider);
 }
 
 .panel-heading h2 {
@@ -221,7 +222,7 @@ body[data-page="admin-dashboard"] .app-main {
 }
 
 .panel-filter {
-    border: 1px solid #d8e2e6;
+    border: 1px solid var(--app-card-border);
 }
 
 .panel-body {
@@ -246,6 +247,7 @@ body[data-page="admin-dashboard"] .app-main {
     margin-bottom: 1.3rem;
     color: #65b7b8;
     background: #e2f4f3;
+    border: 1px solid var(--app-icon-border);
     border-radius: 50%;
     font-size: 4.6rem;
 }
@@ -394,6 +396,7 @@ body[data-page="admin-dashboard"] .app-main {
     min-height: 76px;
     padding: 0.85rem 1rem;
     background: #f7faf9;
+    border: 1px solid var(--app-card-border);
     border-radius: 8px;
 }
 
@@ -429,7 +432,7 @@ body[data-page="admin-dashboard"] .app-main {
     padding: 0.9rem 1rem;
     color: #203944;
     background: #ffffff;
-    border: 1px solid #dde7ea;
+    border: 1px solid var(--app-card-border);
     border-radius: 8px;
     text-decoration: none;
     transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
@@ -441,6 +444,7 @@ body[data-page="admin-dashboard"] .app-main {
     width: 48px;
     height: 48px;
     border-radius: 8px;
+    border: 1px solid var(--app-icon-border);
     font-size: 1.6rem;
 }
 

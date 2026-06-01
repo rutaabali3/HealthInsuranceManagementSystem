@@ -157,7 +157,7 @@ body[data-page="home-sitemap"] .app-main {
     min-height: 104px;
     padding: 1rem;
     background: #ffffff;
-    border: 1px solid #d9e7e5;
+    border: 1px solid var(--app-card-border);
     border-radius: 8px;
     box-shadow: 0 10px 24px rgba(0, 42, 42, 0.06);
 }
@@ -170,6 +170,7 @@ body[data-page="home-sitemap"] .app-main {
     height: 54px;
     color: #007a7a;
     background: #dff5f3;
+    border: 1px solid var(--app-icon-border);
     border-radius: 50%;
     font-size: 1.45rem;
 }
@@ -198,7 +199,7 @@ body[data-page="home-sitemap"] .app-main {
     min-height: 150px;
     padding: 1.1rem;
     background: #ffffff;
-    border: 1px solid #d8e2e1;
+    border: 1px solid var(--app-card-border);
     border-radius: 8px;
     box-shadow: 0 10px 24px rgba(0, 42, 42, 0.06);
 }
@@ -211,6 +212,7 @@ body[data-page="home-sitemap"] .app-main {
     height: 46px;
     color: var(--md-primary);
     background: #e8f5f4;
+    border: 1px solid var(--app-icon-border);
     border-radius: 50%;
     font-size: 1.25rem;
 }
@@ -244,7 +246,7 @@ body[data-page="home-sitemap"] .app-main {
     min-height: 92px;
     padding: 1rem;
     background: rgba(255, 255, 255, 0.94);
-    border: 1px solid #d7e5e3;
+    border: 1px solid var(--app-card-border);
     border-radius: 8px;
     box-shadow: 0 16px 36px rgba(12, 45, 52, 0.1);
     backdrop-filter: blur(12px);
@@ -258,6 +260,7 @@ body[data-page="home-sitemap"] .app-main {
     height: 48px;
     color: #ffffff;
     background: #0d6f78;
+    border: 1px solid var(--app-icon-border);
     border-radius: 8px;
     font-size: 1.25rem;
 }
@@ -294,7 +297,7 @@ body[data-page="home-sitemap"] .app-main {
     min-height: 220px;
     padding: 1.25rem;
     background: #ffffff;
-    border: 1px solid #d8e2e1;
+    border: 1px solid var(--app-card-border);
     border-radius: 8px;
     box-shadow: 0 10px 24px rgba(0, 42, 42, 0.07);
     transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
@@ -302,7 +305,7 @@ body[data-page="home-sitemap"] .app-main {
 
 .info-page-content article:hover,
 .sitemap-grid article:hover {
-    border-color: #b8d6d8;
+    border-color: var(--app-card-border-hover);
     box-shadow: 0 16px 34px rgba(22, 58, 67, 0.1);
     transform: translateY(-2px);
 }
@@ -335,7 +338,7 @@ body[data-page="home-sitemap"] .app-main {
     padding: 0.5rem 0.6rem;
     color: #243c47;
     background: #f7fbfb;
-    border: 1px solid #e1eceb;
+    border: 1px solid var(--app-card-border);
     border-radius: 8px;
     font-weight: 700;
     text-decoration: none;
@@ -350,7 +353,7 @@ body[data-page="home-sitemap"] .app-main {
 .sitemap-grid a:hover {
     color: var(--md-primary);
     background: #eefafa;
-    border-color: #bedbd8;
+    border-color: var(--app-card-border-hover);
     text-decoration: none;
     transform: translateX(2px);
 }
@@ -369,7 +372,7 @@ body[data-page="home-sitemap"] .app-main {
 }
 
 .sitemap-card-role {
-    border-color: #bfdedc;
+    border-color: var(--app-card-border);
     background:
         linear-gradient(180deg, rgba(232, 245, 244, 0.62), rgba(255, 255, 255, 0.92) 110px),
         #ffffff;
@@ -389,7 +392,7 @@ body[data-page="home-sitemap"] .app-main {
     padding: 0.3rem 0.55rem;
     color: #0d6f78;
     background: #e8f5f4;
-    border: 1px solid #cde4e2;
+    border: 1px solid var(--app-card-border);
     border-radius: 999px;
     font-size: 0.78rem;
     font-weight: 900;

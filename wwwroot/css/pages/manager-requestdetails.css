@@ -30,7 +30,7 @@ body[data-page="manager-requestdetails"] .app-main {
 .manager-detail-panel,
 .manager-action-card {
     background: #ffffff;
-    border: 1px solid #dbe8eb;
+    border: 1px solid var(--app-card-border);
     border-radius: 8px;
     box-shadow: 0 12px 28px rgba(35, 58, 67, 0.07);
 }
@@ -81,7 +81,7 @@ body[data-page="manager-requestdetails"] .app-main {
     padding: .35rem .75rem;
     color: #244a50;
     background: #f2f9f8;
-    border: 1px solid #d8e8e8;
+    border: 1px solid var(--app-card-border);
     border-radius: 999px;
     font-weight: 700;
 }
@@ -117,7 +117,7 @@ body[data-page="manager-requestdetails"] .app-main {
     gap: .75rem;
     min-height: 94px;
     padding: 1rem;
-    border-right: 1px solid #dbe8eb;
+    border-right: 1px solid var(--app-card-divider);
 }
 
 .review-step:last-child {
@@ -132,6 +132,7 @@ body[data-page="manager-requestdetails"] .app-main {
     flex: 0 0 auto;
     color: #637684;
     background: #edf4f4;
+    border: 1px solid var(--app-icon-border);
     border-radius: 14px;
 }
 
@@ -190,6 +191,7 @@ body[data-page="manager-requestdetails"] .app-main {
     width: 46px;
     height: 46px;
     border-radius: 14px;
+    border: 1px solid var(--app-icon-border);
     font-size: 1.25rem;
 }
 
@@ -258,6 +260,7 @@ body[data-page="manager-requestdetails"] .app-main {
     height: 38px;
     color: #007a7a;
     background: #e7f5f3;
+    border: 1px solid var(--app-icon-border);
     border-radius: 12px;
 }
 
@@ -308,6 +311,7 @@ body[data-page="manager-requestdetails"] .app-main {
     display: grid;
     gap: .1rem;
     padding: 1rem;
+    border: 1px solid var(--app-card-border);
     border-radius: 8px;
 }
 
