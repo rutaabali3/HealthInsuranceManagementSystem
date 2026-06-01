@@ -1,0 +1,68 @@
+@model List<InsuranceClaim>
+@{
+    ViewData["Title"] = "Claims";
+}
+
+<section class="claims-shell">
+    <header class="role-page-header">
+        <div>
+            <h1>Claims</h1>
+            <p>Review employee insurance claims and approve valid amounts for finance payout.</p>
+        </div>
+    </header>
+
+    <article class="role-dashboard-panel">
+        <div class="role-panel-heading">
+            <h2><i class="bi bi-clipboard-pulse"></i>Claim Queue</h2>
+            <span>@Model.Count total</span>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle role-table mb-0">
+                <thead>
+                    <tr><th>#</th><th>Employee</th><th>Policy</th><th>Type</th><th>Amount</th><th>Status</th><th>Submitted</th><th>Action</th></tr>
+                </thead>
+                <tbody>
+                    @if (!Model.Any())
+                    {
+                        <tr><td colspan="8"><div class="role-empty-state"><span><i class="bi bi-inbox"></i></span><strong>No claims yet.</strong><small>Employee claims will appear here.</small></div></td></tr>
+                    }
+                    @foreach (var claim in Model)
+                    {
+                        var statusClass = claim.Status == InsuranceClaim.Pending ? "status-waiting" : claim.Status == InsuranceClaim.Rejected ? "status-rejected" : claim.Status == InsuranceClaim.Closed ? "status-closed" : "status-approved";
+                        <tr>
+                            <td>#@claim.ClaimId</td>
+                            <td class="fw-semibold">@claim.Employee?.FirstName @claim.Employee?.LastName</td>
+                            <td>@claim.AssignedPolicy?.Policy?.PolicyName</td>
+                            <td>@claim.ClaimType</td>
+                            <td>PKR @claim.ClaimAmount.ToString("N0")</td>
+                            <td><span class="status-pill @statusClass">@claim.Status</span></td>
+                            <td>@claim.SubmittedAt.ToString("dd MMM yyyy")</td>
+                            <td>
+                                <div class="manager-action-row">
+                                    <a asp-action="ClaimDetails" asp-route-id="@claim.ClaimId" class="btn btn-sm btn-outline-secondary action-button"><i class="bi bi-eye"></i><span>View</span></a>
+                                    @if (claim.Status == InsuranceClaim.Pending)
+                                    {
+                                        <form asp-action="DecideClaim" method="post" data-swal-title="Approve claim" data-swal-confirm="Approve this claim?" data-swal-confirm-button="Approve">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="claimId" value="@claim.ClaimId" />
+                                            <input type="hidden" name="decision" value="@InsuranceClaim.Approved" />
+                                            <input type="hidden" name="remarks" value="Approved by manager." />
+                                            <button type="submit" class="btn btn-sm btn-success action-button"><i class="bi bi-check-lg"></i><span>Approve</span></button>
+                                        </form>
+                                        <form asp-action="DecideClaim" method="post" data-swal-title="Reject claim" data-swal-confirm="Reject this claim?" data-swal-confirm-button="Reject">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="claimId" value="@claim.ClaimId" />
+                                            <input type="hidden" name="decision" value="@InsuranceClaim.Rejected" />
+                                            <input type="hidden" name="remarks" value="Rejected by manager." />
+                                            <button type="submit" class="btn btn-sm btn-danger action-button"><i class="bi bi-x-lg"></i><span>Reject</span></button>
+                                        </form>
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </article>
+</section>

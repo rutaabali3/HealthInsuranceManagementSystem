@@ -1,0 +1,77 @@
+@model InsuranceClaim
+@{
+    ViewData["Title"] = "Claim Details";
+    var employeeName = $"{Model.Employee?.FirstName} {Model.Employee?.LastName}".Trim();
+    var managerName = $"{Model.Manager?.FirstName} {Model.Manager?.LastName}".Trim();
+    var isApproved = Model.Status == InsuranceClaim.Approved;
+    var isPaid = Model.Status == InsuranceClaim.Paid;
+    var isClosed = Model.Status == InsuranceClaim.Closed;
+}
+
+<section class="manager-request-shell finance-request-shell">
+    <header class="manager-request-hero">
+        <div>
+            <a asp-action="Claims" class="manager-back-link"><i class="bi bi-arrow-left"></i><span>Back to claims</span></a>
+            <p class="manager-request-eyebrow">Claim #@Model.ClaimId</p>
+            <h1>@(Model.AssignedPolicy?.Policy?.PolicyName ?? "Insurance Claim")</h1>
+            <div class="manager-request-meta">
+                <span><i class="bi bi-person-badge"></i>@(string.IsNullOrWhiteSpace(employeeName) ? "Employee" : employeeName)</span>
+                <span><i class="bi bi-building"></i>@(Model.AssignedPolicy?.Policy?.Company?.CompanyName ?? "-")</span>
+                <span><i class="bi bi-person-check"></i>@(string.IsNullOrWhiteSpace(managerName) ? "Manager" : managerName)</span>
+            </div>
+        </div>
+        <aside class="manager-request-amount">
+            <span>Approved amount</span>
+            <strong>PKR @Model.ApprovedAmount.ToString("N0")</strong>
+            <small>@Model.Status</small>
+        </aside>
+    </header>
+
+    <section class="manager-review-steps" aria-label="Claim finance workflow">
+        <article class="review-step review-step-done"><span><i class="bi bi-send-check"></i></span><div><strong>Submitted</strong><small>@Model.SubmittedAt.ToString("dd MMM yyyy, hh:mm tt")</small></div></article>
+        <article class="review-step review-step-done"><span><i class="bi bi-person-check"></i></span><div><strong>Manager Approved</strong><small>@(Model.ReviewedAt?.ToString("dd MMM yyyy, hh:mm tt") ?? "Waiting")</small></div></article>
+        <article class="review-step @(isApproved ? "review-step-current" : (isPaid || isClosed ? "review-step-done" : ""))"><span><i class="bi bi-cash-coin"></i></span><div><strong>Finance Payment</strong><small>@(Model.PaidAt?.ToString("dd MMM yyyy, hh:mm tt") ?? "Waiting for credit")</small></div></article>
+        <article class="review-step @(isClosed ? "review-step-done" : isPaid ? "review-step-current" : "")"><span><i class="bi bi-check2-circle"></i></span><div><strong>Close Claim</strong><small>@(Model.ClosedAt?.ToString("dd MMM yyyy, hh:mm tt") ?? "Not closed yet")</small></div></article>
+    </section>
+
+    <div class="manager-request-layout">
+        <main class="manager-request-main">
+            <article class="manager-detail-panel">
+                <div class="manager-panel-title"><span><i class="bi bi-person-lines-fill"></i></span><h2>Employee Details</h2></div>
+                <dl class="manager-detail-list"><dt>Name</dt><dd>@employeeName</dd><dt>Email</dt><dd>@(Model.Employee?.Email ?? "-")</dd><dt>Department</dt><dd>@(Model.Employee?.Department ?? "-")</dd><dt>Designation</dt><dd>@(Model.Employee?.Designation ?? "-")</dd></dl>
+            </article>
+            <article class="manager-detail-panel">
+                <div class="manager-panel-title"><span><i class="bi bi-clipboard-pulse"></i></span><h2>Claim Details</h2></div>
+                <dl class="manager-detail-list"><dt>Type</dt><dd>@Model.ClaimType</dd><dt>Claimed</dt><dd>PKR @Model.ClaimAmount.ToString("N0")</dd><dt>Approved</dt><dd>PKR @Model.ApprovedAmount.ToString("N0")</dd><dt>Remarks</dt><dd>@(string.IsNullOrWhiteSpace(Model.Remarks) ? "-" : Model.Remarks)</dd></dl>
+            </article>
+            <article class="manager-detail-panel manager-note-panel">
+                <div class="manager-panel-title"><span><i class="bi bi-chat-left-text"></i></span><h2>Claim Reason</h2></div>
+                <p>@Model.Reason</p>
+            </article>
+        </main>
+        <aside class="manager-action-card">
+            <div class="manager-panel-title"><span><i class="bi bi-cash-coin"></i></span><h2>Finance Action</h2></div>
+            <div class="manager-status-card @(isApproved ? "manager-status-waiting" : isPaid ? "manager-status-ready" : "manager-status-closed")"><span>Status</span><strong>@Model.Status</strong></div>
+            @if (Model.Status == InsuranceClaim.Approved)
+            {
+                <form asp-action="PayClaim" method="post" data-swal-title="Pay claim" data-swal-confirm="Credit this approved claim?" data-swal-confirm-button="Pay">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="claimId" value="@Model.ClaimId" />
+                    <button type="submit" class="btn btn-success w-100 action-button"><i class="bi bi-cash"></i><span>Pay Claim</span></button>
+                </form>
+            }
+            else if (Model.Status == InsuranceClaim.Paid)
+            {
+                <form asp-action="CloseClaim" method="post" data-swal-title="Close claim" data-swal-confirm="Close this paid claim?" data-swal-confirm-button="Close">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="claimId" value="@Model.ClaimId" />
+                    <button type="submit" class="btn btn-dark w-100 action-button"><i class="bi bi-check2-circle"></i><span>Close Claim</span></button>
+                </form>
+            }
+            else
+            {
+                <p class="manager-action-note">This claim is not waiting for a finance action.</p>
+            }
+        </aside>
+    </div>
+</section>

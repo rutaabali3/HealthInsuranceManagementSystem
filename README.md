@@ -88,6 +88,19 @@ All 9 tables from the specification:
 
 ## Setup Instructions
 
+## Claim Workflow Update
+
+The project now separates policy request billing from actual insurance claims:
+
+- `PolicyBills` tracks the existing policy request, approval, billing, and finance payment lifecycle.
+- `InsuranceClaims` tracks real claim submissions against assigned employee policies.
+- Claim limits are enforced from `Policy.CoverageAmount`.
+- Approved, paid, and closed claims reduce remaining available coverage.
+- Pending claims are not treated as used coverage, but they are considered when checking whether a new claim would exceed the available amount.
+- Employees submit claims from their assigned active policies, managers approve or reject claims, and finance pays or closes approved claims.
+
+---
+
 This project can be run using either **VS Code with XAMPP (MySQL)** or **Visual Studio 2022 with SQL Server**. Choose the option that fits your environment.
 
 ### Option 1: Setup with VS Code & XAMPP (MySQL)

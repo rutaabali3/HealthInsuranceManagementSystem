@@ -8,12 +8,18 @@
     var isSupport = role == UserRoles.Support;
     var isEmployee = role == UserRoles.Employee || role == "Employee";
     var hasRole = isAdmin || isManager || isFinance || isSupport || isEmployee;
+    var currentRoleLabel = isAdmin ? "Admin"
+        : isManager ? "Manager"
+        : isFinance ? "Finance"
+        : isSupport ? "Support"
+        : isEmployee ? "Employee"
+        : "Visitor";
 }
 
 <section class="info-page-shell" aria-labelledby="sitemap-title">
     <header class="info-page-hero">
         <video class="hero-background-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
-            <source src="~/images/faq/hero.mp4" type="video/mp4" />
+            <source src="~/images/hero.png" type="video/mp4" />
         </video>
         <div class="info-page-hero-copy">
             <span class="info-kicker"><i class="bi bi-diagram-3"></i> Site Directory</span>
@@ -22,6 +28,10 @@
                 Use this directory to move quickly between public information pages, account access,
                 and the HealthInsure areas available to your account.
             </p>
+            <div class="sitemap-hero-actions" aria-label="Primary sitemap actions">
+                <a asp-controller="Home" asp-action="Contact"><i class="bi bi-envelope-paper"></i> Contact Support</a>
+                <a asp-controller="Home" asp-action="Faq"><i class="bi bi-question-circle"></i> Read FAQs</a>
+            </div>
         </div>
 
         <div class="info-hero-panel" aria-label="Sitemap highlights">
@@ -35,94 +45,152 @@
                 <strong>Access-aware map</strong>
                 <span>Role links appear only for the account currently signed in.</span>
             </div>
+            <div>
+                <i class="bi bi-person-badge"></i>
+                <strong>@currentRoleLabel view</strong>
+                <span>@(hasRole ? "Your available workspace links are ready below." : "Sign in to reveal your workspace links.")</span>
+            </div>
         </div>
     </header>
 
+    <div class="sitemap-overview" aria-label="Sitemap overview">
+        <article>
+            <i class="bi bi-globe2"></i>
+            <span>Public</span>
+            <strong>4 core pages</strong>
+        </article>
+        <article>
+            <i class="bi bi-shield-lock"></i>
+            <span>Information</span>
+            <strong>3 policy pages</strong>
+        </article>
+        <article>
+            <i class="bi bi-person-check"></i>
+            <span>Role access</span>
+            <strong>@(hasRole ? currentRoleLabel : "Login required")</strong>
+        </article>
+    </div>
+
     <div class="sitemap-grid">
-        <article>
+        <article class="sitemap-card">
             <span class="info-card-icon"><i class="bi bi-house-door"></i></span>
-            <h2>Public Pages</h2>
-            <a asp-controller="Home" asp-action="Index"><i class="bi bi-arrow-right"></i> Home</a>
-            <a asp-controller="Home" asp-action="About"><i class="bi bi-arrow-right"></i> About Us</a>
-            <a asp-controller="Home" asp-action="Contact"><i class="bi bi-arrow-right"></i> Contact</a>
-            <a asp-controller="Home" asp-action="Faq"><i class="bi bi-arrow-right"></i> FAQ</a>
+            <div class="sitemap-card-heading">
+                <h2>Public Pages</h2>
+                <span>Open</span>
+            </div>
+            <a asp-controller="Home" asp-action="Index"><i class="bi bi-house"></i> Home</a>
+            <a asp-controller="Home" asp-action="About"><i class="bi bi-info-circle"></i> About Us</a>
+            <a asp-controller="Home" asp-action="Contact"><i class="bi bi-envelope"></i> Contact</a>
+            <a asp-controller="Home" asp-action="Faq"><i class="bi bi-question-circle"></i> FAQ</a>
         </article>
 
-        <article>
+        <article class="sitemap-card">
             <span class="info-card-icon"><i class="bi bi-person-circle"></i></span>
-            <h2>Account</h2>
-            <a asp-controller="Auth" asp-action="Login"><i class="bi bi-arrow-right"></i> Login</a>
-            <a asp-controller="Auth" asp-action="ForgotPassword"><i class="bi bi-arrow-right"></i> Forgot Password</a>
+            <div class="sitemap-card-heading">
+                <h2>Account</h2>
+                <span>Access</span>
+            </div>
+            <a asp-controller="Auth" asp-action="Login"><i class="bi bi-box-arrow-in-right"></i> Login</a>
+            <a asp-controller="Auth" asp-action="ForgotPassword"><i class="bi bi-key"></i> Forgot Password</a>
         </article>
 
-        <article>
+        <article class="sitemap-card">
             <span class="info-card-icon"><i class="bi bi-info-square"></i></span>
-            <h2>Information</h2>
-            <a asp-controller="Home" asp-action="Privacy"><i class="bi bi-arrow-right"></i> Privacy</a>
-            <a asp-controller="Home" asp-action="Terms"><i class="bi bi-arrow-right"></i> Terms</a>
-            <a asp-controller="Home" asp-action="Sitemap"><i class="bi bi-arrow-right"></i> Sitemap</a>
+            <div class="sitemap-card-heading">
+                <h2>Information</h2>
+                <span>Reference</span>
+            </div>
+            <a asp-controller="Home" asp-action="Privacy"><i class="bi bi-shield-lock"></i> Privacy</a>
+            <a asp-controller="Home" asp-action="Terms"><i class="bi bi-file-earmark-text"></i> Terms</a>
+            <a asp-controller="Home" asp-action="Sitemap"><i class="bi bi-diagram-3"></i> Sitemap</a>
         </article>
 
         @if (isAdmin)
         {
-            <article>
+            <article class="sitemap-card sitemap-card-role">
                 <span class="info-card-icon"><i class="bi bi-speedometer2"></i></span>
-                <h2>Admin Area</h2>
-                <a asp-controller="Admin" asp-action="Dashboard"><i class="bi bi-arrow-right"></i> Dashboard</a>
-                <a asp-controller="Admin" asp-action="Companies"><i class="bi bi-arrow-right"></i> Companies</a>
-                <a asp-controller="Admin" asp-action="Policies"><i class="bi bi-arrow-right"></i> Policies</a>
-                <a asp-controller="Admin" asp-action="Employees"><i class="bi bi-arrow-right"></i> Employees</a>
-                <a asp-controller="Admin" asp-action="PolicyRequests"><i class="bi bi-arrow-right"></i> Policy Requests</a>
-                <a asp-controller="Report" asp-action="Index"><i class="bi bi-arrow-right"></i> Reports</a>
+                <div class="sitemap-card-heading">
+                    <h2>Admin Area</h2>
+                    <span>Admin</span>
+                </div>
+                <a asp-controller="Admin" asp-action="Dashboard"><i class="bi bi-speedometer2"></i> Dashboard</a>
+                <a asp-controller="Admin" asp-action="Companies"><i class="bi bi-building-gear"></i> Companies</a>
+                <a asp-controller="Admin" asp-action="AddCompany"><i class="bi bi-building-add"></i> Add Company</a>
+                <a asp-controller="Admin" asp-action="Policies"><i class="bi bi-shield-check"></i> Policies</a>
+                <a asp-controller="Admin" asp-action="AddPolicy"><i class="bi bi-file-earmark-plus"></i> Add Policy</a>
+                <a asp-controller="Admin" asp-action="Employees"><i class="bi bi-people"></i> Employees</a>
+                <a asp-controller="Admin" asp-action="RegisterEmployee"><i class="bi bi-person-plus"></i> Register Employee</a>
+                <a asp-controller="Admin" asp-action="PolicyRequests"><i class="bi bi-inbox"></i> Policy Requests</a>
+                <a asp-controller="Admin" asp-action="Claims"><i class="bi bi-clipboard-pulse"></i> Claims</a>
+                <a asp-controller="Admin" asp-action="Search"><i class="bi bi-search"></i> Search</a>
+                <a asp-controller="Report" asp-action="Index"><i class="bi bi-bar-chart"></i> Reports</a>
             </article>
         }
 
         @if (isEmployee)
         {
-            <article>
+            <article class="sitemap-card sitemap-card-role">
                 <span class="info-card-icon"><i class="bi bi-person-heart"></i></span>
-                <h2>Employee Area</h2>
-                <a asp-controller="Employee" asp-action="Dashboard"><i class="bi bi-arrow-right"></i> Dashboard</a>
-                <a asp-controller="Employee" asp-action="SearchPolicy"><i class="bi bi-arrow-right"></i> Search Policy</a>
-                <a asp-controller="Employee" asp-action="Details"><i class="bi bi-arrow-right"></i> My Details</a>
-                <a asp-controller="Employee" asp-action="ChangePassword"><i class="bi bi-arrow-right"></i> Change Password</a>
+                <div class="sitemap-card-heading">
+                    <h2>Employee Area</h2>
+                    <span>Employee</span>
+                </div>
+                <a asp-controller="Employee" asp-action="Dashboard"><i class="bi bi-speedometer2"></i> Dashboard</a>
+                <a asp-controller="Employee" asp-action="SearchPolicy"><i class="bi bi-search"></i> Search Policy</a>
+                <a asp-controller="Employee" asp-action="MyClaims"><i class="bi bi-clipboard-pulse"></i> My Claims</a>
+                <a asp-controller="Employee" asp-action="SubmitClaim"><i class="bi bi-file-medical"></i> Submit Claim</a>
+                <a asp-controller="Employee" asp-action="Details"><i class="bi bi-person-lines-fill"></i> My Details</a>
+                <a asp-controller="Employee" asp-action="UpdateDetails"><i class="bi bi-pencil-square"></i> Update Details</a>
+                <a asp-controller="Employee" asp-action="ChangePassword"><i class="bi bi-key"></i> Change Password</a>
             </article>
         }
 
         @if (isManager)
         {
-            <article>
+            <article class="sitemap-card sitemap-card-role">
                 <span class="info-card-icon"><i class="bi bi-briefcase"></i></span>
-                <h2>Manager Area</h2>
-                <a asp-controller="Manager" asp-action="Dashboard"><i class="bi bi-arrow-right"></i> Dashboard</a>
-                <a asp-controller="Manager" asp-action="Requests"><i class="bi bi-arrow-right"></i> Requests</a>
-                <a asp-controller="Manager" asp-action="Details"><i class="bi bi-arrow-right"></i> My Details</a>
-                <a asp-controller="Manager" asp-action="UpdateDetails"><i class="bi bi-arrow-right"></i> Update Details</a>
+                <div class="sitemap-card-heading">
+                    <h2>Manager Area</h2>
+                    <span>Manager</span>
+                </div>
+                <a asp-controller="Manager" asp-action="Dashboard"><i class="bi bi-speedometer2"></i> Dashboard</a>
+                <a asp-controller="Manager" asp-action="Requests"><i class="bi bi-inbox"></i> Requests</a>
+                <a asp-controller="Manager" asp-action="Claims"><i class="bi bi-clipboard-pulse"></i> Claims</a>
+                <a asp-controller="Manager" asp-action="Details"><i class="bi bi-person-lines-fill"></i> My Details</a>
+                <a asp-controller="Manager" asp-action="UpdateDetails"><i class="bi bi-pencil-square"></i> Update Details</a>
             </article>
         }
 
         @if (isFinance)
         {
-            <article>
+            <article class="sitemap-card sitemap-card-role">
                 <span class="info-card-icon"><i class="bi bi-cash-coin"></i></span>
-                <h2>Finance Area</h2>
-                <a asp-controller="Finance" asp-action="Dashboard"><i class="bi bi-arrow-right"></i> Dashboard</a>
-                <a asp-controller="Finance" asp-action="Requests"><i class="bi bi-arrow-right"></i> Requests</a>
-                <a asp-controller="Finance" asp-action="Details"><i class="bi bi-arrow-right"></i> My Details</a>
-                <a asp-controller="Finance" asp-action="UpdateDetails"><i class="bi bi-arrow-right"></i> Update Details</a>
+                <div class="sitemap-card-heading">
+                    <h2>Finance Area</h2>
+                    <span>Finance</span>
+                </div>
+                <a asp-controller="Finance" asp-action="Dashboard"><i class="bi bi-speedometer2"></i> Dashboard</a>
+                <a asp-controller="Finance" asp-action="Requests"><i class="bi bi-inbox"></i> Requests</a>
+                <a asp-controller="Finance" asp-action="Claims"><i class="bi bi-clipboard-pulse"></i> Claims</a>
+                <a asp-controller="Finance" asp-action="Details"><i class="bi bi-person-lines-fill"></i> My Details</a>
+                <a asp-controller="Finance" asp-action="UpdateDetails"><i class="bi bi-pencil-square"></i> Update Details</a>
             </article>
         }
 
         @if (isSupport)
         {
-            <article>
+            <article class="sitemap-card sitemap-card-role">
                 <span class="info-card-icon"><i class="bi bi-headset"></i></span>
-                <h2>Support Area</h2>
-                <a asp-controller="Support" asp-action="Dashboard"><i class="bi bi-arrow-right"></i> Dashboard</a>
-                <a asp-controller="Support" asp-action="Inbox"><i class="bi bi-arrow-right"></i> Inbox</a>
-                <a asp-controller="Support" asp-action="Faqs"><i class="bi bi-arrow-right"></i> FAQ Management</a>
-                <a asp-controller="Support" asp-action="Details"><i class="bi bi-arrow-right"></i> My Details</a>
-                <a asp-controller="Support" asp-action="UpdateDetails"><i class="bi bi-arrow-right"></i> Update Details</a>
+                <div class="sitemap-card-heading">
+                    <h2>Support Area</h2>
+                    <span>Support</span>
+                </div>
+                <a asp-controller="Support" asp-action="Dashboard"><i class="bi bi-headset"></i> Dashboard</a>
+                <a asp-controller="Support" asp-action="Inbox"><i class="bi bi-chat-dots"></i> Inbox</a>
+                <a asp-controller="Support" asp-action="Faqs"><i class="bi bi-patch-question"></i> FAQ Management</a>
+                <a asp-controller="Support" asp-action="AddFaq"><i class="bi bi-plus-circle"></i> Add FAQ</a>
+                <a asp-controller="Support" asp-action="Details"><i class="bi bi-person-lines-fill"></i> My Details</a>
+                <a asp-controller="Support" asp-action="UpdateDetails"><i class="bi bi-pencil-square"></i> Update Details</a>
             </article>
         }
     </div>

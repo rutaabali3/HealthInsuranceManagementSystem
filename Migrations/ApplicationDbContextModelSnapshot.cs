@@ -389,6 +389,78 @@ namespace HealthInsuranceManagement.Migrations
                     b.ToTable("HospitalInfos");
                 });
 
+            modelBuilder.Entity("HealthInsuranceManagement.Models.InsuranceClaim", b =>
+                {
+                    b.Property<int>("ClaimId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("ApprovedAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ClaimAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("ClaimType")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("varchar(80)");
+
+                    b.Property<DateTime?>("ClosedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("EmpId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("FinanceManagerId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ManagerId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("PaidAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("PolicyOnEmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("varchar(1000)");
+
+                    b.Property<string>("Remarks")
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)");
+
+                    b.Property<DateTime?>("ReviewedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
+
+                    b.Property<DateTime>("SubmittedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("ClaimId");
+
+                    b.HasIndex("EmpId");
+
+                    b.HasIndex("FinanceManagerId");
+
+                    b.HasIndex("ManagerId");
+
+                    b.HasIndex("PolicyOnEmployeeId");
+
+                    b.HasIndex("Status");
+
+                    b.HasIndex("SubmittedAt");
+
+                    b.ToTable("InsuranceClaims");
+                });
+
             modelBuilder.Entity("HealthInsuranceManagement.Models.PasswordResetToken", b =>
                 {
                     b.Property<int>("Id")
@@ -716,6 +788,39 @@ namespace HealthInsuranceManagement.Migrations
                     b.Navigation("PolicyRequest");
                 });
 
+            modelBuilder.Entity("HealthInsuranceManagement.Models.InsuranceClaim", b =>
+                {
+                    b.HasOne("HealthInsuranceManagement.Models.PolicyOnEmployee", "AssignedPolicy")
+                        .WithMany("InsuranceClaims")
+                        .HasForeignKey("PolicyOnEmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("HealthInsuranceManagement.Models.EmpRegister", "Employee")
+                        .WithMany("InsuranceClaims")
+                        .HasForeignKey("EmpId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("HealthInsuranceManagement.Models.EmpRegister", "FinanceManager")
+                        .WithMany()
+                        .HasForeignKey("FinanceManagerId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("HealthInsuranceManagement.Models.EmpRegister", "Manager")
+                        .WithMany()
+                        .HasForeignKey("ManagerId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("AssignedPolicy");
+
+                    b.Navigation("Employee");
+
+                    b.Navigation("FinanceManager");
+
+                    b.Navigation("Manager");
+                });
+
             modelBuilder.Entity("HealthInsuranceManagement.Models.PolicyBill", b =>
                 {
                     b.HasOne("HealthInsuranceManagement.Models.EmpRegister", "FinanceManager")
@@ -802,6 +907,8 @@ namespace HealthInsuranceManagement.Migrations
 
             modelBuilder.Entity("HealthInsuranceManagement.Models.EmpRegister", b =>
                 {
+                    b.Navigation("InsuranceClaims");
+
                     b.Navigation("PolicyOnEmployees");
 
                     b.Navigation("PolicyRequests");
@@ -812,6 +919,11 @@ namespace HealthInsuranceManagement.Migrations
                     b.Navigation("PolicyDescriptions");
 
                     b.Navigation("PolicyOnEmployees");
+                });
+
+            modelBuilder.Entity("HealthInsuranceManagement.Models.PolicyOnEmployee", b =>
+                {
+                    b.Navigation("InsuranceClaims");
                 });
 
             modelBuilder.Entity("HealthInsuranceManagement.Models.PolicyRequestDetails", b =>

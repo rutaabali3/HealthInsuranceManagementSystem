@@ -11,11 +11,13 @@ namespace HealthInsuranceManagement.Controllers
     {
         private readonly ApplicationDbContext _db;
         private readonly INotificationService _notifications;
+        private readonly IClaimUsageService _claimUsage;
 
-        public ManagerController(ApplicationDbContext db, INotificationService notifications)
+        public ManagerController(ApplicationDbContext db, INotificationService notifications, IClaimUsageService claimUsage)
         {
             _db = db;
             _notifications = notifications;
+            _claimUsage = claimUsage;
         }
 
         private IActionResult? ManagerGuard()
@@ -41,6 +43,13 @@ namespace HealthInsuranceManagement.Controllers
                     .ThenInclude(p => p!.Company)
                     .Where(b => b.Status == "Created" || b.Status == "ManagerApproved" || b.ManagerId == CurrentManagerId)
                     .OrderByDescending(b => b.CreatedAt)
+                    .ToListAsync(),
+                PendingClaims = await _db.InsuranceClaims
+                    .Include(c => c.Employee)
+                    .Include(c => c.AssignedPolicy).ThenInclude(pe => pe!.Policy).ThenInclude(p => p!.Company)
+                    .Where(c => c.Status == InsuranceClaim.Pending)
+                    .OrderByDescending(c => c.SubmittedAt)
+                    .Take(6)
                     .ToListAsync()
             };
 
@@ -83,6 +92,116 @@ namespace HealthInsuranceManagement.Controllers
 
             if (bill?.PolicyRequest == null) return NotFound();
             return View(bill);
+        }
+
+        public async Task<IActionResult> Claims()
+        {
+            var guard = ManagerGuard(); if (guard != null) return guard;
+
+            var claims = await _db.InsuranceClaims
+                .Include(c => c.Employee)
+                .Include(c => c.AssignedPolicy).ThenInclude(pe => pe!.Policy).ThenInclude(p => p!.Company)
+                .Include(c => c.Manager)
+                .OrderBy(c => c.Status == InsuranceClaim.Pending ? 0 : 1)
+                .ThenByDescending(c => c.SubmittedAt)
+                .ToListAsync();
+
+            return View(claims);
+        }
+
+        public async Task<IActionResult> ClaimDetails(int id)
+        {
+            var guard = ManagerGuard(); if (guard != null) return guard;
+
+            var claim = await _db.InsuranceClaims
+                .Include(c => c.Employee)
+                .Include(c => c.AssignedPolicy).ThenInclude(pe => pe!.Policy).ThenInclude(p => p!.Company)
+                .Include(c => c.Manager)
+                .Include(c => c.FinanceManager)
+                .FirstOrDefaultAsync(c => c.ClaimId == id);
+
+            if (claim == null) return NotFound();
+            ViewBag.Usage = await _claimUsage.GetUsageAsync(claim.PolicyOnEmployeeId, claim.ClaimId);
+            return View(claim);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DecideClaim(int claimId, string decision, string? remarks)
+        {
+            var guard = ManagerGuard(); if (guard != null) return guard;
+
+            var claim = await _db.InsuranceClaims
+                .Include(c => c.Employee)
+                .Include(c => c.AssignedPolicy).ThenInclude(pe => pe!.Policy).ThenInclude(p => p!.Company)
+                .FirstOrDefaultAsync(c => c.ClaimId == claimId);
+
+            if (claim == null) return NotFound();
+            if (claim.Status != InsuranceClaim.Pending)
+            {
+                TempData["Error"] = "Only pending claims can be approved or rejected.";
+                return RedirectToAction("Claims");
+            }
+
+            var approved = decision == InsuranceClaim.Approved;
+            if (!approved && string.IsNullOrWhiteSpace(remarks))
+            {
+                TempData["Error"] = "Remarks are required when rejecting a claim.";
+                return RedirectToAction("ClaimDetails", new { id = claimId });
+            }
+
+            if (approved && !await _claimUsage.HasAvailableCoverageAsync(claim.PolicyOnEmployeeId, claim.ClaimAmount, claim.ClaimId))
+            {
+                var usage = await _claimUsage.GetUsageAsync(claim.PolicyOnEmployeeId, claim.ClaimId);
+                TempData["Error"] = $"Claim exceeds remaining coverage. Available after pending claims: PKR {usage.AvailableAfterPending:N0}.";
+                return RedirectToAction("ClaimDetails", new { id = claimId });
+            }
+
+            claim.Status = approved ? InsuranceClaim.Approved : InsuranceClaim.Rejected;
+            claim.ApprovedAmount = approved ? claim.ClaimAmount : 0;
+            claim.ManagerId = CurrentManagerId;
+            claim.ReviewedAt = DateTime.UtcNow;
+            claim.Remarks = remarks;
+
+            await _db.SaveChangesAsync();
+
+            var employeeName = $"{claim.Employee?.FirstName} {claim.Employee?.LastName}".Trim();
+            var decisionText = approved ? "approved" : "rejected";
+            var body = $"""
+                <p>A manager has <strong>{decisionText}</strong> an insurance claim.</p>
+                <p><strong>Employee:</strong> {employeeName}</p>
+                <p><strong>Policy:</strong> {claim.AssignedPolicy?.Policy?.PolicyName}</p>
+                <p><strong>Claim Amount:</strong> PKR {claim.ClaimAmount:N0}</p>
+                <p><strong>Remarks:</strong> {remarks ?? "No remarks provided"}</p>
+                """;
+
+            await _notifications.NotifyAdminsAsync($"Insurance claim {decisionText}", body, "InsuranceClaimDecision", claim.ClaimId);
+            if (approved)
+                await _notifications.NotifyStaffByRoleAsync(UserRoles.FinanceManager, "Approved claim waiting for finance", body, "InsuranceClaimDecision", claim.ClaimId);
+            if (claim.Employee != null)
+            {
+                await _notifications.NotifyAsync(
+                    claim.Employee.Email,
+                    employeeName,
+                    UserRoles.Employee,
+                    $"Your insurance claim was {decisionText}",
+                    $"""
+                    <p>Your claim for <strong>{claim.AssignedPolicy?.Policy?.PolicyName}</strong> was <strong>{decisionText}</strong>.</p>
+                    <p><strong>Claim Amount:</strong> PKR {claim.ClaimAmount:N0}</p>
+                    <p><strong>Remarks:</strong> {remarks ?? "No remarks provided"}</p>
+                    """,
+                    "InsuranceClaimDecision",
+                    claim.ClaimId);
+            }
+            await _notifications.NotifyCompanyAsync(
+                claim.AssignedPolicy?.Policy?.Company,
+                $"Insurance claim {decisionText} for your company policy",
+                body,
+                "InsuranceClaimDecision",
+                claim.ClaimId);
+
+            TempData["Success"] = approved ? "Claim approved and sent to finance." : "Claim rejected.";
+            return RedirectToAction("Claims");
         }
 
         public async Task<IActionResult> Details()

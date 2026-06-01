@@ -14,12 +14,13 @@ body[data-page="home-contact"] .app-main {
 .contact-hero {
     position: relative;
     display: grid;
-    grid-template-columns: minmax(0, 2fr) minmax(200px, 1fr);
+    grid-template-columns: minmax(0, 2fr) minmax(300px, 1fr);
     gap: clamp(1rem, 3vw, 2rem);
     align-items: center;
-    min-height: 80vh;
+    min-height: 100vh;
     overflow: hidden;
     padding: clamp(1.5rem, 4vw, 3rem);
+    color: #ffffff;
     background: #e8f5f4;
     border: 0;
     border-radius: 0;
@@ -34,12 +35,12 @@ body[data-page="home-contact"] .app-main {
     inset: 0;
     z-index: 1;
     background:
-  linear-gradient(90deg, rgb(0, 106, 106, 0.8), rgba(0, 106, 106, 0.5) 46%, rgba(0, 106, 106, 0.2)),
-        linear-gradient(180deg, rgba(0, 106, 106, 0.2), rgba(0, 106, 106, 0.1));
+        linear-gradient(90deg, rgb(0,0,0,0.8), rgba(0,0,0,0.3) 46%, rgba(0,0,0,0.2)),
+        linear-gradient(180deg, rgba(0,0,0,0.1), rgba(0,0,0,0.05));
     pointer-events: none;
 }
 
-.contact-hero .hero-background-video {
+.contact-hero .hero-background-image {
     position: fixed;
     inset: 0;
     z-index: 0;
@@ -53,22 +54,20 @@ body[data-page="home-contact"] .app-main {
 .contact-hero-copy {
     position: relative;
     z-index: 2;
-}
-
-.contact-hero-copy {
     display: grid;
     align-content: center;
-    max-width: 760px;
+    width: auto;
+    max-width: 500px;
     min-width: 0;
 }
 
 .contact-hero-copy span {
     display: inline-flex;
     align-items: center;
-    width: fit-content;
     min-height: 36px;
-    padding: 0.45rem 0.8rem;
-    margin-bottom: 1rem;
+    width: fit-content;
+    padding: 0.3rem 0.8rem;
+    margin-bottom: 1.55rem;
     color: #e9ffff;
     background: rgba(0, 128, 128, 0.36);
     border: 1px solid rgba(111, 247, 246, 0.54);
@@ -78,13 +77,14 @@ body[data-page="home-contact"] .app-main {
 
 .contact-hero-copy h1 {
     margin: 0;
-    color: #6ff7f6;
+    color: rgb(255, 255, 255);
     font-size: clamp(2.35rem, 5vw, 4rem);
     line-height: 1.05;
+    text-wrap: balance;
 }
 
 .contact-hero-copy p {
-    max-width: 760px;
+    max-width: 500px;
     margin: 0.75rem 0 0;
     color: #e4e4e4;
     font-size: clamp(1.05rem, 1.5vw, 1.25rem);
@@ -257,9 +257,18 @@ body[data-page="home-contact"] .app-main {
 }
 
 @media (max-width: 991.98px) {
-    .contact-hero,
     .contact-layout {
         grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 1199.98px) {
+    .contact-hero {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-hero-copy {
+        max-width: 760px;
     }
 }
 
@@ -269,7 +278,7 @@ body[data-page="home-contact"] .app-main {
     }
 
     .contact-hero-copy h1 {
-        font-size: 2.55rem;
+        font-size: 2.6rem;
     }
 
     .contact-layout {

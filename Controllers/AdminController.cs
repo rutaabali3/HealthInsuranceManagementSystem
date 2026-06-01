@@ -63,6 +63,14 @@ namespace HealthInsuranceManagement.Controllers
             var claimsProcessedThisMonth = await _db.PolicyBills
                 .CountAsync(b => (b.PaidAt.HasValue && b.PaidAt.Value >= monthStart && b.PaidAt.Value < nextMonth)
                     || (b.ClosedAt.HasValue && b.ClosedAt.Value >= monthStart && b.ClosedAt.Value < nextMonth));
+            var paidClaimsThisMonth = await _db.InsuranceClaims
+                .Where(c => c.PaidAt.HasValue && c.PaidAt.Value >= monthStart && c.PaidAt.Value < nextMonth)
+                .Select(c => c.ApprovedAmount)
+                .ToListAsync();
+            var approvedClaimsThisMonth = await _db.InsuranceClaims
+                .Where(c => c.ReviewedAt.HasValue && c.ReviewedAt.Value >= monthStart && c.ReviewedAt.Value < nextMonth && c.Status != InsuranceClaim.Rejected)
+                .Select(c => c.ApprovedAmount)
+                .ToListAsync();
             var overviewTrend = BuildMonthlyOverviewTrend(
                 monthStart,
                 now.Date,
@@ -75,6 +83,10 @@ namespace HealthInsuranceManagement.Controllers
                 TotalPolicies  = await _db.Policies.CountAsync(p => p.IsActive),
                 PendingRequests = await _db.PolicyRequestDetails.CountAsync(r => r.Status == "Pending"),
                 PendingBills = await _db.PolicyBills.CountAsync(b => b.Status == "Created" || b.Status == "ManagerApproved"),
+                PendingClaims = await _db.InsuranceClaims.CountAsync(c => c.Status == InsuranceClaim.Pending),
+                ApprovedClaims = await _db.InsuranceClaims.CountAsync(c => c.Status == InsuranceClaim.Approved),
+                PaidClaimAmountThisMonth = paidClaimsThisMonth.Sum(),
+                ApprovedClaimAmountThisMonth = approvedClaimsThisMonth.Sum(),
                 NewEmployeesThisMonth = employeeDates.Count,
                 NewPoliciesThisMonth = policyDates.Count,
                 ClaimsProcessedThisMonth = claimsProcessedThisMonth,
@@ -101,6 +113,12 @@ namespace HealthInsuranceManagement.Controllers
                     .Where(p => p.IsActive)
                     .Include(p => p.Company)
                     .OrderByDescending(p => p.CreatedAt)
+                    .Take(5)
+                    .ToListAsync(),
+                RecentClaims = await _db.InsuranceClaims
+                    .Include(c => c.Employee)
+                    .Include(c => c.AssignedPolicy).ThenInclude(pe => pe!.Policy)
+                    .OrderByDescending(c => c.SubmittedAt)
                     .Take(5)
                     .ToListAsync()
             };
@@ -618,6 +636,11 @@ namespace HealthInsuranceManagement.Controllers
                 _db.PolicyRequestDetails.RemoveRange(requests);
             }
 
+            var employeeClaims = await _db.InsuranceClaims
+                .Where(c => c.EmpId == id)
+                .ToListAsync();
+            _db.InsuranceClaims.RemoveRange(employeeClaims);
+
             var assignments = await _db.PolicyOnEmployees
                 .Where(pe => pe.EmpId == id)
                 .ToListAsync();
@@ -636,6 +659,15 @@ namespace HealthInsuranceManagement.Controllers
             {
                 if (bill.ManagerId == id) bill.ManagerId = null;
                 if (bill.FinanceManagerId == id) bill.FinanceManagerId = null;
+            }
+
+            var staffClaims = await _db.InsuranceClaims
+                .Where(c => c.ManagerId == id || c.FinanceManagerId == id)
+                .ToListAsync();
+            foreach (var claim in staffClaims)
+            {
+                if (claim.ManagerId == id) claim.ManagerId = null;
+                if (claim.FinanceManagerId == id) claim.FinanceManagerId = null;
             }
 
             _db.EmpRegisters.Remove(employee);
@@ -855,9 +887,50 @@ namespace HealthInsuranceManagement.Controllers
                     .OrderByDescending(b => b.CreatedAt)
                     .Take(50)
                     .ToListAsync();
+
+                vm.Claims = await _db.InsuranceClaims
+                    .Include(c => c.Employee)
+                    .Include(c => c.AssignedPolicy).ThenInclude(pe => pe!.Policy)
+                    .Where(c => c.Status.Contains(q)
+                        || c.ClaimType.Contains(q)
+                        || (c.Employee != null && (c.Employee.FirstName.Contains(q) || c.Employee.LastName.Contains(q)))
+                        || (c.AssignedPolicy != null && c.AssignedPolicy.Policy != null && c.AssignedPolicy.Policy.PolicyName.Contains(q)))
+                    .OrderByDescending(c => c.SubmittedAt)
+                    .Take(50)
+                    .ToListAsync();
             }
 
             return View(vm);
+        }
+
+        public async Task<IActionResult> Claims()
+        {
+            var guard = AdminGuard(); if (guard != null) return guard;
+
+            var claims = await _db.InsuranceClaims
+                .Include(c => c.Employee)
+                .Include(c => c.AssignedPolicy).ThenInclude(pe => pe!.Policy).ThenInclude(p => p!.Company)
+                .Include(c => c.Manager)
+                .Include(c => c.FinanceManager)
+                .OrderByDescending(c => c.SubmittedAt)
+                .ToListAsync();
+
+            return View(claims);
+        }
+
+        public async Task<IActionResult> ClaimDetails(int id)
+        {
+            var guard = AdminGuard(); if (guard != null) return guard;
+
+            var claim = await _db.InsuranceClaims
+                .Include(c => c.Employee)
+                .Include(c => c.AssignedPolicy).ThenInclude(pe => pe!.Policy).ThenInclude(p => p!.Company)
+                .Include(c => c.Manager)
+                .Include(c => c.FinanceManager)
+                .FirstOrDefaultAsync(c => c.ClaimId == id);
+
+            if (claim == null) return NotFound();
+            return View(claim);
         }
 
         // Assign a policy to an employee

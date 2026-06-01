@@ -7,6 +7,7 @@
     var approvedCount = Model.ReceivedBills.Count(b => b.Status == "ManagerApproved");
     var forwardedCount = Model.ReceivedBills.Count(b => b.Status == "ForwardedToFinance");
     var rejectedCount = Model.ReceivedBills.Count(b => b.Status == "Rejected");
+    var pendingClaimCount = Model.PendingClaims.Count;
 }
 
 <section class="role-dashboard-shell manager-dashboard-shell">
@@ -55,6 +56,13 @@
             <span class="role-metric-content">
                 <strong>@rejectedCount</strong>
                 <span>Rejected</span>
+            </span>
+        </article>
+        <article class="role-metric-card metric-card-teal">
+            <span class="role-metric-icon"><i class="bi bi-clipboard-pulse"></i></span>
+            <span class="role-metric-content">
+                <strong>@pendingClaimCount</strong>
+                <span>Pending Claims</span>
             </span>
         </article>
     </section>
@@ -150,6 +158,37 @@
                                     }
                                 </div>
                             </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </article>
+
+    <article class="role-dashboard-panel">
+        <div class="role-panel-heading">
+            <h2><i class="bi bi-clipboard-pulse"></i>Claim Queue</h2>
+            <a asp-action="Claims" class="panel-action">View All</a>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle role-table mb-0">
+                <thead>
+                    <tr><th>#</th><th>Employee</th><th>Policy</th><th>Amount</th><th>Status</th><th>Action</th></tr>
+                </thead>
+                <tbody>
+                    @if (!Model.PendingClaims.Any())
+                    {
+                        <tr><td colspan="6"><div class="role-empty-state"><span><i class="bi bi-inbox"></i></span><strong>No pending claims.</strong><small>Employee claims will appear here for review.</small></div></td></tr>
+                    }
+                    @foreach (var claim in Model.PendingClaims)
+                    {
+                        <tr>
+                            <td>#@claim.ClaimId</td>
+                            <td class="fw-semibold">@claim.Employee?.FirstName @claim.Employee?.LastName</td>
+                            <td>@claim.AssignedPolicy?.Policy?.PolicyName</td>
+                            <td>PKR @claim.ClaimAmount.ToString("N0")</td>
+                            <td><span class="status-pill status-waiting">@claim.Status</span></td>
+                            <td><a asp-action="ClaimDetails" asp-route-id="@claim.ClaimId" class="btn btn-sm btn-outline-secondary action-button"><i class="bi bi-eye"></i><span>Review</span></a></td>
                         </tr>
                     }
                 </tbody>

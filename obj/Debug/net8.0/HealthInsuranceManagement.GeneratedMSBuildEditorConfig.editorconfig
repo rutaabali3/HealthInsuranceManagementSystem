@@ -30,6 +30,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQXNzaWduUG9saWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Fahad/OneDrive/Videos/HealthInsuranceManagement/Views/Admin/ClaimDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQ2xhaW1EZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Fahad/OneDrive/Videos/HealthInsuranceManagement/Views/Admin/Claims.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQ2xhaW1zLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Fahad/OneDrive/Videos/HealthInsuranceManagement/Views/Admin/Companies.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQ29tcGFuaWVzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -86,12 +94,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcQ2hhbmdlUGFzc3dvcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Fahad/OneDrive/Videos/HealthInsuranceManagement/Views/Employee/ClaimDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcQ2xhaW1EZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Fahad/OneDrive/Videos/HealthInsuranceManagement/Views/Employee/Dashboard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcRGFzaGJvYXJkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Fahad/OneDrive/Videos/HealthInsuranceManagement/Views/Employee/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Fahad/OneDrive/Videos/HealthInsuranceManagement/Views/Employee/MyClaims.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcTXlDbGFpbXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Fahad/OneDrive/Videos/HealthInsuranceManagement/Views/Employee/OrderInsurance.cshtml]
@@ -106,8 +122,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcU2VhcmNoUG9saWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Fahad/OneDrive/Videos/HealthInsuranceManagement/Views/Employee/SubmitClaim.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcU3VibWl0Q2xhaW0uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Fahad/OneDrive/Videos/HealthInsuranceManagement/Views/Employee/UpdateDetails.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcVXBkYXRlRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Fahad/OneDrive/Videos/HealthInsuranceManagement/Views/Finance/ClaimDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmluYW5jZVxDbGFpbURldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Fahad/OneDrive/Videos/HealthInsuranceManagement/Views/Finance/Claims.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmluYW5jZVxDbGFpbXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Fahad/OneDrive/Videos/HealthInsuranceManagement/Views/Finance/Dashboard.cshtml]
@@ -152,6 +180,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Fahad/OneDrive/Videos/HealthInsuranceManagement/Views/Home/Terms.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxUZXJtcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Fahad/OneDrive/Videos/HealthInsuranceManagement/Views/Manager/ClaimDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFuYWdlclxDbGFpbURldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Fahad/OneDrive/Videos/HealthInsuranceManagement/Views/Manager/Claims.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFuYWdlclxDbGFpbXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Fahad/OneDrive/Videos/HealthInsuranceManagement/Views/Manager/Dashboard.cshtml]

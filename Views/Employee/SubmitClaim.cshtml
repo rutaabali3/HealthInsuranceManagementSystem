@@ -1,0 +1,75 @@
+@model SubmitClaimViewModel
+@{
+    ViewData["Title"] = "Submit Claim";
+}
+
+<section class="claims-shell">
+    <header class="role-page-header">
+        <div>
+            <h1>Submit Claim</h1>
+            <p>Submit a claim against one of your active assigned policies.</p>
+        </div>
+        <a asp-action="MyClaims" class="btn btn-outline-secondary action-button">
+            <i class="bi bi-arrow-left"></i><span>Back to Claims</span>
+        </a>
+    </header>
+
+    <div class="claim-form-grid">
+        <form asp-action="SubmitClaim" method="post" class="card border-0 shadow-sm">
+            @Html.AntiForgeryToken()
+            <div class="card-body p-4">
+                <div asp-validation-summary="ModelOnly" class="app-validation-summary d-none"></div>
+                <div class="mb-3">
+                    <label asp-for="PolicyOnEmployeeId" class="form-label fw-semibold"></label>
+                    <select asp-for="PolicyOnEmployeeId" class="form-select">
+                        <option value="">Select assigned policy</option>
+                        @foreach (var usage in Model.PolicyUsage)
+                        {
+                            <option value="@usage.PolicyOnEmployeeId">@usage.PolicyName - PKR @usage.AvailableAfterPending.ToString("N0") available</option>
+                        }
+                    </select>
+                    <span asp-validation-for="PolicyOnEmployeeId" class="text-danger small"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="ClaimType" class="form-label fw-semibold"></label>
+                    <input asp-for="ClaimType" class="form-control" placeholder="Hospitalization, OPD, medicine, dental..." />
+                    <span asp-validation-for="ClaimType" class="text-danger small"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="ClaimAmount" class="form-label fw-semibold"></label>
+                    <div class="input-group app-field-group">
+                        <span class="input-group-text"><i class="bi bi-cash-stack"></i></span>
+                        <input asp-for="ClaimAmount" class="form-control" type="number" min="1" step="0.01" />
+                    </div>
+                    <span asp-validation-for="ClaimAmount" class="text-danger small"></span>
+                </div>
+                <div class="mb-4">
+                    <label asp-for="Reason" class="form-label fw-semibold"></label>
+                    <textarea asp-for="Reason" class="form-control" rows="5" placeholder="Describe the medical expense and why you are claiming it."></textarea>
+                    <span asp-validation-for="Reason" class="text-danger small"></span>
+                </div>
+                <button type="submit" class="btn btn-primary action-button">
+                    <i class="bi bi-send"></i><span>Submit Claim</span>
+                </button>
+            </div>
+        </form>
+
+        <aside class="claim-usage-stack">
+            @foreach (var usage in Model.PolicyUsage)
+            {
+                <article class="claim-usage-card">
+                    <div>
+                        <span>@usage.CompanyName</span>
+                        <h2>@usage.PolicyName</h2>
+                    </div>
+                    <dl>
+                        <dt>Coverage</dt><dd>PKR @usage.CoverageLimit.ToString("N0")</dd>
+                        <dt>Used</dt><dd>PKR @usage.UsedAmount.ToString("N0")</dd>
+                        <dt>Pending</dt><dd>PKR @usage.PendingAmount.ToString("N0")</dd>
+                        <dt>Available</dt><dd>PKR @usage.AvailableAfterPending.ToString("N0")</dd>
+                    </dl>
+                </article>
+            }
+        </aside>
+    </div>
+</section>

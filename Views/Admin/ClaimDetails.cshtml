@@ -1,0 +1,49 @@
+@model InsuranceClaim
+@{
+    ViewData["Title"] = "Claim Details";
+    var employeeName = $"{Model.Employee?.FirstName} {Model.Employee?.LastName}".Trim();
+    var managerName = $"{Model.Manager?.FirstName} {Model.Manager?.LastName}".Trim();
+    var financeName = $"{Model.FinanceManager?.FirstName} {Model.FinanceManager?.LastName}".Trim();
+}
+
+<section class="manager-request-shell">
+    <header class="manager-request-hero">
+        <div>
+            <a asp-action="Claims" class="manager-back-link"><i class="bi bi-arrow-left"></i><span>Back to claims</span></a>
+            <p class="manager-request-eyebrow">Claim #@Model.ClaimId</p>
+            <h1>@(Model.AssignedPolicy?.Policy?.PolicyName ?? "Insurance Claim")</h1>
+            <div class="manager-request-meta">
+                <span><i class="bi bi-person-badge"></i>@(string.IsNullOrWhiteSpace(employeeName) ? "Employee" : employeeName)</span>
+                <span><i class="bi bi-building"></i>@(Model.AssignedPolicy?.Policy?.Company?.CompanyName ?? "-")</span>
+                <span><i class="bi bi-calendar3"></i>@Model.SubmittedAt.ToString("dd MMM yyyy")</span>
+            </div>
+        </div>
+        <aside class="manager-request-amount">
+            <span>Claim amount</span>
+            <strong>PKR @Model.ClaimAmount.ToString("N0")</strong>
+            <small>@Model.Status</small>
+        </aside>
+    </header>
+
+    <div class="manager-request-layout">
+        <main class="manager-request-main">
+            <article class="manager-detail-panel">
+                <div class="manager-panel-title"><span><i class="bi bi-person-lines-fill"></i></span><h2>Employee</h2></div>
+                <dl class="manager-detail-list"><dt>Name</dt><dd>@employeeName</dd><dt>Email</dt><dd>@(Model.Employee?.Email ?? "-")</dd><dt>Department</dt><dd>@(Model.Employee?.Department ?? "-")</dd><dt>Designation</dt><dd>@(Model.Employee?.Designation ?? "-")</dd></dl>
+            </article>
+            <article class="manager-detail-panel">
+                <div class="manager-panel-title"><span><i class="bi bi-clipboard-pulse"></i></span><h2>Claim</h2></div>
+                <dl class="manager-detail-list"><dt>Type</dt><dd>@Model.ClaimType</dd><dt>Requested</dt><dd>PKR @Model.ClaimAmount.ToString("N0")</dd><dt>Approved</dt><dd>PKR @Model.ApprovedAmount.ToString("N0")</dd><dt>Status</dt><dd>@Model.Status</dd></dl>
+            </article>
+            <article class="manager-detail-panel">
+                <div class="manager-panel-title"><span><i class="bi bi-arrow-left-right"></i></span><h2>Workflow</h2></div>
+                <dl class="manager-detail-list"><dt>Manager</dt><dd>@(string.IsNullOrWhiteSpace(managerName) ? "-" : managerName)</dd><dt>Finance</dt><dd>@(string.IsNullOrWhiteSpace(financeName) ? "-" : financeName)</dd><dt>Reviewed</dt><dd>@(Model.ReviewedAt?.ToString("dd MMM yyyy, hh:mm tt") ?? "-")</dd><dt>Paid</dt><dd>@(Model.PaidAt?.ToString("dd MMM yyyy, hh:mm tt") ?? "-")</dd><dt>Closed</dt><dd>@(Model.ClosedAt?.ToString("dd MMM yyyy, hh:mm tt") ?? "-")</dd></dl>
+            </article>
+            <article class="manager-detail-panel manager-note-panel">
+                <div class="manager-panel-title"><span><i class="bi bi-chat-left-text"></i></span><h2>Reason and Remarks</h2></div>
+                <p>@Model.Reason</p>
+                <p class="mt-3"><strong>Remarks:</strong> @(string.IsNullOrWhiteSpace(Model.Remarks) ? "-" : Model.Remarks)</p>
+            </article>
+        </main>
+    </div>
+</section>

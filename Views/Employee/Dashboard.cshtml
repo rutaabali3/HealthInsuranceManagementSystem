@@ -6,6 +6,7 @@
     var activePolicies = Model.AssignedPolicies.Count(p => p.Status == "Active");
     var pendingRequests = Model.MyRequests.Count(r => r.Status == "Pending");
     var closedRequests = Model.MyRequests.Count(r => r.Status == "Closed");
+    var pendingClaims = Model.RecentClaims.Count(c => c.Status == InsuranceClaim.Pending);
 }
 
 <section class="role-dashboard-shell employee-dashboard-shell">
@@ -65,10 +66,22 @@
                         <span>Closed Requests</span>
                     </span>
                 </article>
+                <article class="role-metric-card metric-card-teal">
+                    <span class="role-metric-icon"><i class="bi bi-clipboard-pulse"></i></span>
+                    <span class="role-metric-content">
+                        <strong>@pendingClaims</strong>
+                        <span>Pending Claims</span>
+                    </span>
+                </article>
             </section>
             <a asp-action="SearchPolicy" class="employee-primary-action">
                 <span><i class="bi bi-search"></i></span>
                 <span><strong>Search & Request a Policy</strong><small>Compare available insurance coverage</small></span>
+                <i class="bi bi-chevron-right"></i>
+            </a>
+            <a asp-action="MyClaims" class="employee-primary-action">
+                <span><i class="bi bi-clipboard-pulse"></i></span>
+                <span><strong>Submit or Track Claims</strong><small>View remaining policy coverage</small></span>
                 <i class="bi bi-chevron-right"></i>
             </a>
         </div>
@@ -145,6 +158,47 @@
                                         @r.Status
                                     </span>
                                 </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </article>
+
+    <article class="role-dashboard-panel">
+        <div class="role-panel-heading">
+            <h2><i class="bi bi-clipboard-pulse"></i>Recent Claims</h2>
+            <a asp-action="MyClaims" class="panel-action">View All</a>
+        </div>
+        @if (!Model.RecentClaims.Any())
+        {
+            <div class="role-empty-state">
+                <span><i class="bi bi-clipboard"></i></span>
+                <strong>No claims submitted yet.</strong>
+                <small>Claims and coverage usage will appear here after submission.</small>
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-hover mb-0 align-middle role-table">
+                    <thead>
+                        <tr><th>Policy</th><th>Type</th><th>Amount</th><th>Status</th><th>Submitted</th></tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var claim in Model.RecentClaims)
+                        {
+                            <tr>
+                                <td>@claim.AssignedPolicy?.Policy?.PolicyName</td>
+                                <td>@claim.ClaimType</td>
+                                <td>PKR @claim.ClaimAmount.ToString("N0")</td>
+                                <td>
+                                    <span class="status-pill @(claim.Status==InsuranceClaim.Pending?"status-waiting":claim.Status==InsuranceClaim.Rejected?"status-rejected":claim.Status==InsuranceClaim.Closed?"status-closed":"status-approved")">
+                                        @claim.Status
+                                    </span>
+                                </td>
+                                <td>@claim.SubmittedAt.ToString("dd MMM yyyy")</td>
                             </tr>
                         }
                     </tbody>

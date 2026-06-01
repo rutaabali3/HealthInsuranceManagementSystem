@@ -43,6 +43,8 @@ namespace HealthInsuranceManagement.Models
         [ForeignKey("PolicyId")]
         public Policy? Policy { get; set; }
 
+        public ICollection<InsuranceClaim> InsuranceClaims { get; set; } = new List<InsuranceClaim>();
+
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if (StartDate.Date < DateTime.Today)

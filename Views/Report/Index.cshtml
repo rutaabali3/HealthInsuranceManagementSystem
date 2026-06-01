@@ -35,25 +35,31 @@
 </div>
 
 <!-- Summary Badges -->
-@if (Model.EmployeeReport.Any() || Model.RequestReport.Any() || Model.BillingReport.Any())
+@if (Model.EmployeeReport.Any() || Model.RequestReport.Any() || Model.BillingReport.Any() || Model.ClaimReport.Any())
 {
     <div class="row g-3 mb-4">
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="card border-0 bg-primary text-white text-center py-3">
                 <div class="fs-4 fw-bold">@Model.EmployeeReport.Count</div>
                 <div class="small">Employees in Period</div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="card border-0 bg-success text-white text-center py-3">
                 <div class="fs-4 fw-bold">@Model.RequestReport.Count</div>
                 <div class="small">Policy Requests in Period</div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="card border-0 bg-dark text-white text-center py-3">
                 <div class="fs-4 fw-bold">PKR @Model.BillingReport.Sum(b => b.Amount).ToString("N0")</div>
                 <div class="small">Bills in Period</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 bg-info text-white text-center py-3">
+                <div class="fs-4 fw-bold">PKR @Model.ClaimReport.Sum(c => c.ApprovedAmount).ToString("N0")</div>
+                <div class="small">Approved Claims</div>
             </div>
         </div>
     </div>
@@ -105,6 +111,63 @@
                                 <td>@e.Designation</td>
                                 <td>@e.Email</td>
                                 <td>@e.RegisteredAt.ToString("dd MMM yyyy")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Claim Report Table -->
+<div class="card border-0 shadow-sm mt-4">
+    <div class="card-header bg-white py-3">
+        <h5 class="mb-0 fw-semibold">
+            <i class="bi bi-clipboard-pulse me-2 text-primary"></i>Claim Report
+            <span class="badge bg-primary ms-2">@Model.ClaimReport.Count</span>
+        </h5>
+    </div>
+    <div class="card-body p-0">
+        @if (!Model.ClaimReport.Any())
+        {
+            <div class="report-empty-state">
+                <div class="report-empty-illustration">
+                    <i class="bi bi-clipboard"></i>
+                    <span><i class="bi bi-check-lg"></i></span>
+                </div>
+                <h3>No claims yet.</h3>
+                <p>Insurance claims for the selected period will appear here.</p>
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Employee</th>
+                            <th>Policy</th>
+                            <th>Claim Amount</th>
+                            <th>Approved Amount</th>
+                            <th>Status</th>
+                            <th>Submitted</th>
+                            <th>Paid</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var c in Model.ClaimReport)
+                        {
+                            <tr>
+                                <td>@c.ClaimId</td>
+                                <td class="fw-semibold">@c.Employee?.FirstName @c.Employee?.LastName</td>
+                                <td>@c.AssignedPolicy?.Policy?.PolicyName</td>
+                                <td>PKR @c.ClaimAmount.ToString("N0")</td>
+                                <td>PKR @c.ApprovedAmount.ToString("N0")</td>
+                                <td><span class="badge bg-secondary">@c.Status</span></td>
+                                <td>@c.SubmittedAt.ToString("dd MMM yyyy")</td>
+                                <td>@(c.PaidAt?.ToString("dd MMM yyyy") ?? "-")</td>
                             </tr>
                         }
                     </tbody>

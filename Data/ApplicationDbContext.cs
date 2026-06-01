@@ -21,6 +21,7 @@ namespace HealthInsuranceManagement.Data
         public DbSet<PolicyOnEmployee> PolicyOnEmployees { get; set; }
         public DbSet<PolicyApprovalDetails> PolicyApprovalDetails { get; set; }
         public DbSet<PolicyBill> PolicyBills { get; set; }
+        public DbSet<InsuranceClaim> InsuranceClaims { get; set; }
         public DbSet<PolicyRequestDetails> PolicyRequestDetails { get; set; }
         public DbSet<PolicyTotalDescription> PolicyTotalDescriptions { get; set; }
         public DbSet<PasswordResetToken> PasswordResetTokens { get; set; }
@@ -60,6 +61,18 @@ namespace HealthInsuranceManagement.Data
 
             modelBuilder.Entity<FaqItem>()
                 .HasIndex(f => new { f.Category, f.DisplayOrder, f.IsActive });
+
+            modelBuilder.Entity<InsuranceClaim>()
+                .HasIndex(c => c.EmpId);
+
+            modelBuilder.Entity<InsuranceClaim>()
+                .HasIndex(c => c.PolicyOnEmployeeId);
+
+            modelBuilder.Entity<InsuranceClaim>()
+                .HasIndex(c => c.Status);
+
+            modelBuilder.Entity<InsuranceClaim>()
+                .HasIndex(c => c.SubmittedAt);
 
             // ── Relationships ──────────────────────────────────────────
             modelBuilder.Entity<Policy>()
@@ -120,6 +133,30 @@ namespace HealthInsuranceManagement.Data
                 .HasOne(b => b.FinanceManager)
                 .WithMany()
                 .HasForeignKey(b => b.FinanceManagerId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<InsuranceClaim>()
+                .HasOne(c => c.Employee)
+                .WithMany(e => e.InsuranceClaims)
+                .HasForeignKey(c => c.EmpId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<InsuranceClaim>()
+                .HasOne(c => c.AssignedPolicy)
+                .WithMany(pe => pe.InsuranceClaims)
+                .HasForeignKey(c => c.PolicyOnEmployeeId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<InsuranceClaim>()
+                .HasOne(c => c.Manager)
+                .WithMany()
+                .HasForeignKey(c => c.ManagerId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<InsuranceClaim>()
+                .HasOne(c => c.FinanceManager)
+                .WithMany()
+                .HasForeignKey(c => c.FinanceManagerId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<PolicyTotalDescription>()

@@ -1,0 +1,86 @@
+@model EmployeeClaimsViewModel
+@{
+    ViewData["Title"] = "My Claims";
+}
+
+<section class="claims-shell">
+    <header class="role-page-header">
+        <div>
+            <h1>My Claims</h1>
+            <p>Track submitted claims and remaining coverage for your assigned policies.</p>
+        </div>
+        <a asp-action="SubmitClaim" class="btn btn-primary action-button">
+            <i class="bi bi-plus-circle"></i><span>Submit Claim</span>
+        </a>
+    </header>
+
+    <section class="claims-usage-grid">
+        @if (!Model.PolicyUsage.Any())
+        {
+            <article class="claims-empty-panel">
+                <i class="bi bi-shield"></i>
+                <strong>No active assigned policies.</strong>
+                <span>Claims can be submitted after a policy is assigned to you.</span>
+            </article>
+        }
+        @foreach (var usage in Model.PolicyUsage)
+        {
+            <article class="claim-usage-card">
+                <div>
+                    <span>@usage.CompanyName</span>
+                    <h2>@usage.PolicyName</h2>
+                </div>
+                <dl>
+                    <dt>Coverage</dt><dd>PKR @usage.CoverageLimit.ToString("N0")</dd>
+                    <dt>Used</dt><dd>PKR @usage.UsedAmount.ToString("N0")</dd>
+                    <dt>Pending</dt><dd>PKR @usage.PendingAmount.ToString("N0")</dd>
+                    <dt>Available</dt><dd>PKR @usage.AvailableAfterPending.ToString("N0")</dd>
+                </dl>
+                <a asp-action="SubmitClaim" asp-route-policyOnEmployeeId="@usage.PolicyOnEmployeeId" class="btn btn-sm btn-outline-primary">
+                    <i class="bi bi-send"></i>Claim
+                </a>
+            </article>
+        }
+    </section>
+
+    <article class="role-dashboard-panel">
+        <div class="role-panel-heading">
+            <h2><i class="bi bi-clipboard-pulse"></i>Claim History</h2>
+            <span>@Model.Claims.Count total</span>
+        </div>
+        @if (!Model.Claims.Any())
+        {
+            <div class="role-empty-state">
+                <span><i class="bi bi-clipboard"></i></span>
+                <strong>No claims submitted yet.</strong>
+                <small>Your claim history will appear here.</small>
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-hover align-middle role-table mb-0">
+                    <thead>
+                        <tr><th>#</th><th>Policy</th><th>Type</th><th>Claim</th><th>Approved</th><th>Status</th><th>Submitted</th><th></th></tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var claim in Model.Claims)
+                        {
+                            var statusClass = claim.Status == InsuranceClaim.Pending ? "status-waiting" : claim.Status == InsuranceClaim.Rejected ? "status-rejected" : claim.Status == InsuranceClaim.Closed ? "status-closed" : "status-approved";
+                            <tr>
+                                <td>#@claim.ClaimId</td>
+                                <td>@claim.AssignedPolicy?.Policy?.PolicyName</td>
+                                <td>@claim.ClaimType</td>
+                                <td>PKR @claim.ClaimAmount.ToString("N0")</td>
+                                <td>PKR @claim.ApprovedAmount.ToString("N0")</td>
+                                <td><span class="status-pill @statusClass">@claim.Status</span></td>
+                                <td>@claim.SubmittedAt.ToString("dd MMM yyyy")</td>
+                                <td><a asp-action="ClaimDetails" asp-route-id="@claim.ClaimId" class="btn btn-sm btn-outline-secondary"><i class="bi bi-eye"></i>View</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </article>
+</section>

@@ -1,0 +1,66 @@
+@model List<InsuranceClaim>
+@{
+    ViewData["Title"] = "Claims";
+}
+
+<section class="claims-shell">
+    <header class="role-page-header">
+        <div>
+            <h1>Claims</h1>
+            <p>Pay approved insurance claims and close completed payouts.</p>
+        </div>
+    </header>
+
+    <article class="role-dashboard-panel">
+        <div class="role-panel-heading">
+            <h2><i class="bi bi-cash-coin"></i>Claim Payment Queue</h2>
+            <span>@Model.Count total</span>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle role-table mb-0">
+                <thead>
+                    <tr><th>#</th><th>Employee</th><th>Policy</th><th>Approved</th><th>Status</th><th>Reviewed</th><th>Action</th></tr>
+                </thead>
+                <tbody>
+                    @if (!Model.Any())
+                    {
+                        <tr><td colspan="7"><div class="role-empty-state"><span><i class="bi bi-inbox"></i></span><strong>No approved claims yet.</strong><small>Approved claims will appear here for payment.</small></div></td></tr>
+                    }
+                    @foreach (var claim in Model)
+                    {
+                        var statusClass = claim.Status == InsuranceClaim.Paid ? "status-forwarded" : claim.Status == InsuranceClaim.Closed ? "status-closed" : "status-approved";
+                        <tr>
+                            <td>#@claim.ClaimId</td>
+                            <td class="fw-semibold">@claim.Employee?.FirstName @claim.Employee?.LastName</td>
+                            <td>@claim.AssignedPolicy?.Policy?.PolicyName</td>
+                            <td>PKR @claim.ApprovedAmount.ToString("N0")</td>
+                            <td><span class="status-pill @statusClass">@claim.Status</span></td>
+                            <td>@(claim.ReviewedAt?.ToString("dd MMM yyyy") ?? "-")</td>
+                            <td>
+                                <div class="manager-action-row">
+                                    <a asp-action="ClaimDetails" asp-route-id="@claim.ClaimId" class="btn btn-sm btn-outline-secondary action-button"><i class="bi bi-eye"></i><span>View</span></a>
+                                    @if (claim.Status == InsuranceClaim.Approved)
+                                    {
+                                        <form asp-action="PayClaim" method="post" data-swal-title="Pay claim" data-swal-confirm="Credit this approved claim?" data-swal-confirm-button="Pay">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="claimId" value="@claim.ClaimId" />
+                                            <button type="submit" class="btn btn-sm btn-success action-button"><i class="bi bi-cash"></i><span>Pay</span></button>
+                                        </form>
+                                    }
+                                    else if (claim.Status == InsuranceClaim.Paid)
+                                    {
+                                        <form asp-action="CloseClaim" method="post" data-swal-title="Close claim" data-swal-confirm="Close this paid claim?" data-swal-confirm-button="Close">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="claimId" value="@claim.ClaimId" />
+                                            <button type="submit" class="btn btn-sm btn-dark action-button"><i class="bi bi-check2-circle"></i><span>Close</span></button>
+                                        </form>
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </article>
+</section>

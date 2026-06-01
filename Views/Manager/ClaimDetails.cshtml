@@ -1,0 +1,88 @@
+@model InsuranceClaim
+@{
+    ViewData["Title"] = "Claim Details";
+    var usage = ViewBag.Usage as HealthInsuranceManagement.Services.ClaimUsageSummary;
+    var employeeName = $"{Model.Employee?.FirstName} {Model.Employee?.LastName}".Trim();
+    var statusClass = Model.Status == InsuranceClaim.Pending ? "manager-status-waiting" : Model.Status == InsuranceClaim.Rejected ? "manager-status-rejected" : "manager-status-ready";
+}
+
+<section class="manager-request-shell">
+    <header class="manager-request-hero">
+        <div>
+            <a asp-action="Claims" class="manager-back-link"><i class="bi bi-arrow-left"></i><span>Back to claims</span></a>
+            <p class="manager-request-eyebrow">Claim #@Model.ClaimId</p>
+            <h1>@(Model.AssignedPolicy?.Policy?.PolicyName ?? "Insurance Claim")</h1>
+            <div class="manager-request-meta">
+                <span><i class="bi bi-person-badge"></i>@(string.IsNullOrWhiteSpace(employeeName) ? "Employee" : employeeName)</span>
+                <span><i class="bi bi-building"></i>@(Model.AssignedPolicy?.Policy?.Company?.CompanyName ?? "-")</span>
+                <span><i class="bi bi-calendar3"></i>@Model.SubmittedAt.ToString("dd MMM yyyy")</span>
+            </div>
+        </div>
+        <aside class="manager-request-amount">
+            <span>Claim amount</span>
+            <strong>PKR @Model.ClaimAmount.ToString("N0")</strong>
+            <small>@Model.Status</small>
+        </aside>
+    </header>
+
+    <section class="manager-request-metrics" aria-label="Coverage numbers">
+        <article><span class="metric-icon metric-blue"><i class="bi bi-shield-check"></i></span><div><strong>PKR @(usage?.CoverageLimit.ToString("N0") ?? "0")</strong><small>Coverage Limit</small></div></article>
+        <article><span class="metric-icon metric-green"><i class="bi bi-check2-circle"></i></span><div><strong>PKR @(usage?.UsedAmount.ToString("N0") ?? "0")</strong><small>Used Coverage</small></div></article>
+        <article><span class="metric-icon metric-amber"><i class="bi bi-wallet2"></i></span><div><strong>PKR @(usage?.AvailableAfterPending.ToString("N0") ?? "0")</strong><small>Available After Pending</small></div></article>
+    </section>
+
+    <div class="manager-request-layout">
+        <main class="manager-request-main">
+            <article class="manager-detail-panel">
+                <div class="manager-panel-title"><span><i class="bi bi-person-lines-fill"></i></span><h2>Employee Details</h2></div>
+                <dl class="manager-detail-list">
+                    <dt>Name</dt><dd>@employeeName</dd>
+                    <dt>Email</dt><dd>@(Model.Employee?.Email ?? "-")</dd>
+                    <dt>Department</dt><dd>@(Model.Employee?.Department ?? "-")</dd>
+                    <dt>Designation</dt><dd>@(Model.Employee?.Designation ?? "-")</dd>
+                </dl>
+            </article>
+            <article class="manager-detail-panel">
+                <div class="manager-panel-title"><span><i class="bi bi-clipboard-pulse"></i></span><h2>Claim Details</h2></div>
+                <dl class="manager-detail-list">
+                    <dt>Type</dt><dd>@Model.ClaimType</dd>
+                    <dt>Claim</dt><dd>PKR @Model.ClaimAmount.ToString("N0")</dd>
+                    <dt>Approved</dt><dd>PKR @Model.ApprovedAmount.ToString("N0")</dd>
+                    <dt>Submitted</dt><dd>@Model.SubmittedAt.ToString("dd MMM yyyy, hh:mm tt")</dd>
+                </dl>
+            </article>
+            <article class="manager-detail-panel manager-note-panel">
+                <div class="manager-panel-title"><span><i class="bi bi-chat-left-text"></i></span><h2>Claim Reason</h2></div>
+                <p>@Model.Reason</p>
+            </article>
+        </main>
+        <aside class="manager-action-card">
+            <div class="manager-panel-title"><span><i class="bi bi-lightning-charge"></i></span><h2>Manager Action</h2></div>
+            <div class="manager-status-card @statusClass"><span>Status</span><strong>@Model.Status</strong></div>
+            @if (Model.Status == InsuranceClaim.Pending)
+            {
+                <div class="manager-action-stack">
+                    <form asp-action="DecideClaim" method="post" data-swal-title="Approve claim" data-swal-confirm="Approve this claim?" data-swal-confirm-button="Approve">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="claimId" value="@Model.ClaimId" />
+                        <input type="hidden" name="decision" value="@InsuranceClaim.Approved" />
+                        <input type="hidden" name="remarks" value="Approved by manager." />
+                        <button type="submit" class="btn btn-success w-100 action-button"><i class="bi bi-check-lg"></i><span>Approve Claim</span></button>
+                    </form>
+                    <form asp-action="DecideClaim" method="post" data-swal-title="Reject claim" data-swal-confirm="Reject this claim?" data-swal-confirm-button="Reject">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="claimId" value="@Model.ClaimId" />
+                        <input type="hidden" name="decision" value="@InsuranceClaim.Rejected" />
+                        <input type="hidden" name="remarks" value="Rejected by manager." />
+                        <button type="submit" class="btn btn-outline-danger w-100 action-button"><i class="bi bi-x-lg"></i><span>Reject Claim</span></button>
+                    </form>
+                </div>
+            }
+            else
+            {
+                <p class="manager-action-note">This claim is not waiting for manager action.</p>
+            }
+            <dl class="manager-mini-list"><dt>Remarks</dt><dd>@(string.IsNullOrWhiteSpace(Model.Remarks) ? "-" : Model.Remarks)</dd></dl>
+        </aside>
+    </div>
+</section>

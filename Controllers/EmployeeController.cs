@@ -20,11 +20,13 @@ namespace HealthInsuranceManagement.Controllers
     {
         private readonly ApplicationDbContext _db;
         private readonly INotificationService _notifications;
+        private readonly IClaimUsageService _claimUsage;
 
-        public EmployeeController(ApplicationDbContext db, INotificationService notifications)
+        public EmployeeController(ApplicationDbContext db, INotificationService notifications, IClaimUsageService claimUsage)
         {
             _db = db;
             _notifications = notifications;
+            _claimUsage = claimUsage;
         }
 
         // ── Auth guard ─────────────────────────────────────────────────
@@ -58,9 +60,150 @@ namespace HealthInsuranceManagement.Controllers
                     .Include(r => r.Bill)
                     .Where(r => r.EmpId == empId)
                     .OrderByDescending(r => r.RequestedAt)
+                    .ToListAsync(),
+                RecentClaims = await _db.InsuranceClaims
+                    .Include(c => c.AssignedPolicy).ThenInclude(pe => pe!.Policy)
+                    .Where(c => c.EmpId == empId)
+                    .OrderByDescending(c => c.SubmittedAt)
+                    .Take(5)
                     .ToListAsync()
             };
             return View(vm);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> MyClaims()
+        {
+            var guard = EmpGuard(); if (guard != null) return guard;
+
+            var vm = new EmployeeClaimsViewModel
+            {
+                PolicyUsage = await BuildClaimUsageAsync(CurrentEmpId),
+                Claims = await _db.InsuranceClaims
+                    .Include(c => c.AssignedPolicy).ThenInclude(pe => pe!.Policy).ThenInclude(p => p!.Company)
+                    .Include(c => c.Manager)
+                    .Include(c => c.FinanceManager)
+                    .Where(c => c.EmpId == CurrentEmpId)
+                    .OrderByDescending(c => c.SubmittedAt)
+                    .ToListAsync()
+            };
+
+            return View(vm);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> SubmitClaim(int? policyOnEmployeeId)
+        {
+            var guard = EmpGuard(); if (guard != null) return guard;
+
+            var vm = new SubmitClaimViewModel
+            {
+                PolicyOnEmployeeId = policyOnEmployeeId ?? 0,
+                PolicyUsage = await BuildClaimUsageAsync(CurrentEmpId)
+            };
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SubmitClaim(SubmitClaimViewModel model)
+        {
+            var guard = EmpGuard(); if (guard != null) return guard;
+
+            var assignment = await _db.PolicyOnEmployees
+                .Include(pe => pe.Employee)
+                .Include(pe => pe.Policy).ThenInclude(p => p!.Company)
+                .FirstOrDefaultAsync(pe => pe.Id == model.PolicyOnEmployeeId
+                    && pe.EmpId == CurrentEmpId
+                    && pe.Status == "Active");
+
+            if (assignment == null)
+                ModelState.AddModelError(nameof(model.PolicyOnEmployeeId), "Select one of your active assigned policies.");
+
+            if (assignment != null && !await _claimUsage.HasAvailableCoverageAsync(assignment.Id, model.ClaimAmount))
+            {
+                var usage = await _claimUsage.GetUsageAsync(assignment.Id);
+                ModelState.AddModelError(nameof(model.ClaimAmount), $"Claim exceeds remaining coverage. Available after pending claims: PKR {usage.AvailableAfterPending:N0}.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                model.PolicyUsage = await BuildClaimUsageAsync(CurrentEmpId);
+                return View(model);
+            }
+
+            var claim = new InsuranceClaim
+            {
+                EmpId = CurrentEmpId,
+                PolicyOnEmployeeId = assignment!.Id,
+                ClaimType = model.ClaimType.Trim(),
+                ClaimAmount = model.ClaimAmount,
+                Reason = model.Reason.Trim(),
+                Status = InsuranceClaim.Pending,
+                SubmittedAt = DateTime.UtcNow
+            };
+
+            _db.InsuranceClaims.Add(claim);
+            await _db.SaveChangesAsync();
+
+            var employeeName = $"{assignment.Employee?.FirstName} {assignment.Employee?.LastName}".Trim();
+            var body = $"""
+                <p><strong>{employeeName}</strong> submitted a new insurance claim.</p>
+                <p><strong>Policy:</strong> {assignment.Policy?.PolicyName}</p>
+                <p><strong>Claim Type:</strong> {claim.ClaimType}</p>
+                <p><strong>Claim Amount:</strong> PKR {claim.ClaimAmount:N0}</p>
+                <p>This claim is waiting for manager review.</p>
+                """;
+
+            await _notifications.NotifyAdminsAsync("New insurance claim submitted", body, "InsuranceClaimSubmitted", claim.ClaimId);
+            await _notifications.NotifyStaffByRoleAsync(UserRoles.Manager, "New claim waiting for manager review", body, "InsuranceClaimSubmitted", claim.ClaimId);
+            if (assignment.Employee != null)
+            {
+                await _notifications.NotifyAsync(
+                    assignment.Employee.Email,
+                    employeeName,
+                    UserRoles.Employee,
+                    "Your insurance claim was submitted",
+                    $"""
+                    <p>Your claim for <strong>{assignment.Policy?.PolicyName}</strong> has been submitted.</p>
+                    <p><strong>Claim Amount:</strong> PKR {claim.ClaimAmount:N0}</p>
+                    <p>Status: Pending manager review.</p>
+                    """,
+                    "InsuranceClaimSubmitted",
+                    claim.ClaimId);
+            }
+            await _notifications.NotifyCompanyAsync(
+                assignment.Policy?.Company,
+                "An employee submitted a claim for your company policy",
+                $"""
+                <p>An employee submitted a claim for a policy linked to your company.</p>
+                <p><strong>Employee:</strong> {employeeName}</p>
+                <p><strong>Policy:</strong> {assignment.Policy?.PolicyName}</p>
+                <p><strong>Claim Amount:</strong> PKR {claim.ClaimAmount:N0}</p>
+                <p><strong>Status:</strong> Pending manager review</p>
+                """,
+                "InsuranceClaimSubmitted",
+                claim.ClaimId);
+
+            TempData["Success"] = "Your claim has been submitted for manager review.";
+            return RedirectToAction("MyClaims");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ClaimDetails(int id)
+        {
+            var guard = EmpGuard(); if (guard != null) return guard;
+
+            var claim = await _db.InsuranceClaims
+                .Include(c => c.AssignedPolicy).ThenInclude(pe => pe!.Policy).ThenInclude(p => p!.Company)
+                .Include(c => c.Manager)
+                .Include(c => c.FinanceManager)
+                .FirstOrDefaultAsync(c => c.ClaimId == id && c.EmpId == CurrentEmpId);
+
+            if (claim == null) return NotFound();
+            ViewBag.Usage = await _claimUsage.GetUsageAsync(claim.PolicyOnEmployeeId);
+            return View(claim);
         }
 
         // ══════════════════════════════════════════════════════════════
@@ -284,6 +427,37 @@ namespace HealthInsuranceManagement.Controllers
 
             TempData["Success"] = "Your insurance request and bill have been submitted. Awaiting manager approval.";
             return RedirectToAction("Dashboard");
+        }
+
+        private async Task<List<ClaimUsageViewModel>> BuildClaimUsageAsync(int empId)
+        {
+            var assignments = await _db.PolicyOnEmployees
+                .Include(pe => pe.Policy).ThenInclude(p => p!.Company)
+                .Where(pe => pe.EmpId == empId && pe.Status == "Active")
+                .OrderBy(pe => pe.Policy!.PolicyName)
+                .ToListAsync();
+
+            var usageRows = new List<ClaimUsageViewModel>();
+            foreach (var assignment in assignments)
+            {
+                var usage = await _claimUsage.GetUsageAsync(assignment.Id);
+                usageRows.Add(new ClaimUsageViewModel
+                {
+                    PolicyOnEmployeeId = assignment.Id,
+                    PolicyName = assignment.Policy?.PolicyName ?? "Assigned policy",
+                    CompanyName = assignment.Policy?.Company?.CompanyName ?? "-",
+                    Status = assignment.Status,
+                    StartDate = assignment.StartDate,
+                    EndDate = assignment.EndDate,
+                    CoverageLimit = usage.CoverageLimit,
+                    UsedAmount = usage.UsedAmount,
+                    PendingAmount = usage.PendingAmount,
+                    RemainingAmount = usage.RemainingAmount,
+                    AvailableAfterPending = usage.AvailableAfterPending
+                });
+            }
+
+            return usageRows;
         }
     }
 }

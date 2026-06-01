@@ -73,5 +73,6 @@ namespace HealthInsuranceManagement.Models
         // Navigation properties
         public ICollection<PolicyOnEmployee> PolicyOnEmployees { get; set; } = new List<PolicyOnEmployee>();
         public ICollection<PolicyRequestDetails> PolicyRequests { get; set; } = new List<PolicyRequestDetails>();
+        public ICollection<InsuranceClaim> InsuranceClaims { get; set; } = new List<InsuranceClaim>();
     }
 }

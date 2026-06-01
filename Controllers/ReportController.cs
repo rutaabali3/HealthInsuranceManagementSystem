@@ -75,6 +75,19 @@ namespace HealthInsuranceManagement.Controllers
 
             model.BillingReport = await billQuery.OrderByDescending(b => b.CreatedAt).ToListAsync();
 
+            var claimQuery = _db.InsuranceClaims
+                .Include(c => c.Employee)
+                .Include(c => c.AssignedPolicy).ThenInclude(pe => pe!.Policy)
+                .Include(c => c.Manager)
+                .Include(c => c.FinanceManager)
+                .AsQueryable();
+            if (model.FromDate.HasValue)
+                claimQuery = claimQuery.Where(c => c.SubmittedAt >= model.FromDate.Value);
+            if (model.ToDate.HasValue)
+                claimQuery = claimQuery.Where(c => c.SubmittedAt <= model.ToDate.Value.AddDays(1));
+
+            model.ClaimReport = await claimQuery.OrderByDescending(c => c.SubmittedAt).ToListAsync();
+
             return View(model);
         }
     }

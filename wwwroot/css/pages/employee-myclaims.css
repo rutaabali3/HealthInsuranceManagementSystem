@@ -1,0 +1,130 @@
+body[data-page="employee-myclaims"] .app-main,
+body[data-page="employee-submitclaim"] .app-main,
+body[data-page="employee-claimdetails"] .app-main,
+body[data-page="manager-claims"] .app-main,
+body[data-page="manager-claimdetails"] .app-main,
+body[data-page="finance-claims"] .app-main,
+body[data-page="finance-claimdetails"] .app-main,
+body[data-page="admin-claims"] .app-main,
+body[data-page="admin-claimdetails"] .app-main {
+    max-width: 1280px;
+    margin-top: 2.4rem !important;
+}
+
+.claims-shell {
+    display: grid;
+    gap: 1.2rem;
+}
+
+.claims-usage-grid,
+.claim-usage-stack {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.claim-form-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 360px;
+    gap: 1.2rem;
+    align-items: start;
+}
+
+.claim-usage-card,
+.claims-empty-panel {
+    background: #ffffff;
+    border: 1px solid #dbe8eb;
+    border-radius: 8px;
+    box-shadow: 0 12px 28px rgba(35, 58, 67, 0.07);
+}
+
+.claim-usage-card {
+    display: grid;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.claim-usage-card > div span {
+    color: #64748b;
+    font-size: .82rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.claim-usage-card h2 {
+    margin: .1rem 0 0;
+    color: #10282d;
+    font-size: 1.08rem;
+    font-weight: 900;
+}
+
+.claim-usage-card dl {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .55rem .85rem;
+    margin: 0;
+}
+
+.claim-usage-card dt {
+    color: #64748b;
+    font-weight: 800;
+}
+
+.claim-usage-card dd {
+    margin: 0;
+    color: #0f5132;
+    font-weight: 900;
+    text-align: right;
+}
+
+.claims-empty-panel {
+    display: grid;
+    justify-items: center;
+    gap: .35rem;
+    min-height: 180px;
+    padding: 2rem;
+    text-align: center;
+}
+
+.claims-empty-panel i {
+    color: #65b7b8;
+    font-size: 2.4rem;
+}
+
+.claims-empty-panel strong {
+    color: #1c333d;
+    font-size: 1.05rem;
+}
+
+.claims-empty-panel span {
+    color: #607481;
+}
+
+body[data-page="manager-claims"] .role-table thead th,
+body[data-page="finance-claims"] .role-table thead th,
+body[data-page="employee-myclaims"] .role-table thead th {
+    background: #e7f5f3 !important;
+}
+
+body[data-page="manager-claims"] .manager-action-row,
+body[data-page="finance-claims"] .manager-action-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .45rem;
+}
+
+body[data-page="manager-claims"] .manager-action-row form,
+body[data-page="finance-claims"] .manager-action-row form {
+    margin: 0;
+}
+
+body[data-page="manager-claims"] td:last-child,
+body[data-page="finance-claims"] td:last-child {
+    min-width: 220px;
+}
+
+@media (max-width: 991.98px) {
+    .claim-form-grid {
+        grid-template-columns: 1fr;
+    }
+}

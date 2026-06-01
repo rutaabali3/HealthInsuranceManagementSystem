@@ -24,9 +24,10 @@ body[data-page="home-faq"] .app-main {
     grid-template-columns: minmax(0, 2fr) minmax(300px, 1fr);
     gap: clamp(1rem, 3vw, 2rem);
     align-items: center;
-    min-height: 80vh;
+    min-height: 100vh;
     overflow: hidden;
     padding: clamp(1.5rem, 4vw, 3rem);
+    color: #ffffff;
     background: #e8f5f4;
     border: 0;
     border-radius: 0;
@@ -41,12 +42,12 @@ body[data-page="home-faq"] .app-main {
     inset: 0;
     z-index: 1;
     background:
-        linear-gradient(90deg, rgb(0, 106, 106, 0.8), rgba(0, 106, 106, 0.5) 46%, rgba(0, 106, 106, 0.2)),
-        linear-gradient(180deg, rgba(0, 106, 106, 0.2), rgba(0, 106, 106, 0.1));
+        linear-gradient(90deg, rgb(0,0,0,0.8), rgba(0,0,0,0.3) 46%, rgba(0,0,0,0.2)),
+        linear-gradient(180deg, rgba(0,0,0,0.1), rgba(0,0,0,0.05));
     pointer-events: none;
 }
 
-.faq-hero .hero-background-video {
+.faq-hero .hero-background-image {
     position: fixed;
     inset: 0;
     z-index: 0;
@@ -62,14 +63,16 @@ body[data-page="home-faq"] .app-main {
     z-index: 2;
     display: grid;
     align-content: center;
+    width: auto;
+    max-width: 500px;
     min-width: 0;
 }
 
 .faq-kicker {
+    display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    width: fit-content;
     min-height: 36px;
+    width: fit-content;
     padding: 0.3rem 0.8rem;
     margin-bottom: 1.55rem;
     color: #e9ffff;
@@ -81,14 +84,15 @@ body[data-page="home-faq"] .app-main {
 
 .faq-hero h1 {
     margin: 0;
-    color: #6ff7f6;
+    color: rgb(255, 255, 255);
     font-size: clamp(2.35rem, 5vw, 4rem);
     line-height: 1.05;
+    text-wrap: balance;
 }
 
 .faq-hero p {
-     max-width: 760px;
-    margin: 0.75rem 0 1.35rem;
+    max-width: 500px;
+    margin: 0.75rem 0 0;
     color: #e4e4e4;
     font-size: clamp(1.05rem, 1.5vw, 1.25rem);
     line-height: 1.55;
@@ -358,16 +362,22 @@ body[data-page="home-faq"] .app-main {
 }
 
 @media (max-width: 991.98px) {
-    .faq-hero {
-        grid-template-columns: 1fr;
-    }
-
     .faq-topic-nav {
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     }
 
     .faq-summary-row {
         grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 1199.98px) {
+    .faq-hero {
+        grid-template-columns: 1fr;
+    }
+
+    .faq-hero-copy {
+        max-width: 760px;
     }
 }
 
@@ -378,7 +388,10 @@ body[data-page="home-faq"] .app-main {
 
     .faq-hero {
         padding: 1.1rem;
-        background-position: 64% center;
+    }
+
+    .faq-hero h1 {
+        font-size: 2.6rem;
     }
 
     .faq-topic-nav {

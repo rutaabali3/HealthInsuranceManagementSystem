@@ -184,6 +184,10 @@
                     <i class="bi bi-inbox"></i>
                     <span>Policy Requests</span>
                 </a>
+                <a class="admin-sidebar-link @((IsActive("Admin", "Claims") == "active" || IsActive("Admin", "ClaimDetails") == "active") ? "active" : "")" asp-controller="Admin" asp-action="Claims" title="Claims">
+                    <i class="bi bi-clipboard-pulse"></i>
+                    <span>Claims</span>
+                </a>
                 <a class="admin-sidebar-link @(IsActive("Admin", "Search"))" asp-controller="Admin" asp-action="Search" title="Search">
                     <i class="bi bi-search"></i>
                     <span>Search</span>
@@ -203,6 +207,10 @@
                     <i class="bi bi-inbox"></i>
                     <span>Requests</span>
                 </a>
+                <a class="admin-sidebar-link @((IsActive("Manager", "Claims") == "active" || IsActive("Manager", "ClaimDetails") == "active") ? "active" : "")" asp-controller="Manager" asp-action="Claims" title="Claims">
+                    <i class="bi bi-clipboard-pulse"></i>
+                    <span>Claims</span>
+                </a>
                 <a class="admin-sidebar-link @(IsActive("Manager", "Details"))" asp-controller="Manager" asp-action="Details" title="My Details">
                     <i class="bi bi-person-lines-fill"></i>
                     <span>My Details</span>
@@ -221,6 +229,10 @@
                 <a class="admin-sidebar-link @((IsActive("Finance", "Requests") == "active" || IsActive("Finance", "RequestDetails") == "active") ? "active" : "")" asp-controller="Finance" asp-action="Requests" title="Policy Requests">
                     <i class="bi bi-inbox"></i>
                     <span>Requests</span>
+                </a>
+                <a class="admin-sidebar-link @((IsActive("Finance", "Claims") == "active" || IsActive("Finance", "ClaimDetails") == "active") ? "active" : "")" asp-controller="Finance" asp-action="Claims" title="Claims">
+                    <i class="bi bi-clipboard-pulse"></i>
+                    <span>Claims</span>
                 </a>
                 <a class="admin-sidebar-link @(IsActive("Finance", "Details"))" asp-controller="Finance" asp-action="Details" title="My Details">
                     <i class="bi bi-person-lines-fill"></i>
@@ -268,6 +280,10 @@
                     <i class="bi bi-search"></i>
                     <span>Search Policies</span>
                 </a>
+                <a class="admin-sidebar-link @((IsActive("Employee", "MyClaims") == "active" || IsActive("Employee", "SubmitClaim") == "active" || IsActive("Employee", "ClaimDetails") == "active") ? "active" : "")" asp-controller="Employee" asp-action="MyClaims" title="My Claims">
+                    <i class="bi bi-clipboard-pulse"></i>
+                    <span>My Claims</span>
+                </a>
                 <a class="admin-sidebar-link @(IsActive("Employee", "ChangePassword"))" asp-controller="Employee" asp-action="ChangePassword" title="Change Password">
                     <i class="bi bi-key"></i>
                     <span>Change Password</span>
@@ -292,9 +308,7 @@
 </main>
 
 <footer class="app-footer mt-5">
-    <video class="app-footer-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
-        <source src="~/images/site/footer-background.mp4" type="video/mp4" />
-    </video>
+    <img class="app-footer-image" src="~/images/site/footer-background.png" alt="" aria-hidden="true" />
     <div class="app-footer-panel">
         <div class="app-footer-inner">
             <div class="app-footer-brand">
@@ -303,23 +317,28 @@
                     <span>Health Insurance Management</span>
                 </a>
                 <p>
-                    Manage insurance policies, employee requests, approvals, billing, and finance workflows from one secure system.
+                    A secure workspace for policy management, employee requests, approvals, claims, billing, and support workflows.
                 </p>
+                <div class="app-footer-highlights" aria-label="Platform highlights">
+                    <span><i class="bi bi-shield-check"></i>Policy control</span>
+                    <span><i class="bi bi-clipboard-pulse"></i>Claim tracking</span>
+                    <span><i class="bi bi-headset"></i>Support ready</span>
+                </div>
             </div>
 
             <nav class="app-footer-links" aria-label="Footer navigation">
                 <div>
                     <h2>Navigate</h2>
-                    <a asp-controller="Home" asp-action="Index">Home</a>
-                    <a asp-controller="Home" asp-action="About">About</a>
-                    <a asp-controller="Home" asp-action="Contact">Contact</a>
-                    <a asp-controller="Home" asp-action="Faq">FAQ</a>
+                    <a asp-controller="Home" asp-action="Index"><i class="bi bi-house-door"></i><span>Home</span></a>
+                    <a asp-controller="Home" asp-action="About"><i class="bi bi-info-circle"></i><span>About</span></a>
+                    <a asp-controller="Home" asp-action="Contact"><i class="bi bi-envelope"></i><span>Contact</span></a>
+                    <a asp-controller="Home" asp-action="Faq"><i class="bi bi-question-circle"></i><span>FAQ</span></a>
                 </div>
                 <div>
                     <h2>Info</h2>
-                    <a asp-controller="Home" asp-action="Privacy">Privacy</a>
-                    <a asp-controller="Home" asp-action="Terms">Terms</a>
-                    <a asp-controller="Home" asp-action="Sitemap">Sitemap</a>
+                    <a asp-controller="Home" asp-action="Privacy"><i class="bi bi-shield-lock"></i><span>Privacy</span></a>
+                    <a asp-controller="Home" asp-action="Terms"><i class="bi bi-file-earmark-text"></i><span>Terms</span></a>
+                    <a asp-controller="Home" asp-action="Sitemap"><i class="bi bi-diagram-3"></i><span>Sitemap</span></a>
                 </div>
             </nav>
         </div>

@@ -7,6 +7,7 @@
     var paidCount = Model.ReceivedBills.Count(b => b.Status == "Paid");
     var closedCount = Model.ReceivedBills.Count(b => b.Status == "Closed");
     var totalAmount = Model.ReceivedBills.Where(b => b.Status == "ForwardedToFinance").Sum(b => b.Amount);
+    var approvedClaimCount = Model.ReceivedClaims.Count(c => c.Status == InsuranceClaim.Approved);
 }
 
 <section class="role-dashboard-shell finance-dashboard-shell">
@@ -55,6 +56,13 @@
             <span class="role-metric-content">
                 <strong>PKR @totalAmount.ToString("N0")</strong>
                 <span>Pending Value</span>
+            </span>
+        </article>
+        <article class="role-metric-card metric-card-amber">
+            <span class="role-metric-icon"><i class="bi bi-clipboard-pulse"></i></span>
+            <span class="role-metric-content">
+                <strong>@approvedClaimCount</strong>
+                <span>Claims to Pay</span>
             </span>
         </article>
     </section>
@@ -136,6 +144,37 @@
                                     }
                                 </div>
                             </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </article>
+
+    <article class="role-dashboard-panel">
+        <div class="role-panel-heading">
+            <h2><i class="bi bi-clipboard-pulse"></i>Approved Claims</h2>
+            <a asp-action="Claims" class="panel-action">View All</a>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle role-table mb-0">
+                <thead>
+                    <tr><th>#</th><th>Employee</th><th>Policy</th><th>Approved</th><th>Status</th><th>Action</th></tr>
+                </thead>
+                <tbody>
+                    @if (!Model.ReceivedClaims.Any())
+                    {
+                        <tr><td colspan="6"><div class="role-empty-state"><span><i class="bi bi-inbox"></i></span><strong>No approved claims.</strong><small>Manager-approved claims will appear here.</small></div></td></tr>
+                    }
+                    @foreach (var claim in Model.ReceivedClaims)
+                    {
+                        <tr>
+                            <td>#@claim.ClaimId</td>
+                            <td class="fw-semibold">@claim.Employee?.FirstName @claim.Employee?.LastName</td>
+                            <td>@claim.AssignedPolicy?.Policy?.PolicyName</td>
+                            <td>PKR @claim.ApprovedAmount.ToString("N0")</td>
+                            <td><span class="status-pill @(claim.Status==InsuranceClaim.Paid?"status-forwarded":claim.Status==InsuranceClaim.Closed?"status-closed":"status-approved")">@claim.Status</span></td>
+                            <td><a asp-action="ClaimDetails" asp-route-id="@claim.ClaimId" class="btn btn-sm btn-outline-secondary action-button"><i class="bi bi-eye"></i><span>View</span></a></td>
                         </tr>
                     }
                 </tbody>

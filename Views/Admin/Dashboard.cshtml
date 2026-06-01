@@ -79,6 +79,13 @@
                 <span class="metric-title">Bills in Flow</span>
             </span>
         </a>
+        <a asp-action="Claims" class="metric-card metric-card-teal">
+            <span class="metric-icon"><i class="bi bi-clipboard-pulse"></i></span>
+            <span class="metric-content">
+                <strong>@Model.PendingClaims</strong>
+                <span class="metric-title">Pending Claims</span>
+            </span>
+        </a>
     </section>
 
     <section class="dashboard-main-grid">
@@ -182,16 +189,56 @@
                     <div>
                         <span>Claims Processed</span>
                         <strong>@Model.ClaimsProcessedThisMonth</strong>
-                        <em>This month</em>
+                        <em>Billing flow</em>
                     </div>
                     <div>
                         <span>Bills Generated</span>
                         <strong>@Model.BillsGeneratedThisMonth</strong>
                         <em>This month</em>
                     </div>
+                    <div>
+                        <span>Approved Claims</span>
+                        <strong>PKR @Model.ApprovedClaimAmountThisMonth.ToString("N0")</strong>
+                        <em>This month</em>
+                    </div>
+                    <div>
+                        <span>Paid Claims</span>
+                        <strong>PKR @Model.PaidClaimAmountThisMonth.ToString("N0")</strong>
+                        <em>This month</em>
+                    </div>
                 </div>
             </div>
         </article>
+    </section>
+
+    <section class="dashboard-panel quick-actions-panel">
+        <div class="panel-heading">
+            <h2><i class="bi bi-clipboard-pulse"></i>Recent Claims</h2>
+            <a asp-action="Claims" class="panel-action">View All</a>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle role-table mb-0">
+                <thead>
+                    <tr><th>#</th><th>Employee</th><th>Policy</th><th>Amount</th><th>Status</th></tr>
+                </thead>
+                <tbody>
+                    @if (!Model.RecentClaims.Any())
+                    {
+                        <tr><td colspan="5"><div class="empty-state"><h3>No claims yet.</h3><p>Submitted claims will appear here.</p></div></td></tr>
+                    }
+                    @foreach (var claim in Model.RecentClaims)
+                    {
+                        <tr>
+                            <td>#@claim.ClaimId</td>
+                            <td>@claim.Employee?.FirstName @claim.Employee?.LastName</td>
+                            <td>@claim.AssignedPolicy?.Policy?.PolicyName</td>
+                            <td>PKR @claim.ClaimAmount.ToString("N0")</td>
+                            <td>@claim.Status</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </section>
 
     <section class="dashboard-panel quick-actions-panel">

@@ -42,6 +42,14 @@ namespace HealthInsuranceManagement.Controllers
                     .Include(b => b.Manager)
                     .Where(b => b.Status != "Rejected" || b.FinanceManagerId == CurrentFinanceManagerId)
                     .OrderByDescending(b => b.ForwardedAt ?? b.CreatedAt)
+                    .ToListAsync(),
+                ReceivedClaims = await _db.InsuranceClaims
+                    .Include(c => c.Employee)
+                    .Include(c => c.AssignedPolicy).ThenInclude(pe => pe!.Policy).ThenInclude(p => p!.Company)
+                    .Include(c => c.Manager)
+                    .Where(c => c.Status == InsuranceClaim.Approved || c.Status == InsuranceClaim.Paid || c.Status == InsuranceClaim.Closed)
+                    .OrderByDescending(c => c.ReviewedAt ?? c.SubmittedAt)
+                    .Take(6)
                     .ToListAsync()
             };
 
@@ -84,6 +92,152 @@ namespace HealthInsuranceManagement.Controllers
 
             if (bill?.PolicyRequest == null) return NotFound();
             return View(bill);
+        }
+
+        public async Task<IActionResult> Claims()
+        {
+            var guard = FinanceGuard(); if (guard != null) return guard;
+
+            var claims = await _db.InsuranceClaims
+                .Include(c => c.Employee)
+                .Include(c => c.AssignedPolicy).ThenInclude(pe => pe!.Policy).ThenInclude(p => p!.Company)
+                .Include(c => c.Manager)
+                .Include(c => c.FinanceManager)
+                .Where(c => c.Status == InsuranceClaim.Approved || c.Status == InsuranceClaim.Paid || c.Status == InsuranceClaim.Closed)
+                .OrderBy(c => c.Status == InsuranceClaim.Approved ? 0 : c.Status == InsuranceClaim.Paid ? 1 : 2)
+                .ThenByDescending(c => c.ReviewedAt ?? c.SubmittedAt)
+                .ToListAsync();
+
+            return View(claims);
+        }
+
+        public async Task<IActionResult> ClaimDetails(int id)
+        {
+            var guard = FinanceGuard(); if (guard != null) return guard;
+
+            var claim = await _db.InsuranceClaims
+                .Include(c => c.Employee)
+                .Include(c => c.AssignedPolicy).ThenInclude(pe => pe!.Policy).ThenInclude(p => p!.Company)
+                .Include(c => c.Manager)
+                .Include(c => c.FinanceManager)
+                .FirstOrDefaultAsync(c => c.ClaimId == id
+                    && (c.Status == InsuranceClaim.Approved || c.Status == InsuranceClaim.Paid || c.Status == InsuranceClaim.Closed));
+
+            if (claim == null) return NotFound();
+            return View(claim);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> PayClaim(int claimId)
+        {
+            var guard = FinanceGuard(); if (guard != null) return guard;
+
+            var claim = await _db.InsuranceClaims
+                .Include(c => c.Employee)
+                .Include(c => c.AssignedPolicy).ThenInclude(pe => pe!.Policy).ThenInclude(p => p!.Company)
+                .FirstOrDefaultAsync(c => c.ClaimId == claimId);
+
+            if (claim == null) return NotFound();
+            if (claim.Status != InsuranceClaim.Approved)
+            {
+                TempData["Error"] = "Only approved claims can be paid.";
+                return RedirectToAction("Claims");
+            }
+
+            claim.Status = InsuranceClaim.Paid;
+            claim.FinanceManagerId = CurrentFinanceManagerId;
+            claim.PaidAt = DateTime.UtcNow;
+            await _db.SaveChangesAsync();
+
+            var employeeName = $"{claim.Employee?.FirstName} {claim.Employee?.LastName}".Trim();
+            var body = $"""
+                <p>Finance paid an approved insurance claim.</p>
+                <p><strong>Employee:</strong> {employeeName}</p>
+                <p><strong>Policy:</strong> {claim.AssignedPolicy?.Policy?.PolicyName}</p>
+                <p><strong>Approved Amount:</strong> PKR {claim.ApprovedAmount:N0}</p>
+                """;
+
+            await _notifications.NotifyAdminsAsync("Insurance claim paid", body, "InsuranceClaimPaid", claim.ClaimId);
+            if (claim.Employee != null)
+            {
+                await _notifications.NotifyAsync(
+                    claim.Employee.Email,
+                    employeeName,
+                    UserRoles.Employee,
+                    "Your insurance claim was paid",
+                    $"""
+                    <p>Finance has paid your claim for <strong>{claim.AssignedPolicy?.Policy?.PolicyName}</strong>.</p>
+                    <p><strong>Approved Amount:</strong> PKR {claim.ApprovedAmount:N0}</p>
+                    """,
+                    "InsuranceClaimPaid",
+                    claim.ClaimId);
+            }
+            await _notifications.NotifyCompanyAsync(
+                claim.AssignedPolicy?.Policy?.Company,
+                "Insurance claim paid for your company policy",
+                body,
+                "InsuranceClaimPaid",
+                claim.ClaimId);
+
+            TempData["Success"] = $"Claim payment of PKR {claim.ApprovedAmount:N0} credited.";
+            return RedirectToAction("Claims");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CloseClaim(int claimId)
+        {
+            var guard = FinanceGuard(); if (guard != null) return guard;
+
+            var claim = await _db.InsuranceClaims
+                .Include(c => c.Employee)
+                .Include(c => c.AssignedPolicy).ThenInclude(pe => pe!.Policy).ThenInclude(p => p!.Company)
+                .FirstOrDefaultAsync(c => c.ClaimId == claimId);
+
+            if (claim == null) return NotFound();
+            if (claim.Status != InsuranceClaim.Paid)
+            {
+                TempData["Error"] = "Pay the claim before closing it.";
+                return RedirectToAction("Claims");
+            }
+
+            claim.Status = InsuranceClaim.Closed;
+            claim.ClosedAt = DateTime.UtcNow;
+            await _db.SaveChangesAsync();
+
+            var employeeName = $"{claim.Employee?.FirstName} {claim.Employee?.LastName}".Trim();
+            var body = $"""
+                <p>A paid insurance claim was closed.</p>
+                <p><strong>Employee:</strong> {employeeName}</p>
+                <p><strong>Policy:</strong> {claim.AssignedPolicy?.Policy?.PolicyName}</p>
+                <p><strong>Approved Amount:</strong> PKR {claim.ApprovedAmount:N0}</p>
+                """;
+
+            await _notifications.NotifyAdminsAsync("Insurance claim closed", body, "InsuranceClaimClosed", claim.ClaimId);
+            if (claim.Employee != null)
+            {
+                await _notifications.NotifyAsync(
+                    claim.Employee.Email,
+                    employeeName,
+                    UserRoles.Employee,
+                    "Your insurance claim was closed",
+                    $"""
+                    <p>Your paid claim for <strong>{claim.AssignedPolicy?.Policy?.PolicyName}</strong> has been closed.</p>
+                    <p><strong>Approved Amount:</strong> PKR {claim.ApprovedAmount:N0}</p>
+                    """,
+                    "InsuranceClaimClosed",
+                    claim.ClaimId);
+            }
+            await _notifications.NotifyCompanyAsync(
+                claim.AssignedPolicy?.Policy?.Company,
+                "Insurance claim closed for your company policy",
+                body,
+                "InsuranceClaimClosed",
+                claim.ClaimId);
+
+            TempData["Success"] = "Claim closed after payment.";
+            return RedirectToAction("Claims");
         }
 
         public async Task<IActionResult> Details()

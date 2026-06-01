@@ -8,7 +8,7 @@
         <div class="admin-search-group">
             <div class="input-group app-field-group">
                 <span class="input-group-text"><i class="bi bi-search"></i></span>
-                <input name="q" value="@Model.Query" class="form-control" placeholder="Search employees, companies, policies, requests, bills..." />
+                <input name="q" value="@Model.Query" class="form-control" placeholder="Search employees, companies, policies, requests, bills, claims..." />
             </div>
             <button class="btn btn-primary"><i class="bi bi-search me-1"></i>Search</button>
         </div>
@@ -133,6 +133,36 @@
                                             </div>
                                             <h3>No request or bill matches.</h3>
                                             <p>Matching requests and bills will appear here.</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-white fw-semibold">Claims</div>
+                <div class="card-body p-0">
+                    <table class="table table-sm mb-0">
+                        <tbody>
+                            @foreach (var c in Model.Claims)
+                            {
+                                <tr><td>Claim #@c.ClaimId</td><td>@c.Employee?.FirstName @c.Employee?.LastName</td><td>PKR @c.ClaimAmount.ToString("N0")</td><td>@c.Status</td></tr>
+                            }
+                            @if (!Model.Claims.Any())
+                            {
+                                <tr>
+                                    <td colspan="4">
+                                        <div class="admin-empty-state admin-empty-state-sm">
+                                            <div class="admin-empty-illustration">
+                                                <i class="bi bi-clipboard"></i>
+                                                <span><i class="bi bi-search"></i></span>
+                                            </div>
+                                            <h3>No claim matches.</h3>
+                                            <p>Matching claims will appear here.</p>
                                         </div>
                                     </td>
                                 </tr>

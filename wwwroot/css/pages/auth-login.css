@@ -30,8 +30,8 @@ body[data-page="auth-login"] form {
     content: "";
     position: absolute;
     pointer-events: none;
-    opacity: 0.16;
-    background-image: url("/images/login/Gemini_Generated_Image_rn1z4trn1z4trn1z-cleaned.png");
+    opacity: 0.3;
+    background-image: url("/images/login/hero.png");
     background-size: cover;
     background-position: center;
     filter: saturate(0.8);
@@ -39,17 +39,17 @@ body[data-page="auth-login"] form {
 }
 
 .login-shell::before {
-    width: 34rem;
-    height: 16rem;
-    left: -7rem;
+    width: 24rem;
+    height: 34rem;
+    left: -4rem;
     top: 14rem;
     transform: rotate(10deg);
 }
 
 .login-shell::after {
-    width: 38rem;
-    height: 18rem;
-    right: -8rem;
+    width: 28rem;
+    height: 38rem;
+    right: -4rem;
     bottom: 9rem;
     transform: rotate(-8deg);
 }
@@ -76,8 +76,7 @@ body[data-page="auth-login"] form {
     text-align: center;
     color: #ffffff;
     background:
-        linear-gradient(180deg, rgba(0, 43, 43, 0.08), rgba(0, 43, 43, 0.5)),
-        url("/images/login/Gemini_Generated_Image_rn1z4trn1z4trn1z-cleaned.png") center / cover;
+        linear-gradient(180deg, rgba(0, 43, 43, 0.08), rgba(0, 43, 43, 0.5));
     clip-path: inset(0);
     isolation: isolate;
 }

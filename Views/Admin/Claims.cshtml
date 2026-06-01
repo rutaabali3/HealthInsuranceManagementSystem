@@ -1,0 +1,43 @@
+@model List<InsuranceClaim>
+@{
+    ViewData["Title"] = "Claims";
+}
+
+<h2 class="fw-bold mb-4"><i class="bi bi-clipboard-pulse text-primary me-2"></i>Insurance Claims</h2>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+        <h5 class="mb-0 fw-semibold">Claim Records</h5>
+        <span class="badge bg-primary">@Model.Count</span>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr><th>#</th><th>Employee</th><th>Policy</th><th>Type</th><th>Claim</th><th>Approved</th><th>Status</th><th>Submitted</th><th></th></tr>
+                </thead>
+                <tbody>
+                    @if (!Model.Any())
+                    {
+                        <tr><td colspan="9"><div class="admin-empty-state"><div class="admin-empty-illustration"><i class="bi bi-clipboard"></i><span><i class="bi bi-check-lg"></i></span></div><h3>No claims yet.</h3><p>Submitted insurance claims will appear here.</p></div></td></tr>
+                    }
+                    @foreach (var claim in Model)
+                    {
+                        var statusClass = claim.Status == InsuranceClaim.Pending ? "status-waiting" : claim.Status == InsuranceClaim.Rejected ? "status-rejected" : claim.Status == InsuranceClaim.Closed ? "status-closed" : "status-approved";
+                        <tr>
+                            <td>#@claim.ClaimId</td>
+                            <td class="fw-semibold">@claim.Employee?.FirstName @claim.Employee?.LastName</td>
+                            <td>@claim.AssignedPolicy?.Policy?.PolicyName</td>
+                            <td>@claim.ClaimType</td>
+                            <td>PKR @claim.ClaimAmount.ToString("N0")</td>
+                            <td>PKR @claim.ApprovedAmount.ToString("N0")</td>
+                            <td><span class="status-pill @statusClass">@claim.Status</span></td>
+                            <td>@claim.SubmittedAt.ToString("dd MMM yyyy")</td>
+                            <td><a asp-action="ClaimDetails" asp-route-id="@claim.ClaimId" class="btn btn-sm btn-outline-secondary"><i class="bi bi-eye"></i>View</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
