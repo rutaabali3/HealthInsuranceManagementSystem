@@ -1,2 +1,3 @@
-# Ignore docs setup folder containing PDFs, screenshots, and local node_modules
-docs setup/
+# Keep node_modules and PDFs ignored, but allow tracking of HTML, CSS, JS, and screenshots
+docs setup/node_modules/
+docs setup/*.pdf

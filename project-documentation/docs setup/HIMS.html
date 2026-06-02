@@ -1,0 +1,1923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HIMS Project Report - Health Insurance Management System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Cormorant+Garamond:wght@500;600;700&family=Playfair+Display:wght@600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+    --primary: #006a6a;
+    --primary-dark: #004f4f;
+    --primary-soft: #dff5f3;
+    --secondary: #4a6363;
+    --accent: #4b607c;
+    --surface: #f7fbfa;
+    --card: #ffffff;
+    --line: #bec9c7;
+    --text: #171d1d;
+    --muted: #526877;
+    --success: #146c2e;
+    --warning: #7a5900;
+    --danger: #ba1a1a;
+    --info: #006782;
+    --blue-soft: #e4f0ff;
+    --green-soft: #e4f5e8;
+    --amber-soft: #fff2d2;
+    --shell-gradient: linear-gradient(135deg, #f7fbfa 0%, #eefafa 34%, #f4f8fb 66%, #f7fbfa 100%);
+    --page-gradient: linear-gradient(150deg, rgba(255, 255, 255, 0.99), rgba(247, 251, 250, 0.96) 48%, rgba(236, 247, 246, 0.94));
+    --panel-gradient: linear-gradient(180deg, #ffffff, #fbfdfd);
+    --shadow: 0 14px 34px rgba(0, 42, 42, 0.09);
+    --shadow-strong: 0 18px 42px rgba(22, 58, 67, 0.12);
+    --font-body: Poppins, "Segoe UI", Arial, sans-serif;
+    --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
+    --font-formal: Cinzel, Georgia, "Times New Roman", serif;
+    --font-elegant: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+}
+
+* {
+    box-sizing: border-box;
+    letter-spacing: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    color: var(--text);
+    background: transparent;
+    font-family: var(--font-body);
+    line-height: 1.6;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: transparent;
+}
+
+a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.guide-shell {
+    width: min(1120px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 32px 0 56px;
+}
+
+.guide-page {
+    position: relative;
+    margin: 0 0 28px;
+    padding: clamp(24px, 4vw, 42px);
+    overflow: hidden;
+    background:
+        linear-gradient(90deg, rgba(0, 106, 106, 0.04), transparent 26%, transparent 74%, rgba(75, 96, 124, 0.04)),
+        var(--page-gradient);
+    border: 1px solid rgba(190, 201, 199, 0.82);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    break-inside: avoid;
+}
+
+.guide-page::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 6px;
+    background: linear-gradient(90deg, var(--primary), #65b7b8, var(--accent));
+}
+
+.guide-page::after {
+    content: "";
+    position: absolute;
+    right: 22px;
+    top: 22px;
+    width: 82px;
+    height: 82px;
+    opacity: 0.1;
+    pointer-events: none;
+    border-top: 3px double var(--primary);
+    border-right: 3px double var(--primary);
+    border-radius: 0 8px 0 0;
+}
+
+.cover {
+    min-height: 86vh;
+    display: grid;
+    align-content: center;
+    gap: 22px;
+    color: #073f43;
+    background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(223, 245, 243, 0.9) 52%, rgba(228, 240, 255, 0.84)),
+        linear-gradient(90deg, rgba(0, 106, 106, 0.12), transparent 34%, rgba(20, 108, 46, 0.08)),
+        url("../wwwroot/images/site/footer-background.png") center / cover no-repeat;
+}
+
+.cover::after {
+    display: none;
+}
+
+.cover-ornament {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    opacity: 0.42;
+    pointer-events: none;
+}
+
+.cover-ornament.top-left {
+    top: 24px;
+    left: 24px;
+    border-top: 4px double rgba(0, 106, 106, 0.6);
+    border-left: 4px double rgba(0, 106, 106, 0.6);
+}
+
+.cover-ornament.bottom-right {
+    right: 24px;
+    bottom: 24px;
+    border-right: 4px double rgba(0, 106, 106, 0.6);
+    border-bottom: 4px double rgba(0, 106, 106, 0.6);
+}
+
+.brand-mark {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    width: fit-content;
+    padding: 10px 14px;
+    color: #073f43;
+    background: rgba(255, 255, 255, 0.78);
+    border: 1px solid rgba(0, 106, 106, 0.16);
+    border-radius: 8px;
+    box-shadow: 0 12px 24px rgba(0, 42, 42, 0.08);
+    font-weight: 800;
+}
+
+.brand-mark img {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+}
+
+.eyebrow,
+.section-kicker {
+    margin: 0;
+    color: var(--primary);
+    font-family: var(--font-formal);
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    margin: 0;
+    color: #0d2730;
+    line-height: 1.15;
+}
+
+h1,
+h2 {
+    font-family: var(--font-display);
+}
+
+h1 {
+    max-width: 850px;
+    font-size: clamp(2.7rem, 7vw, 5.35rem);
+    text-shadow: 0 8px 24px rgba(0, 42, 42, 0.12);
+}
+
+h2 {
+    position: relative;
+    display: inline-grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+    font-size: clamp(1.75rem, 3vw, 2.55rem);
+}
+
+h2::before {
+    content: "";
+    display: inline-grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    color: #ffffff;
+    background-color: var(--primary);
+    background-image:
+        var(--title-icon, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 6v12'/%3E%3Cpath d='M6 12h12'/%3E%3Cpath d='M4 20h16'/%3E%3Cpath d='M6 20V8l6-4 6 4v12'/%3E%3C/svg%3E")),
+        linear-gradient(135deg, var(--primary-dark), var(--primary) 58%, #65b7b8);
+    background-position: center, center;
+    background-repeat: no-repeat, no-repeat;
+    background-size: 25px 25px, cover;
+    border: 1px solid rgba(0, 106, 106, 0.18);
+    border-radius: 8px;
+    box-shadow: 0 10px 22px rgba(0, 42, 42, 0.14);
+    font-family: var(--font-body);
+    letter-spacing: 0;
+}
+
+h2::after {
+    content: "";
+    display: block;
+    grid-column: 1 / -1;
+    width: min(180px, 62%);
+    height: 4px;
+    margin-top: 10px;
+    background: linear-gradient(90deg, var(--primary), #65b7b8, transparent);
+    border-radius: 999px;
+}
+
+.team-page {
+    --title-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='9' cy='7' r='4'/%3E%3Cpath d='M22 21v-2a4 4 0 0 0-3-3.87'/%3E%3Cpath d='M16 3.13a4 4 0 0 1 0 7.75'/%3E%3C/svg%3E");
+}
+
+.toc-page {
+    --title-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 6h13'/%3E%3Cpath d='M8 12h13'/%3E%3Cpath d='M8 18h13'/%3E%3Cpath d='M3 6h.01'/%3E%3Cpath d='M3 12h.01'/%3E%3Cpath d='M3 18h.01'/%3E%3C/svg%3E");
+}
+
+#certificate {
+    --title-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 6.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z'/%3E%3Cpath d='M8.5 9 7 22l5-3 5 3-1.5-13'/%3E%3C/svg%3E");
+}
+
+#design-purpose,
+#purpose,
+#technical-overview,
+#problem-definition {
+    --title-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M12 16v-4'/%3E%3Cpath d='M12 8h.01'/%3E%3C/svg%3E");
+}
+
+#identity {
+    --title-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='18' height='14' x='3' y='5' rx='2'/%3E%3Cpath d='M8 10h.01'/%3E%3Cpath d='M8 14h.01'/%3E%3Cpath d='M12 10h4'/%3E%3Cpath d='M12 14h4'/%3E%3C/svg%3E");
+}
+
+#typography {
+    --title-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 7V4h16v3'/%3E%3Cpath d='M9 20h6'/%3E%3Cpath d='M12 4v16'/%3E%3C/svg%3E");
+}
+
+#palette {
+    --title-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='13.5' cy='6.5' r='.5'/%3E%3Ccircle cx='17.5' cy='10.5' r='.5'/%3E%3Ccircle cx='8.5' cy='7.5' r='.5'/%3E%3Ccircle cx='6.5' cy='12.5' r='.5'/%3E%3Cpath d='M12 22a10 10 0 1 1 10-10 3.5 3.5 0 0 1-3.5 3.5h-1.6a2 2 0 0 0-1.4 3.4l.4.4A1.6 1.6 0 0 1 14.8 22H12Z'/%3E%3C/svg%3E");
+}
+
+#layout,
+#structure,
+#project-plan,
+#task-sheet {
+    --title-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='7' height='7' x='3' y='3' rx='1'/%3E%3Crect width='7' height='7' x='14' y='3' rx='1'/%3E%3Crect width='7' height='7' x='14' y='14' rx='1'/%3E%3Crect width='7' height='7' x='3' y='14' rx='1'/%3E%3C/svg%3E");
+}
+
+#components {
+    --title-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3H5a2 2 0 0 0-2 2v7'/%3E%3Cpath d='M12 21h7a2 2 0 0 0 2-2v-7'/%3E%3Cpath d='M12 8v8'/%3E%3Cpath d='M8 12h8'/%3E%3C/svg%3E");
+}
+
+#forms,
+#validation,
+#customer-requirements {
+    --title-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z'/%3E%3Cpath d='M14 2v4a2 2 0 0 0 2 2h4'/%3E%3Cpath d='M8 13h8'/%3E%3Cpath d='M8 17h5'/%3E%3C/svg%3E");
+}
+
+#role-pages,
+#roles {
+    --title-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 21a8 8 0 0 0-16 0'/%3E%3Ccircle cx='12' cy='7' r='4'/%3E%3C/svg%3E");
+}
+
+#responsive {
+    --title-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='20' height='14' x='2' y='3' rx='2'/%3E%3Cpath d='M8 21h8'/%3E%3Cpath d='M12 17v4'/%3E%3Cpath d='M7 8h10'/%3E%3Cpath d='M7 12h6'/%3E%3C/svg%3E");
+}
+
+#qa,
+#maintenance,
+#unit-testing,
+#final-checklist {
+    --title-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9 12 2 2 4-4'/%3E%3Cpath d='M12 3 4 6v6c0 5 3.4 8.4 8 9 4.6-.6 8-4 8-9V6l-8-3Z'/%3E%3C/svg%3E");
+}
+
+#stack {
+    --title-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 2v20'/%3E%3Cpath d='M17 5H9.5a3.5 3.5 0 0 0 0 7H15a3.5 3.5 0 0 1 0 7H6'/%3E%3C/svg%3E");
+}
+
+#configuration {
+    --title-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 15.5A3.5 3.5 0 1 0 12 8a3.5 3.5 0 0 0 0 7.5Z'/%3E%3Cpath d='M19.4 15a1.8 1.8 0 0 0 .36 2l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.8 1.8 0 0 0-2-.36 1.8 1.8 0 0 0-1.1 1.65V21a2 2 0 1 1-4 0v-.09A1.8 1.8 0 0 0 8.7 19.3a1.8 1.8 0 0 0-2 .36l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.8 1.8 0 0 0 .36-2 1.8 1.8 0 0 0-1.65-1.1H2.5a2 2 0 1 1 0-4h.09A1.8 1.8 0 0 0 4.2 8.7a1.8 1.8 0 0 0-.36-2l-.06-.06A2 2 0 1 1 6.6 3.8l.06.06a1.8 1.8 0 0 0 2 .36h.04A1.8 1.8 0 0 0 9.8 2.6V2.5a2 2 0 1 1 4 0v.09A1.8 1.8 0 0 0 15 4.2a1.8 1.8 0 0 0 2-.36l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.8 1.8 0 0 0-.36 2v.04a1.8 1.8 0 0 0 1.65 1.1h.09a2 2 0 1 1 0 4h-.09A1.8 1.8 0 0 0 19.4 15Z'/%3E%3C/svg%3E");
+}
+
+#database,
+#er-diagram {
+    --title-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cellipse cx='12' cy='5' rx='8' ry='3'/%3E%3Cpath d='M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5'/%3E%3Cpath d='M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6'/%3E%3C/svg%3E");
+}
+
+#controllers,
+#algorithms {
+    --title-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m8 9-4 3 4 3'/%3E%3Cpath d='m16 9 4 3-4 3'/%3E%3Cpath d='m14 5-4 14'/%3E%3C/svg%3E");
+}
+
+#services {
+    --title-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 20h9'/%3E%3Cpath d='M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z'/%3E%3C/svg%3E");
+}
+
+#workflow,
+#review-monitoring {
+    --title-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='6' height='6' x='3' y='3' rx='1'/%3E%3Crect width='6' height='6' x='15' y='15' rx='1'/%3E%3Cpath d='M9 6h3a6 6 0 0 1 6 6v3'/%3E%3Cpath d='m15 12 3 3 3-3'/%3E%3C/svg%3E");
+}
+
+#getting-started {
+    --title-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14'/%3E%3Cpath d='m13 6 6 6-6 6'/%3E%3Cpath d='M5 5v14'/%3E%3C/svg%3E");
+}
+
+#auth {
+    --title-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='7.5' cy='15.5' r='5.5'/%3E%3Cpath d='m12 11 8-8'/%3E%3Cpath d='m16 7 2 2'/%3E%3Cpath d='m19 4 2 2'/%3E%3C/svg%3E");
+}
+
+#admin {
+    --title-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3 4 6v6c0 5 3.4 8.4 8 9 4.6-.6 8-4 8-9V6l-8-3Z'/%3E%3Cpath d='m9 12 2 2 4-4'/%3E%3C/svg%3E");
+}
+
+#employee {
+    --title-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 21a8 8 0 0 0-16 0'/%3E%3Ccircle cx='12' cy='7' r='4'/%3E%3Cpath d='M12 11v4'/%3E%3Cpath d='M10 15h4'/%3E%3C/svg%3E");
+}
+
+#manager {
+    --title-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='9' cy='7' r='4'/%3E%3Cpath d='M19 8v6'/%3E%3Cpath d='M22 11h-6'/%3E%3C/svg%3E");
+}
+
+#finance {
+    --title-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='20' height='14' x='2' y='5' rx='2'/%3E%3Cpath d='M2 10h20'/%3E%3Cpath d='M7 15h.01'/%3E%3Cpath d='M11 15h2'/%3E%3C/svg%3E");
+}
+
+#reports {
+    --title-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 3v18h18'/%3E%3Cpath d='m19 9-5 5-4-4-3 3'/%3E%3C/svg%3E");
+}
+
+#support {
+    --title-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M9.1 9a3 3 0 1 1 5.8 1c0 2-3 2-3 4'/%3E%3Cpath d='M12 17h.01'/%3E%3C/svg%3E");
+}
+
+h3 {
+    margin-bottom: 10px;
+    font-family: var(--font-formal);
+    font-size: 1.05rem;
+}
+
+h4 {
+    margin-bottom: 6px;
+    font-size: 0.98rem;
+}
+
+p {
+    margin: 0 0 12px;
+}
+
+.cover-subtitle {
+    width: fit-content;
+    margin: -8px 0 0;
+    padding: 8px 14px;
+    color: #073f43;
+    background: rgba(223, 245, 243, 0.84);
+    border: 1px solid rgba(0, 106, 106, 0.18);
+    border-radius: 999px;
+    font-family: var(--font-formal);
+    font-size: 0.9rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.cover-summary {
+    max-width: 760px;
+    color: #314455;
+    font-size: 1.12rem;
+}
+
+.meta-grid,
+.student-grid,
+.card-grid,
+.two-column,
+.three-column,
+.workflow,
+.toc-grid,
+.step-grid {
+    display: grid;
+    gap: 16px;
+}
+
+.meta-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin-top: 14px;
+}
+
+.student-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.card-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.two-column {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.three-column {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.meta-card,
+.student-card,
+.doc-card,
+.step-card,
+.note-card,
+.wire-card,
+.palette-card,
+.guide-certificate {
+    background:
+        var(--panel-gradient);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(35, 58, 67, 0.06);
+}
+
+.meta-card,
+.student-card,
+.doc-card,
+.step-card,
+.note-card,
+.wire-card,
+.palette-card,
+.guide-certificate {
+    padding: 18px;
+}
+
+.student-card,
+.doc-card,
+.step-card,
+.note-card,
+.wire-card,
+.palette-card,
+.flow-item {
+    position: relative;
+    overflow: hidden;
+}
+
+.student-card::before,
+.doc-card::before,
+.step-card::before,
+.note-card::before,
+.wire-card::before,
+.palette-card::before,
+.flow-item::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), #65b7b8, var(--accent));
+}
+
+.guide-certificate {
+    position: relative;
+    display: grid;
+    gap: 14px;
+    min-height: 520px;
+    align-content: center;
+    padding: clamp(28px, 6vw, 58px);
+    overflow: hidden;
+    border: 2px solid var(--primary);
+    background:
+        linear-gradient(90deg, rgba(0, 106, 106, 0.05), transparent 16%, transparent 84%, rgba(0, 106, 106, 0.05)),
+        linear-gradient(135deg, rgba(223, 245, 243, 0.72), rgba(255, 255, 255, 0.96)),
+        var(--card);
+    outline: 7px solid rgba(0, 106, 106, 0.07);
+    outline-offset: -18px;
+}
+
+.certificate-watermark {
+    position: absolute;
+    inset: 50% auto auto 50%;
+    transform: translate(-50%, -50%) rotate(-18deg);
+    color: rgba(0, 106, 106, 0.055);
+    font-family: var(--font-formal);
+    font-size: clamp(5rem, 16vw, 12rem);
+    font-weight: 800;
+    line-height: 1;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.certificate-ribbon {
+    position: relative;
+    z-index: 1;
+    justify-self: center;
+    width: fit-content;
+    padding: 8px 18px;
+    color: #ffffff;
+    background: linear-gradient(90deg, var(--primary-dark), var(--primary), #2f8282);
+    border-radius: 999px;
+    box-shadow: 0 12px 24px rgba(0, 42, 42, 0.14);
+    font-family: var(--font-formal);
+    font-size: 0.82rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.certificate-pretitle {
+    position: relative;
+    z-index: 1;
+    margin: 10px 0 0;
+    color: var(--secondary);
+    font-family: var(--font-elegant);
+    font-size: clamp(1.35rem, 3vw, 2.1rem);
+    font-weight: 700;
+    text-align: center;
+}
+
+.certificate-team {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    text-align: center;
+}
+
+.certificate-team strong {
+    color: var(--primary-dark);
+    font-family: var(--font-display);
+    font-size: clamp(1.3rem, 2.5vw, 2rem);
+}
+
+.ornate-divider {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: min(430px, 86%);
+    height: 28px;
+    margin: -2px auto 10px;
+}
+
+.ornate-divider::before,
+.ornate-divider::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 45%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--primary));
+}
+
+.ornate-divider::before {
+    left: 0;
+}
+
+.ornate-divider::after {
+    right: 0;
+    transform: rotate(180deg);
+}
+
+.ornate-divider span {
+    width: 16px;
+    height: 16px;
+    background: var(--primary);
+    border: 4px solid var(--primary-soft);
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px rgba(0, 106, 106, 0.32);
+}
+
+.guide-certificate p {
+    position: relative;
+    z-index: 1;
+    font-size: 1.06rem;
+    text-align: center;
+}
+
+.guide-certificate strong {
+    color: var(--primary-dark);
+}
+
+.signature-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 28px;
+}
+
+.signature-grid div {
+    min-height: 72px;
+    border-bottom: 2px solid var(--primary);
+}
+
+.signature-grid .signature-placeholder {
+    border-bottom-color: transparent;
+}
+
+.signature-grid span {
+    display: block;
+    color: var(--muted);
+    font-size: 0.78rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.meta-card span,
+.student-card span {
+    display: block;
+    color: var(--muted);
+    font-size: 0.78rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.meta-card strong,
+.student-card strong {
+    display: block;
+    margin-top: 7px;
+    color: var(--primary-dark);
+    font-size: 1.02rem;
+    overflow-wrap: anywhere;
+}
+
+.toc-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.toc-list {
+    margin: 0;
+    padding-left: 22px;
+}
+
+.toc-list li {
+    margin-bottom: 10px;
+    font-weight: 800;
+}
+
+.detail-list,
+.check-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.detail-list li,
+.check-list li {
+    position: relative;
+    margin-bottom: 9px;
+    padding-left: 26px;
+}
+
+.detail-list li::before,
+.check-list li::before {
+    content: "+";
+    position: absolute;
+    left: 0;
+    color: var(--success);
+    font-weight: 900;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    table-layout: fixed;
+    overflow-wrap: anywhere;
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid #dde7ea;
+    border-radius: 8px;
+    box-shadow: 0 12px 28px rgba(35, 58, 67, 0.08);
+}
+
+th,
+td {
+    padding: 13px 14px;
+    vertical-align: top;
+    border: 0;
+    border-bottom: 1px solid #e7eff1;
+    text-align: left;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+th {
+    color: #164047;
+    background:
+        linear-gradient(180deg, #eefafa, #e2f4f3);
+    font-family: var(--font-formal);
+    font-size: 0.86rem;
+    text-transform: uppercase;
+}
+
+td {
+    background: #ffffff;
+}
+
+tbody tr:nth-child(even) td {
+    background: #fbfdfc;
+}
+
+tbody tr:hover td {
+    color: #051f1f;
+    background: #cce8e7;
+}
+
+tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+th:first-child,
+td:first-child {
+    border-left: 4px solid rgba(0, 106, 106, 0.16);
+}
+
+tbody tr:hover td:first-child {
+    border-left-color: var(--primary);
+}
+
+code,
+.code-chip {
+    display: inline-block;
+    max-width: 100%;
+    padding: 2px 6px;
+    color: var(--primary-dark);
+    background: var(--primary-soft);
+    border-radius: 6px;
+    font-family: Consolas, "Courier New", monospace;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+.status {
+    display: inline-flex;
+    align-items: center;
+    min-height: 26px;
+    padding: 3px 8px;
+    color: var(--primary-dark);
+    background: var(--primary-soft);
+    border: 1px solid #bfe1de;
+    border-radius: 999px;
+    font-family: var(--font-formal);
+    font-size: 0.78rem;
+    font-weight: 800;
+    line-height: 1.25;
+}
+
+.workflow {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    align-items: stretch;
+}
+
+.flow-item {
+    position: relative;
+    padding: 16px;
+    color: #073f43;
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(35, 58, 67, 0.06);
+}
+
+.flow-item span {
+    display: inline-flex;
+    margin-bottom: 8px;
+    padding: 3px 8px;
+    color: #ffffff;
+    background: var(--primary);
+    border-radius: 999px;
+    font-family: var(--font-formal);
+    font-size: 0.74rem;
+    font-weight: 800;
+}
+
+.step-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.step-card ol,
+.step-card ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.step-card li {
+    margin-bottom: 8px;
+}
+
+.wireframe {
+    display: grid;
+    grid-template-columns: 0.32fr 1fr;
+    gap: 8px;
+    min-height: 230px;
+    padding: 12px;
+    background: #f7fbfa;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+}
+
+.wireframe div,
+.wireframe span {
+    display: grid;
+    place-items: center;
+    min-height: 46px;
+    padding: 8px;
+    color: #164047;
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    font-weight: 800;
+    text-align: center;
+}
+
+.wire-top {
+    grid-column: 1 / -1;
+}
+
+.wire-main {
+    display: grid !important;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    background: var(--primary-soft) !important;
+}
+
+.public-wireframe {
+    grid-template-columns: 1fr;
+}
+
+.public-wireframe .wire-hero {
+    min-height: 86px;
+    background:
+        linear-gradient(135deg, #dff5f3, #ffffff 54%, #e4f0ff);
+}
+
+.wire-public-sections {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    background: var(--primary-soft) !important;
+}
+
+.wire-footer {
+    min-height: 56px;
+    color: #073f43 !important;
+    background:
+        linear-gradient(135deg, rgba(0, 106, 106, 0.14), rgba(255, 255, 255, 0.92)),
+        #dff5f3 !important;
+}
+
+.palette-showcase {
+    display: grid;
+    gap: 16px;
+    padding: 16px;
+    background:
+        linear-gradient(135deg, rgba(223, 245, 243, 0.74), rgba(255, 255, 255, 0.94) 54%, rgba(228, 240, 255, 0.66)),
+        #ffffff;
+    border: 1px solid rgba(0, 106, 106, 0.14);
+    border-radius: 8px;
+    box-shadow: 0 14px 34px rgba(35, 58, 67, 0.08);
+}
+
+.palette-row {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.swatch {
+    position: relative;
+    min-height: 148px;
+    padding: 14px;
+    display: grid;
+    align-content: space-between;
+    gap: 10px;
+    overflow: hidden;
+    color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 14px 28px rgba(35, 58, 67, 0.12);
+    font-weight: 800;
+}
+
+.swatch::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.24), transparent 38%),
+        linear-gradient(0deg, rgba(0, 0, 0, 0.2), transparent 62%);
+}
+
+.swatch span,
+.swatch strong,
+.swatch small {
+    position: relative;
+    z-index: 1;
+}
+
+.swatch span {
+    width: fit-content;
+    padding: 5px 9px;
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 999px;
+    font-family: var(--font-formal);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+}
+
+.swatch strong {
+    align-self: end;
+    font-size: 1rem;
+    line-height: 1.2;
+}
+
+.swatch small {
+    display: block;
+    font-family: Consolas, "Courier New", monospace;
+    font-weight: 700;
+    opacity: 0.92;
+}
+
+.swatch.primary {
+    background: #006a6a;
+}
+
+.swatch.secondary {
+    background: #4a6363;
+}
+
+.swatch.accent {
+    background: #4b607c;
+}
+
+.swatch.success {
+    background: #146c2e;
+}
+
+.swatch.error {
+    background: #ba1a1a;
+}
+
+.palette-support {
+    display: grid;
+    grid-template-columns: 1fr 1fr minmax(240px, 0.9fr);
+    gap: 12px;
+}
+
+.tone-card,
+.palette-preview {
+    min-height: 150px;
+    padding: 14px;
+    background: rgba(255, 255, 255, 0.84);
+    border: 1px solid rgba(190, 201, 199, 0.82);
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(35, 58, 67, 0.06);
+}
+
+.tone-card span {
+    display: block;
+    margin-bottom: 12px;
+    color: var(--primary-dark);
+    font-family: var(--font-formal);
+    font-size: 0.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.tone-strip {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    height: 46px;
+    overflow: hidden;
+    border: 1px solid rgba(190, 201, 199, 0.82);
+    border-radius: 8px;
+}
+
+.tone-strip i {
+    background: var(--tone);
+}
+
+.tone-card p {
+    margin: 12px 0 0;
+    color: var(--muted);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.palette-preview {
+    display: grid;
+    align-content: space-between;
+    gap: 12px;
+    background:
+        linear-gradient(180deg, #ffffff, #f7fbfa);
+}
+
+.preview-header,
+.preview-actions {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.preview-header span {
+    width: 34px;
+    height: 34px;
+    background: #dff5f3;
+    border: 1px solid #c9e4e1;
+    border-radius: 8px;
+}
+
+.preview-header strong {
+    color: #0d2730;
+    font-size: 0.95rem;
+}
+
+.preview-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.preview-metrics b {
+    min-height: 34px;
+    border-radius: 8px;
+}
+
+.preview-metrics b:nth-child(1) {
+    background: #dff5f3;
+}
+
+.preview-metrics b:nth-child(2) {
+    background: #e4f5e8;
+}
+
+.preview-metrics b:nth-child(3) {
+    background: #e4f0ff;
+}
+
+.preview-line {
+    height: 10px;
+    background: linear-gradient(90deg, #006a6a 0 34%, #65b7b8 34% 58%, #dfe3e2 58%);
+    border-radius: 999px;
+}
+
+.preview-actions span {
+    height: 30px;
+    border-radius: 999px;
+}
+
+.preview-actions span:first-child {
+    width: 78px;
+    background: #006a6a;
+}
+
+.preview-actions span:last-child {
+    width: 58px;
+    background: #fff2d2;
+}
+
+.report-lead-card {
+    margin-bottom: 16px;
+    border-color: rgba(0, 106, 106, 0.2);
+    background:
+        linear-gradient(135deg, rgba(223, 245, 243, 0.72), rgba(255, 255, 255, 0.96)),
+        var(--card);
+}
+
+.requirement-grid,
+.algorithm-grid,
+.checklist-grid {
+    display: grid;
+    gap: 16px;
+}
+
+.requirement-grid,
+.checklist-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.algorithm-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.er-note {
+    margin-bottom: 14px;
+    padding: 12px 14px;
+    color: #164047;
+    background: #e7f5f3;
+    border: 1px solid #bfe1de;
+    border-radius: 8px;
+    font-weight: 700;
+}
+
+.er-diagram-wrap {
+    margin-bottom: 18px;
+    padding: 12px;
+    overflow-x: auto;
+    background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(223, 245, 243, 0.64)),
+        #ffffff;
+    border: 1px solid rgba(190, 201, 199, 0.86);
+    border-radius: 8px;
+    box-shadow: 0 14px 34px rgba(35, 58, 67, 0.08);
+}
+
+.er-svg {
+    display: block;
+    width: 100%;
+    min-width: 980px;
+    height: auto;
+}
+
+.er-line {
+    stroke: #006a6a;
+    stroke-width: 2.5;
+    marker-end: url("#arrow");
+}
+
+.er-line-soft {
+    stroke: #4b607c;
+    stroke-dasharray: 7 6;
+    marker-end: url("#arrowSoft");
+}
+
+.er-cardinality {
+    fill: #0d2730;
+    font-family: var(--font-formal);
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.er-entity rect {
+    fill: #ffffff;
+    stroke: #b9cdcc;
+    stroke-width: 2;
+    rx: 8;
+    filter: drop-shadow(0 10px 14px rgba(35, 58, 67, 0.08));
+}
+
+.er-entity .er-title {
+    fill: #006a6a;
+    font-family: var(--font-formal);
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.er-entity text {
+    fill: #203944;
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.er-support rect {
+    fill: #f7fbfa;
+    stroke: #4b607c;
+    stroke-dasharray: 8 5;
+}
+
+.er-standalone rect {
+    fill: #fbfdfc;
+    stroke: #d4a800;
+}
+
+.page-break {
+    break-after: page;
+    page-break-after: always;
+}
+
+@media (max-width: 980px) {
+    .meta-grid,
+    .card-grid,
+    .three-column,
+    .workflow,
+    .palette-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .two-column,
+    .step-grid,
+    .toc-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .guide-shell {
+        width: min(100% - 20px, 1120px);
+        padding-block: 10px 28px;
+    }
+
+    .guide-page {
+        padding: 22px 16px;
+    }
+
+    .meta-grid,
+    .student-grid,
+    .card-grid,
+    .three-column,
+    .workflow,
+    .palette-row {
+        grid-template-columns: 1fr;
+    }
+
+    table {
+        font-size: 0.86rem;
+    }
+
+    th,
+    td {
+        padding: 8px;
+    }
+}
+
+@page {
+    size: A4 landscape;
+    margin: 14mm;
+}
+
+@media print {
+    body {
+        background: transparent;
+        color: #000000;
+        font-size: 10.5pt;
+    }
+
+    a {
+        color: #000000;
+        text-decoration: none;
+    }
+
+    .guide-shell {
+        width: 100%;
+        padding: 0;
+    }
+
+    .guide-page {
+        margin: 0;
+        padding: 12mm 0;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        break-after: page;
+        page-break-after: always;
+    }
+
+    .guide-page::before,
+    .guide-page::after {
+        display: none;
+    }
+
+    .cover {
+        min-height: 240mm;
+        background: #ffffff;
+    }
+
+    .cover-ornament {
+        display: none;
+    }
+
+    .meta-card,
+    .student-card,
+    .doc-card,
+    .step-card,
+    .note-card,
+    .wire-card,
+    .palette-card,
+    .flow-item {
+        box-shadow: none;
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    h1 {
+        font-size: 37pt;
+    }
+
+    h2 {
+        font-size: 21pt;
+    }
+
+    h3 {
+        font-size: 12pt;
+    }
+
+    .meta-grid,
+    .student-grid,
+    .card-grid,
+    .three-column,
+    .workflow,
+    .palette-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 9px;
+    }
+
+    .two-column,
+    .step-grid,
+    .toc-grid {
+        gap: 9px;
+    }
+
+    th,
+    td {
+        padding: 6px 7px;
+    }
+
+    code,
+    .code-chip {
+        padding: 1px 4px;
+        font-size: 8.5pt;
+    }
+
+    .guide-page:last-child {
+        break-after: auto;
+        page-break-after: auto;
+    }
+}
+
+    </style>
+</head>
+<body class="guide-document guide-report">
+    <main class="guide-shell">
+        <section class="guide-page cover">
+            <div class="cover-ornament top-left"></div>
+            <div class="cover-ornament bottom-right"></div>
+            <div class="brand-mark">
+                <img src="../wwwroot/images/site/favicon.png" alt="Health Insurance Management logo">
+                <span>Health Insurance Management</span>
+            </div>
+            <p class="eyebrow">Project Report</p>
+            <h1>Health Insurance Management System</h1>
+            <p class="cover-subtitle">Specification, Planning, ER Diagram, Testing, and Final Checklist</p>
+            <p class="cover-summary">
+                This report completes the missing Aptech-style documentation sections for the Health Insurance
+                Management System using the implemented application workflow and the real Entity Framework database schema.
+            </p>
+        </section>
+
+        <section class="guide-page team-page">
+            <p class="section-kicker">Project Team</p>
+            <h2>Students on This Project</h2>
+            <div class="student-grid">
+                <div class="student-card"><span>Student1623471</span><strong>MUHAMMAD RUTAAB ALI</strong></div>
+                <div class="student-card"><span>Student1622741</span><strong>ABDUL REHMAN KHAN</strong></div>
+                <div class="student-card"><span>Student1629514</span><strong>MUHAMMAD BILAL</strong></div>
+                <div class="student-card"><span>Student1625350</span><strong>SYED MUHAMMAD FARAZ</strong></div>
+            </div>
+        </section>
+
+        <section class="guide-page toc-page">
+            <p class="section-kicker">Navigation</p>
+            <h2>Table of Contents</h2>
+            <div class="toc-grid">
+                <ol class="toc-list">
+                    <li><a href="#problem-definition">Problem Definition</a></li>
+                    <li><a href="#customer-requirements">Customer Requirement Specification</a></li>
+                    <li><a href="#project-plan">Project Plan</a></li>
+                    <li><a href="#er-diagram">E-R Diagram</a></li>
+                    <li><a href="#algorithms">Algorithms</a></li>
+                </ol>
+                <ol class="toc-list" start="6">
+                    <li><a href="#task-sheet">Task Sheet</a></li>
+                    <li><a href="#review-monitoring">Project Review and Monitoring Report</a></li>
+                    <li><a href="#unit-testing">Unit Testing Checklist</a></li>
+                    <li><a href="#final-checklist">Final Checklist</a></li>
+                </ol>
+            </div>
+        </section>
+
+        <section class="guide-page" id="problem-definition">
+            <p class="section-kicker">Problem Definition</p>
+            <h2>Problem Definition</h2>
+            <div class="doc-card report-lead-card">
+                <h3>Project Purpose</h3>
+                <p>
+                    The Health Insurance Management System is an online application for an organization that wants
+                    to manage employee health insurance digitally. The system stores employee information, insurance
+                    company records, policy details, employee policy requests, bill approvals, payment processing,
+                    and status tracking in one role-based web application.
+                </p>
+                <p>
+                    The earlier process depended on manual records, spreadsheets, scattered software, and repeated
+                    follow-up between employees, administrators, managers, finance staff, and support staff. This made the workflow
+                    time consuming, less secure, difficult to track, and hard to report accurately.
+                </p>
+            </div>
+            <div class="three-column">
+                <div class="doc-card">
+                    <h3>Existing Issues</h3>
+                    <ul class="detail-list">
+                        <li>Manual work creates delays and duplicate effort.</li>
+                        <li>Employee and policy information is difficult to maintain centrally.</li>
+                        <li>Request and bill status is not visible to each role in real time.</li>
+                        <li>Security is weak without proper authentication and role-based access.</li>
+                    </ul>
+                </div>
+                <div class="doc-card">
+                    <h3>Proposed Solution</h3>
+                    <ul class="detail-list">
+                        <li>Provide a secure login-based system for Admin, Employee, Manager, Finance Manager, and Support.</li>
+                        <li>Maintain employee, company, policy, request, approval, bill, contact, and message data in a database.</li>
+                        <li>Support policy search, request submission, approval, payment, closure, and visitor contact workflows.</li>
+                        <li>Generate reports and maintain notification logs for important workflow and support email events.</li>
+                    </ul>
+                </div>
+                <div class="doc-card">
+                    <h3>Expected Benefit</h3>
+                    <ul class="detail-list">
+                        <li>Reduces manual work and repeated communication.</li>
+                        <li>Improves data accuracy, security, and traceability.</li>
+                        <li>Makes policy and bill status easier to monitor.</li>
+                        <li>Gives each role a focused dashboard and workflow.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="guide-page" id="customer-requirements">
+            <p class="section-kicker">CRS</p>
+            <h2>Customer Requirement Specification</h2>
+            <div class="requirement-grid">
+                <div class="doc-card">
+                    <h3>Admin Requirements</h3>
+                    <ul class="detail-list">
+                        <li>Register, update, activate, deactivate, and manage employees.</li>
+                        <li>Add and maintain insurance company records.</li>
+                        <li>Add, update, activate, deactivate, and manage policies.</li>
+                        <li>Assign policies to employees and review policy requests.</li>
+                        <li>Generate reports for employee, request, bill, and date-range activity.</li>
+                    </ul>
+                </div>
+                <div class="doc-card">
+                    <h3>Employee Requirements</h3>
+                    <ul class="detail-list">
+                        <li>Login securely using username and password.</li>
+                        <li>View and update personal details.</li>
+                        <li>Change password using a protected workflow.</li>
+                        <li>Search available policies by requirement.</li>
+                        <li>Submit policy requests with bill amount and reason.</li>
+                        <li>Track request status from pending to closed or rejected.</li>
+                    </ul>
+                </div>
+                <div class="doc-card">
+                    <h3>Manager Requirements</h3>
+                    <ul class="detail-list">
+                        <li>View employee insurance requests and generated bills.</li>
+                        <li>Review request details before making a decision.</li>
+                        <li>Approve or reject requests with remarks.</li>
+                        <li>Forward approved bills to the Finance Manager.</li>
+                        <li>Maintain profile information through the role dashboard.</li>
+                    </ul>
+                </div>
+                <div class="doc-card">
+                    <h3>Finance Manager Requirements</h3>
+                    <ul class="detail-list">
+                        <li>Receive bills forwarded by managers.</li>
+                        <li>Review bill amount, request details, and policy information.</li>
+                        <li>Credit payment for accepted bills.</li>
+                        <li>Close requests after payment is completed.</li>
+                        <li>Maintain profile information through the role dashboard.</li>
+                    </ul>
+                </div>
+                <div class="doc-card">
+                    <h3>Support Requirements</h3>
+                    <ul class="detail-list">
+                        <li>View new, open, and replied public contact queries.</li>
+                        <li>Open an inbox conversation and read visitor message history.</li>
+                        <li>Reply to visitors by email through the support workflow.</li>
+                        <li>Store support replies and email delivery status for auditing.</li>
+                        <li>Maintain profile information through protected support pages.</li>
+                    </ul>
+                </div>
+                <div class="doc-card">
+                    <h3>System Requirements</h3>
+                    <ul class="detail-list">
+                        <li>Authenticate users and derive role access on the server side.</li>
+                        <li>Maintain status changes for policy requests, approvals, and bills.</li>
+                        <li>Store password reset tokens securely and expire them after use or timeout.</li>
+                        <li>Restore remembered users only from protected remember-me cookies.</li>
+                        <li>Log notification events and delivery attempts.</li>
+                        <li>Validate important form fields before saving data.</li>
+                    </ul>
+                </div>
+                <div class="doc-card">
+                    <h3>Reporting Requirements</h3>
+                    <ul class="detail-list">
+                        <li>Filter reports by date or date range.</li>
+                        <li>Display employee, request, and bill records clearly.</li>
+                        <li>Support administrative monitoring of workflow progress.</li>
+                        <li>Keep output readable in responsive and printable layouts.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="guide-page" id="project-plan">
+            <p class="section-kicker">Planning</p>
+            <h2>Project Plan</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Phase</th>
+                        <th>Activities</th>
+                        <th>Deliverables</th>
+                        <th>Review Point</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Requirement Analysis</td><td>Study problem statement, roles, inputs, outputs, and workflow expectations.</td><td>Requirement notes and module list.</td><td>Confirm Admin, Employee, Manager, Finance, and Support flows.</td></tr>
+                    <tr><td>Database Design</td><td>Define entities for users, companies, policies, assignments, requests, approvals, bills, support messages, and logs.</td><td>EF models and real ER diagram.</td><td>Check keys, foreign keys, and one-to-one workflow tables.</td></tr>
+                    <tr><td>UI and Workflow Design</td><td>Design public pages, role dashboards, forms, tables, and status views.</td><td>User Guide and Design Guide patterns.</td><td>Confirm each role can reach expected tasks.</td></tr>
+                    <tr><td>Implementation</td><td>Build controllers, views, validation, auth, notifications, and workflow actions.</td><td>ASP.NET Core MVC application.</td><td>Check CRUD, request, approval, payment, and report flows.</td></tr>
+                    <tr><td>Testing</td><td>Perform static and manual checks for forms, role access, workflow states, and reports.</td><td>Unit Testing Checklist and Final Checklist.</td><td>Verify required modules are ready for submission.</td></tr>
+                    <tr><td>Documentation</td><td>Prepare user, developer, design, and project report documents.</td><td>Project documentation folder.</td><td>Confirm Aptech required sections are present.</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="guide-page" id="er-diagram">
+            <p class="section-kicker">Database</p>
+            <h2>E-R Diagram</h2>
+            <div class="er-note">
+                <strong>Schema Source:</strong> This diagram follows the implemented Entity Framework Core SQL Server
+                schema in <code>ApplicationDbContext</code> and the current model classes. Only tables, columns, keys, and
+                foreign-key constraints are shown. <strong>NN</strong> means not null, <strong>AI</strong> means identity key.
+            </div>
+            <div class="er-diagram-wrap" aria-label="Entity relationship diagram for Health Insurance Management System">
+                <svg class="er-svg" viewBox="0 0 1700 1060" role="img" aria-labelledby="erTitle erDesc">
+                    <title id="erTitle">Health Insurance Management System ER Diagram</title>
+                    <desc id="erDesc">Database tables, all columns, and foreign-key relationships from the EF Core SQL Server schema.</desc>
+                    <defs>
+                        <marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+                            <path d="M0,0 L9,4.5 L0,9 z" fill="#006a6a"></path>
+                        </marker>
+                        <marker id="arrowSoft" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+                            <path d="M0,0 L9,4.5 L0,9 z" fill="#4b607c"></path>
+                        </marker>
+                    </defs>
+
+                    <line class="er-line" x1="370" y1="160" x2="430" y2="160"></line>
+                    <line class="er-line" x1="770" y1="145" x2="870" y2="145"></line>
+                    <line class="er-line" x1="370" y1="520" x2="480" y2="520"></line>
+                    <line class="er-line" x1="615" y1="320" x2="615" y2="390"></line>
+                    <line class="er-line" x1="370" y1="575" x2="850" y2="455"></line>
+                    <line class="er-line" x1="620" y1="320" x2="890" y2="390"></line>
+                    <line class="er-line" x1="1210" y1="455" x2="1290" y2="455"></line>
+                    <line class="er-line" x1="370" y1="610" x2="1290" y2="405"></line>
+                    <line class="er-line" x1="1030" y1="580" x2="1030" y2="700"></line>
+                    <line class="er-line" x1="370" y1="650" x2="850" y2="795"></line>
+                    <line class="er-line" x1="370" y1="675" x2="850" y2="870"></line>
+
+                    <text class="er-cardinality" x="382" y="145">1</text>
+                    <text class="er-cardinality" x="398" y="145">many</text>
+                    <text class="er-cardinality" x="792" y="130">1</text>
+                    <text class="er-cardinality" x="815" y="130">many</text>
+
+                    <g class="er-entity" transform="translate(40 55)">
+                        <rect width="330" height="230"></rect>
+                        <text class="er-title" x="16" y="28">companydetails</text>
+                        <text class="er-field er-key" x="16" y="55">PK CompanyId int NN AI</text>
+                        <text class="er-field" x="16" y="75">CompanyName varchar(100) NN</text>
+                        <text class="er-field" x="16" y="95">Address varchar(200) NN</text>
+                        <text class="er-field" x="16" y="115">ContactNumber varchar(15) NN</text>
+                        <text class="er-field" x="16" y="135">Email varchar(100) NN</text>
+                        <text class="er-field er-null" x="16" y="155">Website varchar(200) NULL</text>
+                        <text class="er-field er-null" x="16" y="175">Description varchar(500) NULL</text>
+                        <text class="er-field" x="16" y="195">IsActive bit NN</text>
+                        <text class="er-field" x="16" y="215">RegisteredAt datetime2 NN</text>
+                    </g>
+
+                    <g class="er-entity" transform="translate(430 40)">
+                        <rect width="340" height="280"></rect>
+                        <text class="er-title" x="16" y="28">policies</text>
+                        <text class="er-field er-key" x="16" y="55">PK PolicyId int NN AI</text>
+                        <text class="er-field er-fk" x="16" y="75">FK CompanyId int NN</text>
+                        <text class="er-field" x="16" y="95">PolicyName varchar(100) NN</text>
+                        <text class="er-field" x="16" y="115">PolicyType varchar(50) NN</text>
+                        <text class="er-field" x="16" y="135">PremiumAmount decimal(18,2) NN</text>
+                        <text class="er-field" x="16" y="155">CoverageAmount decimal(18,2) NN</text>
+                        <text class="er-field" x="16" y="175">DurationMonths int NN</text>
+                        <text class="er-field er-null" x="16" y="195">Description varchar(1000) NULL</text>
+                        <text class="er-field er-null" x="16" y="215">Benefits varchar(500) NULL</text>
+                        <text class="er-field" x="16" y="235">IsActive bit NN</text>
+                        <text class="er-field" x="16" y="255">CreatedAt datetime2 NN</text>
+                    </g>
+
+                    <g class="er-entity" transform="translate(870 55)">
+                        <rect width="350" height="180"></rect>
+                        <text class="er-title" x="16" y="28">policytotaldescriptions</text>
+                        <text class="er-field er-key" x="16" y="55">PK DescId int NN AI</text>
+                        <text class="er-field er-fk" x="16" y="75">FK PolicyId int NN</text>
+                        <text class="er-field" x="16" y="95">CoverageType varchar(100) NN</text>
+                        <text class="er-field" x="16" y="115">MaxLimit decimal(18,2) NN</text>
+                        <text class="er-field er-null" x="16" y="135">Exclusions varchar(500) NULL</text>
+                        <text class="er-field er-null" x="16" y="155">ClaimProcess varchar(500) NULL</text>
+                    </g>
+
+                    <g class="er-entity er-standalone" transform="translate(1290 55)">
+                        <rect width="350" height="220"></rect>
+                        <text class="er-title" x="16" y="28">hospitalinfos</text>
+                        <text class="er-field er-key" x="16" y="55">PK HospitalId int NN AI</text>
+                        <text class="er-field" x="16" y="75">HospitalName varchar(100) NN</text>
+                        <text class="er-field" x="16" y="95">Address varchar(200) NN</text>
+                        <text class="er-field" x="16" y="115">ContactNumber varchar(15) NN</text>
+                        <text class="er-field er-null" x="16" y="135">Email varchar(100) NULL</text>
+                        <text class="er-field er-null" x="16" y="155">City varchar(100) NULL</text>
+                        <text class="er-field er-null" x="16" y="175">State varchar(100) NULL</text>
+                        <text class="er-field er-null" x="16" y="195">ServicesOffered varchar(500) NULL</text>
+                        <text class="er-field" x="16" y="215">IsEmpanelled bit NN</text>
+                    </g>
+
+                    <g class="er-entity" transform="translate(40 355)">
+                        <rect width="330" height="340"></rect>
+                        <text class="er-title" x="16" y="28">empregisters</text>
+                        <text class="er-field er-key" x="16" y="55">PK EmpId int NN AI</text>
+                        <text class="er-field" x="16" y="75">FirstName varchar(50) NN</text>
+                        <text class="er-field" x="16" y="95">LastName varchar(50) NN</text>
+                        <text class="er-field" x="16" y="115">Username varchar(50) NN UNIQUE</text>
+                        <text class="er-field" x="16" y="135">PasswordHash varchar(255) NN</text>
+                        <text class="er-field" x="16" y="155">Email varchar(100) NN UNIQUE</text>
+                        <text class="er-field" x="16" y="175">Phone varchar(15) NN</text>
+                        <text class="er-field" x="16" y="195">Department varchar(100) NN</text>
+                        <text class="er-field" x="16" y="215">Designation varchar(100) NN</text>
+                        <text class="er-field" x="16" y="235">Role varchar(30) NN</text>
+                        <text class="er-field" x="16" y="255">DateOfBirth datetime2 NN</text>
+                        <text class="er-field" x="16" y="275">Gender varchar(10) NN</text>
+                        <text class="er-field er-null" x="16" y="295">Address varchar(200) NULL</text>
+                        <text class="er-field" x="16" y="315">IsActive bit NN</text>
+                        <text class="er-field" x="16" y="335">RegisteredAt datetime2 NN</text>
+                    </g>
+
+                    <g class="er-entity" transform="translate(480 390)">
+                        <rect width="330" height="205"></rect>
+                        <text class="er-title" x="16" y="28">policyonemployees</text>
+                        <text class="er-field er-key" x="16" y="55">PK Id int NN AI</text>
+                        <text class="er-field er-fk" x="16" y="75">FK EmpId int NN</text>
+                        <text class="er-field er-fk" x="16" y="95">FK PolicyId int NN</text>
+                        <text class="er-field" x="16" y="115">StartDate datetime2 NN</text>
+                        <text class="er-field" x="16" y="135">EndDate datetime2 NN</text>
+                        <text class="er-field" x="16" y="155">Status varchar(20) NN</text>
+                        <text class="er-field" x="16" y="175">ClaimedAmount decimal(18,2) NN</text>
+                        <text class="er-field" x="16" y="195">AssignedAt datetime2 NN</text>
+                    </g>
+
+                    <g class="er-entity" transform="translate(850 390)">
+                        <rect width="360" height="190"></rect>
+                        <text class="er-title" x="16" y="28">policyrequestdetails</text>
+                        <text class="er-field er-key" x="16" y="55">PK RequestId int NN AI</text>
+                        <text class="er-field er-fk" x="16" y="75">FK EmpId int NN</text>
+                        <text class="er-field er-fk" x="16" y="95">FK PolicyId int NN</text>
+                        <text class="er-field er-null" x="16" y="115">Reason varchar(500) NULL</text>
+                        <text class="er-field" x="16" y="135">BillAmount decimal(18,2) NN</text>
+                        <text class="er-field" x="16" y="155">Status varchar(20) NN</text>
+                        <text class="er-field" x="16" y="175">RequestedAt datetime2 NN</text>
+                    </g>
+
+                    <g class="er-entity" transform="translate(1290 350)">
+                        <rect width="350" height="180"></rect>
+                        <text class="er-title" x="16" y="28">policyapprovaldetails</text>
+                        <text class="er-field er-key" x="16" y="55">PK ApprovalId int NN AI</text>
+                        <text class="er-field er-fk" x="16" y="75">FK RequestId int NN UNIQUE</text>
+                        <text class="er-field er-fk" x="16" y="95">FK ManagerId int NN</text>
+                        <text class="er-field" x="16" y="115">Decision varchar(20) NN</text>
+                        <text class="er-field er-null" x="16" y="135">Remarks varchar(500) NULL</text>
+                        <text class="er-field" x="16" y="155">DecisionDate datetime2 NN</text>
+                    </g>
+
+                    <g class="er-entity" transform="translate(850 700)">
+                        <rect width="390" height="285"></rect>
+                        <text class="er-title" x="16" y="28">policybills</text>
+                        <text class="er-field er-key" x="16" y="55">PK BillId int NN AI</text>
+                        <text class="er-field er-fk" x="16" y="75">FK RequestId int NN UNIQUE</text>
+                        <text class="er-field" x="16" y="95">Amount decimal(18,2) NN</text>
+                        <text class="er-field" x="16" y="115">Status varchar(30) NN</text>
+                        <text class="er-field er-fk er-null" x="16" y="135">FK ManagerId int NULL</text>
+                        <text class="er-field er-null" x="16" y="155">ManagerDecisionAt datetime2 NULL</text>
+                        <text class="er-field er-null" x="16" y="175">ForwardedAt datetime2 NULL</text>
+                        <text class="er-field er-fk er-null" x="16" y="195">FK FinanceManagerId int NULL</text>
+                        <text class="er-field er-null" x="16" y="215">PaidAt datetime2 NULL</text>
+                        <text class="er-field er-null" x="16" y="235">ClosedAt datetime2 NULL</text>
+                        <text class="er-field er-null" x="16" y="255">Remarks varchar(500) NULL</text>
+                        <text class="er-field" x="16" y="275">CreatedAt datetime2 NN</text>
+                    </g>
+
+                    <g class="er-entity er-support" transform="translate(40 760)">
+                        <rect width="330" height="150"></rect>
+                        <text class="er-title" x="16" y="28">adminlogins</text>
+                        <text class="er-field er-key" x="16" y="55">PK AdminId int NN AI</text>
+                        <text class="er-field" x="16" y="75">Username varchar(50) NN UNIQUE</text>
+                        <text class="er-field" x="16" y="95">PasswordHash varchar(255) NN</text>
+                        <text class="er-field" x="16" y="115">Email varchar(100) NN</text>
+                        <text class="er-field" x="16" y="135">CreatedAt datetime2 NN</text>
+                    </g>
+
+                    <g class="er-entity er-support" transform="translate(430 750)">
+                        <rect width="340" height="195"></rect>
+                        <text class="er-title" x="16" y="28">passwordresettokens</text>
+                        <text class="er-field er-key" x="16" y="55">PK Id int NN AI</text>
+                        <text class="er-field" x="16" y="75">UserType varchar(20) NN</text>
+                        <text class="er-field" x="16" y="95">UserId int NN</text>
+                        <text class="er-field" x="16" y="115">Email varchar(100) NN</text>
+                        <text class="er-field" x="16" y="135">TokenHash varchar(128) NN UNIQUE</text>
+                        <text class="er-field" x="16" y="155">ExpiresAt datetime2 NN</text>
+                        <text class="er-field er-null" x="16" y="175">UsedAt datetime2 NULL</text>
+                        <text class="er-field" x="16" y="195">CreatedAt datetime2 NN</text>
+                    </g>
+
+                    <g class="er-entity er-support" transform="translate(1290 610)">
+                        <rect width="370" height="275"></rect>
+                        <text class="er-title" x="16" y="28">emailnotificationlogs</text>
+                        <text class="er-field er-key" x="16" y="55">PK Id int NN AI</text>
+                        <text class="er-field" x="16" y="75">RecipientEmail varchar(100) NN</text>
+                        <text class="er-field er-null" x="16" y="95">RecipientName varchar(100) NULL</text>
+                        <text class="er-field er-null" x="16" y="115">RecipientRole varchar(30) NULL</text>
+                        <text class="er-field" x="16" y="135">Subject varchar(150) NN</text>
+                        <text class="er-field" x="16" y="155">EventType varchar(80) NN</text>
+                        <text class="er-field er-null" x="16" y="175">RelatedEntityId int NULL</text>
+                        <text class="er-field" x="16" y="195">Status varchar(20) NN</text>
+                        <text class="er-field er-null" x="16" y="215">ErrorMessage varchar(1000) NULL</text>
+                        <text class="er-field" x="16" y="235">CreatedAt datetime2 NN</text>
+                        <text class="er-field er-null" x="16" y="255">SentAt datetime2 NULL</text>
+                    </g>
+
+                    <g class="er-entity er-standalone" transform="translate(1290 920)">
+                        <rect width="370" height="85"></rect>
+                        <text class="er-title" x="16" y="28">__efmigrationshistory</text>
+                        <text class="er-field er-key" x="16" y="55">PK MigrationId varchar(150) NN</text>
+                        <text class="er-field" x="16" y="75">ProductVersion varchar(32) NN</text>
+                    </g>
+                </svg>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Relationship</th>
+                        <th>Cardinality</th>
+                        <th>Implementation Detail</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>policies.CompanyId to companydetails.CompanyId</td><td>Many to one</td><td><code>FK_Policies_CompanyDetails_CompanyId</code></td></tr>
+                    <tr><td>policyapprovaldetails.ManagerId to empregisters.EmpId</td><td>Many to one</td><td><code>FK_PolicyApprovalDetails_EmpRegisters_ManagerId</code></td></tr>
+                    <tr><td>policyapprovaldetails.RequestId to policyrequestdetails.RequestId</td><td>One to one</td><td>Unique index on <code>RequestId</code>; cascade delete.</td></tr>
+                    <tr><td>policybills.FinanceManagerId to empregisters.EmpId</td><td>Many to one</td><td>Nullable finance manager reference.</td></tr>
+                    <tr><td>policybills.ManagerId to empregisters.EmpId</td><td>Many to one</td><td>Nullable manager decision reference.</td></tr>
+                    <tr><td>policybills.RequestId to policyrequestdetails.RequestId</td><td>One to one</td><td>Unique index on <code>RequestId</code>; cascade delete.</td></tr>
+                    <tr><td>policyonemployees.EmpId to empregisters.EmpId</td><td>Many to one</td><td>Cascade delete from employee to assigned policies.</td></tr>
+                    <tr><td>policyonemployees.PolicyId to policies.PolicyId</td><td>Many to one</td><td>Policy assignment reference.</td></tr>
+                    <tr><td>policyrequestdetails.EmpId to empregisters.EmpId</td><td>Many to one</td><td>Cascade delete from employee to requests.</td></tr>
+                    <tr><td>policyrequestdetails.PolicyId to policies.PolicyId</td><td>Many to one</td><td>Request references selected policy.</td></tr>
+                    <tr><td>policytotaldescriptions.PolicyId to policies.PolicyId</td><td>Many to one</td><td>Cascade delete from policy to detailed descriptions.</td></tr>
+                    <tr><td>contactmessages.ContactQueryId to contactqueries.Id</td><td>Many to one</td><td>Cascade delete from contact query to conversation messages.</td></tr>
+                    <tr><td>adminlogins, hospitalinfos, passwordresettokens, emailnotificationlogs, contactqueries, __efmigrationshistory</td><td>No hard parent FK</td><td>Standalone, support, audit, or framework-maintained tables.</td></tr>
+                </tbody>
+            </table>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Support Entity</th>
+                        <th>Important Columns</th>
+                        <th>Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>ContactQueries</code></td><td><code>Id</code>, <code>Name</code>, <code>Email</code>, <code>Message</code>, <code>Status</code>, <code>CreatedAt</code>, <code>LastReplyAt</code></td><td>Stores public visitor contact requests and their support status.</td></tr>
+                    <tr><td><code>ContactMessages</code></td><td><code>Id</code>, <code>ContactQueryId</code>, <code>SenderType</code>, <code>StaffId</code>, <code>Message</code>, <code>SentAt</code></td><td>Stores visitor/support conversation history for each contact query.</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="guide-page" id="algorithms">
+            <p class="section-kicker">Logic</p>
+            <h2>Algorithms</h2>
+            <div class="algorithm-grid">
+                <div class="step-card"><h3>Login Authentication</h3><ol><li>Accept username and password.</li><li>Search admin and staff account stores.</li><li>Verify the stored password hash.</li><li>Create session values for user id, role, and display name.</li><li>Redirect to the role dashboard.</li></ol></div>
+                <div class="step-card"><h3>Employee Registration</h3><ol><li>Admin enters employee profile and password.</li><li>Validate name, username, email, phone, role, and date of birth.</li><li>Hash password before saving.</li><li>Create employee record with active status.</li><li>Notify related staff if configured.</li></ol></div>
+                <div class="step-card"><h3>Policy Creation</h3><ol><li>Admin selects insurance company.</li><li>Enter policy name, type, premium, coverage, and duration.</li><li>Validate numeric and required fields.</li><li>Save policy linked to the company.</li><li>Show policy in search and management tables.</li></ol></div>
+                <div class="step-card"><h3>Policy Request</h3><ol><li>Employee searches available policies.</li><li>Employee opens details and submits request reason and bill amount.</li><li>System creates a pending request.</li><li>System creates or prepares bill workflow data.</li><li>Manager queue receives the request.</li></ol></div>
+                <div class="step-card"><h3>Manager Approval</h3><ol><li>Manager opens pending request details.</li><li>Manager approves or rejects with remarks.</li><li>Approval record stores manager decision.</li><li>Approved request can be forwarded to finance.</li><li>Rejected request returns final rejected status.</li></ol></div>
+                <div class="step-card"><h3>Finance Payment</h3><ol><li>Finance Manager reviews forwarded bills.</li><li>Finance validates amount and request context.</li><li>Finance credits payment.</li><li>System marks bill paid.</li><li>Finance closes the request after payment.</li></ol></div>
+                <div class="step-card"><h3>Password Reset</h3><ol><li>User enters registered email.</li><li>System identifies admin or staff account.</li><li>Create secure hashed reset token.</li><li>Email reset link to the registered recipient.</li><li>Validate token before allowing password update.</li></ol></div>
+                <div class="step-card"><h3>Support Reply</h3><ol><li>Visitor submits the Contact form.</li><li>System stores the contact query and first visitor message.</li><li>Support opens the inbox and selects the conversation.</li><li>Support submits a reply that is saved as a contact message.</li><li>System emails the visitor and logs the send result.</li></ol></div>
+                <div class="step-card"><h3>Report Generation</h3><ol><li>Admin selects report filters and date range.</li><li>System validates date inputs.</li><li>Query matching employees, requests, or bills.</li><li>Display results in readable tables.</li><li>Show empty state if no records match.</li></ol></div>
+            </div>
+        </section>
+
+        <section class="guide-page" id="task-sheet">
+            <p class="section-kicker">Execution</p>
+            <h2>Task Sheet</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Module</th>
+                        <th>Task</th>
+                        <th>Responsible Role</th>
+                        <th>Output</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Authentication</td><td>Login, logout, forgot password, reset password.</td><td>System / User</td><td>Secure role session.</td><td><span class="status">Completed</span></td></tr>
+                    <tr><td>Company Management</td><td>Add, edit, activate, deactivate, and delete companies.</td><td>Admin</td><td>Maintained company records.</td><td><span class="status">Completed</span></td></tr>
+                    <tr><td>Policy Management</td><td>Add, edit, activate, deactivate, delete, and search policies.</td><td>Admin / Employee</td><td>Usable policy catalog.</td><td><span class="status">Completed</span></td></tr>
+                    <tr><td>Employee Support</td><td>Register employees, update details, assign policies.</td><td>Admin / Employee</td><td>Employee profile and assignment records.</td><td><span class="status">Completed</span></td></tr>
+                    <tr><td>Request Workflow</td><td>Create employee request and bill amount.</td><td>Employee</td><td>Pending policy request.</td><td><span class="status">Completed</span></td></tr>
+                    <tr><td>Manager Workflow</td><td>Approve, reject, and forward bills.</td><td>Manager</td><td>Decision and forwarded bill status.</td><td><span class="status">Completed</span></td></tr>
+                    <tr><td>Finance Workflow</td><td>Credit payment and close request.</td><td>Finance Manager</td><td>Paid and closed request.</td><td><span class="status">Completed</span></td></tr>
+                    <tr><td>Support Workflow</td><td>Receive visitor queries, reply by email, and store conversation history.</td><td>Support</td><td>Tracked contact query with logged reply delivery.</td><td><span class="status">Completed</span></td></tr>
+                    <tr><td>Reports</td><td>Filter and display report data.</td><td>Admin</td><td>Date-range report tables.</td><td><span class="status">Completed</span></td></tr>
+                    <tr><td>Documentation</td><td>Prepare user, developer, design, and project report documents.</td><td>Project Team</td><td>Submission-ready guide files.</td><td><span class="status">Completed</span></td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="guide-page" id="review-monitoring">
+            <p class="section-kicker">Monitoring</p>
+            <h2>Project Review and Monitoring Report</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Review Stage</th>
+                        <th>Review Focus</th>
+                        <th>Evidence</th>
+                        <th>Remarks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Review 1</td><td>Problem understanding, role identification, and module breakdown.</td><td>Problem definition and requirement specification.</td><td>Roles and modules confirmed from source specification.</td></tr>
+                    <tr><td>Review 2</td><td>Database structure and workflow relationships.</td><td>EF Core models, DbSets, and ER diagram.</td><td>Implemented schema includes request, approval, bill, notification, reset-token, and support contact tables.</td></tr>
+                    <tr><td>Review 3</td><td>Role dashboards, forms, tables, and workflow screens.</td><td>User Guide, Design Guide, and visible project pages.</td><td>UI follows the shared Material-style documentation theme, including the support inbox screens.</td></tr>
+                    <tr><td>Review 4</td><td>Testing readiness and final report completeness.</td><td>Unit Testing Checklist and Final Checklist.</td><td>Documentation includes all missing specification sections.</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="guide-page" id="unit-testing">
+            <p class="section-kicker">Testing</p>
+            <h2>Unit Testing Checklist</h2>
+            <div class="checklist-grid">
+                <div class="doc-card"><h3>Authentication</h3><ul class="check-list"><li>Valid users can login.</li><li>Invalid passwords are rejected.</li><li>Role session redirects to correct dashboard.</li><li>Password reset accepts only valid tokens.</li></ul></div>
+                <div class="doc-card"><h3>Admin CRUD</h3><ul class="check-list"><li>Company create/update/deactivate works.</li><li>Policy create/update/deactivate works.</li><li>Employee registration validates required fields.</li><li>Hard delete blockers show safe messages.</li></ul></div>
+                <div class="doc-card"><h3>Employee Flow</h3><ul class="check-list"><li>Employee can view and update details.</li><li>Policy search filters return matching records.</li><li>Policy details show company and coverage data.</li><li>Insurance request stores bill amount and reason.</li></ul></div>
+                <div class="doc-card"><h3>Manager Flow</h3><ul class="check-list"><li>Manager can view pending requests.</li><li>Approval creates decision record.</li><li>Rejection stores remarks.</li><li>Approved bills can be forwarded to finance.</li></ul></div>
+                <div class="doc-card"><h3>Finance Flow</h3><ul class="check-list"><li>Finance receives forwarded bills.</li><li>Credit action records payment state.</li><li>Close action marks request complete.</li><li>Profile pages remain role protected.</li></ul></div>
+                <div class="doc-card"><h3>Support Flow</h3><ul class="check-list"><li>Contact form creates a new query.</li><li>Support inbox lists query status.</li><li>Conversation endpoint returns message history.</li><li>Reply action saves message and logs email status.</li></ul></div>
+                <div class="doc-card"><h3>Reports and Logs</h3><ul class="check-list"><li>Date filters validate input range.</li><li>Report tables show matched records.</li><li>Empty reports show a readable empty state.</li><li>Email notification attempts are logged.</li></ul></div>
+            </div>
+        </section>
+
+        <section class="guide-page" id="claim-workflow">
+            <p class="section-kicker">Claim Workflow</p>
+            <h2>Insurance Claim Limit Tracking</h2>
+            <div class="doc-grid">
+                <div class="doc-card"><h3>Employee Submission</h3><p>Employees submit claims only against active assigned policies and can see coverage, used, pending, and available amounts.</p></div>
+                <div class="doc-card"><h3>Coverage Rule</h3><p>The system uses <code>Policy.CoverageAmount</code> as the v1 total limit. Claim usage is calculated from <code>InsuranceClaims</code>, not from the older assignment display field.</p></div>
+                <div class="doc-card"><h3>Manager and Finance</h3><p>Managers approve or reject pending claims. Finance pays approved claims and closes paid claims.</p></div>
+                <div class="doc-card"><h3>Reporting</h3><p>Admin reports include claim amount, approved amount, status, submitted date, and paid date.</p></div>
+            </div>
+        </section>
+
+        <section class="guide-page" id="final-checklist">
+            <p class="section-kicker">Submission</p>
+            <h2>Final Checklist</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Checklist Item</th>
+                        <th>Expected Evidence</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Certificate of Completion</td><td>Developer Guide certificate section.</td><td><span class="status">Ready</span></td></tr>
+                    <tr><td>Table of Contents</td><td>Each guide has a navigation section.</td><td><span class="status">Ready</span></td></tr>
+                    <tr><td>Problem Definition</td><td>This report documents the system problem and proposed solution.</td><td><span class="status">Ready</span></td></tr>
+                    <tr><td>Customer Requirement Specification</td><td>Actor-based requirement section in this report.</td><td><span class="status">Ready</span></td></tr>
+                    <tr><td>Project Plan</td><td>Phase table from analysis to documentation.</td><td><span class="status">Ready</span></td></tr>
+                    <tr><td>E-R Diagram</td><td>Real EF Core schema diagram included in this report.</td><td><span class="status">Ready</span></td></tr>
+                    <tr><td>Algorithms</td><td>Core workflow algorithms included.</td><td><span class="status">Ready</span></td></tr>
+                    <tr><td>GUI Standards Document</td><td>Design Guide documents typography, palette, layout, tables, and forms.</td><td><span class="status">Ready</span></td></tr>
+                    <tr><td>Interface Design Document</td><td>User Guide and Design Guide document public and role interface behavior.</td><td><span class="status">Ready</span></td></tr>
+                    <tr><td>Task Sheet</td><td>Task table included in this report.</td><td><span class="status">Ready</span></td></tr>
+                    <tr><td>Project Review and Monitoring Report</td><td>Milestone review table included in this report.</td><td><span class="status">Ready</span></td></tr>
+                    <tr><td>Unit Testing Checklist</td><td>Checklist section included in this report.</td><td><span class="status">Ready</span></td></tr>
+                    <tr><td>Final Check List</td><td>This section confirms submission readiness.</td><td><span class="status">Ready</span></td></tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+</body>
+</html>
