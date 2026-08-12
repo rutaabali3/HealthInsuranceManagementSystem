@@ -1,4 +1,4 @@
-# Health Insurance Management System
+# Health Insurance Management System:
 
 ## Tech Stack
 This application is built on a robust and modern technology stack and can be set up in different environments depending on your preference:
