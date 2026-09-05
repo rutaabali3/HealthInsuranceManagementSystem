@@ -1,188 +1,333 @@
-# Health Insurance Management System:
+<div align="center">
 
-## Tech Stack
-This application is built on a robust and modern technology stack and can be set up in different environments depending on your preference:
-- **Framework**: ASP.NET Core MVC 8
-- **ORM**: Entity Framework Core 8
-- **Frontend**: HTML5, CSS3, Bootstrap 5.3, Bootstrap Icons
-- **Supported Databases**: MySQL / MariaDB (via XAMPP) **OR** Microsoft SQL Server
-- **Supported IDEs**: Visual Studio Code **OR** Visual Studio 2022
+# Health Insurance Management System
+
+<p align="center">
+  <strong>Enterprise-Grade Healthcare Insurance, Policy Administration, Billing, and Claims Platform</strong>
+</p>
+
+[![Framework](https://img.shields.io/badge/Framework-ASP.NET%20Core%208.0%20MVC-512BD4?style=for-the-badge&logo=dotnet)](https://dotnet.microsoft.com/)
+[![ORM](https://img.shields.io/badge/ORM-Entity%20Framework%20Core%208.0-512BD4?style=for-the-badge)](https://learn.microsoft.com/en-us/ef/core/)
+[![Database](https://img.shields.io/badge/Database-MySQL%20%7C%20MariaDB%20%7C%20SQL%20Server-4479A1?style=for-the-badge&logo=mysql)](https://www.mysql.com/)
+[![Frontend](https://img.shields.io/badge/Frontend-Bootstrap%205.3%20%7C%20HTML5%20%7C%20CSS3-7952B3?style=for-the-badge&logo=bootstrap)](https://getbootstrap.com/)
+[![Security](https://img.shields.io/badge/Security-BCrypt%20Hashing%20%26%20RBAC-00599C?style=for-the-badge)](https://github.com/)
+[![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
+
+</div>
 
 ---
 
-## Project Structure
+## Executive Overview
+
+The **Health Insurance Management System** is a full-featured, secure ASP.NET Core MVC web platform built for corporate health insurance lifecycle operations. It bridges healthcare providers, insurance companies, corporate managers, finance officers, support agents, and enterprise employees into a unified system.
+
+The system features multi-role authorization, self-service employee policy management, real-time coverage verification, strict separation of policy billing and insurance claims processing, support query ticketing, automated email logs, and detailed auditing capabilities.
+
+---
+
+## Navigation Table of Contents
+
+- [Executive Overview](#executive-overview)
+- [Key Features](#key-features)
+- [System Architecture](#system-architecture)
+- [Role-Based Access Control](#role-based-access-control)
+- [Data Models and Database Schema](#data-models-and-database-schema)
+- [Core Workflow Lifecycles](#core-workflow-lifecycles)
+  - [1. Policy Request & Billing Lifecycle](#1-policy-request--billing-lifecycle)
+  - [2. Insurance Claims Lifecycle](#2-insurance-claims-lifecycle)
+- [Module Breakdown](#module-breakdown)
+- [Environment Setup and Installation](#environment-setup-and-installation)
+  - [Prerequisites](#prerequisites)
+  - [Option A: Setup with VS Code & XAMPP (MySQL)](#option-a-setup-with-vs-code--xampp-mysql)
+  - [Option B: Setup with Visual Studio 2022 & SQL Server](#option-b-setup-with-visual-studio-2022--sql-server)
+- [Default System Credentials](#default-system-credentials)
+- [Security Practices](#security-practices)
+- [Contributing](#contributing)
+- [License](#license)
+
+---
+
+## Key Features
+
+<details>
+<summary><strong>Expand to View Key Feature Details</strong></summary>
+
+<br />
+
+* **Role-Based Access Control (RBAC)**: Secure multi-tier permissions for System Admin, Manager, Finance Officer, Support Agent, and Employee roles with dedicated dashboards.
+* **Separation of Concerns for Billing & Claims**: Distinct processing tracks for `PolicyBills` (policy enrollment and finance invoicing) and `InsuranceClaims` (medical claims against active policies).
+* **Policy Coverage Enforcement**: Automated real-time calculations ensuring claims do not exceed available policy coverage limits (`Policy.CoverageAmount`).
+* **Empanelled Hospital Directory**: Searchable directory linking policies to network hospitals for streamlined healthcare access.
+* **Interactive Self-Service Portal**: Employee dashboard to discover policies, track policy approval status, calculate coverage limits, and submit claims.
+* **Support Ticket & FAQ Hub**: Integrated help desk supporting user inquiries, ticket assignment, and structured FAQ lookup.
+* **Date-Range Analytics & Reporting**: Exportable operational reports covering policy approvals, active enrolments, billing statuses, and claim payouts.
+* **Security & Passwords**: BCrypt password hashing, session guards, and token-based password reset options.
+
+</details>
+
+---
+
+## System Architecture
 
 ```
-HealthInsuranceManagement/
-├── Controllers/                   # Contains application logic and routing
-│   ├── HomeController.cs          # Public pages (Home, About, Contact)
-│   ├── AuthController.cs          # Login / Logout (Admin & Employee)
-│   ├── AdminController.cs         # All admin operations
-│   ├── EmployeeController.cs      # Employee self-service portal
-│   └── ReportController.cs        # Date-range reports
-│
-├── Data/                          # Database context and configurations
-│   └── ApplicationDbContext.cs    # EF Core DbContext (all 9 tables)
-│
-├── Models/                        # Data entities and view models
-│   ├── AdminLogin.cs              # Table 1
-│   ├── CompanyDetails.cs          # Table 2
-│   ├── EmpRegister.cs             # Table 3
-│   ├── HospitalInfo.cs            # Table 4
-│   ├── Policy.cs                  # Table 5
-│   ├── PolicyOnEmployee.cs        # Table 6
-│   ├── PolicyApprovalDetails.cs   # Table 7
-│   ├── PolicyRequestDetails.cs    # Table 8
-│   ├── PolicyTotalDescription.cs  # Table 9
-│   └── ViewModels/ViewModels.cs   # All view-model classes
-│
-├── Migrations/                    # EF Core database migrations
-│
-├── Views/                         # Razor views for the UI
-│   ├── Shared/_Layout.cshtml      # Master layout with navbar
-│   ├── Home/                      # Index, About, Contact
-│   ├── Auth/                      # Login
-│   ├── Admin/                     # Dashboard, Companies, Policies, Employees, PolicyRequests
-│   ├── Employee/                  # Dashboard, Details, SearchPolicy, PolicyDetails, OrderInsurance, ChangePassword, UpdateDetails
-│   └── Report/                    # Index (date-range report)
-│
-├── wwwroot/                       # Static files (CSS, JS, images)
-│   └── css/site.css               # Custom styles
-│
-├── appsettings.json               # Application configuration & DB connection string
-├── Program.cs                     # App startup and service registration
-├── HealthInsuranceManagement.sln  # Visual Studio Solution File
-└── HealthInsuranceManagement.csproj # Project File
++-----------------------------------------------------------------------------------+
+|                                  BROWSER CLIENT                                   |
+|                          (Bootstrap 5.3 + HTML5 + CSS3)                          |
++-----------------------------------------------------------------------------------+
+                                          |
+                                   HTTP / HTTPS
+                                          v
++-----------------------------------------------------------------------------------+
+|                            ASP.NET CORE 8.0 MVC ENGINE                            |
+|                                                                                   |
+|  [ Controllers Layer ]                                                            |
+|  ├── AdminController.cs      ├── AuthController.cs      ├── EmployeeController.cs  |
+|  ├── ManagerController.cs    ├── FinanceController.cs   ├── SupportController.cs   |
+|  ├── HomeController.cs       └── ReportController.cs                             |
+|                                                                                   |
+|  [ Business & Service Layer ]                                                     |
+|  ├── Custom Session Guard Filters                                                |
+|  └── EmailNotificationService / BCrypt Password Hashing                           |
+|                                                                                   |
+|  [ Data Access Layer ]                                                            |
+|  └── ApplicationDbContext (Entity Framework Core 8)                               |
++-----------------------------------------------------------------------------------+
+                                          |
+                                    EF CORE ORM
+                                          v
++-----------------------------------------------------------------------------------+
+|                                DATABASE STORAGE                                   |
+|             (MySQL / MariaDB via XAMPP OR Microsoft SQL Server)                   |
++-----------------------------------------------------------------------------------+
 ```
 
 ---
 
-## Modules Implemented
+## Role-Based Access Control
 
-| Module | Features |
-|--------|----------|
-| **Authentication** | Role-based login (Admin / Employee), BCrypt password hashing, session management |
-| **Administration** | Dashboard with live stats, manage insurance companies, manage policies |
-| **Employee Support** | Register employees with credentials, edit details, assign policies directly |
-| **Policy Requests** | Employee submits request → Admin approves/rejects → auto policy assignment |
-| **Employee Portal** | Self-service: view profile, change password, search & filter policies, request policy |
-| **Reports** | Date-range reports for employees and policy requests |
+The application enforces role-based access control across five primary operational roles:
 
----
-
-## Database Tables
-
-All 9 tables from the specification:
-
-1. `AdminLogins` – Admin credentials
-2. `CompanyDetails` – Insurance companies
-3. `EmpRegisters` – Employee records & credentials
-4. `HospitalInfos` – Empanelled hospitals
-5. `Policies` – Insurance policies (linked to companies)
-6. `PolicyOnEmployees` – Policies assigned to employees
-7. `PolicyApprovalDetails` – Admin approval/rejection records
-8. `PolicyRequestDetails` – Employee policy requests
-9. `PolicyTotalDescriptions` – Coverage breakdown per policy
+| Role | Primary Responsibilities & Permissions | Access Scope |
+| :--- | :--- | :--- |
+| **Admin** | System administration, company onboarding, policy creation, employee enrollment management, hospital listings. | Full Administrative Portal (`/Admin/*`) |
+| **Manager** | Strategic policy approval, employee request reviews, claim initial approval/rejection workflows. | Management Dashboard (`/Manager/*`) |
+| **Finance** | Invoice billing management, policy payment settlements, claim disbursement processing. | Finance Portal (`/Finance/*`) |
+| **Support** | Ticket triage, user query resolution, FAQ management, customer service interaction. | Support Desk Portal (`/Support/*`) |
+| **Employee** | Self-service profile, policy searching, policy request submission, live claim filing and tracking. | Employee Portal (`/Employee/*`) |
 
 ---
 
-## Setup Instructions
+## Data Models and Database Schema
 
-## Claim Workflow Update
+The database consists of 14 core entity tables defined in `Data/ApplicationDbContext.cs`:
 
-The project now separates policy request billing from actual insurance claims:
+<details>
+<summary><strong>Expand Database Table Matrix</strong></summary>
 
-- `PolicyBills` tracks the existing policy request, approval, billing, and finance payment lifecycle.
-- `InsuranceClaims` tracks real claim submissions against assigned employee policies.
-- Claim limits are enforced from `Policy.CoverageAmount`.
-- Approved, paid, and closed claims reduce remaining available coverage.
-- Pending claims are not treated as used coverage, but they are considered when checking whether a new claim would exceed the available amount.
-- Employees submit claims from their assigned active policies, managers approve or reject claims, and finance pays or closes approved claims.
+<br />
+
+| Table Name | Entity Class | Description |
+| :--- | :--- | :--- |
+| `AdminLogins` | `AdminLogin` | System administrative and elevated role login credentials. |
+| `CompanyDetails` | `CompanyDetails` | Registered insurance provider companies and partners. |
+| `EmpRegisters` | `EmpRegister` | Enterprise employee user records and authentication data. |
+| `HospitalInfos` | `HospitalInfo` | Empanelled hospital network details linked to locations. |
+| `Policies` | `Policy` | Policy definitions, coverage amounts, premiums, and durations. |
+| `PolicyOnEmployees` | `PolicyOnEmployee` | Active policies assigned and mapped to individual employees. |
+| `PolicyApprovalDetails` | `PolicyApprovalDetails` | Audit records for admin and manager approval/rejection decisions. |
+| `PolicyRequestDetails` | `PolicyRequestDetails` | Employee policy enrollment requests waiting for review. |
+| `PolicyTotalDescriptions`| `PolicyTotalDescription` | Extended terms, conditions, and coverage breakdowns per policy. |
+| `PolicyBills` | `PolicyBill` | Policy enrolment billing records and payment statuses. |
+| `InsuranceClaims` | `InsuranceClaim` | Medical claim filings submitted against assigned active policies. |
+| `ContactQueries` | `ContactQuery` | Support queries and help desk communication records. |
+| `FaqItems` | `FaqItem` | System FAQ items managed by support and admin staff. |
+| `EmailNotificationLogs` | `EmailNotificationLog` | Audit log of outgoing notifications and email dispatches. |
+
+</details>
 
 ---
 
-This project can be run using either **VS Code with XAMPP (MySQL)** or **Visual Studio 2022 with SQL Server**. Choose the option that fits your environment.
+## Core Workflow Lifecycles
 
-### Option 1: Setup with VS Code & XAMPP (MySQL)
+### 1. Policy Request & Billing Lifecycle
 
-**Prerequisites:**
-- [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8)
-- XAMPP with MySQL / MariaDB running on `localhost:3306`
-- Visual Studio Code
+```
+[Employee] Request Policy ---> [Admin/Manager] Review Request ---> [System] Generate PolicyBill
+                                         |                                     |
+                                   (If Approved)                       (Finance Settlement)
+                                         v                                     v
+                           [PolicyOnEmployee Created] <--- [Payment Status: Paid]
+```
 
-**Steps:**
-1. **Clone or open the project** in VS Code:
+1. **Request Submission**: An employee explores available policies and submits an enrollment request.
+2. **Review & Approval**: An Admin or Manager reviews the request (`PolicyRequestDetails`).
+3. **Assignment & Invoicing**: Upon approval, the policy is linked to the employee (`PolicyOnEmployee`) and an automated invoice (`PolicyBill`) is created.
+4. **Finance Settlement**: Finance processes payment, updating the billing record to `Paid`.
+
+### 2. Insurance Claims Lifecycle
+
+```
+[Employee] Submit Claim ---> [Manager] Review & Approve ---> [Finance] Disburse Funds ---> [System] Deduct Coverage
+```
+
+1. **Claim Filing**: Employee selects an active assigned policy (`PolicyOnEmployee`) and enters the claim amount and medical documentation details.
+2. **Coverage Limit Check**: System validates that `Claim Amount <= (Policy.CoverageAmount - Sum of Settled Claims)`.
+3. **Manager Review**: Manager inspects claims evidence and approves or rejects the submission.
+4. **Finance Disburse & Close**: Finance processes the claim payout, marking the claim as `Paid/Closed`. Remaining coverage is updated in real-time.
+
+---
+
+## Module Breakdown
+
+<details>
+<summary><strong>Expand Module & Controller Reference</strong></summary>
+
+<br />
+
+* **Authentication Module (`AuthController.cs`)**:
+  * Role-based user login (`Admin` and `Employee`).
+  * BCrypt password validation.
+  * Password reset workflow via `PasswordResetToken`.
+  * Clean session termination on logout.
+
+* **Administration Module (`AdminController.cs`)**:
+  * Dashboard displaying active metrics across companies, policies, and employees.
+  * Company management with soft delete support (`IsActive`).
+  * Policy creation linked to specific insurance providers.
+  * Empanelled hospital network management.
+  * Direct assignment of policies to registered employees.
+
+* **Employee Self-Service Portal (`EmployeeController.cs`)**:
+  * Interactive employee dashboard.
+  * Policy search and filter interface with detailed coverage breakdowns.
+  * Policy enrollment request filing.
+  * Insurance claim submission with real-time coverage validation.
+  * Password update and profile management.
+
+* **Manager Portal (`ManagerController.cs`)**:
+  * Review panel for pending policy enrollment requests.
+  * Approval and rejection workflows for medical claims.
+
+* **Finance Portal (`FinanceController.cs`)**:
+  * Management of policy billing invoices (`PolicyBills`).
+  * Claim payment disbursement and financial record settlement.
+
+* **Support & Help Desk (`SupportController.cs`)**:
+  * Support inquiry submission for employees and public visitors.
+  * Query status tracking and response management.
+  * Knowledgebase FAQ listing.
+
+* **Reporting & Analytics (`ReportController.cs`)**:
+  * Date-range policy enrollment reports.
+  * Claim disbursement summary reports.
+
+</details>
+
+---
+
+## Environment Setup and Installation
+
+### Prerequisites
+
+* [.NET 8.0 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
+* One of the following database options:
+  * **Option A**: XAMPP with MySQL / MariaDB (running on `localhost:3306`)
+  * **Option B**: Microsoft SQL Server (LocalDB or SQL Express)
+* Visual Studio Code or Visual Studio 2022 (with ASP.NET and web development workload)
+
+---
+
+### Option A: Setup with VS Code & XAMPP (MySQL)
+
+1. **Clone the repository**:
    ```bash
+   git clone https://github.com/your-repo/HealthInsuranceManagement.git
    cd HealthInsuranceManagement
    ```
-2. **Confirm the MySQL connection string** in `appsettings.json`. By default, the project is configured for MySQL:
+
+2. **Configure Database Connection**:
+   Open `appsettings.json` and verify the MySQL connection string:
    ```json
    "ConnectionStrings": {
      "DefaultConnection": "server=127.0.0.1;port=3306;database=healthinsurancemanagementdb;user=root;password=;SslMode=None"
    }
    ```
-   > *Note: If your XAMPP `root` user has a password, add it to the `password=` value.*
-3. **Restore packages**:
+
+3. **Restore Dependencies**:
    ```bash
    dotnet restore
    ```
-4. **Run the application**:
+
+4. **Build and Run Application**:
    ```bash
    dotnet run
    ```
-   *The app creates the database and tables automatically on first startup.*
-5. **Access the application**: Open your browser and navigate to `http://localhost:5000` (or the port specified in the console).
+   *The database and required tables will be automatically created on initial launch.*
 
-### Option 2: Setup with Visual Studio 2022 & SQL Server
+5. **Access Application**:
+   Open your browser and navigate to `http://localhost:5000` (or `https://localhost:5001`).
 
-**Prerequisites:**
-- Visual Studio 2022 (with "ASP.NET and web development" workload)
-- Microsoft SQL Server (e.g., SQL Server Express)
+---
 
-**Steps:**
-1. **Open the Solution**: Double-click `HealthInsuranceManagement.sln` to open the project in Visual Studio 2022.
-2. **Update Connection String**: Open `appsettings.json` and change the `DefaultConnection` to your SQL Server instance:
+### Option B: Setup with Visual Studio 2022 & SQL Server
+
+1. **Open Solution**:
+   Open `HealthInsuranceManagement.sln` in Visual Studio 2022.
+
+2. **Configure Connection String**:
+   In `appsettings.json`, set `DefaultConnection` to target SQL Server:
    ```json
    "ConnectionStrings": {
      "DefaultConnection": "Server=.\\SQLEXPRESS;Database=HealthInsuranceManagementDB;Trusted_Connection=True;TrustServerCertificate=True;"
    }
    ```
-3. **Switch Database Provider** (from MySQL to SQL Server):
-   - Open **NuGet Package Manager** and uninstall `Pomelo.EntityFrameworkCore.MySql`.
-   - Install `Microsoft.EntityFrameworkCore.SqlServer`.
-   - In `Program.cs`, replace the MySQL configuration line with:
+
+3. **Configure Database Provider**:
+   * Open **NuGet Package Manager** and uninstall `Pomelo.EntityFrameworkCore.MySql`.
+   * Install `Microsoft.EntityFrameworkCore.SqlServer`.
+   * In `Program.cs`, configure SQL Server:
      ```csharp
      builder.Services.AddDbContext<ApplicationDbContext>(options =>
          options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
      ```
-4. **Recreate Migrations** (Optional but recommended): 
-   - Delete the existing `Migrations` folder in the project.
-   - Open **Package Manager Console** (Tools > NuGet Package Manager > Package Manager Console).
-   - Run the following commands to generate SQL Server specific migrations:
-     ```powershell
-     Add-Migration InitialCreate
-     Update-Database
-     ```
-5. **Run the application**: Press `F5` or click the "Start" button in Visual Studio to run the project.
+
+4. **Update Database via Migrations**:
+   Open **Package Manager Console** (`Tools > NuGet Package Manager > Package Manager Console`) and run:
+   ```powershell
+   Add-Migration InitialCreate
+   Update-Database
+   ```
+
+5. **Start Application**:
+   Press `F5` or click **Start Debugging** in Visual Studio.
 
 ---
 
-## Default Credentials
+## Default System Credentials
 
-| Role | Username | Password |
-|------|----------|----------|
-| Admin | `admin` | `Admin@123` |
+| Role | Default Username | Default Password | Initial Access URL |
+| :--- | :--- | :--- | :--- |
+| **Admin** | `admin` | `Admin@123` | `/Auth/Login` |
 
-> To create employee accounts: Log in as Admin → Employees → Register Employee.
+> *Note: Employee accounts are created via the Admin portal under **Employees > Register Employee**.*
 
 ---
 
-## Key Design Decisions
+## Security Practices
 
-- **BCrypt** password hashing (BCrypt.Net-Next v4)
-- **Session-based auth** (no Identity framework — kept lean per spec)
-- **EF Core 8** setup (Supports both MySQL via Pomelo and SQL Server)
-- **Bootstrap 5.3 + Bootstrap Icons** for UI (CDN, no build step)
-- **Guard pattern** in controllers — every action checks session role
-- **Soft delete** for Companies (IsActive flag), not hard delete
-- **Auto policy assignment** when admin approves a request
+* **Password Security**: Passwords are hashed using BCrypt (`BCrypt.Net-Next`) prior to storage.
+* **Session Protection**: Custom guard filters prevent unauthorized URL access by checking role claims on every request.
+* **Input Validation**: Strongly-typed model validation attributes prevent malformed data submissions.
+* **Data Privacy**: Soft deletion flags (`IsActive`) preserve audit trails without discarding historic records.
+
+---
+
+## Contributing
+
+Contributions are welcome. Please read our [CONTRIBUTING.md](CONTRIBUTING.md) guide for details on our code of conduct, development workflow, and pull request submissions.
+
+---
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for complete terms.
